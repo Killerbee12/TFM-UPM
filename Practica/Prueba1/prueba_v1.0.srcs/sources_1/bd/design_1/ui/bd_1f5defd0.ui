@@ -1,0 +1,29 @@
+{
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"1.25",
+   "Default View_TopLeft":"-193,-123",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.8.0 2024-04-26 e1825d835c VDI=44 GEI=38 GUI=JA:21.0
+#  -string -flagsOSRD
+preplace port port-id_clk_100Mhz_0 -pg 1 -lvl 0 -x 0 -y 50 -defaultsOSRD
+preplace port port-id_reset_n_0 -pg 1 -lvl 0 -x 0 -y 80 -defaultsOSRD
+preplace port port-id_btn_prepare_0 -pg 1 -lvl 0 -x 0 -y 110 -defaultsOSRD
+preplace port port-id_btn_send_0 -pg 1 -lvl 0 -x 0 -y 140 -defaultsOSRD
+preplace port port-id_led_clk_0 -pg 1 -lvl 3 -x 490 -y 90 -defaultsOSRD
+preplace port port-id_led_data_0 -pg 1 -lvl 3 -x 490 -y 120 -defaultsOSRD
+preplace inst top_system_0 -pg 1 -lvl 1 -x 150 -y 110 -defaultsOSRD
+preplace inst system_ila_0 -pg 1 -lvl 2 -x 380 -y 20 -defaultsOSRD
+preplace netloc clk_100Mhz_0_1 1 0 2 30 10 N
+preplace netloc reset_n_0_1 1 0 1 20 80n
+preplace netloc btn_prepare_0_1 1 0 1 30 110n
+preplace netloc btn_send_0_1 1 0 1 N 140
+preplace netloc top_system_0_led_data 1 1 2 280 120 N
+preplace netloc top_system_0_led_clk 1 1 2 290 90 NJ
+levelinfo -pg 1 0 150 380 490
+pagesize -pg 1 -db -bbox -sgen -160 -50 610 220
+"
+}
+{
+   "da_board_cnt":"4",
+   "da_clkrst_cnt":"3"
+}

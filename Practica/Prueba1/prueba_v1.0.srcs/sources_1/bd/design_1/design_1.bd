@@ -1,0 +1,143 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x3F372C061C7502AA",
+      "device": "xc7a100tcsg324-1",
+      "gen_directory": "../../../../prueba_v1.0.gen/sources_1/bd/design_1",
+      "name": "design_1",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2025.1"
+    },
+    "design_tree": {
+      "top_system_0": "",
+      "system_ila_0": ""
+    },
+    "ports": {
+      "clk_100Mhz_0": {
+        "direction": "I"
+      },
+      "reset_n_0": {
+        "type": "rst",
+        "direction": "I"
+      },
+      "btn_prepare_0": {
+        "direction": "I"
+      },
+      "btn_send_0": {
+        "direction": "I"
+      },
+      "led_clk_0": {
+        "type": "clk",
+        "direction": "O"
+      },
+      "led_data_0": {
+        "direction": "O"
+      }
+    },
+    "components": {
+      "top_system_0": {
+        "vlnv": "xilinx.com:module_ref:top_system:1.0",
+        "ip_revision": "1",
+        "xci_name": "design_1_top_system_0_1",
+        "xci_path": "ip\\design_1_top_system_0_1\\design_1_top_system_0_1.xci",
+        "inst_hier_path": "top_system_0",
+        "has_run_ip_tcl": "true",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "top_system",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk_100Mhz": {
+            "direction": "I"
+          },
+          "reset_n": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "btn_prepare": {
+            "direction": "I"
+          },
+          "btn_send": {
+            "direction": "I"
+          },
+          "led_clk": {
+            "type": "clk",
+            "direction": "O"
+          },
+          "led_data": {
+            "direction": "O"
+          }
+        }
+      },
+      "system_ila_0": {
+        "vlnv": "xilinx.com:ip:system_ila:1.1",
+        "ip_revision": "21",
+        "xci_name": "design_1_system_ila_0_0",
+        "xci_path": "ip\\design_1_system_ila_0_0\\design_1_system_ila_0_0.xci",
+        "inst_hier_path": "system_ila_0",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "C_MON_TYPE": {
+            "value": "NATIVE"
+          },
+          "C_NUM_OF_PROBES": {
+            "value": "1"
+          },
+          "C_PROBE0_TYPE": {
+            "value": "0"
+          }
+        }
+      }
+    },
+    "nets": {
+      "btn_prepare_0_1": {
+        "ports": [
+          "btn_prepare_0",
+          "top_system_0/btn_prepare"
+        ]
+      },
+      "btn_send_0_1": {
+        "ports": [
+          "btn_send_0",
+          "top_system_0/btn_send"
+        ]
+      },
+      "clk_100Mhz_0_1": {
+        "ports": [
+          "clk_100Mhz_0",
+          "top_system_0/clk_100Mhz",
+          "system_ila_0/clk"
+        ]
+      },
+      "reset_n_0_1": {
+        "ports": [
+          "reset_n_0",
+          "top_system_0/reset_n"
+        ]
+      },
+      "top_system_0_led_clk": {
+        "ports": [
+          "top_system_0/led_clk",
+          "led_clk_0"
+        ]
+      },
+      "top_system_0_led_data": {
+        "ports": [
+          "top_system_0/led_data",
+          "led_data_0",
+          "system_ila_0/probe0"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
+      }
+    }
+  }
+}

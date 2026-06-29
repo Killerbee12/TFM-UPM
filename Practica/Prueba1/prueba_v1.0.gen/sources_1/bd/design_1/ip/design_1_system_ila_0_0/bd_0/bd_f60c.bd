@@ -1,0 +1,26 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x614E43BAB3A0020F",
+      "design_src": "SBD",
+      "device": "xc7a100tcsg324-1",
+      "name": "bd_f60c",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "scoped": "true",
+      "synth_flow_mode": "None",
+      "tool_version": "2025.1"
+    },
+    "design_tree": {},
+    "ports": {
+      "clk": {
+        "type": "clk",
+        "direction": "I"
+      },
+      "probe0": {
+        "direction": "I",
+        "left": "0",
+        "right": "0"
+      }
+    }
+  }
+}
