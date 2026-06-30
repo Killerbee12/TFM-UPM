@@ -12,9 +12,9 @@ echo "Please update the PATH and LD_LIBRARY_PATH variables below, before executi
 exit
 
 if [ -z "$PATH" ]; then
-  PATH=D:/Universidad_programas/AMD/2025.1/Vitis/bin;D:/Universidad_programas/AMD/2025.1/Vivado/ids_lite/ISE/bin/nt64;D:/Universidad_programas/AMD/2025.1/Vivado/ids_lite/ISE/lib/nt64:D:/Universidad_programas/AMD/2025.1/Vivado/bin
+  PATH=C:/AMD/2025.1/Vitis/bin;C:/AMD/2025.1/Vivado/ids_lite/ISE/bin/nt64;C:/AMD/2025.1/Vivado/ids_lite/ISE/lib/nt64:C:/AMD/2025.1/Vivado/bin
 else
-  PATH=D:/Universidad_programas/AMD/2025.1/Vitis/bin;D:/Universidad_programas/AMD/2025.1/Vivado/ids_lite/ISE/bin/nt64;D:/Universidad_programas/AMD/2025.1/Vivado/ids_lite/ISE/lib/nt64:D:/Universidad_programas/AMD/2025.1/Vivado/bin:$PATH
+  PATH=C:/AMD/2025.1/Vitis/bin;C:/AMD/2025.1/Vivado/ids_lite/ISE/bin/nt64;C:/AMD/2025.1/Vivado/ids_lite/ISE/lib/nt64:C:/AMD/2025.1/Vivado/bin:$PATH
 fi
 export PATH
 
@@ -25,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='D:/Master_local/TFM/Prueba1/prueba_v1.0.runs/impl_1'
+HD_PWD='C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -42,7 +42,7 @@ EAStep()
 }
 
 # pre-commands:
-/bin/touch .init_design.begin.rst
+/bin/touch .write_bitstream.begin.rst
 EAStep vivado -log design_1_wrapper.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source design_1_wrapper.tcl -notrace
 
 

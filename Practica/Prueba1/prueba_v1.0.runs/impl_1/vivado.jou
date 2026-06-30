@@ -3,22 +3,22 @@
 # SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
 # IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
 # SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-# Start of session at: Tue Jun 16 12:13:21 2026
-# Process ID         : 14240
-# Current directory  : D:/Master_local/TFM/Prueba1/prueba_v1.0.runs/impl_1
+# Start of session at: Tue Jun 30 17:40:46 2026
+# Process ID         : 25132
+# Current directory  : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1
 # Command line       : vivado.exe -log design_1_wrapper.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source design_1_wrapper.tcl -notrace
-# Log file           : D:/Master_local/TFM/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.vdi
-# Journal file       : D:/Master_local/TFM/Prueba1/prueba_v1.0.runs/impl_1\vivado.jou
-# Running On         : PC-de-POCHECHE
+# Log file           : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.vdi
+# Journal file       : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1\vivado.jou
+# Running On         : Samsung_Book_3
 # Platform           : Windows Server 2016 or Windows 10
-# Operating System   : 19045
-# Processor Detail   : Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz
-# CPU Frequency      : 3000 MHz
-# CPU Physical cores : 4
-# CPU Logical cores  : 4
-# Host memory        : 17041 MB
-# Swap memory        : 3069 MB
-# Total Virtual      : 20110 MB
-# Available Virtual  : 7327 MB
+# Operating System   : 26200
+# Processor Detail   : 13th Gen Intel(R) Core(TM) i5-1335U
+# CPU Frequency      : 2496 MHz
+# CPU Physical cores : 10
+# CPU Logical cores  : 12
+# Host memory        : 8257 MB
+# Swap memory        : 18253 MB
+# Total Virtual      : 26511 MB
+# Available Virtual  : 10047 MB
 #-----------------------------------------------------------
 source design_1_wrapper.tcl -notrace

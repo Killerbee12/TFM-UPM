@@ -16,16 +16,18 @@ end apa102_ctrl;
 
 architecture Behavioral of apa102_ctrl is
 
-    type frame_array_t is array (0 to 16) of std_logic_vector(31 downto 0);
+    -- Ahora tenemos 1 trama de inicio + 16 de LEDs + 1 de fin = 18 tramas (índices 0 a 17)
+    type frame_array_t is array (0 to 17) of std_logic_vector(31 downto 0);
     signal tx_buffer : frame_array_t;
     
     type state_t is (IDLE, LOAD_DATA, WAIT_SEND, SEND_BIT_LOW, SEND_BIT_HIGH);
     signal state : state_t := IDLE;
     
-    signal word_cnt : integer range 0 to 16 := 0;
+    signal word_cnt : integer range 0 to 17 := 0;
     signal bit_cnt  : integer range 0 to 31 := 31;
     
-    signal clk_div  : integer range 0 to 49 := 0;
+    -- Reloj a 100 kHz para máxima fiabilidad con los cables Dupont
+    signal clk_div  : integer range 0 to 499 := 0;
     
     signal btn_prep_reg : std_logic := '0';
     signal btn_send_reg : std_logic := '0';
@@ -57,17 +59,22 @@ begin
                         end if;
 
                     when LOAD_DATA =>
+                        -- Start Frame
                         tx_buffer(0) <= (others => '0');
                         
-                        for i in 1 to 15 loop
+                        -- Generamos los colores para los 16 LEDs
+                        for i in 1 to 16 loop
                             if (i mod 2 = 0) then
-                                tx_buffer(i) <= x"E20000FF"; 
+                                -- Color 1
+                                tx_buffer(i) <= x"FF0000FF";
                             else
-                                tx_buffer(i) <= x"E2FF0000"; 
+                                -- Color 2
+                                tx_buffer(i) <= x"FFFF0000";
                             end if;
                         end loop;
                         
-                        tx_buffer(16) <= (others => '1');
+                        -- End Frame
+                        tx_buffer(17) <= (others => '1');
                         
                         state <= WAIT_SEND;
 
@@ -79,7 +86,7 @@ begin
                         end if;
 
                     when SEND_BIT_LOW =>
-                        if clk_div = 49 then
+                        if clk_div = 499 then
                             clk_div <= 0;
                             led_clk <= '1';
                             state <= SEND_BIT_HIGH;
@@ -88,24 +95,23 @@ begin
                         end if;
 
                     when SEND_BIT_HIGH =>
-                        if clk_div = 49 then
+                        if clk_div = 499 then
                             clk_div <= 0;
                             led_clk <= '0';
                             
                             if bit_cnt = 0 then
-                                if word_cnt = 16 then
+                                -- Si hemos terminado la última trama (la 17), volvemos a IDLE
+                                if word_cnt = 17 then
                                     state <= IDLE;
                                 else
                                     word_cnt <= word_cnt + 1;
                                     bit_cnt <= 31;
                                     led_data <= tx_buffer(word_cnt + 1)(31);
+                                    state <= SEND_BIT_LOW;
                                 end if;
                             else
                                 bit_cnt <= bit_cnt - 1;
                                 led_data <= tx_buffer(word_cnt)(bit_cnt - 1);
-                            end if;
-                            
-                            if state /= IDLE then
                                 state <= SEND_BIT_LOW;
                             end if;
                         else

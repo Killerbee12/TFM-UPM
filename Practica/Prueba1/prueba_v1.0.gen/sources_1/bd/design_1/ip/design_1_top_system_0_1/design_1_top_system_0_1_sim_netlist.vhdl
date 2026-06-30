@@ -2,7 +2,7 @@
 -- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
--- Date        : Mon Jun 29 20:09:44 2026
+-- Date        : Tue Jun 30 17:12:33 2026
 -- Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_top_system_0_1/design_1_top_system_0_1_sim_netlist.vhdl
@@ -19,9 +19,9 @@ entity design_1_top_system_0_1_apa102_ctrl is
   port (
     led_clk : out STD_LOGIC;
     led_data : out STD_LOGIC;
-    reset_n : in STD_LOGIC;
     clk_100Mhz : in STD_LOGIC;
     btn_send : in STD_LOGIC;
+    reset_n : in STD_LOGIC;
     btn_prepare : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
@@ -29,38 +29,50 @@ entity design_1_top_system_0_1_apa102_ctrl is
 end design_1_top_system_0_1_apa102_ctrl;
 
 architecture STRUCTURE of design_1_top_system_0_1_apa102_ctrl is
-  signal \FSM_sequential_state[0]_i_1_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[1]_i_1_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[2]_i_1_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[2]_i_2_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[2]_i_3_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_state[0]_i_1_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_state[3]_i_1_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_state[3]_i_2_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_state[4]_i_1_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_state[4]_i_2_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_state[4]_i_3_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_state_reg_n_0_[0]\ : STD_LOGIC;
+  signal \FSM_onehot_state_reg_n_0_[2]\ : STD_LOGIC;
+  signal \FSM_onehot_state_reg_n_0_[3]\ : STD_LOGIC;
+  signal \FSM_onehot_state_reg_n_0_[4]\ : STD_LOGIC;
   signal bit_cnt : STD_LOGIC_VECTOR ( 4 downto 0 );
+  signal \bit_cnt[3]_i_2_n_0\ : STD_LOGIC;
   signal \bit_cnt[4]_i_1_n_0\ : STD_LOGIC;
   signal \bit_cnt[4]_i_3_n_0\ : STD_LOGIC;
-  signal \bit_cnt[4]_i_4_n_0\ : STD_LOGIC;
-  signal bit_cnt_0 : STD_LOGIC_VECTOR ( 4 downto 0 );
+  signal \bit_cnt_reg_n_0_[0]\ : STD_LOGIC;
+  signal \bit_cnt_reg_n_0_[1]\ : STD_LOGIC;
+  signal \bit_cnt_reg_n_0_[2]\ : STD_LOGIC;
+  signal \bit_cnt_reg_n_0_[3]\ : STD_LOGIC;
+  signal \bit_cnt_reg_n_0_[4]\ : STD_LOGIC;
   signal btn_prep_reg : STD_LOGIC;
   signal btn_prep_reg_i_1_n_0 : STD_LOGIC;
   signal btn_send_reg : STD_LOGIC;
   signal btn_send_reg_i_1_n_0 : STD_LOGIC;
+  signal clk_div : STD_LOGIC_VECTOR ( 8 downto 0 );
   signal \clk_div[0]_i_1_n_0\ : STD_LOGIC;
   signal \clk_div[1]_i_1_n_0\ : STD_LOGIC;
   signal \clk_div[2]_i_1_n_0\ : STD_LOGIC;
   signal \clk_div[3]_i_1_n_0\ : STD_LOGIC;
   signal \clk_div[4]_i_1_n_0\ : STD_LOGIC;
   signal \clk_div[5]_i_1_n_0\ : STD_LOGIC;
-  signal \clk_div[5]_i_2_n_0\ : STD_LOGIC;
-  signal \clk_div[5]_i_3_n_0\ : STD_LOGIC;
-  signal \clk_div_reg_n_0_[0]\ : STD_LOGIC;
-  signal \clk_div_reg_n_0_[1]\ : STD_LOGIC;
-  signal \clk_div_reg_n_0_[2]\ : STD_LOGIC;
-  signal \clk_div_reg_n_0_[3]\ : STD_LOGIC;
-  signal \clk_div_reg_n_0_[4]\ : STD_LOGIC;
-  signal \clk_div_reg_n_0_[5]\ : STD_LOGIC;
+  signal \clk_div[6]_i_1_n_0\ : STD_LOGIC;
+  signal \clk_div[7]_i_1_n_0\ : STD_LOGIC;
+  signal \clk_div[7]_i_2_n_0\ : STD_LOGIC;
+  signal \clk_div[7]_i_3_n_0\ : STD_LOGIC;
+  signal \clk_div[8]_i_1_n_0\ : STD_LOGIC;
+  signal \clk_div[8]_i_2_n_0\ : STD_LOGIC;
+  signal \clk_div[8]_i_3_n_0\ : STD_LOGIC;
+  signal \clk_div[8]_i_4_n_0\ : STD_LOGIC;
   signal \^led_clk\ : STD_LOGIC;
   signal led_clk_i_1_n_0 : STD_LOGIC;
   signal led_clk_i_2_n_0 : STD_LOGIC;
   signal \^led_data\ : STD_LOGIC;
+  signal led_data_i_10_n_0 : STD_LOGIC;
+  signal led_data_i_11_n_0 : STD_LOGIC;
   signal led_data_i_1_n_0 : STD_LOGIC;
   signal led_data_i_2_n_0 : STD_LOGIC;
   signal led_data_i_3_n_0 : STD_LOGIC;
@@ -68,230 +80,264 @@ architecture STRUCTURE of design_1_top_system_0_1_apa102_ctrl is
   signal led_data_i_5_n_0 : STD_LOGIC;
   signal led_data_i_6_n_0 : STD_LOGIC;
   signal led_data_i_7_n_0 : STD_LOGIC;
-  signal state : STD_LOGIC_VECTOR ( 2 downto 0 );
-  signal word_cnt : STD_LOGIC_VECTOR ( 4 downto 0 );
-  signal \word_cnt[3]_i_2_n_0\ : STD_LOGIC;
+  signal led_data_i_8_n_0 : STD_LOGIC;
+  signal led_data_i_9_n_0 : STD_LOGIC;
+  signal \tx_buffer[0]_0\ : STD_LOGIC;
+  signal word_cnt : STD_LOGIC_VECTOR ( 4 downto 1 );
+  signal \word_cnt[0]_i_1_n_0\ : STD_LOGIC;
   signal \word_cnt[4]_i_1_n_0\ : STD_LOGIC;
-  signal \word_cnt[4]_i_2_n_0\ : STD_LOGIC;
+  signal \word_cnt[4]_i_3_n_0\ : STD_LOGIC;
   signal \word_cnt[4]_i_4_n_0\ : STD_LOGIC;
-  signal \word_cnt[4]_i_5_n_0\ : STD_LOGIC;
-  signal \word_cnt[4]_i_6_n_0\ : STD_LOGIC;
   signal \word_cnt_reg_n_0_[0]\ : STD_LOGIC;
   signal \word_cnt_reg_n_0_[1]\ : STD_LOGIC;
   signal \word_cnt_reg_n_0_[2]\ : STD_LOGIC;
   signal \word_cnt_reg_n_0_[3]\ : STD_LOGIC;
   signal \word_cnt_reg_n_0_[4]\ : STD_LOGIC;
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \FSM_sequential_state[0]_i_1\ : label is "soft_lutpair1";
-  attribute SOFT_HLUTNM of \FSM_sequential_state[1]_i_1\ : label is "soft_lutpair0";
-  attribute SOFT_HLUTNM of \FSM_sequential_state[2]_i_1\ : label is "soft_lutpair0";
-  attribute SOFT_HLUTNM of \FSM_sequential_state[2]_i_3\ : label is "soft_lutpair3";
+  attribute SOFT_HLUTNM of \FSM_onehot_state[3]_i_1\ : label is "soft_lutpair9";
   attribute FSM_ENCODED_STATES : string;
-  attribute FSM_ENCODED_STATES of \FSM_sequential_state_reg[0]\ : label is "idle:000,load_data:001,wait_send:010,send_bit_low:011,send_bit_high:100,";
-  attribute FSM_ENCODED_STATES of \FSM_sequential_state_reg[1]\ : label is "idle:000,load_data:001,wait_send:010,send_bit_low:011,send_bit_high:100,";
-  attribute FSM_ENCODED_STATES of \FSM_sequential_state_reg[2]\ : label is "idle:000,load_data:001,wait_send:010,send_bit_low:011,send_bit_high:100,";
-  attribute SOFT_HLUTNM of \bit_cnt[1]_i_1\ : label is "soft_lutpair7";
-  attribute SOFT_HLUTNM of \bit_cnt[2]_i_1\ : label is "soft_lutpair7";
-  attribute SOFT_HLUTNM of btn_prep_reg_i_1 : label is "soft_lutpair8";
-  attribute SOFT_HLUTNM of btn_send_reg_i_1 : label is "soft_lutpair8";
-  attribute SOFT_HLUTNM of \clk_div[0]_i_1\ : label is "soft_lutpair2";
-  attribute SOFT_HLUTNM of \clk_div[3]_i_1\ : label is "soft_lutpair5";
-  attribute SOFT_HLUTNM of \clk_div[4]_i_1\ : label is "soft_lutpair5";
-  attribute SOFT_HLUTNM of led_data_i_2 : label is "soft_lutpair3";
-  attribute SOFT_HLUTNM of led_data_i_6 : label is "soft_lutpair4";
-  attribute SOFT_HLUTNM of \word_cnt[1]_i_1\ : label is "soft_lutpair6";
-  attribute SOFT_HLUTNM of \word_cnt[2]_i_1\ : label is "soft_lutpair6";
-  attribute SOFT_HLUTNM of \word_cnt[3]_i_2\ : label is "soft_lutpair2";
-  attribute SOFT_HLUTNM of \word_cnt[4]_i_5\ : label is "soft_lutpair4";
-  attribute SOFT_HLUTNM of \word_cnt[4]_i_6\ : label is "soft_lutpair1";
+  attribute FSM_ENCODED_STATES of \FSM_onehot_state_reg[0]\ : label is "load_data:00010,wait_send:00100,send_bit_high:10000,send_bit_low:01000,idle:00001";
+  attribute FSM_ENCODED_STATES of \FSM_onehot_state_reg[1]\ : label is "load_data:00010,wait_send:00100,send_bit_high:10000,send_bit_low:01000,idle:00001";
+  attribute FSM_ENCODED_STATES of \FSM_onehot_state_reg[2]\ : label is "load_data:00010,wait_send:00100,send_bit_high:10000,send_bit_low:01000,idle:00001";
+  attribute FSM_ENCODED_STATES of \FSM_onehot_state_reg[3]\ : label is "load_data:00010,wait_send:00100,send_bit_high:10000,send_bit_low:01000,idle:00001";
+  attribute FSM_ENCODED_STATES of \FSM_onehot_state_reg[4]\ : label is "load_data:00010,wait_send:00100,send_bit_high:10000,send_bit_low:01000,idle:00001";
+  attribute SOFT_HLUTNM of \bit_cnt[0]_i_1\ : label is "soft_lutpair3";
+  attribute SOFT_HLUTNM of \bit_cnt[1]_i_1\ : label is "soft_lutpair3";
+  attribute SOFT_HLUTNM of \bit_cnt[3]_i_2\ : label is "soft_lutpair7";
+  attribute SOFT_HLUTNM of \bit_cnt[4]_i_2\ : label is "soft_lutpair7";
+  attribute SOFT_HLUTNM of \bit_cnt[4]_i_3\ : label is "soft_lutpair4";
+  attribute SOFT_HLUTNM of btn_prep_reg_i_1 : label is "soft_lutpair11";
+  attribute SOFT_HLUTNM of btn_send_reg_i_1 : label is "soft_lutpair11";
+  attribute SOFT_HLUTNM of \clk_div[1]_i_1\ : label is "soft_lutpair0";
+  attribute SOFT_HLUTNM of \clk_div[3]_i_1\ : label is "soft_lutpair1";
+  attribute SOFT_HLUTNM of \clk_div[4]_i_1\ : label is "soft_lutpair1";
+  attribute SOFT_HLUTNM of \clk_div[7]_i_2\ : label is "soft_lutpair0";
+  attribute SOFT_HLUTNM of \clk_div[8]_i_3\ : label is "soft_lutpair6";
+  attribute SOFT_HLUTNM of led_clk_i_2 : label is "soft_lutpair6";
+  attribute SOFT_HLUTNM of led_data_i_10 : label is "soft_lutpair8";
+  attribute SOFT_HLUTNM of led_data_i_2 : label is "soft_lutpair9";
+  attribute SOFT_HLUTNM of led_data_i_8 : label is "soft_lutpair2";
+  attribute SOFT_HLUTNM of led_data_i_9 : label is "soft_lutpair8";
+  attribute SOFT_HLUTNM of \word_cnt[0]_i_1\ : label is "soft_lutpair10";
+  attribute SOFT_HLUTNM of \word_cnt[1]_i_1\ : label is "soft_lutpair10";
+  attribute SOFT_HLUTNM of \word_cnt[2]_i_1\ : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of \word_cnt[3]_i_1\ : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of \word_cnt[4]_i_3\ : label is "soft_lutpair2";
+  attribute SOFT_HLUTNM of \word_cnt[4]_i_4\ : label is "soft_lutpair4";
 begin
   led_clk <= \^led_clk\;
   led_data <= \^led_data\;
-\FSM_sequential_state[0]_i_1\: unisim.vcomponents.LUT5
+\FSM_onehot_state[0]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"26660000"
+      INIT => X"2"
     )
         port map (
-      I0 => state(0),
-      I1 => \FSM_sequential_state[2]_i_2_n_0\,
-      I2 => state(1),
-      I3 => state(2),
-      I4 => reset_n,
-      O => \FSM_sequential_state[0]_i_1_n_0\
+      I0 => \FSM_onehot_state_reg_n_0_[4]\,
+      I1 => \FSM_onehot_state[3]_i_2_n_0\,
+      O => \FSM_onehot_state[0]_i_1_n_0\
     );
-\FSM_sequential_state[1]_i_1\: unisim.vcomponents.LUT5
+\FSM_onehot_state[3]_i_1\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"266A0000"
+      INIT => X"F8"
     )
         port map (
-      I0 => state(1),
-      I1 => \FSM_sequential_state[2]_i_2_n_0\,
-      I2 => state(2),
-      I3 => state(0),
-      I4 => reset_n,
-      O => \FSM_sequential_state[1]_i_1_n_0\
+      I0 => \FSM_onehot_state_reg_n_0_[4]\,
+      I1 => \FSM_onehot_state[3]_i_2_n_0\,
+      I2 => \FSM_onehot_state_reg_n_0_[2]\,
+      O => \FSM_onehot_state[3]_i_1_n_0\
     );
-\FSM_sequential_state[2]_i_1\: unisim.vcomponents.LUT5
+\FSM_onehot_state[3]_i_2\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"62220000"
+      INIT => X"FFFFFFFFFFFFFFF7"
     )
         port map (
-      I0 => state(2),
-      I1 => \FSM_sequential_state[2]_i_2_n_0\,
-      I2 => state(1),
-      I3 => state(0),
-      I4 => reset_n,
-      O => \FSM_sequential_state[2]_i_1_n_0\
+      I0 => \word_cnt_reg_n_0_[0]\,
+      I1 => \word_cnt_reg_n_0_[4]\,
+      I2 => \word_cnt_reg_n_0_[2]\,
+      I3 => \word_cnt_reg_n_0_[1]\,
+      I4 => \word_cnt_reg_n_0_[3]\,
+      I5 => \word_cnt[4]_i_4_n_0\,
+      O => \FSM_onehot_state[3]_i_2_n_0\
     );
-\FSM_sequential_state[2]_i_2\: unisim.vcomponents.LUT6
+\FSM_onehot_state[4]_i_1\: unisim.vcomponents.LUT1
     generic map(
-      INIT => X"AABAAAAABBBEBBAE"
+      INIT => X"1"
     )
         port map (
-      I0 => \FSM_sequential_state[2]_i_3_n_0\,
-      I1 => state(2),
-      I2 => state(1),
-      I3 => state(0),
-      I4 => led_data_i_3_n_0,
-      I5 => led_clk_i_2_n_0,
-      O => \FSM_sequential_state[2]_i_2_n_0\
+      I0 => reset_n,
+      O => \FSM_onehot_state[4]_i_1_n_0\
     );
-\FSM_sequential_state[2]_i_3\: unisim.vcomponents.LUT5
+\FSM_onehot_state[4]_i_2\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"000000AE"
+      INIT => X"FFFFFFFFEEEEFEEE"
     )
         port map (
-      I0 => state(0),
-      I1 => btn_prepare,
-      I2 => btn_prep_reg,
-      I3 => state(1),
-      I4 => state(2),
-      O => \FSM_sequential_state[2]_i_3_n_0\
+      I0 => \tx_buffer[0]_0\,
+      I1 => led_data_i_2_n_0,
+      I2 => \FSM_onehot_state_reg_n_0_[0]\,
+      I3 => btn_prepare,
+      I4 => btn_prep_reg,
+      I5 => \FSM_onehot_state[4]_i_3_n_0\,
+      O => \FSM_onehot_state[4]_i_2_n_0\
     );
-\FSM_sequential_state_reg[0]\: unisim.vcomponents.FDRE
+\FSM_onehot_state[4]_i_3\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"0000000000000E00"
+    )
+        port map (
+      I0 => \FSM_onehot_state_reg_n_0_[4]\,
+      I1 => \FSM_onehot_state_reg_n_0_[3]\,
+      I2 => \clk_div[8]_i_4_n_0\,
+      I3 => clk_div(8),
+      I4 => clk_div(3),
+      I5 => clk_div(2),
+      O => \FSM_onehot_state[4]_i_3_n_0\
+    );
+\FSM_onehot_state_reg[0]\: unisim.vcomponents.FDSE
+    generic map(
+      INIT => '1'
+    )
+        port map (
+      C => clk_100Mhz,
+      CE => \FSM_onehot_state[4]_i_2_n_0\,
+      D => \FSM_onehot_state[0]_i_1_n_0\,
+      Q => \FSM_onehot_state_reg_n_0_[0]\,
+      S => \FSM_onehot_state[4]_i_1_n_0\
+    );
+\FSM_onehot_state_reg[1]\: unisim.vcomponents.FDRE
     generic map(
       INIT => '0'
     )
         port map (
       C => clk_100Mhz,
-      CE => '1',
-      D => \FSM_sequential_state[0]_i_1_n_0\,
-      Q => state(0),
-      R => '0'
+      CE => \FSM_onehot_state[4]_i_2_n_0\,
+      D => \FSM_onehot_state_reg_n_0_[0]\,
+      Q => \tx_buffer[0]_0\,
+      R => \FSM_onehot_state[4]_i_1_n_0\
     );
-\FSM_sequential_state_reg[1]\: unisim.vcomponents.FDRE
+\FSM_onehot_state_reg[2]\: unisim.vcomponents.FDRE
     generic map(
       INIT => '0'
     )
         port map (
       C => clk_100Mhz,
-      CE => '1',
-      D => \FSM_sequential_state[1]_i_1_n_0\,
-      Q => state(1),
-      R => '0'
+      CE => \FSM_onehot_state[4]_i_2_n_0\,
+      D => \tx_buffer[0]_0\,
+      Q => \FSM_onehot_state_reg_n_0_[2]\,
+      R => \FSM_onehot_state[4]_i_1_n_0\
     );
-\FSM_sequential_state_reg[2]\: unisim.vcomponents.FDRE
+\FSM_onehot_state_reg[3]\: unisim.vcomponents.FDRE
     generic map(
       INIT => '0'
     )
         port map (
       C => clk_100Mhz,
-      CE => '1',
-      D => \FSM_sequential_state[2]_i_1_n_0\,
-      Q => state(2),
-      R => '0'
+      CE => \FSM_onehot_state[4]_i_2_n_0\,
+      D => \FSM_onehot_state[3]_i_1_n_0\,
+      Q => \FSM_onehot_state_reg_n_0_[3]\,
+      R => \FSM_onehot_state[4]_i_1_n_0\
     );
-\bit_cnt[0]_i_1\: unisim.vcomponents.LUT2
+\FSM_onehot_state_reg[4]\: unisim.vcomponents.FDRE
     generic map(
-      INIT => X"7"
+      INIT => '0'
     )
         port map (
-      I0 => bit_cnt(0),
-      I1 => state(2),
-      O => bit_cnt_0(0)
+      C => clk_100Mhz,
+      CE => \FSM_onehot_state[4]_i_2_n_0\,
+      D => \FSM_onehot_state_reg_n_0_[3]\,
+      Q => \FSM_onehot_state_reg_n_0_[4]\,
+      R => \FSM_onehot_state[4]_i_1_n_0\
     );
-\bit_cnt[1]_i_1\: unisim.vcomponents.LUT3
+\bit_cnt[0]_i_1\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"F9"
+      INIT => X"F4"
     )
         port map (
-      I0 => bit_cnt(0),
-      I1 => bit_cnt(1),
-      I2 => \bit_cnt[4]_i_3_n_0\,
-      O => bit_cnt_0(1)
+      I0 => \bit_cnt_reg_n_0_[0]\,
+      I1 => \FSM_onehot_state_reg_n_0_[4]\,
+      I2 => \FSM_onehot_state_reg_n_0_[0]\,
+      O => bit_cnt(0)
     );
-\bit_cnt[2]_i_1\: unisim.vcomponents.LUT4
+\bit_cnt[1]_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"FFE1"
+      INIT => X"F9F0FFF0"
     )
         port map (
-      I0 => bit_cnt(1),
-      I1 => bit_cnt(0),
-      I2 => bit_cnt(2),
-      I3 => \bit_cnt[4]_i_3_n_0\,
-      O => bit_cnt_0(2)
+      I0 => \bit_cnt_reg_n_0_[0]\,
+      I1 => \bit_cnt_reg_n_0_[1]\,
+      I2 => \FSM_onehot_state_reg_n_0_[0]\,
+      I3 => \FSM_onehot_state_reg_n_0_[4]\,
+      I4 => \word_cnt[4]_i_4_n_0\,
+      O => bit_cnt(1)
+    );
+\bit_cnt[2]_i_1\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"FFE1FF00FFFFFF00"
+    )
+        port map (
+      I0 => \bit_cnt_reg_n_0_[1]\,
+      I1 => \bit_cnt_reg_n_0_[0]\,
+      I2 => \bit_cnt_reg_n_0_[2]\,
+      I3 => \FSM_onehot_state_reg_n_0_[0]\,
+      I4 => \FSM_onehot_state_reg_n_0_[4]\,
+      I5 => \word_cnt[4]_i_4_n_0\,
+      O => bit_cnt(2)
     );
 \bit_cnt[3]_i_1\: unisim.vcomponents.LUT6
     generic map(
       INIT => X"FFFFFFFFFE010000"
     )
         port map (
-      I0 => bit_cnt(2),
-      I1 => bit_cnt(0),
-      I2 => bit_cnt(1),
-      I3 => bit_cnt(3),
-      I4 => \word_cnt[3]_i_2_n_0\,
-      I5 => \bit_cnt[4]_i_3_n_0\,
-      O => bit_cnt_0(3)
+      I0 => \bit_cnt_reg_n_0_[2]\,
+      I1 => \bit_cnt_reg_n_0_[0]\,
+      I2 => \bit_cnt_reg_n_0_[1]\,
+      I3 => \bit_cnt_reg_n_0_[3]\,
+      I4 => \FSM_onehot_state_reg_n_0_[4]\,
+      I5 => \bit_cnt[3]_i_2_n_0\,
+      O => bit_cnt(3)
     );
-\bit_cnt[4]_i_1\: unisim.vcomponents.LUT6
+\bit_cnt[3]_i_2\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"00000000000054FF"
+      INIT => X"F4"
     )
         port map (
-      I0 => led_clk_i_2_n_0,
-      I1 => \word_cnt[4]_i_4_n_0\,
-      I2 => \word_cnt[4]_i_5_n_0\,
-      I3 => state(2),
-      I4 => state(0),
-      I5 => state(1),
+      I0 => \word_cnt[4]_i_4_n_0\,
+      I1 => \FSM_onehot_state_reg_n_0_[4]\,
+      I2 => \FSM_onehot_state_reg_n_0_[0]\,
+      O => \bit_cnt[3]_i_2_n_0\
+    );
+\bit_cnt[4]_i_1\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"FF20"
+    )
+        port map (
+      I0 => \FSM_onehot_state_reg_n_0_[4]\,
+      I1 => led_clk_i_2_n_0,
+      I2 => \FSM_onehot_state[3]_i_2_n_0\,
+      I3 => \FSM_onehot_state_reg_n_0_[0]\,
       O => \bit_cnt[4]_i_1_n_0\
     );
-\bit_cnt[4]_i_2\: unisim.vcomponents.LUT6
+\bit_cnt[4]_i_2\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"FFFFFFFFFFFE0001"
+      INIT => X"EAAE"
     )
         port map (
-      I0 => bit_cnt(3),
-      I1 => bit_cnt(1),
-      I2 => bit_cnt(0),
-      I3 => bit_cnt(2),
-      I4 => bit_cnt(4),
-      I5 => \bit_cnt[4]_i_3_n_0\,
-      O => bit_cnt_0(4)
+      I0 => \FSM_onehot_state_reg_n_0_[0]\,
+      I1 => \FSM_onehot_state_reg_n_0_[4]\,
+      I2 => \bit_cnt_reg_n_0_[4]\,
+      I3 => \bit_cnt[4]_i_3_n_0\,
+      O => bit_cnt(4)
     );
-\bit_cnt[4]_i_3\: unisim.vcomponents.LUT3
+\bit_cnt[4]_i_3\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"02"
+      INIT => X"FFFE"
     )
         port map (
-      I0 => \bit_cnt[4]_i_4_n_0\,
-      I1 => state(1),
-      I2 => state(0),
+      I0 => \bit_cnt_reg_n_0_[2]\,
+      I1 => \bit_cnt_reg_n_0_[0]\,
+      I2 => \bit_cnt_reg_n_0_[1]\,
+      I3 => \bit_cnt_reg_n_0_[3]\,
       O => \bit_cnt[4]_i_3_n_0\
-    );
-\bit_cnt[4]_i_4\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"00000001FFFFFFFF"
-    )
-        port map (
-      I0 => bit_cnt(3),
-      I1 => bit_cnt(4),
-      I2 => bit_cnt(2),
-      I3 => bit_cnt(1),
-      I4 => bit_cnt(0),
-      I5 => state(2),
-      O => \bit_cnt[4]_i_4_n_0\
     );
 \bit_cnt_reg[0]\: unisim.vcomponents.FDSE
     generic map(
@@ -300,9 +346,9 @@ begin
         port map (
       C => clk_100Mhz,
       CE => \bit_cnt[4]_i_1_n_0\,
-      D => bit_cnt_0(0),
-      Q => bit_cnt(0),
-      S => \word_cnt[4]_i_1_n_0\
+      D => bit_cnt(0),
+      Q => \bit_cnt_reg_n_0_[0]\,
+      S => \FSM_onehot_state[4]_i_1_n_0\
     );
 \bit_cnt_reg[1]\: unisim.vcomponents.FDSE
     generic map(
@@ -311,9 +357,9 @@ begin
         port map (
       C => clk_100Mhz,
       CE => \bit_cnt[4]_i_1_n_0\,
-      D => bit_cnt_0(1),
-      Q => bit_cnt(1),
-      S => \word_cnt[4]_i_1_n_0\
+      D => bit_cnt(1),
+      Q => \bit_cnt_reg_n_0_[1]\,
+      S => \FSM_onehot_state[4]_i_1_n_0\
     );
 \bit_cnt_reg[2]\: unisim.vcomponents.FDSE
     generic map(
@@ -322,9 +368,9 @@ begin
         port map (
       C => clk_100Mhz,
       CE => \bit_cnt[4]_i_1_n_0\,
-      D => bit_cnt_0(2),
-      Q => bit_cnt(2),
-      S => \word_cnt[4]_i_1_n_0\
+      D => bit_cnt(2),
+      Q => \bit_cnt_reg_n_0_[2]\,
+      S => \FSM_onehot_state[4]_i_1_n_0\
     );
 \bit_cnt_reg[3]\: unisim.vcomponents.FDSE
     generic map(
@@ -333,9 +379,9 @@ begin
         port map (
       C => clk_100Mhz,
       CE => \bit_cnt[4]_i_1_n_0\,
-      D => bit_cnt_0(3),
-      Q => bit_cnt(3),
-      S => \word_cnt[4]_i_1_n_0\
+      D => bit_cnt(3),
+      Q => \bit_cnt_reg_n_0_[3]\,
+      S => \FSM_onehot_state[4]_i_1_n_0\
     );
 \bit_cnt_reg[4]\: unisim.vcomponents.FDSE
     generic map(
@@ -344,9 +390,9 @@ begin
         port map (
       C => clk_100Mhz,
       CE => \bit_cnt[4]_i_1_n_0\,
-      D => bit_cnt_0(4),
-      Q => bit_cnt(4),
-      S => \word_cnt[4]_i_1_n_0\
+      D => bit_cnt(4),
+      Q => \bit_cnt_reg_n_0_[4]\,
+      S => \FSM_onehot_state[4]_i_1_n_0\
     );
 btn_prep_reg_i_1: unisim.vcomponents.LUT3
     generic map(
@@ -390,39 +436,40 @@ btn_send_reg_reg: unisim.vcomponents.FDRE
       Q => btn_send_reg,
       R => '0'
     );
-\clk_div[0]_i_1\: unisim.vcomponents.LUT5
+\clk_div[0]_i_1\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"00FF1D00"
+      INIT => X"0FE0"
     )
         port map (
-      I0 => state(1),
-      I1 => state(0),
-      I2 => state(2),
-      I3 => \clk_div[5]_i_2_n_0\,
-      I4 => \clk_div_reg_n_0_[0]\,
+      I0 => \FSM_onehot_state_reg_n_0_[4]\,
+      I1 => \FSM_onehot_state_reg_n_0_[3]\,
+      I2 => \clk_div[8]_i_2_n_0\,
+      I3 => clk_div(0),
       O => \clk_div[0]_i_1_n_0\
     );
-\clk_div[1]_i_1\: unisim.vcomponents.LUT6
+\clk_div[1]_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"0000470047000000"
+      INIT => X"00E0E000"
     )
         port map (
-      I0 => state(2),
-      I1 => state(0),
-      I2 => state(1),
-      I3 => led_clk_i_2_n_0,
-      I4 => \clk_div_reg_n_0_[0]\,
-      I5 => \clk_div_reg_n_0_[1]\,
+      I0 => \FSM_onehot_state_reg_n_0_[3]\,
+      I1 => \FSM_onehot_state_reg_n_0_[4]\,
+      I2 => led_clk_i_2_n_0,
+      I3 => clk_div(0),
+      I4 => clk_div(1),
       O => \clk_div[1]_i_1_n_0\
     );
-\clk_div[2]_i_1\: unisim.vcomponents.LUT3
+\clk_div[2]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"78"
+      INIT => X"00E0E0E0E0000000"
     )
         port map (
-      I0 => \clk_div_reg_n_0_[1]\,
-      I1 => \clk_div_reg_n_0_[0]\,
-      I2 => \clk_div_reg_n_0_[2]\,
+      I0 => \FSM_onehot_state_reg_n_0_[3]\,
+      I1 => \FSM_onehot_state_reg_n_0_[4]\,
+      I2 => led_clk_i_2_n_0,
+      I3 => clk_div(1),
+      I4 => clk_div(0),
+      I5 => clk_div(2),
       O => \clk_div[2]_i_1_n_0\
     );
 \clk_div[3]_i_1\: unisim.vcomponents.LUT4
@@ -430,10 +477,10 @@ btn_send_reg_reg: unisim.vcomponents.FDRE
       INIT => X"7F80"
     )
         port map (
-      I0 => \clk_div_reg_n_0_[0]\,
-      I1 => \clk_div_reg_n_0_[1]\,
-      I2 => \clk_div_reg_n_0_[2]\,
-      I3 => \clk_div_reg_n_0_[3]\,
+      I0 => clk_div(0),
+      I1 => clk_div(1),
+      I2 => clk_div(2),
+      I3 => clk_div(3),
       O => \clk_div[3]_i_1_n_0\
     );
 \clk_div[4]_i_1\: unisim.vcomponents.LUT5
@@ -441,50 +488,117 @@ btn_send_reg_reg: unisim.vcomponents.FDRE
       INIT => X"7FFF8000"
     )
         port map (
-      I0 => \clk_div_reg_n_0_[2]\,
-      I1 => \clk_div_reg_n_0_[3]\,
-      I2 => \clk_div_reg_n_0_[0]\,
-      I3 => \clk_div_reg_n_0_[1]\,
-      I4 => \clk_div_reg_n_0_[4]\,
+      I0 => clk_div(0),
+      I1 => clk_div(1),
+      I2 => clk_div(2),
+      I3 => clk_div(3),
+      I4 => clk_div(4),
       O => \clk_div[4]_i_1_n_0\
     );
-\clk_div[5]_i_1\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"8A80AAAA"
-    )
-        port map (
-      I0 => \clk_div[5]_i_2_n_0\,
-      I1 => state(2),
-      I2 => state(0),
-      I3 => state(1),
-      I4 => led_clk_i_2_n_0,
-      O => \clk_div[5]_i_1_n_0\
-    );
-\clk_div[5]_i_2\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"2008220820082008"
-    )
-        port map (
-      I0 => reset_n,
-      I1 => state(2),
-      I2 => state(0),
-      I3 => state(1),
-      I4 => btn_send_reg,
-      I5 => btn_send,
-      O => \clk_div[5]_i_2_n_0\
-    );
-\clk_div[5]_i_3\: unisim.vcomponents.LUT6
+\clk_div[5]_i_1\: unisim.vcomponents.LUT6
     generic map(
       INIT => X"7FFFFFFF80000000"
     )
         port map (
-      I0 => \clk_div_reg_n_0_[0]\,
-      I1 => \clk_div_reg_n_0_[4]\,
-      I2 => \clk_div_reg_n_0_[3]\,
-      I3 => \clk_div_reg_n_0_[2]\,
-      I4 => \clk_div_reg_n_0_[1]\,
-      I5 => \clk_div_reg_n_0_[5]\,
-      O => \clk_div[5]_i_3_n_0\
+      I0 => clk_div(1),
+      I1 => clk_div(0),
+      I2 => clk_div(4),
+      I3 => clk_div(2),
+      I4 => clk_div(3),
+      I5 => clk_div(5),
+      O => \clk_div[5]_i_1_n_0\
+    );
+\clk_div[6]_i_1\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"7FFFFFFF80000000"
+    )
+        port map (
+      I0 => clk_div(4),
+      I1 => clk_div(0),
+      I2 => clk_div(1),
+      I3 => clk_div(5),
+      I4 => \clk_div[7]_i_3_n_0\,
+      I5 => clk_div(6),
+      O => \clk_div[6]_i_1_n_0\
+    );
+\clk_div[7]_i_1\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"DFFFFFFF20000000"
+    )
+        port map (
+      I0 => clk_div(5),
+      I1 => \clk_div[7]_i_2_n_0\,
+      I2 => clk_div(4),
+      I3 => clk_div(6),
+      I4 => \clk_div[7]_i_3_n_0\,
+      I5 => clk_div(7),
+      O => \clk_div[7]_i_1_n_0\
+    );
+\clk_div[7]_i_2\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"7"
+    )
+        port map (
+      I0 => clk_div(0),
+      I1 => clk_div(1),
+      O => \clk_div[7]_i_2_n_0\
+    );
+\clk_div[7]_i_3\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => clk_div(2),
+      I1 => clk_div(3),
+      O => \clk_div[7]_i_3_n_0\
+    );
+\clk_div[8]_i_1\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"02AA"
+    )
+        port map (
+      I0 => \clk_div[8]_i_2_n_0\,
+      I1 => \FSM_onehot_state_reg_n_0_[3]\,
+      I2 => \FSM_onehot_state_reg_n_0_[4]\,
+      I3 => led_clk_i_2_n_0,
+      O => \clk_div[8]_i_1_n_0\
+    );
+\clk_div[8]_i_2\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"EEFE0000EEEE0000"
+    )
+        port map (
+      I0 => \FSM_onehot_state_reg_n_0_[3]\,
+      I1 => \FSM_onehot_state_reg_n_0_[4]\,
+      I2 => btn_send,
+      I3 => btn_send_reg,
+      I4 => reset_n,
+      I5 => \FSM_onehot_state_reg_n_0_[2]\,
+      O => \clk_div[8]_i_2_n_0\
+    );
+\clk_div[8]_i_3\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"BF40"
+    )
+        port map (
+      I0 => \clk_div[8]_i_4_n_0\,
+      I1 => clk_div(2),
+      I2 => clk_div(3),
+      I3 => clk_div(8),
+      O => \clk_div[8]_i_3_n_0\
+    );
+\clk_div[8]_i_4\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"7FFFFFFFFFFFFFFF"
+    )
+        port map (
+      I0 => clk_div(6),
+      I1 => clk_div(4),
+      I2 => clk_div(0),
+      I3 => clk_div(1),
+      I4 => clk_div(5),
+      I5 => clk_div(7),
+      O => \clk_div[8]_i_4_n_0\
     );
 \clk_div_reg[0]\: unisim.vcomponents.FDRE
     generic map(
@@ -494,7 +608,7 @@ btn_send_reg_reg: unisim.vcomponents.FDRE
       C => clk_100Mhz,
       CE => '1',
       D => \clk_div[0]_i_1_n_0\,
-      Q => \clk_div_reg_n_0_[0]\,
+      Q => clk_div(0),
       R => '0'
     );
 \clk_div_reg[1]\: unisim.vcomponents.FDRE
@@ -503,9 +617,9 @@ btn_send_reg_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => clk_100Mhz,
-      CE => \clk_div[5]_i_2_n_0\,
+      CE => \clk_div[8]_i_2_n_0\,
       D => \clk_div[1]_i_1_n_0\,
-      Q => \clk_div_reg_n_0_[1]\,
+      Q => clk_div(1),
       R => '0'
     );
 \clk_div_reg[2]\: unisim.vcomponents.FDRE
@@ -514,10 +628,10 @@ btn_send_reg_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => clk_100Mhz,
-      CE => \clk_div[5]_i_2_n_0\,
+      CE => \clk_div[8]_i_2_n_0\,
       D => \clk_div[2]_i_1_n_0\,
-      Q => \clk_div_reg_n_0_[2]\,
-      R => \clk_div[5]_i_1_n_0\
+      Q => clk_div(2),
+      R => '0'
     );
 \clk_div_reg[3]\: unisim.vcomponents.FDRE
     generic map(
@@ -525,10 +639,10 @@ btn_send_reg_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => clk_100Mhz,
-      CE => \clk_div[5]_i_2_n_0\,
+      CE => \clk_div[8]_i_2_n_0\,
       D => \clk_div[3]_i_1_n_0\,
-      Q => \clk_div_reg_n_0_[3]\,
-      R => \clk_div[5]_i_1_n_0\
+      Q => clk_div(3),
+      R => \clk_div[8]_i_1_n_0\
     );
 \clk_div_reg[4]\: unisim.vcomponents.FDRE
     generic map(
@@ -536,10 +650,10 @@ btn_send_reg_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => clk_100Mhz,
-      CE => \clk_div[5]_i_2_n_0\,
+      CE => \clk_div[8]_i_2_n_0\,
       D => \clk_div[4]_i_1_n_0\,
-      Q => \clk_div_reg_n_0_[4]\,
-      R => \clk_div[5]_i_1_n_0\
+      Q => clk_div(4),
+      R => \clk_div[8]_i_1_n_0\
     );
 \clk_div_reg[5]\: unisim.vcomponents.FDRE
     generic map(
@@ -547,35 +661,66 @@ btn_send_reg_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => clk_100Mhz,
-      CE => \clk_div[5]_i_2_n_0\,
-      D => \clk_div[5]_i_3_n_0\,
-      Q => \clk_div_reg_n_0_[5]\,
-      R => \clk_div[5]_i_1_n_0\
+      CE => \clk_div[8]_i_2_n_0\,
+      D => \clk_div[5]_i_1_n_0\,
+      Q => clk_div(5),
+      R => \clk_div[8]_i_1_n_0\
+    );
+\clk_div_reg[6]\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => clk_100Mhz,
+      CE => \clk_div[8]_i_2_n_0\,
+      D => \clk_div[6]_i_1_n_0\,
+      Q => clk_div(6),
+      R => \clk_div[8]_i_1_n_0\
+    );
+\clk_div_reg[7]\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => clk_100Mhz,
+      CE => \clk_div[8]_i_2_n_0\,
+      D => \clk_div[7]_i_1_n_0\,
+      Q => clk_div(7),
+      R => \clk_div[8]_i_1_n_0\
+    );
+\clk_div_reg[8]\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => clk_100Mhz,
+      CE => \clk_div[8]_i_2_n_0\,
+      D => \clk_div[8]_i_3_n_0\,
+      Q => clk_div(8),
+      R => \clk_div[8]_i_1_n_0\
     );
 led_clk_i_1: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAA8A8E800000000"
+      INIT => X"EE22FF0200000000"
     )
         port map (
       I0 => \^led_clk\,
-      I1 => state(1),
-      I2 => state(0),
-      I3 => state(2),
+      I1 => \FSM_onehot_state_reg_n_0_[0]\,
+      I2 => \FSM_onehot_state_reg_n_0_[4]\,
+      I3 => \FSM_onehot_state_reg_n_0_[3]\,
       I4 => led_clk_i_2_n_0,
       I5 => reset_n,
       O => led_clk_i_1_n_0
     );
-led_clk_i_2: unisim.vcomponents.LUT6
+led_clk_i_2: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"FFFFFFFFFFFFF7FF"
+      INIT => X"FFEF"
     )
         port map (
-      I0 => \clk_div_reg_n_0_[0]\,
-      I1 => \clk_div_reg_n_0_[4]\,
-      I2 => \clk_div_reg_n_0_[3]\,
-      I3 => \clk_div_reg_n_0_[5]\,
-      I4 => \clk_div_reg_n_0_[2]\,
-      I5 => \clk_div_reg_n_0_[1]\,
+      I0 => clk_div(2),
+      I1 => clk_div(3),
+      I2 => clk_div(8),
+      I3 => \clk_div[8]_i_4_n_0\,
       O => led_clk_i_2_n_0
     );
 led_clk_reg: unisim.vcomponents.FDRE
@@ -586,85 +731,132 @@ led_clk_reg: unisim.vcomponents.FDRE
       Q => \^led_clk\,
       R => '0'
     );
-led_data_i_1: unisim.vcomponents.LUT6
+led_data_i_1: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"FEEE022200000000"
+      INIT => X"FE020000"
     )
         port map (
       I0 => \^led_data\,
       I1 => \bit_cnt[4]_i_1_n_0\,
       I2 => led_data_i_2_n_0,
       I3 => led_data_i_3_n_0,
-      I4 => led_data_i_4_n_0,
-      I5 => reset_n,
+      I4 => reset_n,
       O => led_data_i_1_n_0
     );
-led_data_i_2: unisim.vcomponents.LUT2
+led_data_i_10: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"1"
+      INIT => X"01FE"
     )
         port map (
-      I0 => state(0),
-      I1 => state(2),
+      I0 => \bit_cnt_reg_n_0_[2]\,
+      I1 => \bit_cnt_reg_n_0_[0]\,
+      I2 => \bit_cnt_reg_n_0_[1]\,
+      I3 => \bit_cnt_reg_n_0_[3]\,
+      O => led_data_i_10_n_0
+    );
+led_data_i_11: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"E"
+    )
+        port map (
+      I0 => \word_cnt_reg_n_0_[1]\,
+      I1 => \word_cnt_reg_n_0_[2]\,
+      O => led_data_i_11_n_0
+    );
+led_data_i_2: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"40"
+    )
+        port map (
+      I0 => btn_send_reg,
+      I1 => btn_send,
+      I2 => \FSM_onehot_state_reg_n_0_[2]\,
       O => led_data_i_2_n_0
     );
-led_data_i_3: unisim.vcomponents.LUT2
+led_data_i_3: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"2"
+      INIT => X"FFFFFFFE"
     )
         port map (
-      I0 => btn_send,
-      I1 => btn_send_reg,
+      I0 => led_data_i_4_n_0,
+      I1 => \tx_buffer[0]_0\,
+      I2 => \FSM_onehot_state_reg_n_0_[3]\,
+      I3 => led_data_i_5_n_0,
+      I4 => led_data_i_6_n_0,
       O => led_data_i_3_n_0
     );
 led_data_i_4: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FFF8FFFF00000000"
+      INIT => X"FFEEF000F000F000"
     )
         port map (
-      I0 => led_data_i_5_n_0,
-      I1 => led_data_i_6_n_0,
+      I0 => \word_cnt_reg_n_0_[2]\,
+      I1 => \word_cnt_reg_n_0_[1]\,
       I2 => led_data_i_7_n_0,
-      I3 => \word_cnt_reg_n_0_[4]\,
-      I4 => \word_cnt[4]_i_4_n_0\,
-      I5 => \word_cnt[4]_i_6_n_0\,
+      I3 => \word_cnt_reg_n_0_[0]\,
+      I4 => \word_cnt_reg_n_0_[4]\,
+      I5 => \FSM_onehot_state_reg_n_0_[4]\,
       O => led_data_i_4_n_0
     );
 led_data_i_5: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"B0000001B00001FF"
+      INIT => X"00000000002020F0"
     )
         port map (
-      I0 => bit_cnt(2),
-      I1 => bit_cnt(0),
-      I2 => bit_cnt(1),
-      I3 => bit_cnt(3),
-      I4 => bit_cnt(4),
-      I5 => \word_cnt_reg_n_0_[0]\,
+      I0 => led_data_i_8_n_0,
+      I1 => \word_cnt_reg_n_0_[0]\,
+      I2 => \FSM_onehot_state_reg_n_0_[4]\,
+      I3 => \bit_cnt_reg_n_0_[3]\,
+      I4 => led_data_i_9_n_0,
+      I5 => \bit_cnt_reg_n_0_[4]\,
       O => led_data_i_5_n_0
     );
-led_data_i_6: unisim.vcomponents.LUT3
+led_data_i_6: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FE"
+      INIT => X"FF555544F0000000"
     )
         port map (
-      I0 => \word_cnt_reg_n_0_[3]\,
-      I1 => \word_cnt_reg_n_0_[2]\,
-      I2 => \word_cnt_reg_n_0_[1]\,
+      I0 => led_data_i_10_n_0,
+      I1 => led_data_i_11_n_0,
+      I2 => \FSM_onehot_state_reg_n_0_[4]\,
+      I3 => \word_cnt_reg_n_0_[3]\,
+      I4 => \word_cnt_reg_n_0_[4]\,
+      I5 => led_data_i_7_n_0,
       O => led_data_i_6_n_0
     );
 led_data_i_7: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"8088000888888884"
+      INIT => X"8888888888888882"
     )
         port map (
-      I0 => bit_cnt(4),
-      I1 => \word_cnt_reg_n_0_[0]\,
-      I2 => bit_cnt(2),
-      I3 => bit_cnt(0),
-      I4 => bit_cnt(1),
-      I5 => bit_cnt(3),
+      I0 => \FSM_onehot_state_reg_n_0_[4]\,
+      I1 => \bit_cnt_reg_n_0_[4]\,
+      I2 => \bit_cnt_reg_n_0_[2]\,
+      I3 => \bit_cnt_reg_n_0_[0]\,
+      I4 => \bit_cnt_reg_n_0_[1]\,
+      I5 => \bit_cnt_reg_n_0_[3]\,
       O => led_data_i_7_n_0
+    );
+led_data_i_8: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"FFF6"
+    )
+        port map (
+      I0 => \word_cnt_reg_n_0_[3]\,
+      I1 => \word_cnt_reg_n_0_[4]\,
+      I2 => \word_cnt_reg_n_0_[2]\,
+      I3 => \word_cnt_reg_n_0_[1]\,
+      O => led_data_i_8_n_0
+    );
+led_data_i_9: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"FE"
+    )
+        port map (
+      I0 => \bit_cnt_reg_n_0_[1]\,
+      I1 => \bit_cnt_reg_n_0_[0]\,
+      I2 => \bit_cnt_reg_n_0_[2]\,
+      O => led_data_i_9_n_0
     );
 led_data_reg: unisim.vcomponents.FDRE
      port map (
@@ -679,16 +871,16 @@ led_data_reg: unisim.vcomponents.FDRE
       INIT => X"2"
     )
         port map (
-      I0 => state(2),
+      I0 => \FSM_onehot_state_reg_n_0_[4]\,
       I1 => \word_cnt_reg_n_0_[0]\,
-      O => word_cnt(0)
+      O => \word_cnt[0]_i_1_n_0\
     );
 \word_cnt[1]_i_1\: unisim.vcomponents.LUT3
     generic map(
       INIT => X"28"
     )
         port map (
-      I0 => state(2),
+      I0 => \FSM_onehot_state_reg_n_0_[4]\,
       I1 => \word_cnt_reg_n_0_[1]\,
       I2 => \word_cnt_reg_n_0_[0]\,
       O => word_cnt(1)
@@ -698,61 +890,42 @@ led_data_reg: unisim.vcomponents.FDRE
       INIT => X"2888"
     )
         port map (
-      I0 => state(2),
+      I0 => \FSM_onehot_state_reg_n_0_[4]\,
       I1 => \word_cnt_reg_n_0_[2]\,
-      I2 => \word_cnt_reg_n_0_[1]\,
-      I3 => \word_cnt_reg_n_0_[0]\,
+      I2 => \word_cnt_reg_n_0_[0]\,
+      I3 => \word_cnt_reg_n_0_[1]\,
       O => word_cnt(2)
     );
-\word_cnt[3]_i_1\: unisim.vcomponents.LUT6
+\word_cnt[3]_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"0880808080808080"
+      INIT => X"28888888"
     )
         port map (
-      I0 => state(2),
-      I1 => \word_cnt[3]_i_2_n_0\,
-      I2 => \word_cnt_reg_n_0_[3]\,
-      I3 => \word_cnt_reg_n_0_[2]\,
-      I4 => \word_cnt_reg_n_0_[1]\,
-      I5 => \word_cnt_reg_n_0_[0]\,
+      I0 => \FSM_onehot_state_reg_n_0_[4]\,
+      I1 => \word_cnt_reg_n_0_[3]\,
+      I2 => \word_cnt_reg_n_0_[2]\,
+      I3 => \word_cnt_reg_n_0_[1]\,
+      I4 => \word_cnt_reg_n_0_[0]\,
       O => word_cnt(3)
     );
-\word_cnt[3]_i_2\: unisim.vcomponents.LUT2
+\word_cnt[4]_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"1"
+      INIT => X"FFFF0020"
     )
         port map (
-      I0 => state(0),
-      I1 => state(1),
-      O => \word_cnt[3]_i_2_n_0\
-    );
-\word_cnt[4]_i_1\: unisim.vcomponents.LUT1
-    generic map(
-      INIT => X"1"
-    )
-        port map (
-      I0 => reset_n,
+      I0 => \FSM_onehot_state_reg_n_0_[4]\,
+      I1 => led_clk_i_2_n_0,
+      I2 => \word_cnt[4]_i_3_n_0\,
+      I3 => \word_cnt[4]_i_4_n_0\,
+      I4 => \FSM_onehot_state_reg_n_0_[0]\,
       O => \word_cnt[4]_i_1_n_0\
     );
 \word_cnt[4]_i_2\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"00000000000010FF"
-    )
-        port map (
-      I0 => \word_cnt[4]_i_4_n_0\,
-      I1 => led_clk_i_2_n_0,
-      I2 => \word_cnt[4]_i_5_n_0\,
-      I3 => state(2),
-      I4 => state(0),
-      I5 => state(1),
-      O => \word_cnt[4]_i_2_n_0\
-    );
-\word_cnt[4]_i_3\: unisim.vcomponents.LUT6
-    generic map(
       INIT => X"2888888888888888"
     )
         port map (
-      I0 => \word_cnt[4]_i_6_n_0\,
+      I0 => \FSM_onehot_state_reg_n_0_[4]\,
       I1 => \word_cnt_reg_n_0_[4]\,
       I2 => \word_cnt_reg_n_0_[1]\,
       I3 => \word_cnt_reg_n_0_[0]\,
@@ -760,39 +933,29 @@ led_data_reg: unisim.vcomponents.FDRE
       I5 => \word_cnt_reg_n_0_[2]\,
       O => word_cnt(4)
     );
+\word_cnt[4]_i_3\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"FEFFFFFF"
+    )
+        port map (
+      I0 => \word_cnt_reg_n_0_[3]\,
+      I1 => \word_cnt_reg_n_0_[1]\,
+      I2 => \word_cnt_reg_n_0_[2]\,
+      I3 => \word_cnt_reg_n_0_[4]\,
+      I4 => \word_cnt_reg_n_0_[0]\,
+      O => \word_cnt[4]_i_3_n_0\
+    );
 \word_cnt[4]_i_4\: unisim.vcomponents.LUT5
     generic map(
       INIT => X"FFFFFFFE"
     )
         port map (
-      I0 => bit_cnt(3),
-      I1 => bit_cnt(1),
-      I2 => bit_cnt(0),
-      I3 => bit_cnt(2),
-      I4 => bit_cnt(4),
+      I0 => \bit_cnt_reg_n_0_[3]\,
+      I1 => \bit_cnt_reg_n_0_[1]\,
+      I2 => \bit_cnt_reg_n_0_[0]\,
+      I3 => \bit_cnt_reg_n_0_[2]\,
+      I4 => \bit_cnt_reg_n_0_[4]\,
       O => \word_cnt[4]_i_4_n_0\
-    );
-\word_cnt[4]_i_5\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"FFFFFFFD"
-    )
-        port map (
-      I0 => \word_cnt_reg_n_0_[4]\,
-      I1 => \word_cnt_reg_n_0_[0]\,
-      I2 => \word_cnt_reg_n_0_[1]\,
-      I3 => \word_cnt_reg_n_0_[2]\,
-      I4 => \word_cnt_reg_n_0_[3]\,
-      O => \word_cnt[4]_i_5_n_0\
-    );
-\word_cnt[4]_i_6\: unisim.vcomponents.LUT3
-    generic map(
-      INIT => X"10"
-    )
-        port map (
-      I0 => state(1),
-      I1 => state(0),
-      I2 => state(2),
-      O => \word_cnt[4]_i_6_n_0\
     );
 \word_cnt_reg[0]\: unisim.vcomponents.FDRE
     generic map(
@@ -800,10 +963,10 @@ led_data_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => clk_100Mhz,
-      CE => \word_cnt[4]_i_2_n_0\,
-      D => word_cnt(0),
+      CE => \word_cnt[4]_i_1_n_0\,
+      D => \word_cnt[0]_i_1_n_0\,
       Q => \word_cnt_reg_n_0_[0]\,
-      R => \word_cnt[4]_i_1_n_0\
+      R => \FSM_onehot_state[4]_i_1_n_0\
     );
 \word_cnt_reg[1]\: unisim.vcomponents.FDRE
     generic map(
@@ -811,10 +974,10 @@ led_data_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => clk_100Mhz,
-      CE => \word_cnt[4]_i_2_n_0\,
+      CE => \word_cnt[4]_i_1_n_0\,
       D => word_cnt(1),
       Q => \word_cnt_reg_n_0_[1]\,
-      R => \word_cnt[4]_i_1_n_0\
+      R => \FSM_onehot_state[4]_i_1_n_0\
     );
 \word_cnt_reg[2]\: unisim.vcomponents.FDRE
     generic map(
@@ -822,10 +985,10 @@ led_data_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => clk_100Mhz,
-      CE => \word_cnt[4]_i_2_n_0\,
+      CE => \word_cnt[4]_i_1_n_0\,
       D => word_cnt(2),
       Q => \word_cnt_reg_n_0_[2]\,
-      R => \word_cnt[4]_i_1_n_0\
+      R => \FSM_onehot_state[4]_i_1_n_0\
     );
 \word_cnt_reg[3]\: unisim.vcomponents.FDRE
     generic map(
@@ -833,10 +996,10 @@ led_data_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => clk_100Mhz,
-      CE => \word_cnt[4]_i_2_n_0\,
+      CE => \word_cnt[4]_i_1_n_0\,
       D => word_cnt(3),
       Q => \word_cnt_reg_n_0_[3]\,
-      R => \word_cnt[4]_i_1_n_0\
+      R => \FSM_onehot_state[4]_i_1_n_0\
     );
 \word_cnt_reg[4]\: unisim.vcomponents.FDRE
     generic map(
@@ -844,10 +1007,10 @@ led_data_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => clk_100Mhz,
-      CE => \word_cnt[4]_i_2_n_0\,
+      CE => \word_cnt[4]_i_1_n_0\,
       D => word_cnt(4),
       Q => \word_cnt_reg_n_0_[4]\,
-      R => \word_cnt[4]_i_1_n_0\
+      R => \FSM_onehot_state[4]_i_1_n_0\
     );
 end STRUCTURE;
 library IEEE;
@@ -858,9 +1021,9 @@ entity design_1_top_system_0_1_top_system is
   port (
     led_clk : out STD_LOGIC;
     led_data : out STD_LOGIC;
-    reset_n : in STD_LOGIC;
     clk_100Mhz : in STD_LOGIC;
     btn_send : in STD_LOGIC;
+    reset_n : in STD_LOGIC;
     btn_prepare : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;

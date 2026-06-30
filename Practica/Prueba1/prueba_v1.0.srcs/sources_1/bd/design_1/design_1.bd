@@ -1,13 +1,14 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x3F372C061C7502AA",
+      "boundary_crc": "0x3F372C06EAD272DE",
       "device": "xc7a100tcsg324-1",
       "gen_directory": "../../../../prueba_v1.0.gen/sources_1/bd/design_1",
       "name": "design_1",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2025.1"
+      "tool_version": "2025.1",
+      "validated": "true"
     },
     "design_tree": {
       "top_system_0": "",
@@ -19,7 +20,17 @@
       },
       "reset_n_0": {
         "type": "rst",
-        "direction": "I"
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_LOW",
+            "value_src": "default"
+          }
+        }
       },
       "btn_prepare_0": {
         "direction": "I"
@@ -29,7 +40,29 @@
       },
       "led_clk_0": {
         "type": "clk",
-        "direction": "O"
+        "direction": "O",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "design_1_top_system_0_1_led_clk",
+            "value_src": "default_prop"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
       },
       "led_data_0": {
         "direction": "O"

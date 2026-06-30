@@ -45,54 +45,19 @@
                                         ]
                                     }
                                 ]
-                            },
-                            {
-                                "name": "probe1",
-                                "id": 1,
-                                "type": "DATA_TRIGGER",
-                                "direction": "IN",
-                                "isVector": false,
-                                "leftIndex": 0,
-                                "rightIndex": 0,
-                                "portIndex": 1,
-                                "nets": [
-                                    {
-                                        "name": "design_1_i/system_ila_0/U0/probe1",
-                                        "isBus": true,
-                                        "subnets": [
-                                            {
-                                                "name": "design_1_i/system_ila_0/U0/probe1[0]"
-                                            }
-                                        ]
-                                    }
-                                ]
                             }
                         ],
                         "native_ports": [
                             {
                                 "name": "probe0",
+                                "connectedBus": "top_system_0_led_data",
+                                "protocol": "PROBE",
                                 "port_maps": [
                                     {
                                         "logical_port": "probe0",
                                         "physical_pin": {
                                             "id": 0,
                                             "name": "probe0",
-                                            "leftBit": 0,
-                                            "width": 1
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "probe1",
-                                "connectedBus": "i2c_sda_0",
-                                "protocol": "PROBE",
-                                "port_maps": [
-                                    {
-                                        "logical_port": "probe1",
-                                        "physical_pin": {
-                                            "id": 1,
-                                            "name": "probe1",
                                             "leftBit": 0,
                                             "width": 1
                                         }

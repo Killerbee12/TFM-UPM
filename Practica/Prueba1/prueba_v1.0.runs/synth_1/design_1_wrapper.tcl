@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "D:/Master_local/TFM/Prueba1/prueba_v1.0.runs/synth_1/design_1_wrapper.tcl"
+  variable script "C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/synth_1/design_1_wrapper.tcl"
   variable category "vivado_synth"
 }
 
@@ -57,8 +57,9 @@ if {$::dispatch::connected} {
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
 set_param tcl.collectionResultDisplayLimit 0
-set_param chipscope.maxJobs 1
+set_param chipscope.maxJobs 3
 set_param general.usePosixSpawnForFork 1
+set_param bd.open.in_stealth_mode 1
 set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a100tcsg324-1
@@ -67,27 +68,24 @@ set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
-set_property webtalk.parent_dir D:/Master_local/TFM/Prueba1/prueba_v1.0.cache/wt [current_project]
-set_property parent.project_path D:/Master_local/TFM/Prueba1/prueba_v1.0.xpr [current_project]
+set_property webtalk.parent_dir C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.cache/wt [current_project]
+set_property parent.project_path C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.xpr [current_project]
 set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language VHDL [current_project]
-set_property ip_output_repo d:/Master_local/TFM/Prueba1/prueba_v1.0.cache/ip [current_project]
+set_property ip_output_repo c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_vhdl -library xil_defaultlib d:/Master_local/TFM/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/hdl/design_1_wrapper.vhd
-add_files D:/Master_local/TFM/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/design_1.bd
-set_property used_in_implementation false [get_files -all d:/Master_local/TFM/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_clk_wiz_0/design_1_clk_wiz_0_board.xdc]
-set_property used_in_implementation false [get_files -all d:/Master_local/TFM/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_clk_wiz_0/design_1_clk_wiz_0.xdc]
-set_property used_in_implementation false [get_files -all d:/Master_local/TFM/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_clk_wiz_0/design_1_clk_wiz_0_ooc.xdc]
-set_property used_in_synthesis false [get_files -all d:/Master_local/TFM/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_2/bd_0/ip/ip_0/ila_v6_2/constraints/ila_impl.xdc]
-set_property used_in_implementation false [get_files -all d:/Master_local/TFM/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_2/bd_0/ip/ip_0/ila_v6_2/constraints/ila_impl.xdc]
-set_property used_in_implementation false [get_files -all d:/Master_local/TFM/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_2/bd_0/ip/ip_0/ila_v6_2/constraints/ila.xdc]
-set_property used_in_implementation false [get_files -all d:/Master_local/TFM/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_2/bd_0/ip/ip_0/bd_378d_ila_lib_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all d:/Master_local/TFM/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_2/bd_0/bd_378d_ooc.xdc]
-set_property used_in_implementation false [get_files -all d:/Master_local/TFM/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_2/design_1_system_ila_0_2_ooc.xdc]
-set_property used_in_implementation false [get_files -all d:/Master_local/TFM/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/design_1_ooc.xdc]
+read_vhdl -library xil_defaultlib C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/hdl/design_1_wrapper.vhd
+add_files C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/design_1.bd
+set_property used_in_synthesis false [get_files -all c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/ila_v6_2/constraints/ila_impl.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/ila_v6_2/constraints/ila_impl.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/ila_v6_2/constraints/ila.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/bd_f60c_ila_lib_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/bd_f60c_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/design_1_system_ila_0_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/design_1_ooc.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -98,14 +96,14 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc D:/Master_local/TFM/Prueba1/prueba_v1.0.srcs/constrs_1/new/Nexys4DDR.xdc
-set_property used_in_implementation false [get_files D:/Master_local/TFM/Prueba1/prueba_v1.0.srcs/constrs_1/new/Nexys4DDR.xdc]
+read_xdc C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/constrs_1/new/Nexys4DDR.xdc
+set_property used_in_implementation false [get_files C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/constrs_1/new/Nexys4DDR.xdc]
 
 read_xdc dont_touch.xdc
 set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
 
-read_checkpoint -auto_incremental -incremental D:/Master_local/TFM/Prueba1/prueba_v1.0.srcs/utils_1/imports/synth_1/top_system.dcp
+read_checkpoint -auto_incremental -incremental C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/utils_1/imports/synth_1/top_system.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
