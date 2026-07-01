@@ -19,7 +19,7 @@ end apa102_ctrl;
 
 architecture Behavioral of apa102_ctrl is
 
-    -- Ahora tenemos 1 trama de inicio + 16 de LEDs + 1 de fin = 18 tramas (índices 0 a 17)
+    --tenemos 1 trama de inicio + 16 de LEDs + 1 de fin = 18 tramas (índices 0 a 17)
     type frame_array_t is array (0 to 17) of std_logic_vector(31 downto 0);
     signal tx_buffer : frame_array_t;
     
@@ -29,7 +29,7 @@ architecture Behavioral of apa102_ctrl is
     signal word_cnt : integer range 0 to 17 := 0;
     signal bit_cnt  : integer range 0 to 31 := 31;
     
-    -- Reloj a 100 kHz para máxima fiabilidad con los cables Dupont
+    -- Reloj a 100 kHz 
     signal clk_div  : integer range 0 to 499 := 0;
     
     signal btn_prep_reg : std_logic := '0';
