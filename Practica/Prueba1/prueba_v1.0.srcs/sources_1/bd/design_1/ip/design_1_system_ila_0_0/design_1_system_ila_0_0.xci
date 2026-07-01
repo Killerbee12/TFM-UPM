@@ -8,8 +8,8 @@
     "gen_directory": "../../../../../../prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0",
     "parameters": {
       "component_parameters": {
-        "C_EN_TIME_TAG": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "all" } ],
-        "C_TIME_TAG_WIDTH": [ { "value": "32", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "C_EN_TIME_TAG": [ { "value": "0", "resolve_type": "user", "format": "long", "enabled": false, "usage": "all" } ],
+        "C_TIME_TAG_WIDTH": [ { "value": "32", "resolve_type": "user", "format": "long", "enabled": false, "usage": "all" } ],
         "C_SLOT": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "C_SLOT_15_TYPE": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "C_SLOT_14_TYPE": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "all" } ],
@@ -2715,11 +2715,11 @@
         "C_PROBE2_WIDTH": [ { "value": "1", "resolve_type": "user", "format": "long", "enabled": false, "usage": "all" } ],
         "C_PROBE1_WIDTH": [ { "value": "1", "resolve_type": "user", "format": "long", "enabled": false, "usage": "all" } ],
         "C_PROBE0_WIDTH": [ { "value": "1", "resolve_type": "user", "format": "long", "enabled": false, "usage": "all" } ],
-        "C_DATA_DEPTH": [ { "value": "1024", "resolve_type": "user", "format": "long", "usage": "all" } ],
-        "C_NUM_OF_PROBES": [ { "value": "1", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "C_DATA_DEPTH": [ { "value": "4096", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "C_NUM_OF_PROBES": [ { "value": "2", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "C_XLNX_HW_PROBE_INFO": [ { "value": "DEFAULT", "resolve_type": "user", "usage": "all" } ],
         "Component_Name": [ { "value": "design_1_system_ila_0_0", "resolve_type": "user", "usage": "all" } ],
-        "C_PROBE70_WIDTH": [ { "value": "1", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "C_PROBE70_WIDTH": [ { "value": "1", "resolve_type": "user", "format": "long", "enabled": false, "usage": "all" } ],
         "C_TRIGOUT_EN": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
         "C_EN_STRG_QUAL": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "C_INPUT_PIPE_STAGES": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "all" } ],
@@ -4009,7 +4009,8 @@
     "boundary": {
       "ports": {
         "clk": [ { "direction": "in" } ],
-        "probe0": [ { "direction": "in", "size_left": "0", "size_right": "0", "driver_value": "0" } ]
+        "probe0": [ { "direction": "in", "size_left": "0", "size_right": "0", "driver_value": "0" } ],
+        "probe1": [ { "direction": "in", "size_left": "0", "size_right": "0", "driver_value": "0" } ]
       },
       "interfaces": {
         "CLK.clk": {

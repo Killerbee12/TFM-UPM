@@ -59,6 +59,11 @@ ENTITY design_1_top_system_0_1 IS
     reset_n : IN STD_LOGIC;
     btn_prepare : IN STD_LOGIC;
     btn_send : IN STD_LOGIC;
+    btn_up_0 : IN STD_LOGIC;
+    btn_down_0 : IN STD_LOGIC;
+    seg_out_0 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+    seg_an_0 : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+    seg_dp_0 : OUT STD_LOGIC;
     led_clk : OUT STD_LOGIC;
     led_data : OUT STD_LOGIC
   );
@@ -73,6 +78,11 @@ ARCHITECTURE design_1_top_system_0_1_arch OF design_1_top_system_0_1 IS
       reset_n : IN STD_LOGIC;
       btn_prepare : IN STD_LOGIC;
       btn_send : IN STD_LOGIC;
+      btn_up_0 : IN STD_LOGIC;
+      btn_down_0 : IN STD_LOGIC;
+      seg_out_0 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+      seg_an_0 : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+      seg_dp_0 : OUT STD_LOGIC;
       led_clk : OUT STD_LOGIC;
       led_data : OUT STD_LOGIC
     );
@@ -101,6 +111,11 @@ BEGIN
       reset_n => reset_n,
       btn_prepare => btn_prepare,
       btn_send => btn_send,
+      btn_up_0 => btn_up_0,
+      btn_down_0 => btn_down_0,
+      seg_out_0 => seg_out_0,
+      seg_an_0 => seg_an_0,
+      seg_dp_0 => seg_dp_0,
       led_clk => led_clk,
       led_data => led_data
     );

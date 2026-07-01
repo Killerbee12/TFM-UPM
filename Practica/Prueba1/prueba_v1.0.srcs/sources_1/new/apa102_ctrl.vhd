@@ -8,9 +8,12 @@ entity apa102_ctrl is
         reset_n     : in  STD_LOGIC;
         btn_prepare : in  STD_LOGIC;
         btn_send    : in  STD_LOGIC;
+        btn_up      : in  STD_LOGIC;
+        btn_down    : in  STD_LOGIC;
         
         led_clk     : out STD_LOGIC;
-        led_data    : out STD_LOGIC
+        led_data    : out STD_LOGIC;
+        current_rgb : out STD_LOGIC_VECTOR(23 downto 0)
     );
 end apa102_ctrl;
 
@@ -31,8 +34,22 @@ architecture Behavioral of apa102_ctrl is
     
     signal btn_prep_reg : std_logic := '0';
     signal btn_send_reg : std_logic := '0';
+    signal btn_up_reg   : std_logic := '0';
+    signal btn_down_reg : std_logic := '0';
+
+    signal color_idx : integer range 0 to 26 := 0;
+    
+    type color_rom_t is array(0 to 26) of std_logic_vector(23 downto 0);
+    -- Formato: BB_GG_RR
+    constant COLOR_ROM : color_rom_t := (
+        x"000000", x"000080", x"0000FF", x"008000", x"008080", x"0080FF", x"00FF00", x"00FF80", x"00FFFF",
+        x"800000", x"800080", x"8000FF", x"808000", x"808080", x"8080FF", x"80FF00", x"80FF80", x"80FFFF",
+        x"FF0000", x"FF0080", x"FF00FF", x"FF8000", x"FF8080", x"FF80FF", x"FFFF00", x"FFFF80", x"FFFFFF"
+    );
 
 begin
+    
+    current_rgb <= COLOR_ROM(color_idx);
 
     process(clk_100MHz)
     begin
@@ -46,6 +63,23 @@ begin
             else
                 btn_prep_reg <= btn_prepare;
                 btn_send_reg <= btn_send;
+                btn_up_reg   <= btn_up;
+                btn_down_reg <= btn_down;
+
+                -- Color cycle logic
+                if btn_up = '1' and btn_up_reg = '0' then
+                    if color_idx = 26 then
+                        color_idx <= 0;
+                    else
+                        color_idx <= color_idx + 1;
+                    end if;
+                elsif btn_down = '1' and btn_down_reg = '0' then
+                    if color_idx = 0 then
+                        color_idx <= 26;
+                    else
+                        color_idx <= color_idx - 1;
+                    end if;
+                end if;
 
                 case state is
                     when IDLE =>
@@ -64,13 +98,8 @@ begin
                         
                         -- Generamos los colores para los 16 LEDs
                         for i in 1 to 16 loop
-                            if (i mod 2 = 0) then
-                                -- Color 1
-                                tx_buffer(i) <= x"FF0000FF";
-                            else
-                                -- Color 2
-                                tx_buffer(i) <= x"FFFF0000";
-                            end if;
+                            -- Añadimos x"FF" (Global Brightness Max) + El color actual
+                            tx_buffer(i) <= x"FF" & COLOR_ROM(color_idx);
                         end loop;
                         
                         -- End Frame

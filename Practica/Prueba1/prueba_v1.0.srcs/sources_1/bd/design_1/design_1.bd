@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x3F372C06EAD272DE",
+      "boundary_crc": "0x93A03BCB3136C5F7",
       "device": "xc7a100tcsg324-1",
       "gen_directory": "../../../../prueba_v1.0.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -66,6 +66,25 @@
       },
       "led_data_0": {
         "direction": "O"
+      },
+      "seg_out_0_0": {
+        "direction": "O",
+        "left": "6",
+        "right": "0"
+      },
+      "seg_an_0_0": {
+        "direction": "O",
+        "left": "7",
+        "right": "0"
+      },
+      "seg_dp_0_0": {
+        "direction": "O"
+      },
+      "btn_up_0_0": {
+        "direction": "I"
+      },
+      "btn_down_0_0": {
+        "direction": "I"
       }
     },
     "components": {
@@ -95,6 +114,25 @@
           "btn_send": {
             "direction": "I"
           },
+          "btn_up_0": {
+            "direction": "I"
+          },
+          "btn_down_0": {
+            "direction": "I"
+          },
+          "seg_out_0": {
+            "direction": "O",
+            "left": "6",
+            "right": "0"
+          },
+          "seg_an_0": {
+            "direction": "O",
+            "left": "7",
+            "right": "0"
+          },
+          "seg_dp_0": {
+            "direction": "O"
+          },
           "led_clk": {
             "type": "clk",
             "direction": "O"
@@ -112,11 +150,14 @@
         "inst_hier_path": "system_ila_0",
         "has_run_ip_tcl": "true",
         "parameters": {
+          "C_DATA_DEPTH": {
+            "value": "4096"
+          },
           "C_MON_TYPE": {
             "value": "NATIVE"
           },
           "C_NUM_OF_PROBES": {
-            "value": "1"
+            "value": "2"
           },
           "C_PROBE0_TYPE": {
             "value": "0"
@@ -125,6 +166,12 @@
       }
     },
     "nets": {
+      "btn_down_0_0_1": {
+        "ports": [
+          "btn_down_0_0",
+          "top_system_0/btn_down_0"
+        ]
+      },
       "btn_prepare_0_1": {
         "ports": [
           "btn_prepare_0",
@@ -137,11 +184,17 @@
           "top_system_0/btn_send"
         ]
       },
+      "btn_up_0_0_1": {
+        "ports": [
+          "btn_up_0_0",
+          "top_system_0/btn_up_0"
+        ]
+      },
       "clk_100Mhz_0_1": {
         "ports": [
           "clk_100Mhz_0",
-          "top_system_0/clk_100Mhz",
-          "system_ila_0/clk"
+          "system_ila_0/clk",
+          "top_system_0/clk_100Mhz"
         ]
       },
       "reset_n_0_1": {
@@ -153,8 +206,17 @@
       "top_system_0_led_clk": {
         "ports": [
           "top_system_0/led_clk",
-          "led_clk_0"
-        ]
+          "led_clk_0",
+          "system_ila_0/probe1"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       },
       "top_system_0_led_data": {
         "ports": [
@@ -170,6 +232,24 @@
             "value": "true"
           }
         }
+      },
+      "top_system_0_seg_an_0": {
+        "ports": [
+          "top_system_0/seg_an_0",
+          "seg_an_0_0"
+        ]
+      },
+      "top_system_0_seg_dp_0": {
+        "ports": [
+          "top_system_0/seg_dp_0",
+          "seg_dp_0_0"
+        ]
+      },
+      "top_system_0_seg_out_0": {
+        "ports": [
+          "top_system_0/seg_out_0",
+          "seg_out_0_0"
+        ]
       }
     }
   }

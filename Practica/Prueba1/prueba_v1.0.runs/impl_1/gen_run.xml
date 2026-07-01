@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1782833763">
+<GenRun Id="impl_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1782861366">
   <File Type="PA-TCL" Name="design_1_wrapper.tcl"/>
   <File Type="REPORTS-TCL" Name="design_1_wrapper_reports.tcl"/>
   <File Type="INIT-TIMING" Name="design_1_wrapper_timing_summary_init.rpt"/>
@@ -196,5 +196,4 @@
     <Step Id="write_bitstream"/>
   </Strategy>
   <BlockFileSet Type="BlockSrcs" Name="design_1_top_system_0_1"/>
-  <BlockFileSet Type="BlockSrcs" Name="design_1_system_ila_0_0"/>
 </GenRun>

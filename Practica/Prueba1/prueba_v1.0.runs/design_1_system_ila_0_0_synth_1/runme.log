@@ -8,20 +8,17 @@
   **** SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
   **** IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
   **** SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-  **** Start of session at: Mon Jun 29 20:43:56 2026
+  **** Start of session at: Wed Jul  1 00:57:03 2026
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
     ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 
 source design_1_system_ila_0_0.tcl -notrace
-create_project: Time (s): cpu = 00:00:13 ; elapsed = 00:00:09 . Memory (MB): peak = 499.742 ; gain = 216.602
+create_project: Time (s): cpu = 00:00:16 ; elapsed = 00:00:11 . Memory (MB): peak = 530.910 ; gain = 246.688
 Command: synth_design -top design_1_system_ila_0_0 -part xc7a100tcsg324-1 -incremental_mode off -mode out_of_context
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
 INFO: [Device 21-403] Loading part xc7a100tcsg324-1
-INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
-INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 21072
 
 *** Running vivado
     with args -log design_1_system_ila_0_0.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_system_ila_0_0.tcl
@@ -32,12 +29,12 @@ INFO: [Synth 8-7075] Helper process launched with PID 21072
   **** SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
   **** IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
   **** SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-  **** Start of session at: Mon Jun 29 20:44:42 2026
+  **** Start of session at: Wed Jul  1 01:10:20 2026
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
     ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 
 source design_1_system_ila_0_0.tcl -notrace
-create_project: Time (s): cpu = 00:00:13 ; elapsed = 00:00:09 . Memory (MB): peak = 499.477 ; gain = 216.801
+create_project: Time (s): cpu = 00:00:15 ; elapsed = 00:00:10 . Memory (MB): peak = 533.000 ; gain = 248.141
 Command: synth_design -top design_1_system_ila_0_0 -part xc7a100tcsg324-1 -incremental_mode off -mode out_of_context
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
@@ -45,116 +42,116 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100
 INFO: [Device 21-403] Loading part xc7a100tcsg324-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 5684
+INFO: [Synth 8-7075] Helper process launched with PID 9952
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 1248.703 ; gain = 493.977
+Starting RTL Elaboration : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1277.230 ; gain = 492.367
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:30]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:32]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:69]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:71]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:109]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:111]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:150]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:152]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:192]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:194]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:235]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:237]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:279]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:281]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:324]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:326]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:370]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:372]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:417]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:419]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:465]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:467]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:514]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:516]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:564]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:566]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:615]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:617]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:30]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:32]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:69]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:71]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:109]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:111]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:150]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:152]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:192]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:194]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:235]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:237]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:279]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:281]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:324]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:326]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:370]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:372]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:417]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:419]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:465]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:467]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:514]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:516]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:564]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:566]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:615]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:617]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:30]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:32]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:65]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:67]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:100]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:102]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:135]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:137]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:170]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:172]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:205]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:207]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:240]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:242]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:275]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:277]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:310]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:312]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:345]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:347]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:380]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:382]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:415]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:417]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:450]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:452]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:485]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:487]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:30]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:32]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:65]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:67]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:100]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:102]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:135]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:137]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:170]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:172]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:205]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:207]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:240]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:242]
-INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:275]
-INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:277]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:30]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:32]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:69]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:71]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:109]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:111]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:150]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:152]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:192]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:194]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:235]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:237]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:279]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:281]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:324]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:326]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:370]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:372]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:417]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:419]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:465]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:467]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:514]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:516]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:564]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:566]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:615]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_ext.vh:617]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:30]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:32]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:69]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:71]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:109]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:111]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:150]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:152]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:192]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:194]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:235]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:237]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:279]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:281]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:324]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:326]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:370]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:372]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:417]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:419]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:465]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:467]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:514]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:516]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:564]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:566]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:615]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core.vh:617]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:30]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:32]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:65]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:67]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:100]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:102]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:135]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:137]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:170]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:172]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:205]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:207]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:240]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:242]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:275]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:277]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:310]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:312]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:345]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:347]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:380]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:382]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:415]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:417]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:450]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:452]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:485]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:487]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:30]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:32]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:65]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:67]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:100]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:102]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:135]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:137]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:170]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:172]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:205]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:207]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:240]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:242]
+INFO: [Synth 8-11241] undeclared symbol 'tms_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:275]
+INFO: [Synth 8-11241] undeclared symbol 'runtest_int', assumed default net type 'wire' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/537f/hdl/verilog/xsdbm_v3_0_4_bs_core_vec.vh:277]
 INFO: [Common 17-14] Message 'Synth 8-11241' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-INFO: [Synth 8-638] synthesizing module 'design_1_system_ila_0_0' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/synth/design_1_system_ila_0_0.vhd:63]
-INFO: [Synth 8-3491] module 'bd_f60c' declared at 'c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/synth/bd_f60c.vhd:12' bound to instance 'U0' of component 'bd_f60c' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/synth/design_1_system_ila_0_0.vhd:252]
-INFO: [Synth 8-638] synthesizing module 'bd_f60c' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/synth/bd_f60c.vhd:23]
-INFO: [Synth 8-3491] module 'bd_f60c_ila_lib_0' declared at 'c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/synth/bd_f60c_ila_lib_0.vhd:53' bound to instance 'ila_lib' of component 'bd_f60c_ila_lib_0' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/synth/bd_f60c.vhd:35]
-INFO: [Synth 8-638] synthesizing module 'bd_f60c_ila_lib_0' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/synth/bd_f60c_ila_lib_0.vhd:62]
+INFO: [Synth 8-638] synthesizing module 'design_1_system_ila_0_0' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/synth/design_1_system_ila_0_0.vhd:64]
+INFO: [Synth 8-3491] module 'bd_f60c' declared at 'd:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/synth/bd_f60c.vhd:12' bound to instance 'U0' of component 'bd_f60c' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/synth/design_1_system_ila_0_0.vhd:254]
+INFO: [Synth 8-638] synthesizing module 'bd_f60c' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/synth/bd_f60c.vhd:24]
+INFO: [Synth 8-3491] module 'bd_f60c_ila_lib_0' declared at 'd:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/synth/bd_f60c_ila_lib_0.vhd:53' bound to instance 'ila_lib' of component 'bd_f60c_ila_lib_0' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/synth/bd_f60c.vhd:37]
+INFO: [Synth 8-638] synthesizing module 'bd_f60c_ila_lib_0' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/synth/bd_f60c_ila_lib_0.vhd:63]
 	Parameter C_XLNX_HW_PROBE_INFO bound to: DEFAULT - type: string 
 	Parameter C_XDEVICEFAMILY bound to: artix7 - type: string 
 	Parameter C_CORE_TYPE bound to: 1 - type: integer 
@@ -163,8 +160,8 @@ INFO: [Synth 8-638] synthesizing module 'bd_f60c_ila_lib_0' [c:/Users/kille/Docu
 	Parameter C_CAPTURE_TYPE bound to: 0 - type: integer 
 	Parameter C_MU_TYPE bound to: 0 - type: integer 
 	Parameter C_TC_TYPE bound to: 0 - type: integer 
-	Parameter C_NUM_OF_PROBES bound to: 1 - type: integer 
-	Parameter C_DATA_DEPTH bound to: 1024 - type: integer 
+	Parameter C_NUM_OF_PROBES bound to: 2 - type: integer 
+	Parameter C_DATA_DEPTH bound to: 4096 - type: integer 
 	Parameter C_MAJOR_VERSION bound to: 2025 - type: integer 
 	Parameter C_MINOR_VERSION bound to: 1 - type: integer 
 	Parameter C_BUILD_REVISION bound to: 0 - type: integer 
@@ -2234,7 +2231,7 @@ INFO: [Synth 8-638] synthesizing module 'bd_f60c_ila_lib_0' [c:/Users/kille/Docu
 	Parameter C_PROBE1022_MU_CNT bound to: 1 - type: integer 
 	Parameter C_PROBE1023_MU_CNT bound to: 1 - type: integer 
 	Parameter C_PROBE0_TYPE bound to: 0 - type: integer 
-	Parameter C_PROBE1_TYPE bound to: 1 - type: integer 
+	Parameter C_PROBE1_TYPE bound to: 0 - type: integer 
 	Parameter C_PROBE2_TYPE bound to: 1 - type: integer 
 	Parameter C_PROBE3_TYPE bound to: 1 - type: integer 
 	Parameter C_PROBE4_TYPE bound to: 1 - type: integer 
@@ -3257,31 +3254,34 @@ INFO: [Synth 8-638] synthesizing module 'bd_f60c_ila_lib_0' [c:/Users/kille/Docu
 	Parameter C_PROBE1021_TYPE bound to: 1 - type: integer 
 	Parameter C_PROBE1022_TYPE bound to: 1 - type: integer 
 	Parameter C_PROBE1023_TYPE bound to: 1 - type: integer 
-INFO: [Synth 8-3491] module 'ila_v6_2_18_ila' declared at 'c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/d41f/hdl/ila_v6_2_syn_rfs.v:6191' bound to instance 'U0' of component 'ila_v6_2_18_ila' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/synth/bd_f60c_ila_lib_0.vhd:4247]
-INFO: [Synth 8-6157] synthesizing module 'CFGLUT5' [C:/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:3131]
-INFO: [Synth 8-6155] done synthesizing module 'CFGLUT5' (0#1) [C:/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:3131]
-INFO: [Synth 8-6157] synthesizing module 'CARRY4' [C:/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:3094]
-INFO: [Synth 8-6155] done synthesizing module 'CARRY4' (0#1) [C:/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:3094]
-INFO: [Synth 8-6157] synthesizing module 'SRLC32E' [C:/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:158762]
-INFO: [Synth 8-6155] done synthesizing module 'SRLC32E' (0#1) [C:/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:158762]
-INFO: [Synth 8-6157] synthesizing module 'SRL16E' [C:/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:158612]
-INFO: [Synth 8-6155] done synthesizing module 'SRL16E' (0#1) [C:/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:158612]
-INFO: [Synth 8-6157] synthesizing module 'SRLC16E' [C:/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:158701]
-INFO: [Synth 8-6155] done synthesizing module 'SRLC16E' (0#1) [C:/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:158701]
-INFO: [Synth 8-6157] synthesizing module 'FDRE' [C:/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:44231]
-INFO: [Synth 8-6155] done synthesizing module 'FDRE' (0#1) [C:/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:44231]
-INFO: [Synth 8-256] done synthesizing module 'bd_f60c_ila_lib_0' (0#1) [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/synth/bd_f60c_ila_lib_0.vhd:62]
-INFO: [Synth 8-256] done synthesizing module 'bd_f60c' (0#1) [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/synth/bd_f60c.vhd:23]
-INFO: [Synth 8-256] done synthesizing module 'design_1_system_ila_0_0' (0#1) [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/synth/design_1_system_ila_0_0.vhd:63]
-WARNING: [Synth 8-3848] Net sl_iport0 in module/entity bd_f60c_ila_lib_0 does not have driver. [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/synth/bd_f60c_ila_lib_0.vhd:4244]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'U0'. This will prevent further optimization [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/synth/design_1_system_ila_0_0.vhd:252]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'ila_lib'. This will prevent further optimization [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/synth/bd_f60c.vhd:35]
+INFO: [Synth 8-3491] module 'ila_v6_2_18_ila' declared at 'd:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ipshared/d41f/hdl/ila_v6_2_syn_rfs.v:6191' bound to instance 'U0' of component 'ila_v6_2_18_ila' [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/synth/bd_f60c_ila_lib_0.vhd:4248]
+INFO: [Synth 8-6157] synthesizing module 'CFGLUT5' [D:/Universidad_programas/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:3131]
+INFO: [Synth 8-6155] done synthesizing module 'CFGLUT5' (0#1) [D:/Universidad_programas/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:3131]
+INFO: [Synth 8-6157] synthesizing module 'CARRY4' [D:/Universidad_programas/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:3094]
+INFO: [Synth 8-6155] done synthesizing module 'CARRY4' (0#1) [D:/Universidad_programas/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:3094]
+INFO: [Synth 8-6157] synthesizing module 'SRLC32E' [D:/Universidad_programas/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:158762]
+INFO: [Synth 8-6155] done synthesizing module 'SRLC32E' (0#1) [D:/Universidad_programas/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:158762]
+INFO: [Synth 8-6157] synthesizing module 'SRL16E' [D:/Universidad_programas/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:158612]
+INFO: [Synth 8-6155] done synthesizing module 'SRL16E' (0#1) [D:/Universidad_programas/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:158612]
+INFO: [Synth 8-6157] synthesizing module 'SRLC16E' [D:/Universidad_programas/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:158701]
+INFO: [Synth 8-6155] done synthesizing module 'SRLC16E' (0#1) [D:/Universidad_programas/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:158701]
+INFO: [Synth 8-6157] synthesizing module 'FDRE' [D:/Universidad_programas/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:44231]
+INFO: [Synth 8-6155] done synthesizing module 'FDRE' (0#1) [D:/Universidad_programas/AMD/2025.1/Vivado/scripts/rt/data/unisim_comp.v:44231]
+INFO: [Synth 8-256] done synthesizing module 'bd_f60c_ila_lib_0' (0#1) [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/synth/bd_f60c_ila_lib_0.vhd:63]
+INFO: [Synth 8-256] done synthesizing module 'bd_f60c' (0#1) [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/synth/bd_f60c.vhd:24]
+INFO: [Synth 8-256] done synthesizing module 'design_1_system_ila_0_0' (0#1) [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/synth/design_1_system_ila_0_0.vhd:64]
+WARNING: [Synth 8-3848] Net sl_iport0 in module/entity bd_f60c_ila_lib_0 does not have driver. [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/synth/bd_f60c_ila_lib_0.vhd:4245]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'U0'. This will prevent further optimization [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/synth/design_1_system_ila_0_0.vhd:254]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'ila_lib'. This will prevent further optimization [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/synth/bd_f60c.vhd:37]
 WARNING: [Synth 8-7129] Port SEL_I[0] in module ltlib_v1_0_3_generic_mux is either unconnected or has no load
 WARNING: [Synth 8-7129] Port CLKB in module blk_mem_gen_v8_4_11_blk_mem_output_block is either unconnected or has no load
+WARNING: [Synth 8-7129] Port DOUTA_I[2] in module blk_mem_gen_v8_4_11_blk_mem_output_block is either unconnected or has no load
 WARNING: [Synth 8-7129] Port DOUTA_I[1] in module blk_mem_gen_v8_4_11_blk_mem_output_block is either unconnected or has no load
 WARNING: [Synth 8-7129] Port DOUTA_I[0] in module blk_mem_gen_v8_4_11_blk_mem_output_block is either unconnected or has no load
 WARNING: [Synth 8-7129] Port SBITERR_I in module blk_mem_gen_v8_4_11_blk_mem_output_block is either unconnected or has no load
 WARNING: [Synth 8-7129] Port DBITERR_I in module blk_mem_gen_v8_4_11_blk_mem_output_block is either unconnected or has no load
+WARNING: [Synth 8-7129] Port RDADDRECC_I[11] in module blk_mem_gen_v8_4_11_blk_mem_output_block is either unconnected or has no load
+WARNING: [Synth 8-7129] Port RDADDRECC_I[10] in module blk_mem_gen_v8_4_11_blk_mem_output_block is either unconnected or has no load
 WARNING: [Synth 8-7129] Port RDADDRECC_I[9] in module blk_mem_gen_v8_4_11_blk_mem_output_block is either unconnected or has no load
 WARNING: [Synth 8-7129] Port RDADDRECC_I[8] in module blk_mem_gen_v8_4_11_blk_mem_output_block is either unconnected or has no load
 WARNING: [Synth 8-7129] Port RDADDRECC_I[7] in module blk_mem_gen_v8_4_11_blk_mem_output_block is either unconnected or has no load
@@ -3292,20 +3292,6 @@ WARNING: [Synth 8-7129] Port RDADDRECC_I[3] in module blk_mem_gen_v8_4_11_blk_me
 WARNING: [Synth 8-7129] Port RDADDRECC_I[2] in module blk_mem_gen_v8_4_11_blk_mem_output_block is either unconnected or has no load
 WARNING: [Synth 8-7129] Port RDADDRECC_I[1] in module blk_mem_gen_v8_4_11_blk_mem_output_block is either unconnected or has no load
 WARNING: [Synth 8-7129] Port RDADDRECC_I[0] in module blk_mem_gen_v8_4_11_blk_mem_output_block is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DOUTA[17] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DOUTA[16] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DOUTA[15] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DOUTA[14] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DOUTA[13] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DOUTA[12] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DOUTA[11] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DOUTA[10] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DOUTA[9] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DOUTA[8] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DOUTA[7] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DOUTA[6] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DOUTA[5] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DOUTA[4] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
 WARNING: [Synth 8-7129] Port DOUTA[3] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
 WARNING: [Synth 8-7129] Port DOUTA[2] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
 WARNING: [Synth 8-7129] Port DOUTA[1] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
@@ -3316,20 +3302,6 @@ WARNING: [Synth 8-7129] Port SSRA in module blk_mem_gen_v8_4_11_blk_mem_gen_prim
 WARNING: [Synth 8-7129] Port REGCEA in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
 WARNING: [Synth 8-7129] Port SSRB in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
 WARNING: [Synth 8-7129] Port WEB[0] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DINB[17] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DINB[16] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DINB[15] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DINB[14] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DINB[13] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DINB[12] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DINB[11] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DINB[10] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DINB[9] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DINB[8] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DINB[7] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DINB[6] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DINB[5] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
-WARNING: [Synth 8-7129] Port DINB[4] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
 WARNING: [Synth 8-7129] Port DINB[3] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
 WARNING: [Synth 8-7129] Port DINB[2] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
 WARNING: [Synth 8-7129] Port DINB[1] in module blk_mem_gen_v8_4_11_blk_mem_gen_prim_wrapper is either unconnected or has no load
@@ -3348,6 +3320,7 @@ WARNING: [Synth 8-7129] Port REGCEA in module blk_mem_gen_v8_4_11_blk_mem_input_
 WARNING: [Synth 8-7129] Port RSTB in module blk_mem_gen_v8_4_11_blk_mem_input_block is either unconnected or has no load
 WARNING: [Synth 8-7129] Port REGCEB in module blk_mem_gen_v8_4_11_blk_mem_input_block is either unconnected or has no load
 WARNING: [Synth 8-7129] Port WEB[0] in module blk_mem_gen_v8_4_11_blk_mem_input_block is either unconnected or has no load
+WARNING: [Synth 8-7129] Port DINB[2] in module blk_mem_gen_v8_4_11_blk_mem_input_block is either unconnected or has no load
 WARNING: [Synth 8-7129] Port DINB[1] in module blk_mem_gen_v8_4_11_blk_mem_input_block is either unconnected or has no load
 WARNING: [Synth 8-7129] Port DINB[0] in module blk_mem_gen_v8_4_11_blk_mem_input_block is either unconnected or has no load
 WARNING: [Synth 8-7129] Port INJECTDBITERR in module blk_mem_gen_v8_4_11_blk_mem_input_block is either unconnected or has no load
@@ -3376,65 +3349,90 @@ WARNING: [Synth 8-7129] Port S_AXI_AWADDR[17] in module blk_mem_gen_v8_4_11_synt
 WARNING: [Synth 8-7129] Port S_AXI_AWADDR[16] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
 WARNING: [Synth 8-7129] Port S_AXI_AWADDR[15] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
 WARNING: [Synth 8-7129] Port S_AXI_AWADDR[14] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[13] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[12] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[11] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[10] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[9] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[8] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[7] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[6] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[5] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[4] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[3] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[2] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[1] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[0] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWLEN[7] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWLEN[6] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWLEN[5] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWLEN[4] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWLEN[3] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWLEN[2] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWLEN[1] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWLEN[0] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWSIZE[2] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWSIZE[1] in module blk_mem_gen_v8_4_11_synth is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:40 ; elapsed = 00:00:44 . Memory (MB): peak = 1797.672 ; gain = 1042.945
+Finished RTL Elaboration : Time (s): cpu = 00:00:48 ; elapsed = 00:00:54 . Memory (MB): peak = 1828.270 ; gain = 1043.406
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:40 ; elapsed = 00:00:44 . Memory (MB): peak = 1797.672 ; gain = 1042.945
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:48 ; elapsed = 00:00:54 . Memory (MB): peak = 1828.270 ; gain = 1043.406
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:40 ; elapsed = 00:00:44 . Memory (MB): peak = 1797.672 ; gain = 1042.945
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:48 ; elapsed = 00:00:54 . Memory (MB): peak = 1828.270 ; gain = 1043.406
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.085 . Memory (MB): peak = 1797.672 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 51 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.122 . Memory (MB): peak = 1828.270 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 58 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/design_1_system_ila_0_0_ooc.xdc] for cell 'U0'
-Finished Parsing XDC File [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/design_1_system_ila_0_0_ooc.xdc] for cell 'U0'
-Parsing XDC File [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/ila_v6_2/constraints/ila.xdc] for cell 'U0/ila_lib/U0'
-Finished Parsing XDC File [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/ila_v6_2/constraints/ila.xdc] for cell 'U0/ila_lib/U0'
-INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/ila_v6_2/constraints/ila.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/design_1_system_ila_0_0_propImpl.xdc].
+Parsing XDC File [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/design_1_system_ila_0_0_ooc.xdc] for cell 'U0'
+Finished Parsing XDC File [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/design_1_system_ila_0_0_ooc.xdc] for cell 'U0'
+Parsing XDC File [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/ila_v6_2/constraints/ila.xdc] for cell 'U0/ila_lib/U0'
+Finished Parsing XDC File [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/ila_v6_2/constraints/ila.xdc] for cell 'U0/ila_lib/U0'
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [d:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/ila_v6_2/constraints/ila.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/design_1_system_ila_0_0_propImpl.xdc].
 Resolution: To avoid this warning, move constraints listed in [.Xil/design_1_system_ila_0_0_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
-Parsing XDC File [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_system_ila_0_0_synth_1/dont_touch.xdc]
-Finished Parsing XDC File [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_system_ila_0_0_synth_1/dont_touch.xdc]
-INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_system_ila_0_0_synth_1/dont_touch.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/design_1_system_ila_0_0_propImpl.xdc].
+Parsing XDC File [D:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_system_ila_0_0_synth_1/dont_touch.xdc]
+Finished Parsing XDC File [D:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_system_ila_0_0_synth_1/dont_touch.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [D:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_system_ila_0_0_synth_1/dont_touch.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/design_1_system_ila_0_0_propImpl.xdc].
 Resolution: To avoid this warning, move constraints listed in [.Xil/design_1_system_ila_0_0_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1797.672 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1828.270 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 37 instances were transformed.
-  CFGLUT5 => CFGLUT5 (SRL16E, SRLC32E): 32 instances
-  CFGLUT5 => SRLC32E: 5 instances
+  A total of 42 instances were transformed.
+  CFGLUT5 => CFGLUT5 (SRL16E, SRLC32E): 36 instances
+  CFGLUT5 => SRLC32E: 6 instances
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.167 . Memory (MB): peak = 1797.672 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.316 . Memory (MB): peak = 1828.270 ; gain = 0.000
 INFO: [Designutils 20-5008] Incremental synthesis strategy off
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:53 ; elapsed = 00:00:59 . Memory (MB): peak = 1797.672 ; gain = 1042.945
+Finished Constraint Validation : Time (s): cpu = 00:01:03 ; elapsed = 00:01:13 . Memory (MB): peak = 1828.270 ; gain = 1043.406
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:53 ; elapsed = 00:00:59 . Memory (MB): peak = 1797.672 ; gain = 1042.945
+Finished Loading Part and Timing Information : Time (s): cpu = 00:01:03 ; elapsed = 00:01:13 . Memory (MB): peak = 1828.270 ; gain = 1043.406
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:54 ; elapsed = 00:01:00 . Memory (MB): peak = 1797.672 ; gain = 1042.945
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:01:03 ; elapsed = 00:01:13 . Memory (MB): peak = 1828.270 ; gain = 1043.406
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'current_state_reg' in module 'xsdbs_v1_0_5_reg_p2s'
 INFO: [Synth 8-802] inferred FSM for state register 'current_state_reg' in module 'xsdbs_v1_0_5_reg_p2s__parameterized0'
 INFO: [Synth 8-802] inferred FSM for state register 'current_state_reg' in module 'xsdbs_v1_0_5_reg_p2s__parameterized1'
+INFO: [Synth 8-802] inferred FSM for state register 'current_state_reg' in module 'xsdbs_v1_0_5_reg_p2s__parameterized2'
 INFO: [Synth 8-802] inferred FSM for state register 'current_state_reg' in module 'ltlib_v1_0_3_generic_memrd'
 ---------------------------------------------------------------------------------------------------
                    State |                     New Encoding |                Previous Encoding 
@@ -3470,6 +3468,16 @@ INFO: [Synth 8-3898] No Re-encoding of one hot register 'current_state_reg' in m
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
 *
+                    IDLE |                             0001 |                             0001
+                     REG |                             0010 |                             0010
+                     P2S |                             0100 |                             0100
+                     S2P |                             1000 |                             1000
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3898] No Re-encoding of one hot register 'current_state_reg' in module 'xsdbs_v1_0_5_reg_p2s__parameterized2'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+*
               RESET_ADDR |                          0000001 |                          0000001
             REQUEST_READ |                          0000010 |                          0000010
            WAIT_READ_ACK |                          0000100 |                          0000100
@@ -3479,7 +3487,7 @@ INFO: [Synth 8-3898] No Re-encoding of one hot register 'current_state_reg' in m
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3898] No Re-encoding of one hot register 'current_state_reg' in module 'ltlib_v1_0_3_generic_memrd'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:56 ; elapsed = 00:01:02 . Memory (MB): peak = 1797.672 ; gain = 1042.945
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:01:05 ; elapsed = 00:01:15 . Memory (MB): peak = 1828.270 ; gain = 1043.406
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -3501,25 +3509,25 @@ Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:07 ; elapsed = 00:01:14 . Memory (MB): peak = 1797.672 ; gain = 1042.945
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:19 ; elapsed = 00:01:30 . Memory (MB): peak = 1828.270 ; gain = 1043.406
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:16 ; elapsed = 00:01:24 . Memory (MB): peak = 1797.672 ; gain = 1042.945
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:30 ; elapsed = 00:01:42 . Memory (MB): peak = 1828.270 ; gain = 1043.406
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:01:17 ; elapsed = 00:01:24 . Memory (MB): peak = 1797.672 ; gain = 1042.945
+Finished Timing Optimization : Time (s): cpu = 00:01:30 ; elapsed = 00:01:42 . Memory (MB): peak = 1828.270 ; gain = 1043.406
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:01:18 ; elapsed = 00:01:26 . Memory (MB): peak = 1797.672 ; gain = 1042.945
+Finished Technology Mapping : Time (s): cpu = 00:01:31 ; elapsed = 00:01:43 . Memory (MB): peak = 1828.270 ; gain = 1043.406
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -3575,37 +3583,37 @@ INFO: [Synth 8-3295] tying undriven pin U0:sl_iport0[2] to constant 0
 INFO: [Synth 8-3295] tying undriven pin U0:sl_iport0[1] to constant 0
 INFO: [Synth 8-3295] tying undriven pin U0:sl_iport0[0] to constant 0
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:01:23 ; elapsed = 00:01:32 . Memory (MB): peak = 1886.680 ; gain = 1131.953
+Finished IO Insertion : Time (s): cpu = 00:01:38 ; elapsed = 00:01:51 . Memory (MB): peak = 1915.121 ; gain = 1130.258
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:01:23 ; elapsed = 00:01:32 . Memory (MB): peak = 1886.680 ; gain = 1131.953
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:38 ; elapsed = 00:01:51 . Memory (MB): peak = 1915.121 ; gain = 1130.258
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:23 ; elapsed = 00:01:32 . Memory (MB): peak = 1886.680 ; gain = 1131.953
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:38 ; elapsed = 00:01:51 . Memory (MB): peak = 1915.121 ; gain = 1130.258
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:01:24 ; elapsed = 00:01:32 . Memory (MB): peak = 1886.680 ; gain = 1131.953
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:38 ; elapsed = 00:01:51 . Memory (MB): peak = 1915.121 ; gain = 1130.258
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:01:24 ; elapsed = 00:01:32 . Memory (MB): peak = 1886.680 ; gain = 1131.953
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:38 ; elapsed = 00:01:51 . Memory (MB): peak = 1915.121 ; gain = 1130.258
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:01:24 ; elapsed = 00:01:32 . Memory (MB): peak = 1886.680 ; gain = 1131.953
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:38 ; elapsed = 00:01:51 . Memory (MB): peak = 1915.121 ; gain = 1130.258
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -3621,50 +3629,68 @@ Report Cell Usage:
 +------+---------+------+
 |      |Cell     |Count |
 +------+---------+------+
-|1     |CARRY4   |    13|
-|2     |CFGLUT5  |    37|
-|3     |LUT1     |    27|
-|4     |LUT2     |    36|
-|5     |LUT3     |    72|
-|6     |LUT4     |    69|
-|7     |LUT5     |    84|
-|8     |LUT6     |   324|
+|1     |CARRY4   |    24|
+|2     |CFGLUT5  |    42|
+|3     |LUT1     |    28|
+|4     |LUT2     |    32|
+|5     |LUT3     |    90|
+|6     |LUT4     |    83|
+|7     |LUT5     |    72|
+|8     |LUT6     |   345|
 |9     |MUXF7    |     3|
 |10    |RAMB18E1 |     1|
-|11    |SRL16E   |     5|
+|11    |SRL16E   |     6|
 |12    |SRLC16E  |     2|
 |13    |SRLC32E  |    17|
-|14    |FDRE     |  1051|
+|14    |FDRE     |  1122|
 |15    |FDSE     |    10|
 +------+---------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:01:24 ; elapsed = 00:01:32 . Memory (MB): peak = 1886.680 ; gain = 1131.953
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:38 ; elapsed = 00:01:51 . Memory (MB): peak = 1915.121 ; gain = 1130.258
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 2411 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:39 ; elapsed = 00:01:26 . Memory (MB): peak = 1886.680 ; gain = 1131.953
-Synthesis Optimization Complete : Time (s): cpu = 00:01:24 ; elapsed = 00:01:32 . Memory (MB): peak = 1886.680 ; gain = 1131.953
+Synthesis finished with 0 errors, 0 critical warnings and 2474 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:44 ; elapsed = 00:01:42 . Memory (MB): peak = 1915.121 ; gain = 1130.258
+Synthesis Optimization Complete : Time (s): cpu = 00:01:39 ; elapsed = 00:01:51 . Memory (MB): peak = 1915.121 ; gain = 1130.258
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.031 . Memory (MB): peak = 1886.680 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 54 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.049 . Memory (MB): peak = 1915.121 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 70 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1900.500 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1916.410 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 37 instances were transformed.
-  CFGLUT5 => CFGLUT5 (SRL16E, SRLC32E): 32 instances
-  CFGLUT5 => SRLC32E: 5 instances
+  A total of 42 instances were transformed.
+  CFGLUT5 => CFGLUT5 (SRL16E, SRLC32E): 36 instances
+  CFGLUT5 => SRLC32E: 6 instances
 
-Synth Design complete | Checksum: faac563a
+Synth Design complete | Checksum: c2447673
 INFO: [Common 17-83] Releasing license: Synthesis
-190 Infos, 102 Warnings, 0 Critical Warnings and 0 Errors encountered.
+192 Infos, 102 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:01:30 ; elapsed = 00:01:40 . Memory (MB): peak = 1900.500 ; gain = 1353.848
-Write ShapeDB Complete: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1900.500 ; gain = 0.000
-INFO: [Common 17-1381] The checkpoint 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_system_ila_0_0_synth_1/design_1_system_ila_0_0.dcp' has been generated.
-INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP design_1_system_ila_0_0, cache-ID = eac9e0cd217333da
-INFO: [Coretcl 2-1174] Renamed 105 cell refs.
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1900.500 ; gain = 0.000
-INFO: [Common 17-1381] The checkpoint 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_system_ila_0_0_synth_1/design_1_system_ila_0_0.dcp' has been generated.
+synth_design: Time (s): cpu = 00:01:44 ; elapsed = 00:01:59 . Memory (MB): peak = 1916.410 ; gain = 1339.355
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1916.410 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_system_ila_0_0_synth_1/design_1_system_ila_0_0.dcp' has been generated.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP design_1_system_ila_0_0, cache-ID = f7e3b26cb33297ba
+INFO: [Coretcl 2-1174] Renamed 110 cell refs.
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1916.410 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_system_ila_0_0_synth_1/design_1_system_ila_0_0.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file design_1_system_ila_0_0_utilization_synth.rpt -pb design_1_system_ila_0_0_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Mon Jun 29 20:46:44 2026...
+INFO: [Common 17-206] Exiting Vivado at Wed Jul  1 01:12:43 2026...
+
+*** Running vivado
+    with args -log design_1_system_ila_0_0.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_system_ila_0_0.tcl
+
+
+
+****** Vivado v2025.1 (64-bit)
+  **** SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
+  **** IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
+  **** SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
+  **** Start of session at: Wed Jul  1 01:12:59 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source design_1_system_ila_0_0.tcl -notrace
+create_project: Time (s): cpu = 00:00:15 ; elapsed = 00:00:13 . Memory (MB): peak = 527.074 ; gain = 241.988
+ERROR: [Common 17-275] File does not exist [D:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_system_ila_0_0_synth_1/dont_touch.xdc]
+INFO: [Common 17-206] Exiting Vivado at Wed Jul  1 01:13:19 2026...

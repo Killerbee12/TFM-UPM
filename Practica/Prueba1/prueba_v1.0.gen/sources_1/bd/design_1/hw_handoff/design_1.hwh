@@ -1,9 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Jun 29 20:43:48 2026" VIVADOVERSION="2025.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jul  1 01:12:48 2026" VIVADOVERSION="2025.1">
 
   <SYSTEMINFO ARCH="artix7" DEVICE="7a100t" NAME="design_1" PACKAGE="csg324" SPEEDGRADE="-1"/>
 
   <EXTERNALPORTS>
+    <PORT DIR="I" NAME="btn_down_0_0" SIGIS="undef" SIGNAME="External_Ports_btn_down_0_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="top_system_0" PORT="btn_down_0"/>
+      </CONNECTIONS>
+    </PORT>
     <PORT DIR="I" NAME="btn_prepare_0" SIGIS="undef" SIGNAME="External_Ports_btn_prepare_0">
       <CONNECTIONS>
         <CONNECTION INSTANCE="top_system_0" PORT="btn_prepare"/>
@@ -14,10 +19,15 @@
         <CONNECTION INSTANCE="top_system_0" PORT="btn_send"/>
       </CONNECTIONS>
     </PORT>
+    <PORT DIR="I" NAME="btn_up_0_0" SIGIS="undef" SIGNAME="External_Ports_btn_up_0_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="top_system_0" PORT="btn_up_0"/>
+      </CONNECTIONS>
+    </PORT>
     <PORT DIR="I" NAME="clk_100Mhz_0" SIGIS="undef" SIGNAME="External_Ports_clk_100Mhz_0">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="top_system_0" PORT="clk_100Mhz"/>
         <CONNECTION INSTANCE="system_ila_0" PORT="clk"/>
+        <CONNECTION INSTANCE="top_system_0" PORT="clk_100Mhz"/>
       </CONNECTIONS>
     </PORT>
     <PORT CLKFREQUENCY="100000000" DIR="O" NAME="led_clk_0" SIGIS="clk" SIGNAME="top_system_0_led_clk">
@@ -35,6 +45,21 @@
         <CONNECTION INSTANCE="top_system_0" PORT="reset_n"/>
       </CONNECTIONS>
     </PORT>
+    <PORT DIR="O" LEFT="7" NAME="seg_an_0_0" RIGHT="0" SIGIS="undef" SIGNAME="top_system_0_seg_an_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="top_system_0" PORT="seg_an_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="seg_dp_0_0" SIGIS="undef" SIGNAME="top_system_0_seg_dp_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="top_system_0" PORT="seg_dp_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="6" NAME="seg_out_0_0" RIGHT="0" SIGIS="undef" SIGNAME="top_system_0_seg_out_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="top_system_0" PORT="seg_out_0"/>
+      </CONNECTIONS>
+    </PORT>
   </EXTERNALPORTS>
 
   <EXTERNALINTERFACES/>
@@ -49,7 +74,7 @@
         <PARAMETER NAME="ALL_PROBE_SAME_MU_CNT" VALUE="1"/>
         <PARAMETER NAME="C_ADV_TRIGGER" VALUE="FALSE"/>
         <PARAMETER NAME="C_BRAM_CNT" VALUE="0.0"/>
-        <PARAMETER NAME="C_DATA_DEPTH" VALUE="1024"/>
+        <PARAMETER NAME="C_DATA_DEPTH" VALUE="4096"/>
         <PARAMETER NAME="C_DDR_CLK_GEN" VALUE="FALSE"/>
         <PARAMETER NAME="C_EN_DDR_ILA" VALUE="FALSE"/>
         <PARAMETER NAME="C_EN_STRG_QUAL" VALUE="0"/>
@@ -57,7 +82,7 @@
         <PARAMETER NAME="C_INPUT_PIPE_STAGES" VALUE="0"/>
         <PARAMETER NAME="C_MON_TYPE" VALUE="NATIVE"/>
         <PARAMETER NAME="C_NUM_MONITOR_SLOTS" VALUE="1"/>
-        <PARAMETER NAME="C_NUM_OF_PROBES" VALUE="1"/>
+        <PARAMETER NAME="C_NUM_OF_PROBES" VALUE="2"/>
         <PARAMETER NAME="C_PROBE0_MU_CNT" VALUE="1"/>
         <PARAMETER NAME="C_PROBE0_TYPE" VALUE="0"/>
         <PARAMETER NAME="C_PROBE0_WIDTH" VALUE="1"/>
@@ -4031,6 +4056,11 @@
             <CONNECTION INSTANCE="top_system_0" PORT="led_data"/>
           </CONNECTIONS>
         </PORT>
+        <PORT DIR="I" LEFT="0" NAME="probe1" RIGHT="0" SIGIS="undef" SIGNAME="top_system_0_led_clk">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="top_system_0" PORT="led_clk"/>
+          </CONNECTIONS>
+        </PORT>
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
@@ -4041,6 +4071,11 @@
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
+        <PORT DIR="I" NAME="btn_down_0" SIGIS="undef" SIGNAME="External_Ports_btn_down_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="btn_down_0_0"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="I" NAME="btn_prepare" SIGIS="undef" SIGNAME="External_Ports_btn_prepare_0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="btn_prepare_0"/>
@@ -4051,6 +4086,11 @@
             <CONNECTION INSTANCE="External_Ports" PORT="btn_send_0"/>
           </CONNECTIONS>
         </PORT>
+        <PORT DIR="I" NAME="btn_up_0" SIGIS="undef" SIGNAME="External_Ports_btn_up_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="btn_up_0_0"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="I" NAME="clk_100Mhz" SIGIS="undef" SIGNAME="External_Ports_clk_100Mhz_0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="clk_100Mhz_0"/>
@@ -4059,6 +4099,7 @@
         <PORT CLKFREQUENCY="100000000" DIR="O" NAME="led_clk" SIGIS="clk" SIGNAME="top_system_0_led_clk">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="led_clk_0"/>
+            <CONNECTION INSTANCE="system_ila_0" PORT="probe1"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="led_data" SIGIS="undef" SIGNAME="top_system_0_led_data">
@@ -4070,6 +4111,21 @@
         <PORT DIR="I" NAME="reset_n" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_reset_n_0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="reset_n_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="7" NAME="seg_an_0" RIGHT="0" SIGIS="undef" SIGNAME="top_system_0_seg_an_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="seg_an_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="seg_dp_0" SIGIS="undef" SIGNAME="top_system_0_seg_dp_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="seg_dp_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="6" NAME="seg_out_0" RIGHT="0" SIGIS="undef" SIGNAME="top_system_0_seg_out_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="seg_out_0_0"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
