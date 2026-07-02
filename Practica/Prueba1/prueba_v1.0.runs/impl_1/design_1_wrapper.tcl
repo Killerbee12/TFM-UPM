@@ -1,5 +1,5 @@
 namespace eval ::optrace {
-  variable script "D:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.tcl"
+  variable script "C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.tcl"
   variable category "vivado_impl"
 }
 
@@ -108,10 +108,11 @@ set rc [catch {
   set_param tcl.collectionResultDisplayLimit 0
   set_param chipscope.maxJobs 1
   set_param general.usePosixSpawnForFork 1
+  set_param bd.open.in_stealth_mode 1
   set_param xicom.use_bs_reader 1
-  set_param runs.launchOptions { -jobs 1  }
+  set_param runs.launchOptions { -jobs 2  }
   open_checkpoint design_1_wrapper_routed.dcp
-  set_property webtalk.parent_dir D:/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.cache/wt [current_project]
+  set_property webtalk.parent_dir C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.cache/wt [current_project]
 set_property TOP design_1_wrapper [current_fileset]
 OPTRACE "read constraints: write_bitstream" START { }
 OPTRACE "read constraints: write_bitstream" END { }

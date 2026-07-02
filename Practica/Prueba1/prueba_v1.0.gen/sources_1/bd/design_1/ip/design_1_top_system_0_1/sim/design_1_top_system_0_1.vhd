@@ -57,8 +57,8 @@ ENTITY design_1_top_system_0_1 IS
   PORT (
     clk_100Mhz : IN STD_LOGIC;
     reset_n : IN STD_LOGIC;
-    btn_prepare : IN STD_LOGIC;
-    btn_send : IN STD_LOGIC;
+    btn_left_0 : IN STD_LOGIC;
+    btn_right_0 : IN STD_LOGIC;
     btn_up_0 : IN STD_LOGIC;
     btn_down_0 : IN STD_LOGIC;
     seg_out_0 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
@@ -76,8 +76,8 @@ ARCHITECTURE design_1_top_system_0_1_arch OF design_1_top_system_0_1 IS
     PORT (
       clk_100Mhz : IN STD_LOGIC;
       reset_n : IN STD_LOGIC;
-      btn_prepare : IN STD_LOGIC;
-      btn_send : IN STD_LOGIC;
+      btn_left_0 : IN STD_LOGIC;
+      btn_right_0 : IN STD_LOGIC;
       btn_up_0 : IN STD_LOGIC;
       btn_down_0 : IN STD_LOGIC;
       seg_out_0 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
@@ -101,8 +101,8 @@ BEGIN
     PORT MAP (
       clk_100Mhz => clk_100Mhz,
       reset_n => reset_n,
-      btn_prepare => btn_prepare,
-      btn_send => btn_send,
+      btn_left_0 => btn_left_0,
+      btn_right_0 => btn_right_0,
       btn_up_0 => btn_up_0,
       btn_down_0 => btn_down_0,
       seg_out_0 => seg_out_0,

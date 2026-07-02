@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jul  1 01:12:48 2026" VIVADOVERSION="2025.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jul  1 19:22:42 2026" VIVADOVERSION="2025.1">
 
   <SYSTEMINFO ARCH="artix7" DEVICE="7a100t" NAME="design_1" PACKAGE="csg324" SPEEDGRADE="-1"/>
 
@@ -9,14 +9,14 @@
         <CONNECTION INSTANCE="top_system_0" PORT="btn_down_0"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" NAME="btn_prepare_0" SIGIS="undef" SIGNAME="External_Ports_btn_prepare_0">
+    <PORT DIR="I" NAME="btn_left_0_0" SIGIS="undef" SIGNAME="External_Ports_btn_left_0_0">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="top_system_0" PORT="btn_prepare"/>
+        <CONNECTION INSTANCE="top_system_0" PORT="btn_left_0"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" NAME="btn_send_0" SIGIS="undef" SIGNAME="External_Ports_btn_send_0">
+    <PORT DIR="I" NAME="btn_right_0_0" SIGIS="undef" SIGNAME="External_Ports_btn_right_0_0">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="top_system_0" PORT="btn_send"/>
+        <CONNECTION INSTANCE="top_system_0" PORT="btn_right_0"/>
       </CONNECTIONS>
     </PORT>
     <PORT DIR="I" NAME="btn_up_0_0" SIGIS="undef" SIGNAME="External_Ports_btn_up_0_0">
@@ -4076,14 +4076,14 @@
             <CONNECTION INSTANCE="External_Ports" PORT="btn_down_0_0"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="btn_prepare" SIGIS="undef" SIGNAME="External_Ports_btn_prepare_0">
+        <PORT DIR="I" NAME="btn_left_0" SIGIS="undef" SIGNAME="External_Ports_btn_left_0_0">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="External_Ports" PORT="btn_prepare_0"/>
+            <CONNECTION INSTANCE="External_Ports" PORT="btn_left_0_0"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="btn_send" SIGIS="undef" SIGNAME="External_Ports_btn_send_0">
+        <PORT DIR="I" NAME="btn_right_0" SIGIS="undef" SIGNAME="External_Ports_btn_right_0_0">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="External_Ports" PORT="btn_send_0"/>
+            <CONNECTION INSTANCE="External_Ports" PORT="btn_right_0_0"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="btn_up_0" SIGIS="undef" SIGNAME="External_Ports_btn_up_0_0">

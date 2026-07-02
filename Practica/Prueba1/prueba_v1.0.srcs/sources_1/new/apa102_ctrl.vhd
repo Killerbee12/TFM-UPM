@@ -6,10 +6,11 @@ entity apa102_ctrl is
     Port (
         clk_100MHz  : in  STD_LOGIC;
         reset_n     : in  STD_LOGIC;
-        btn_prepare : in  STD_LOGIC;
-        btn_send    : in  STD_LOGIC;
-        btn_up      : in  STD_LOGIC;
-        btn_down    : in  STD_LOGIC;
+        
+        btn_left    : in  STD_LOGIC;  
+        btn_right   : in  STD_LOGIC;  
+        btn_up      : in  STD_LOGIC;  
+        btn_down    : in  STD_LOGIC;  
         
         led_clk     : out STD_LOGIC;
         led_data    : out STD_LOGIC;
@@ -19,37 +20,31 @@ end apa102_ctrl;
 
 architecture Behavioral of apa102_ctrl is
 
-    --tenemos 1 trama de inicio + 16 de LEDs + 1 de fin = 18 tramas (índices 0 a 17)
     type frame_array_t is array (0 to 17) of std_logic_vector(31 downto 0);
     signal tx_buffer : frame_array_t;
     
-    type state_t is (IDLE, LOAD_DATA, WAIT_SEND, SEND_BIT_LOW, SEND_BIT_HIGH);
+    type state_t is (IDLE, LOAD_DATA, SEND_BIT_LOW, SEND_BIT_HIGH);
     signal state : state_t := IDLE;
     
     signal word_cnt : integer range 0 to 17 := 0;
     signal bit_cnt  : integer range 0 to 31 := 31;
-    
-    -- Reloj a 100 kHz 
     signal clk_div  : integer range 0 to 499 := 0;
     
-    signal btn_prep_reg : std_logic := '0';
-    signal btn_send_reg : std_logic := '0';
-    signal btn_up_reg   : std_logic := '0';
-    signal btn_down_reg : std_logic := '0';
-
-    signal color_idx : integer range 0 to 26 := 0;
+    -- Valores de color independientes (se inician a 0)
+    signal val_R, val_G, val_B : unsigned(7 downto 0) := (others => '0');
     
-    type color_rom_t is array(0 to 26) of std_logic_vector(23 downto 0);
-    -- Formato: BB_GG_RR
-    constant COLOR_ROM : color_rom_t := (
-        x"000000", x"000080", x"0000FF", x"008000", x"008080", x"0080FF", x"00FF00", x"00FF80", x"00FFFF",
-        x"800000", x"800080", x"8000FF", x"808000", x"808080", x"8080FF", x"80FF00", x"80FF80", x"80FFFF",
-        x"FF0000", x"FF0080", x"FF00FF", x"FF8000", x"FF8080", x"FF80FF", x"FFFF00", x"FFFF80", x"FFFFFF"
-    );
+    -- Active channel: 0=R, 1=G, 2=B
+    signal active_channel : integer range 0 to 2 := 0; 
+    
+    -- Debouncer timer (250ms at 100MHz)
+    signal debounce_cnt : integer range 0 to 25_000_000 := 0;
+    
+    signal update_req : std_logic := '0';
 
 begin
     
-    current_rgb <= COLOR_ROM(color_idx);
+    -- Asignamos los colores al display de 7 segmentos (Formato BB_GG_RR)
+    current_rgb <= std_logic_vector(val_B) & std_logic_vector(val_G) & std_logic_vector(val_R);
 
     process(clk_100MHz)
     begin
@@ -60,27 +55,53 @@ begin
                 led_data <= '0';
                 word_cnt <= 0;
                 bit_cnt <= 31;
+                val_R <= (others => '0');
+                val_G <= (others => '0');
+                val_B <= (others => '0');
+                active_channel <= 0;
+                debounce_cnt <= 0;
+                update_req <= '0';
             else
-                btn_prep_reg <= btn_prepare;
-                btn_send_reg <= btn_send;
-                btn_up_reg   <= btn_up;
-                btn_down_reg <= btn_down;
-
-                -- Color cycle logic
-                if btn_up = '1' and btn_up_reg = '0' then
-                    if color_idx = 26 then
-                        color_idx <= 0;
-                    else
-                        color_idx <= color_idx + 1;
-                    end if;
-                elsif btn_down = '1' and btn_down_reg = '0' then
-                    if color_idx = 0 then
-                        color_idx <= 26;
-                    else
-                        color_idx <= color_idx - 1;
+                
+                -- 1. Button Logic with Debouncer
+                if debounce_cnt > 0 then
+                    debounce_cnt <= debounce_cnt - 1;
+                else
+                    if btn_up = '1' then
+                        if active_channel = 0 then val_R <= val_R + 32;
+                        elsif active_channel = 1 then val_G <= val_G + 32;
+                        elsif active_channel = 2 then val_B <= val_B + 32;
+                        end if;
+                        update_req <= '1';
+                        debounce_cnt <= 25_000_000;
+                        
+                    elsif btn_down = '1' then
+                        if active_channel = 0 then val_R <= val_R - 32;
+                        elsif active_channel = 1 then val_G <= val_G - 32;
+                        elsif active_channel = 2 then val_B <= val_B - 32;
+                        end if;
+                        update_req <= '1';
+                        debounce_cnt <= 25_000_000;
+                        
+                    elsif btn_left = '1' then
+                        if active_channel = 2 then 
+                            active_channel <= 0; 
+                        else 
+                            active_channel <= active_channel + 1; 
+                        end if;
+                        debounce_cnt <= 25_000_000;
+                        
+                    elsif btn_right = '1' then
+                        if active_channel = 0 then 
+                            active_channel <= 2; 
+                        else 
+                            active_channel <= active_channel - 1; 
+                        end if;
+                        debounce_cnt <= 25_000_000;
                     end if;
                 end if;
 
+                -- 2. State Machine for SPI/I2S transmission
                 case state is
                     when IDLE =>
                         led_clk <= '0';
@@ -88,32 +109,22 @@ begin
                         word_cnt <= 0;
                         bit_cnt <= 31;
                         
-                        if btn_prepare = '1' and btn_prep_reg = '0' then
+                        if update_req = '1' then
+                            update_req <= '0';
                             state <= LOAD_DATA;
                         end if;
 
                     when LOAD_DATA =>
-                        -- Start Frame
                         tx_buffer(0) <= (others => '0');
-                        
-                        -- Generamos los colores para los 16 LEDs
                         for i in 1 to 16 loop
-                            -- Añadimos x"FF" (Global Brightness Max) + El color actual
-                            tx_buffer(i) <= x"FF" & COLOR_ROM(color_idx);
+                            tx_buffer(i) <= x"FF" & std_logic_vector(val_B) & std_logic_vector(val_G) & std_logic_vector(val_R);
                         end loop;
-                        
-                        -- End Frame
                         tx_buffer(17) <= (others => '1');
                         
-                        state <= WAIT_SEND;
-
-                    when WAIT_SEND =>
-                        if btn_send = '1' and btn_send_reg = '0' then
-                            state <= SEND_BIT_LOW;
-                            clk_div <= 0;
-                            led_data <= tx_buffer(0)(31); 
-                        end if;
-
+                        state <= SEND_BIT_LOW;
+                        clk_div <= 0;
+                        led_data <= '0'; 
+                        
                     when SEND_BIT_LOW =>
                         if clk_div = 499 then
                             clk_div <= 0;
@@ -129,7 +140,6 @@ begin
                             led_clk <= '0';
                             
                             if bit_cnt = 0 then
-                                -- Si hemos terminado la última trama (la 17), volvemos a IDLE
                                 if word_cnt = 17 then
                                     state <= IDLE;
                                 else

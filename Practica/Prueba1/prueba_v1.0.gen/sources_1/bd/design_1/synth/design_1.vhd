@@ -2,8 +2,8 @@
 --Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
---Date        : Wed Jul  1 01:12:47 2026
---Host        : PC-de-POCHECHE running 64-bit major release  (build 9200)
+--Date        : Wed Jul  1 19:22:40 2026
+--Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 --Command     : generate_target design_1.bd
 --Design      : design_1
 --Purpose     : IP block netlist
@@ -15,8 +15,8 @@ use UNISIM.VCOMPONENTS.ALL;
 entity design_1 is
   port (
     btn_down_0_0 : in STD_LOGIC;
-    btn_prepare_0 : in STD_LOGIC;
-    btn_send_0 : in STD_LOGIC;
+    btn_left_0_0 : in STD_LOGIC;
+    btn_right_0_0 : in STD_LOGIC;
     btn_up_0_0 : in STD_LOGIC;
     clk_100Mhz_0 : in STD_LOGIC;
     led_clk_0 : out STD_LOGIC;
@@ -37,8 +37,8 @@ architecture STRUCTURE of design_1 is
   port (
     clk_100Mhz : in STD_LOGIC;
     reset_n : in STD_LOGIC;
-    btn_prepare : in STD_LOGIC;
-    btn_send : in STD_LOGIC;
+    btn_left_0 : in STD_LOGIC;
+    btn_right_0 : in STD_LOGIC;
     btn_up_0 : in STD_LOGIC;
     btn_down_0 : in STD_LOGIC;
     seg_out_0 : out STD_LOGIC_VECTOR ( 6 downto 0 );
@@ -83,8 +83,8 @@ system_ila_0: component design_1_system_ila_0_0
 top_system_0: component design_1_top_system_0_1
      port map (
       btn_down_0 => btn_down_0_0,
-      btn_prepare => btn_prepare_0,
-      btn_send => btn_send_0,
+      btn_left_0 => btn_left_0_0,
+      btn_right_0 => btn_right_0_0,
       btn_up_0 => btn_up_0_0,
       clk_100Mhz => clk_100Mhz_0_1,
       led_clk => top_system_0_led_clk,

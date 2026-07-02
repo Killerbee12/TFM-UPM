@@ -5,8 +5,8 @@ entity top_system is
     Port ( 
         clk_100Mhz  : in STD_LOGIC;
         reset_n     : in STD_LOGIC;
-        btn_prepare : in STD_LOGIC;
-        btn_send    : in STD_LOGIC;
+        btn_left_0  : in STD_LOGIC;
+        btn_right_0 : in STD_LOGIC;
         
         btn_up_0    : in STD_LOGIC;
         btn_down_0  : in STD_LOGIC;
@@ -46,8 +46,8 @@ begin
         port map(
             clk_100MHz  => clk_100Mhz,
             reset_n     => reset_n,
-            btn_prepare => btn_prepare,
-            btn_send    => btn_send,
+            btn_left    => btn_left_0,
+            btn_right   => btn_right_0,
             btn_up      => btn_up_0,
             btn_down    => btn_down_0,
             led_clk     => led_clk,
