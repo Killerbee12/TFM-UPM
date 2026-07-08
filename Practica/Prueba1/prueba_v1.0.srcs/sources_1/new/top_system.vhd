@@ -10,17 +10,18 @@ entity top_system is
         
         btn_up_0    : in STD_LOGIC;
         btn_down_0  : in STD_LOGIC;
+        btn_center_0: in STD_LOGIC;
         
         seg_out_0   : out STD_LOGIC_VECTOR(6 downto 0);
         seg_an_0    : out STD_LOGIC_VECTOR(7 downto 0);
         seg_dp_0    : out STD_LOGIC;
         
         led_clk     : out STD_LOGIC;
-        led_data    : out STD_LOGIC
+        led_data    : out STD_LOGIC;
         
         -- sw_0_0       : in STD_LOGIC;
-        -- i2c_sda    : inout STD_LOGIC;
-        -- i2c_scl    : inout STD_LOGIC;
+        i2c_sda    : inout STD_LOGIC;
+        i2c_scl    : inout STD_LOGIC
         -- i2s_mclk   : out STD_LOGIC;
         -- i2s_bclk   : out STD_LOGIC;
         -- i2s_lrclk  : out STD_LOGIC;
@@ -47,7 +48,6 @@ begin
             clk_100MHz  => clk_100Mhz,
             reset_n     => reset_n,
             btn_left    => btn_left_0,
-            btn_right   => btn_right_0,
             btn_up      => btn_up_0,
             btn_down    => btn_down_0,
             led_clk     => led_clk,
@@ -123,24 +123,16 @@ begin
     
     seg_dp_0 <= '1'; -- Apagar el punto decimal
 
-    -- inst_i2c_master: entity work.i2c_master
-    --     generic map(
-    --         input_clk => 100_000_000,
-    --         bus_clk   => 400_000
-    --     )
-    --     port map(
-    --         clk       => clk_100Mhz,
-    --         reset_n   => reset_n,
-    --         ena       => sw_0_0,
-    --         addr      => "1001010",
-    --         rw        => '0',
-    --         data_wr   => x"00",
-    --         busy      => i2c_busy,
-    --         data_rd   => open,
-    --         ack_error => i2c_ack_err,
-    --         sda       => i2c_sda,
-    --         scl       => i2c_scl
-    --     );
+    inst_tas2110_i2c: entity work.tas2110_i2c_ctrl
+        port map(
+            clk_100MHz => clk_100Mhz,
+            reset_n    => reset_n,
+            btn_start  => btn_right_0,
+            btn_stop   => btn_center_0,
+            i2c_sda    => i2c_sda,
+            i2c_scl    => i2c_scl,
+            busy       => open
+        );
 
     -- inst_i2s_tx: entity work.i2s_transceiver
     --     generic map(

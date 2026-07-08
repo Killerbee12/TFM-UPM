@@ -1,9 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jul  1 19:22:42 2026" VIVADOVERSION="2025.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jul  8 20:21:36 2026" VIVADOVERSION="2025.1">
 
   <SYSTEMINFO ARCH="artix7" DEVICE="7a100t" NAME="design_1" PACKAGE="csg324" SPEEDGRADE="-1"/>
 
   <EXTERNALPORTS>
+    <PORT DIR="I" NAME="btn_center_0_0" SIGIS="undef" SIGNAME="External_Ports_btn_center_0_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="top_system_0" PORT="btn_center_0"/>
+      </CONNECTIONS>
+    </PORT>
     <PORT DIR="I" NAME="btn_down_0_0" SIGIS="undef" SIGNAME="External_Ports_btn_down_0_0">
       <CONNECTIONS>
         <CONNECTION INSTANCE="top_system_0" PORT="btn_down_0"/>
@@ -28,6 +33,16 @@
       <CONNECTIONS>
         <CONNECTION INSTANCE="system_ila_0" PORT="clk"/>
         <CONNECTION INSTANCE="top_system_0" PORT="clk_100Mhz"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="IO" NAME="i2c_scl_0" SIGIS="undef" SIGNAME="External_Ports_i2c_scl_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="top_system_0" PORT="i2c_scl"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="IO" NAME="i2c_sda_0" SIGIS="undef" SIGNAME="External_Ports_i2c_sda_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="top_system_0" PORT="i2c_sda"/>
       </CONNECTIONS>
     </PORT>
     <PORT CLKFREQUENCY="100000000" DIR="O" NAME="led_clk_0" SIGIS="clk" SIGNAME="top_system_0_led_clk">
@@ -4071,6 +4086,11 @@
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
+        <PORT DIR="I" NAME="btn_center_0" SIGIS="undef" SIGNAME="External_Ports_btn_center_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="btn_center_0_0"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="I" NAME="btn_down_0" SIGIS="undef" SIGNAME="External_Ports_btn_down_0_0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="btn_down_0_0"/>
@@ -4094,6 +4114,16 @@
         <PORT DIR="I" NAME="clk_100Mhz" SIGIS="undef" SIGNAME="External_Ports_clk_100Mhz_0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="clk_100Mhz_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="IO" NAME="i2c_scl" SIGIS="undef" SIGNAME="External_Ports_i2c_scl_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="i2c_scl_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="IO" NAME="i2c_sda" SIGIS="undef" SIGNAME="External_Ports_i2c_sda_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="i2c_sda_0"/>
           </CONNECTIONS>
         </PORT>
         <PORT CLKFREQUENCY="100000000" DIR="O" NAME="led_clk" SIGIS="clk" SIGNAME="top_system_0_led_clk">

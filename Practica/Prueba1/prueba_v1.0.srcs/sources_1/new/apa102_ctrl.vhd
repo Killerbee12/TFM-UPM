@@ -8,7 +8,6 @@ entity apa102_ctrl is
         reset_n     : in  STD_LOGIC;
         
         btn_left    : in  STD_LOGIC;  
-        btn_right   : in  STD_LOGIC;  
         btn_up      : in  STD_LOGIC;  
         btn_down    : in  STD_LOGIC;  
         
@@ -88,14 +87,6 @@ begin
                             active_channel <= 0; 
                         else 
                             active_channel <= active_channel + 1; 
-                        end if;
-                        debounce_cnt <= 25_000_000;
-                        
-                    elsif btn_right = '1' then
-                        if active_channel = 0 then 
-                            active_channel <= 2; 
-                        else 
-                            active_channel <= active_channel - 1; 
                         end if;
                         debounce_cnt <= 25_000_000;
                     end if;

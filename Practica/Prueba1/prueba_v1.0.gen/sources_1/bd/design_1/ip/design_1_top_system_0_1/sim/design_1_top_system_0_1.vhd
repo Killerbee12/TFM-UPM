@@ -61,11 +61,14 @@ ENTITY design_1_top_system_0_1 IS
     btn_right_0 : IN STD_LOGIC;
     btn_up_0 : IN STD_LOGIC;
     btn_down_0 : IN STD_LOGIC;
+    btn_center_0 : IN STD_LOGIC;
     seg_out_0 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
     seg_an_0 : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
     seg_dp_0 : OUT STD_LOGIC;
     led_clk : OUT STD_LOGIC;
-    led_data : OUT STD_LOGIC
+    led_data : OUT STD_LOGIC;
+    i2c_sda : INOUT STD_LOGIC;
+    i2c_scl : INOUT STD_LOGIC
   );
 END design_1_top_system_0_1;
 
@@ -80,11 +83,14 @@ ARCHITECTURE design_1_top_system_0_1_arch OF design_1_top_system_0_1 IS
       btn_right_0 : IN STD_LOGIC;
       btn_up_0 : IN STD_LOGIC;
       btn_down_0 : IN STD_LOGIC;
+      btn_center_0 : IN STD_LOGIC;
       seg_out_0 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
       seg_an_0 : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
       seg_dp_0 : OUT STD_LOGIC;
       led_clk : OUT STD_LOGIC;
-      led_data : OUT STD_LOGIC
+      led_data : OUT STD_LOGIC;
+      i2c_sda : INOUT STD_LOGIC;
+      i2c_scl : INOUT STD_LOGIC
     );
   END COMPONENT top_system;
   ATTRIBUTE X_INTERFACE_INFO : STRING;
@@ -105,10 +111,13 @@ BEGIN
       btn_right_0 => btn_right_0,
       btn_up_0 => btn_up_0,
       btn_down_0 => btn_down_0,
+      btn_center_0 => btn_center_0,
       seg_out_0 => seg_out_0,
       seg_an_0 => seg_an_0,
       seg_dp_0 => seg_dp_0,
       led_clk => led_clk,
-      led_data => led_data
+      led_data => led_data,
+      i2c_sda => i2c_sda,
+      i2c_scl => i2c_scl
     );
 END design_1_top_system_0_1_arch;

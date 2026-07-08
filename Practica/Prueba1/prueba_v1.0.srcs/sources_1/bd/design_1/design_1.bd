@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x376CCF97D1563D76",
+      "boundary_crc": "0xB1590270ADF8CB6B",
       "device": "xc7a100tcsg324-1",
       "gen_directory": "../../../../prueba_v1.0.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -85,6 +85,15 @@
       },
       "btn_right_0_0": {
         "direction": "I"
+      },
+      "i2c_sda_0": {
+        "direction": "IO"
+      },
+      "i2c_scl_0": {
+        "direction": "IO"
+      },
+      "btn_center_0_0": {
+        "direction": "I"
       }
     },
     "components": {
@@ -120,6 +129,9 @@
           "btn_down_0": {
             "direction": "I"
           },
+          "btn_center_0": {
+            "direction": "I"
+          },
           "seg_out_0": {
             "direction": "O",
             "left": "6",
@@ -139,6 +151,12 @@
           },
           "led_data": {
             "direction": "O"
+          },
+          "i2c_sda": {
+            "direction": "IO"
+          },
+          "i2c_scl": {
+            "direction": "IO"
           }
         }
       },
@@ -166,6 +184,24 @@
       }
     },
     "nets": {
+      "Net": {
+        "ports": [
+          "i2c_sda_0",
+          "top_system_0/i2c_sda"
+        ]
+      },
+      "Net1": {
+        "ports": [
+          "i2c_scl_0",
+          "top_system_0/i2c_scl"
+        ]
+      },
+      "btn_center_0_0_1": {
+        "ports": [
+          "btn_center_0_0",
+          "top_system_0/btn_center_0"
+        ]
+      },
       "btn_down_0_0_1": {
         "ports": [
           "btn_down_0_0",

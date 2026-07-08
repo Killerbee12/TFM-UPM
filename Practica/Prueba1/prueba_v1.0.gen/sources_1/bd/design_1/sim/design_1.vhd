@@ -2,7 +2,7 @@
 --Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
---Date        : Wed Jul  1 19:22:40 2026
+--Date        : Wed Jul  8 20:21:34 2026
 --Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 --Command     : generate_target design_1.bd
 --Design      : design_1
@@ -14,11 +14,14 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity design_1 is
   port (
+    btn_center_0_0 : in STD_LOGIC;
     btn_down_0_0 : in STD_LOGIC;
     btn_left_0_0 : in STD_LOGIC;
     btn_right_0_0 : in STD_LOGIC;
     btn_up_0_0 : in STD_LOGIC;
     clk_100Mhz_0 : in STD_LOGIC;
+    i2c_scl_0 : inout STD_LOGIC;
+    i2c_sda_0 : inout STD_LOGIC;
     led_clk_0 : out STD_LOGIC;
     led_data_0 : out STD_LOGIC;
     reset_n_0 : in STD_LOGIC;
@@ -41,11 +44,14 @@ architecture STRUCTURE of design_1 is
     btn_right_0 : in STD_LOGIC;
     btn_up_0 : in STD_LOGIC;
     btn_down_0 : in STD_LOGIC;
+    btn_center_0 : in STD_LOGIC;
     seg_out_0 : out STD_LOGIC_VECTOR ( 6 downto 0 );
     seg_an_0 : out STD_LOGIC_VECTOR ( 7 downto 0 );
     seg_dp_0 : out STD_LOGIC;
     led_clk : out STD_LOGIC;
-    led_data : out STD_LOGIC
+    led_data : out STD_LOGIC;
+    i2c_sda : inout STD_LOGIC;
+    i2c_scl : inout STD_LOGIC
   );
   end component design_1_top_system_0_1;
   component design_1_system_ila_0_0 is
@@ -82,11 +88,14 @@ system_ila_0: component design_1_system_ila_0_0
     );
 top_system_0: component design_1_top_system_0_1
      port map (
+      btn_center_0 => btn_center_0_0,
       btn_down_0 => btn_down_0_0,
       btn_left_0 => btn_left_0_0,
       btn_right_0 => btn_right_0_0,
       btn_up_0 => btn_up_0_0,
       clk_100Mhz => clk_100Mhz_0_1,
+      i2c_scl => i2c_scl_0,
+      i2c_sda => i2c_sda_0,
       led_clk => top_system_0_led_clk,
       led_data => top_system_0_led_data,
       reset_n => reset_n_0,
