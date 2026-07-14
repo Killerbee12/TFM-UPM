@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xB1590270ADF8CB6B",
+      "boundary_crc": "0xA3AA0E40977C134",
       "device": "xc7a100tcsg324-1",
       "gen_directory": "../../../../prueba_v1.0.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -12,7 +12,8 @@
     },
     "design_tree": {
       "top_system_0": "",
-      "system_ila_0": ""
+      "system_ila_0": "",
+      "system_ila_1": ""
     },
     "ports": {
       "clk_100Mhz_0": {
@@ -94,6 +95,15 @@
       },
       "btn_center_0_0": {
         "direction": "I"
+      },
+      "i2s_bclk_0": {
+        "direction": "O"
+      },
+      "i2s_lrclk_0": {
+        "direction": "O"
+      },
+      "i2s_dout_0": {
+        "direction": "O"
       }
     },
     "components": {
@@ -157,6 +167,21 @@
           },
           "i2c_scl": {
             "direction": "IO"
+          },
+          "i2s_bclk": {
+            "direction": "O"
+          },
+          "i2s_lrclk": {
+            "direction": "O"
+          },
+          "i2s_dout": {
+            "direction": "O"
+          },
+          "dbg_sda_out": {
+            "direction": "O"
+          },
+          "dbg_scl_out": {
+            "direction": "O"
           }
         }
       },
@@ -178,6 +203,31 @@
             "value": "2"
           },
           "C_PROBE0_TYPE": {
+            "value": "0"
+          }
+        }
+      },
+      "system_ila_1": {
+        "vlnv": "xilinx.com:ip:system_ila:1.1",
+        "ip_revision": "21",
+        "xci_name": "design_1_system_ila_1_1",
+        "xci_path": "ip\\design_1_system_ila_1_1\\design_1_system_ila_1_1.xci",
+        "inst_hier_path": "system_ila_1",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "C_DATA_DEPTH": {
+            "value": "65536"
+          },
+          "C_MON_TYPE": {
+            "value": "NATIVE"
+          },
+          "C_NUM_OF_PROBES": {
+            "value": "3"
+          },
+          "C_PROBE0_TYPE": {
+            "value": "0"
+          },
+          "C_PROBE1_TYPE": {
             "value": "0"
           }
         }
@@ -217,6 +267,7 @@
       "btn_right_0_0_1": {
         "ports": [
           "btn_right_0_0",
+          "system_ila_1/probe2",
           "top_system_0/btn_right_0"
         ]
       },
@@ -230,6 +281,7 @@
         "ports": [
           "clk_100Mhz_0",
           "system_ila_0/clk",
+          "system_ila_1/clk",
           "top_system_0/clk_100Mhz"
         ]
       },
@@ -239,11 +291,10 @@
           "top_system_0/reset_n"
         ]
       },
-      "top_system_0_led_clk": {
+      "top_system_0_dbg_scl_out": {
         "ports": [
-          "top_system_0/led_clk",
-          "led_clk_0",
-          "system_ila_0/probe1"
+          "top_system_0/dbg_scl_out",
+          "system_ila_1/probe1"
         ],
         "hdl_attributes": {
           "DEBUG": {
@@ -253,6 +304,45 @@
             "value": "true"
           }
         }
+      },
+      "top_system_0_dbg_sda_out": {
+        "ports": [
+          "top_system_0/dbg_sda_out",
+          "system_ila_1/probe0"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
+      },
+      "top_system_0_i2s_bclk": {
+        "ports": [
+          "top_system_0/i2s_bclk",
+          "i2s_bclk_0"
+        ]
+      },
+      "top_system_0_i2s_dout": {
+        "ports": [
+          "top_system_0/i2s_dout",
+          "i2s_dout_0"
+        ]
+      },
+      "top_system_0_i2s_lrclk": {
+        "ports": [
+          "top_system_0/i2s_lrclk",
+          "i2s_lrclk_0"
+        ]
+      },
+      "top_system_0_led_clk": {
+        "ports": [
+          "top_system_0/led_clk",
+          "led_clk_0",
+          "system_ila_0/probe1"
+        ]
       },
       "top_system_0_led_data": {
         "ports": [

@@ -68,7 +68,12 @@ ENTITY design_1_top_system_0_1 IS
     led_clk : OUT STD_LOGIC;
     led_data : OUT STD_LOGIC;
     i2c_sda : INOUT STD_LOGIC;
-    i2c_scl : INOUT STD_LOGIC
+    i2c_scl : INOUT STD_LOGIC;
+    i2s_bclk : OUT STD_LOGIC;
+    i2s_lrclk : OUT STD_LOGIC;
+    i2s_dout : OUT STD_LOGIC;
+    dbg_sda_out : OUT STD_LOGIC;
+    dbg_scl_out : OUT STD_LOGIC
   );
 END design_1_top_system_0_1;
 
@@ -90,7 +95,12 @@ ARCHITECTURE design_1_top_system_0_1_arch OF design_1_top_system_0_1 IS
       led_clk : OUT STD_LOGIC;
       led_data : OUT STD_LOGIC;
       i2c_sda : INOUT STD_LOGIC;
-      i2c_scl : INOUT STD_LOGIC
+      i2c_scl : INOUT STD_LOGIC;
+      i2s_bclk : OUT STD_LOGIC;
+      i2s_lrclk : OUT STD_LOGIC;
+      i2s_dout : OUT STD_LOGIC;
+      dbg_sda_out : OUT STD_LOGIC;
+      dbg_scl_out : OUT STD_LOGIC
     );
   END COMPONENT top_system;
   ATTRIBUTE X_CORE_INFO : STRING;
@@ -126,6 +136,11 @@ BEGIN
       led_clk => led_clk,
       led_data => led_data,
       i2c_sda => i2c_sda,
-      i2c_scl => i2c_scl
+      i2c_scl => i2c_scl,
+      i2s_bclk => i2s_bclk,
+      i2s_lrclk => i2s_lrclk,
+      i2s_dout => i2s_dout,
+      dbg_sda_out => dbg_sda_out,
+      dbg_scl_out => dbg_scl_out
     );
 END design_1_top_system_0_1_arch;

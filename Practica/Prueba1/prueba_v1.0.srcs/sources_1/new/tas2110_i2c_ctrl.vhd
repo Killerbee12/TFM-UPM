@@ -12,6 +12,9 @@ entity tas2110_i2c_ctrl is
         i2c_sda    : inout STD_LOGIC;
         i2c_scl    : inout STD_LOGIC;
         
+        dbg_sda_out: out STD_LOGIC;
+        dbg_scl_out: out STD_LOGIC;
+        
         busy       : out STD_LOGIC
     );
 end tas2110_i2c_ctrl;
@@ -22,9 +25,9 @@ architecture Behavioral of tas2110_i2c_ctrl is
     constant SLAVE_ADDR : std_logic_vector(7 downto 0) := x"98"; -- 0x4C << 1 + Write (0)
     
     -- Rom de Secuencias (Dirección de Registro, Dato)
-    type reg_array_t is array (0 to 15) of std_logic_vector(15 downto 0);
-    signal seq_rom : reg_array_t;
-    signal seq_len : integer range 0 to 15 := 0;
+    type reg_array_t is array (0 to 31) of std_logic_vector(15 downto 0);
+    signal seq_rom : reg_array_t := (others => (others => '0'));
+    signal seq_len : integer range 0 to 31 := 0;
     
     -- Máquina de estados I2C
     type state_t is (IDLE, START_COND, SEND_BIT, CHECK_ACK, STOP_COND, NEXT_REG, DELAY);
@@ -34,7 +37,7 @@ architecture Behavioral of tas2110_i2c_ctrl is
     signal clk_div : integer range 0 to 1000 := 0; -- 100MHz / 1000 = 100kHz I2C
     signal bit_cnt : integer range 0 to 7 := 7;
     signal byte_cnt: integer range 0 to 2 := 0; -- 0: Addr_I2C, 1: Addr_Reg, 2: Data
-    signal reg_cnt : integer range 0 to 15 := 0;
+    signal reg_cnt : integer range 0 to 31 := 0;
     
     signal current_byte : std_logic_vector(7 downto 0) := (others => '0');
     signal sda_out : std_logic := '1';
@@ -48,6 +51,9 @@ begin
     -- Tri-state buffers para I2C (Requiere Pull-ups externos en la placa)
     i2c_sda <= '0' when sda_out = '0' else 'Z';
     i2c_scl <= '0' when scl_out = '0' else 'Z';
+    
+    dbg_sda_out <= sda_out;
+    dbg_scl_out <= scl_out;
     
     busy <= '0' when state = IDLE else '1';
 
@@ -76,28 +82,41 @@ begin
                             
                             -- Cambiar a Page 2
                             seq_rom(0) <= x"0002"; 
-                            -- FREQ1 (Aproximación para un tono estándar en Q2.29 format)
-                            seq_rom(1) <= x"3C3F"; 
-                            seq_rom(2) <= x"3DFF"; 
-                            -- FREQ3 (0x00)
-                            seq_rom(3) <= x"4500"; 
-                            seq_rom(4) <= x"4600"; 
-                            seq_rom(5) <= x"4700"; 
-                            -- AMP (-40dB = 0x0147AE14)
-                            seq_rom(6) <= x"4801"; 
-                            seq_rom(7) <= x"4947"; 
-                            seq_rom(8) <= x"4AAE"; 
-                            seq_rom(9) <= x"4B14"; 
-                            -- Cambiar a Page 0
-                            seq_rom(10)<= x"0000"; 
-                            -- PWR_CTL = 0x0C (Active mode, saca al chip de Software Shutdown)
-                            seq_rom(11)<= x"020C";
-                            -- MISC_CFG4 = 0x18 (Clock source para Tone Gen = Internal Oscillator)
-                            seq_rom(12)<= x"3D18";
-                            -- TG1_EN = 01 (Play tone always) -> bit 7:6 = 01 -> 0x40
-                            seq_rom(13)<= x"3F40"; 
                             
-                            seq_len <= 14;
+                            -- TG1_FREQ1 para 1000 Hz a fs=96kHz
+                            seq_rom(1) <= x"3C3F"; 
+                            seq_rom(2) <= x"3DDD"; 
+                            seq_rom(3) <= x"3E38"; 
+                            seq_rom(4) <= x"3FAE"; 
+                            
+                            -- TG1_FREQ2 para 1000 Hz
+                            seq_rom(5) <= x"4008"; 
+                            seq_rom(6) <= x"415E"; 
+                            seq_rom(7) <= x"42C2"; 
+                            seq_rom(8) <= x"431E"; 
+                            
+                            -- TG1_FREQ3 para 1000 Hz
+                            seq_rom(9) <= x"4400"; 
+                            seq_rom(10)<= x"4500"; 
+                            seq_rom(11)<= x"4600"; 
+                            seq_rom(12)<= x"475F"; 
+                            
+                            -- AMP (-6dB = 0x4026E7E0)
+                            seq_rom(13)<= x"4840"; 
+                            seq_rom(14)<= x"4926"; 
+                            seq_rom(15)<= x"4AE7"; 
+                            seq_rom(16)<= x"4BE0"; 
+                            
+                            -- Cambiar a Page 0
+                            seq_rom(17)<= x"0000"; 
+                            -- PWR_CTL = 0x0C (Active mode)
+                            seq_rom(18)<= x"020C";
+                            -- MISC_CFG4 = 0x18 (Clock source para Tone Gen = Internal Oscillator)
+                            seq_rom(19)<= x"3D18";
+                            -- TG1_EN = 0x40 (Play tone always)
+                            seq_rom(20)<= x"3F40"; 
+                            
+                            seq_len <= 21;
                             reg_cnt <= 0;
                             byte_cnt <= 0;
                             current_byte <= SLAVE_ADDR;

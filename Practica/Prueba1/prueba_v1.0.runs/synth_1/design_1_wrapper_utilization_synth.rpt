@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Wed Jul  8 20:44:37 2026
+| Date         : Tue Jul 14 18:15:41 2026
 | Host         : Samsung_Book_3 running 64-bit major release  (build 9200)
 | Command      : report_utilization -file design_1_wrapper_utilization_synth.rpt -pb design_1_wrapper_utilization_synth.pb
 | Design       : design_1_wrapper
@@ -93,7 +93,7 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +-----------------------------+------+-------+------------+-----------+-------+
 |          Site Type          | Used | Fixed | Prohibited | Available | Util% |
 +-----------------------------+------+-------+------------+-----------+-------+
-| Bonded IOB                  |   25 |     0 |          0 |       210 | 11.90 |
+| Bonded IOB                  |   28 |     0 |          0 |       210 | 13.33 |
 | Bonded IPADs                |    0 |     0 |          0 |         2 |  0.00 |
 | PHY_CONTROL                 |    0 |     0 |          0 |         6 |  0.00 |
 | PHASER_REF                  |    0 |     0 |          0 |         6 |  0.00 |
@@ -149,7 +149,7 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| OBUF     |   18 |                  IO |
+| OBUF     |   21 |                  IO |
 | IBUF     |    7 |                  IO |
 +----------+------+---------------------+
 
@@ -161,6 +161,7 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 |         Ref Name        | Used |
 +-------------------------+------+
 | design_1_top_system_0_1 |    1 |
+| design_1_system_ila_1_1 |    1 |
 | design_1_system_ila_0_0 |    1 |
 +-------------------------+------+
 

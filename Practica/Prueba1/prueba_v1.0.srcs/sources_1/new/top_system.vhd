@@ -19,17 +19,24 @@ entity top_system is
         led_clk     : out STD_LOGIC;
         led_data    : out STD_LOGIC;
         
-        -- sw_0_0       : in STD_LOGIC;
+        -- I2C Interface for TAS2110
         i2c_sda    : inout STD_LOGIC;
-        i2c_scl    : inout STD_LOGIC
-        -- i2s_mclk   : out STD_LOGIC;
-        -- i2s_bclk   : out STD_LOGIC;
-        -- i2s_lrclk  : out STD_LOGIC;
-        -- i2s_dout   : out STD_LOGIC
+        i2c_scl    : inout STD_LOGIC;
+        
+        -- I2S Clocks to wake up TAS2110
+        i2s_bclk   : out STD_LOGIC;
+        i2s_lrclk  : out STD_LOGIC;
+        i2s_dout   : out STD_LOGIC;
+        
+        dbg_sda_out: out STD_LOGIC;
+        dbg_scl_out: out STD_LOGIC
     );
 end top_system;
 
-architecture Structural of top_system is
+architecture Behavioral of top_system is
+
+    signal dbg_sda_out_internal : STD_LOGIC;
+    signal dbg_scl_out_internal : STD_LOGIC;
 
     -- signal i2c_busy : STD_LOGIC;
     -- signal i2c_ack_err : STD_LOGIC;
@@ -55,73 +62,16 @@ begin
             current_rgb => current_rgb
         );
 
-    -- Lógica del Display 7 Segmentos
-    process(clk_100Mhz)
-    begin
-        if rising_edge(clk_100Mhz) then
-            if reset_n = '0' then
-                refresh_counter <= 0;
-                digit_sel <= 0;
-            else
-                if refresh_counter = 99999 then
-                    refresh_counter <= 0;
-                    if digit_sel = 7 then
-                        digit_sel <= 0;
-                    else
-                        digit_sel <= digit_sel + 1;
-                    end if;
-                else
-                    refresh_counter <= refresh_counter + 1;
-                end if;
-            end if;
-        end if;
-    end process;
-
-    process(digit_sel)
-    begin
-        seg_an_0 <= (others => '1');
-        seg_an_0(digit_sel) <= '0';
-    end process;
+    -- Lógica del Display 7 Segmentos: DEPÚRACIÓN EXTREMA
+    -- Desactivamos la actualización cíclica
+    seg_an_0  <= "11111110";
     
-    process(digit_sel, current_rgb)
-    begin
-        case digit_sel is
-            when 0 => hex_digit <= current_rgb(3 downto 0);
-            when 1 => hex_digit <= current_rgb(7 downto 4);
-            when 2 => hex_digit <= current_rgb(11 downto 8);
-            when 3 => hex_digit <= current_rgb(15 downto 12);
-            when 4 => hex_digit <= current_rgb(19 downto 16);
-            when 5 => hex_digit <= current_rgb(23 downto 20);
-            when 6 => hex_digit <= x"0";
-            when 7 => hex_digit <= x"0";
-            when others => hex_digit <= x"0";
-        end case;
-    end process;
-
-    process(hex_digit)
-    begin
-        case hex_digit is
-            when x"0" => seg_out_0 <= "1000000"; -- 0
-            when x"1" => seg_out_0 <= "1111001"; -- 1
-            when x"2" => seg_out_0 <= "0100100"; -- 2
-            when x"3" => seg_out_0 <= "0110000"; -- 3
-            when x"4" => seg_out_0 <= "0011001"; -- 4
-            when x"5" => seg_out_0 <= "0010010"; -- 5
-            when x"6" => seg_out_0 <= "0000010"; -- 6
-            when x"7" => seg_out_0 <= "1111000"; -- 7
-            when x"8" => seg_out_0 <= "0000000"; -- 8
-            when x"9" => seg_out_0 <= "0010000"; -- 9
-            when x"A" => seg_out_0 <= "0001000"; -- A
-            when x"B" => seg_out_0 <= "0000011"; -- b
-            when x"C" => seg_out_0 <= "1000110"; -- C
-            when x"D" => seg_out_0 <= "0100001"; -- d
-            when x"E" => seg_out_0 <= "0000110"; -- E
-            when x"F" => seg_out_0 <= "0001110"; -- F
-            when others => seg_out_0 <= "1111111";
-        end case;
-    end process;
-    
-    seg_dp_0 <= '1'; -- Apagar el punto decimal
+    -- seg_out_0(0) es el segmento 'a' (arriba). seg_out_0(1) es el 'b' (derecha arriba).
+    -- Activo a nivel bajo: '0' = Encendido, '1' = Apagado
+    seg_out_0(0) <= dbg_sda_out_internal;
+    seg_out_0(1) <= dbg_scl_out_internal;
+    seg_out_0(6 downto 2) <= (others => '1');
+    seg_dp_0 <= '1';
 
     inst_tas2110_i2c: entity work.tas2110_i2c_ctrl
         port map(
@@ -131,28 +81,32 @@ begin
             btn_stop   => btn_center_0,
             i2c_sda    => i2c_sda,
             i2c_scl    => i2c_scl,
+            dbg_sda_out=> dbg_sda_out_internal,
+            dbg_scl_out=> dbg_scl_out_internal,
             busy       => open
         );
 
-    -- inst_i2s_tx: entity work.i2s_transceiver
-    --     generic map(
-    --         mclk_sclk_ratio => 4,
-    --         sclk_ws_ratio   => 64,
-    --         d_width         => 24
-    --     )
-    --     port map(
-    --         reset_n     => reset_n,
-    --         mclk        => clk_100Mhz,
-    --         sclk        => i2s_bclk,
-    --         ws          => i2s_lrclk,
-    --         sd_tx       => i2s_dout,
-    --         sd_rx       => '0',
-    --         l_data_tx   => (others => '0'),
-    --         r_data_tx   => (others => '0'),
-    --         l_data_rx   => open,
-    --         r_data_rx   => open
-    --     );
-    -- 
-    -- i2s_mclk <= clk_100Mhz;
+    -- Asignar las señales internas a los puertos de salida del Block Design
+    dbg_sda_out <= dbg_sda_out_internal;
+    dbg_scl_out <= dbg_scl_out_internal;
 
-end Structural;
+    inst_i2s_tx: entity work.i2s_transceiver
+        generic map(
+            mclk_sclk_ratio => 4,
+            sclk_ws_ratio   => 64,
+            d_width         => 24
+        )
+        port map(
+            reset_n     => reset_n,
+            mclk        => clk_100Mhz,
+            sclk        => i2s_bclk,
+            ws          => i2s_lrclk,
+            sd_tx       => i2s_dout,
+            sd_rx       => '0',
+            l_data_tx   => (others => '0'),
+            r_data_tx   => (others => '0'),
+            l_data_rx   => open,
+            r_data_rx   => open
+        );
+
+end behavioral;

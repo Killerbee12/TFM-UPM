@@ -49,7 +49,12 @@
         "led_clk": [ { "direction": "out" } ],
         "led_data": [ { "direction": "out" } ],
         "i2c_sda": [ { "direction": "inout" } ],
-        "i2c_scl": [ { "direction": "inout" } ]
+        "i2c_scl": [ { "direction": "inout" } ],
+        "i2s_bclk": [ { "direction": "out" } ],
+        "i2s_lrclk": [ { "direction": "out" } ],
+        "i2s_dout": [ { "direction": "out" } ],
+        "dbg_sda_out": [ { "direction": "out" } ],
+        "dbg_scl_out": [ { "direction": "out" } ]
       },
       "interfaces": {
         "reset_n": {

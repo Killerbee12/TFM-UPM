@@ -2,7 +2,7 @@
 --Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
---Date        : Wed Jul  8 20:21:34 2026
+--Date        : Tue Jul 14 18:13:16 2026
 --Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 --Command     : generate_target design_1.bd
 --Design      : design_1
@@ -22,6 +22,9 @@ entity design_1 is
     clk_100Mhz_0 : in STD_LOGIC;
     i2c_scl_0 : inout STD_LOGIC;
     i2c_sda_0 : inout STD_LOGIC;
+    i2s_bclk_0 : out STD_LOGIC;
+    i2s_dout_0 : out STD_LOGIC;
+    i2s_lrclk_0 : out STD_LOGIC;
     led_clk_0 : out STD_LOGIC;
     led_data_0 : out STD_LOGIC;
     reset_n_0 : in STD_LOGIC;
@@ -30,7 +33,7 @@ entity design_1 is
     seg_out_0_0 : out STD_LOGIC_VECTOR ( 6 downto 0 )
   );
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of design_1 : entity is "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=2,numReposBlks=2,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,da_board_cnt=4,da_clkrst_cnt=3,synth_mode=Hierarchical}";
+  attribute CORE_GENERATION_INFO of design_1 : entity is "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=3,numReposBlks=3,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,da_board_cnt=4,da_clkrst_cnt=3,synth_mode=Hierarchical}";
   attribute HW_HANDOFF : string;
   attribute HW_HANDOFF of design_1 : entity is "design_1.hwdef";
 end design_1;
@@ -51,7 +54,12 @@ architecture STRUCTURE of design_1 is
     led_clk : out STD_LOGIC;
     led_data : out STD_LOGIC;
     i2c_sda : inout STD_LOGIC;
-    i2c_scl : inout STD_LOGIC
+    i2c_scl : inout STD_LOGIC;
+    i2s_bclk : out STD_LOGIC;
+    i2s_lrclk : out STD_LOGIC;
+    i2s_dout : out STD_LOGIC;
+    dbg_sda_out : out STD_LOGIC;
+    dbg_scl_out : out STD_LOGIC
   );
   end component design_1_top_system_0_1;
   component design_1_system_ila_0_0 is
@@ -61,12 +69,25 @@ architecture STRUCTURE of design_1 is
     probe1 : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
   end component design_1_system_ila_0_0;
+  component design_1_system_ila_1_1 is
+  port (
+    clk : in STD_LOGIC;
+    probe0 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe2 : in STD_LOGIC_VECTOR ( 0 to 0 )
+  );
+  end component design_1_system_ila_1_1;
+  signal btn_right_0_0_1 : STD_LOGIC;
   signal clk_100Mhz_0_1 : STD_LOGIC;
-  signal top_system_0_led_clk : STD_LOGIC;
+  signal top_system_0_dbg_scl_out : STD_LOGIC;
   attribute DEBUG : string;
-  attribute DEBUG of top_system_0_led_clk : signal is "true";
+  attribute DEBUG of top_system_0_dbg_scl_out : signal is "true";
   attribute MARK_DEBUG : boolean;
-  attribute MARK_DEBUG of top_system_0_led_clk : signal is std.standard.true;
+  attribute MARK_DEBUG of top_system_0_dbg_scl_out : signal is std.standard.true;
+  signal top_system_0_dbg_sda_out : STD_LOGIC;
+  attribute DEBUG of top_system_0_dbg_sda_out : signal is "true";
+  attribute MARK_DEBUG of top_system_0_dbg_sda_out : signal is std.standard.true;
+  signal top_system_0_led_clk : STD_LOGIC;
   signal top_system_0_led_data : STD_LOGIC;
   attribute DEBUG of top_system_0_led_data : signal is "true";
   attribute MARK_DEBUG of top_system_0_led_data : signal is std.standard.true;
@@ -77,6 +98,7 @@ architecture STRUCTURE of design_1 is
   attribute X_INTERFACE_INFO of reset_n_0 : signal is "xilinx.com:signal:reset:1.0 RST.RESET_N_0 RST";
   attribute X_INTERFACE_PARAMETER of reset_n_0 : signal is "XIL_INTERFACENAME RST.RESET_N_0, INSERT_VIP 0, POLARITY ACTIVE_LOW";
 begin
+  btn_right_0_0_1 <= btn_right_0_0;
   clk_100Mhz_0_1 <= clk_100Mhz_0;
   led_clk_0 <= top_system_0_led_clk;
   led_data_0 <= top_system_0_led_data;
@@ -86,16 +108,28 @@ system_ila_0: component design_1_system_ila_0_0
       probe0(0) => top_system_0_led_data,
       probe1(0) => top_system_0_led_clk
     );
+system_ila_1: component design_1_system_ila_1_1
+     port map (
+      clk => clk_100Mhz_0_1,
+      probe0(0) => top_system_0_dbg_sda_out,
+      probe1(0) => top_system_0_dbg_scl_out,
+      probe2(0) => btn_right_0_0_1
+    );
 top_system_0: component design_1_top_system_0_1
      port map (
       btn_center_0 => btn_center_0_0,
       btn_down_0 => btn_down_0_0,
       btn_left_0 => btn_left_0_0,
-      btn_right_0 => btn_right_0_0,
+      btn_right_0 => btn_right_0_0_1,
       btn_up_0 => btn_up_0_0,
       clk_100Mhz => clk_100Mhz_0_1,
+      dbg_scl_out => top_system_0_dbg_scl_out,
+      dbg_sda_out => top_system_0_dbg_sda_out,
       i2c_scl => i2c_scl_0,
       i2c_sda => i2c_sda_0,
+      i2s_bclk => i2s_bclk_0,
+      i2s_dout => i2s_dout_0,
+      i2s_lrclk => i2s_lrclk_0,
       led_clk => top_system_0_led_clk,
       led_data => top_system_0_led_data,
       reset_n => reset_n_0,

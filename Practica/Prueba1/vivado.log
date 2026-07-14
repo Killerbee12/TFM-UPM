@@ -428,3 +428,828 @@ launch_runs synth_1 -jobs 2
 Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_top_system_0_1_synth_1/runme.log
 [Wed Jul  8 20:41:51 2026] Launched synth_1...
 Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/synth_1/runme.log
+launch_runs impl_1 -jobs 2
+[Wed Jul  8 20:45:53 2026] Launched impl_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+[Tue Jul 14 16:23:31 2026] Launched impl_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/runme.log
+open_hw_manager
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2025.1
+  **** Build date : May  6 2025 at 09:15:36
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2025.1.0
+  ****** Build date   : May 13 2025-21:15:27
+    **** Build number : 2025.1.1747163727
+      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:01 ; elapsed = 00:00:07 . Memory (MB): peak = 2067.152 ; gain = 0.000
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292AD31A3A
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+WARNING: [Labtools 27-3413] Dropping logic core with cellname:'design_1_i/system_ila_0/U0/ila_lib' at location 'uuid_E0698DBB7E4F5BCEA82CFC5D3D48BAA4' from probes file, since it cannot be found on the programmed device.
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-2302] Device xc7a100t (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+close_hw_manager
+set_property HDL_ATTRIBUTE.DEBUG true [get_bd_nets {Net }]
+true
+set_property HDL_ATTRIBUTE.DEBUG true [get_bd_nets {Net1 }]
+true
+startgroup
+apply_bd_automation -rule xilinx.com:bd_rule:debug -dict [list \
+                                                          [get_bd_nets Net] {PROBE_TYPE "Data and Trigger" CLK_SRC "/top_system_0/led_clk" SYSTEM_ILA "Auto" } \
+                                                          [get_bd_nets Net1] {PROBE_TYPE "Data and Trigger" CLK_SRC "/top_system_0/led_clk" SYSTEM_ILA "Auto" } \
+                                                         ]
+Debug Automation : Instantiating new System ILA block '/system_ila_1' with mode NATIVE, 0 slot interface pins and 2 probe pins. Also setting parameters on this block, corresponding to newly enabled interface pins and probe pins as specified via Debug Automation.
+Debug Automation : Connecting source clock pin /top_system_0/led_clk to the following sink clock pins :
+/system_ila_1/clk
+Debug Automation : Connecting net /Net, to System ILA probe pin /system_ila_1/probe0 for debug.
+Debug Automation : Connecting net /Net1, to System ILA probe pin /system_ila_1/probe1 for debug.
+endgroup
+delete_bd_objs [get_bd_nets top_system_0_led_clk]
+undo
+INFO: [Common 17-17] undo 'delete_bd_objs [get_bd_nets top_system_0_led_clk]'
+undo
+INFO: [Common 17-17] undo 'endgroup'
+INFO: [Common 17-17] undo 'apply_bd_automation -rule xilinx.com:bd_rule:debug -dict [list \
+                                                          [get_bd_nets Net] {PROBE_TYPE "Data and Trigger" CLK_SRC "/top_system_0/led_clk" SYSTEM_ILA "Auto" } \
+                                                          [get_bd_nets Net1] {PROBE_TYPE "Data and Trigger" CLK_SRC "/top_system_0/led_clk" SYSTEM_ILA "Auto" } \
+                                                         ]'
+INFO: [Common 17-17] undo 'startgroup'
+startgroup
+apply_bd_automation -rule xilinx.com:bd_rule:debug -dict [list \
+                                                          [get_bd_nets Net] {PROBE_TYPE "Data and Trigger" CLK_SRC "/top_system_0/led_clk" SYSTEM_ILA "Auto" } \
+                                                          [get_bd_nets Net1] {PROBE_TYPE "Data and Trigger" CLK_SRC "/top_system_0/led_clk" SYSTEM_ILA "Auto" } \
+                                                         ]
+Debug Automation : Instantiating new System ILA block '/system_ila_1' with mode NATIVE, 0 slot interface pins and 2 probe pins. Also setting parameters on this block, corresponding to newly enabled interface pins and probe pins as specified via Debug Automation.
+Debug Automation : Connecting source clock pin /top_system_0/led_clk to the following sink clock pins :
+/system_ila_1/clk
+Debug Automation : Connecting net /Net, to System ILA probe pin /system_ila_1/probe0 for debug.
+Debug Automation : Connecting net /Net1, to System ILA probe pin /system_ila_1/probe1 for debug.
+endgroup
+delete_bd_objs [get_bd_nets top_system_0_led_clk]
+connect_bd_net [get_bd_ports led_clk_0] [get_bd_pins top_system_0/led_clk]
+connect_bd_net [get_bd_pins system_ila_0/probe1] [get_bd_pins top_system_0/led_clk]
+connect_bd_net [get_bd_ports clk_100Mhz_0] [get_bd_pins system_ila_1/clk]
+validate_bd_design
+WARNING: [BD 41-1781] Updates have been made to one or more nets/interface connections marked for debug.
+Debug nets, which are already connected to any ILA IP core in the block-design, will be automatically available for debug in Hardware Manager.
+For unconnected Debug nets, please open synthesized design and use 'Set Up Debug' wizard to insert, modify or delete Debug Cores. 
+report_ip_status -name ip_status 
+save_bd_design
+Wrote  : <C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\bd\design_1\design_1.bd> 
+Wrote  : <C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
+startgroup
+set_property -dict [list \
+  CONFIG.C_DATA_DEPTH {65536} \
+  CONFIG.C_NUM_OF_PROBES {3} \
+] [get_bd_cells system_ila_1]
+endgroup
+connect_bd_net [get_bd_ports btn_right_0_0] [get_bd_pins system_ila_1/probe2]
+validate_bd_design
+WARNING: [BD 41-1781] Updates have been made to one or more nets/interface connections marked for debug.
+Debug nets, which are already connected to any ILA IP core in the block-design, will be automatically available for debug in Hardware Manager.
+For unconnected Debug nets, please open synthesized design and use 'Set Up Debug' wizard to insert, modify or delete Debug Cores. 
+save_bd_design
+Wrote  : <C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\bd\design_1\design_1.bd> 
+Wrote  : <C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
+reset_run synth_1
+INFO: [Project 1-1161] Replacing file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/utils_1/imports/synth_1/top_system.dcp with file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/synth_1/design_1_wrapper.dcp
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+launch_runs synth_1 -jobs 2
+INFO: [BD 41-1662] The design 'design_1.bd' is already validated. Therefore parameter propagation will not be re-run.
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net btn_right_0_0_1 as it connected to debug IP /system_ila_1 
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net clk_100Mhz_0_1 as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_led_data as it is marked for debug
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net Net as it is marked for debug
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net Net1 as it is marked for debug
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net top_system_0_led_clk as it connected to debug IP /system_ila_0 
+VHDL Output written to : c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/synth/design_1.vhd
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net btn_right_0_0_1 as it connected to debug IP /system_ila_1 
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net clk_100Mhz_0_1 as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_led_data as it is marked for debug
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net Net as it is marked for debug
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net Net1 as it is marked for debug
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net top_system_0_led_clk as it connected to debug IP /system_ila_0 
+VHDL Output written to : c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/sim/design_1.vhd
+VHDL Output written to : c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/hdl/design_1_wrapper.vhd
+INFO: [BD 41-1637] Generated targets are already up-to-date for block design 'bd_f60c' - hence not re-generating.
+WARNING: [IP_Flow 19-4994] Overwriting existing constraint file 'c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_1_1/design_1_system_ila_1_1_ooc.xdc'
+Exporting to file c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_1_1/bd_0/hw_handoff/design_1_system_ila_1_1.hwh
+Generated Hardware Definition File c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_1_1/bd_0/synth/design_1_system_ila_1_1.hwdef
+INFO: [BD 41-1029] Generation completed for the IP Integrator block system_ila_1 .
+Exporting to file c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/hw_handoff/design_1.hwh
+Generated Hardware Definition File c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/synth/design_1.hwdef
+[Tue Jul 14 16:51:01 2026] Launched design_1_system_ila_1_1_synth_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_system_ila_1_1_synth_1/runme.log
+[Tue Jul 14 16:51:01 2026] Launched synth_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/synth_1/runme.log
+ERROR: [Common 17-180] Spawn failed: La operación se completó correctamente.
+
+report_ip_status -name ip_status 
+launch_runs impl_1 -jobs 2
+[Tue Jul 14 16:55:28 2026] Launched impl_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/runme.log
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+[Tue Jul 14 17:04:09 2026] Launched impl_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/runme.log
+open_hw_manager
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2025.1
+  **** Build date : May  6 2025 at 09:15:36
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2025.1.0
+  ****** Build date   : May 13 2025-21:15:27
+    **** Build number : 2025.1.1747163727
+      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:01 ; elapsed = 00:00:08 . Memory (MB): peak = 2132.941 ; gain = 0.000
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292AD31A3A
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-2302] Device xc7a100t (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
+WARNING: [Labtools 27-3413] Dropping logic core with cellname:'design_1_i/system_ila_1/U0/ila_lib' at location 'uuid_4E3141B8482C544AB3899626F2624477' from probes file, since it cannot be found on the programmed device.
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}] -trigger_now
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Jul-14 17:14:47
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2026-Jul-14 17:14:47
+INFO: [Labtools 27-3304] ILA Waveform data saved to file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/backup/hw_ila_data_1.ila. Use Tcl command 'read_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-2302] Device xc7a100t (JTAG device index = 0) is programmed with a design that has 2 ILA core(s).
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bR [get_hw_probes design_1_i/system_ila_1/U0/probe2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+set_property CONTROL.TRIGGER_POSITION 500 [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_2' trigger was armed at 2026-Jul-14 17:24:46
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_2' triggered at 2026-Jul-14 17:24:53
+INFO: [Labtools 27-3304] ILA Waveform data saved to file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/backup/hw_ila_data_2.ila. Use Tcl command 'read_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+open_hw_manager
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2025.1
+  **** Build date : May  6 2025 at 09:15:36
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2025.1.0
+  ****** Build date   : May 13 2025-21:15:27
+    **** Build number : 2025.1.1747163727
+      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:01 ; elapsed = 00:00:07 . Memory (MB): peak = 2132.941 ; gain = 0.000
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292AD31A3A
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-2302] Device xc7a100t (JTAG device index = 0) is programmed with a design that has 2 ILA core(s).
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_2' trigger was armed at 2026-Jul-14 17:27:57
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_2' triggered at 2026-Jul-14 17:27:59
+INFO: [Labtools 27-3304] ILA Waveform data saved to file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/backup/hw_ila_data_2.ila. Use Tcl command 'read_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+ERROR: [Common 17-180] Spawn failed: La operación se completó correctamente.
+
+report_ip_status -name ip_status 
+update_module_reference [get_ips  design_1_top_system_0_1]
+INFO: [IP_Flow 19-5107] Inferred bus interface 'reset_n' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'led_clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+CRITICAL WARNING: [IP_Flow 19-4751] Bus Interface 'led_clk': FREQ_HZ bus parameter is missing for output clock interface.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'reset_n' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'led_clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+CRITICAL WARNING: [IP_Flow 19-4751] Bus Interface 'led_clk': FREQ_HZ bus parameter is missing for output clock interface.
+Upgrading 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/design_1.bd'
+INFO: [IP_Flow 19-3420] Updated design_1_top_system_0_1 to use current project options
+WARNING: [IP_Flow 19-4698] Upgrade has added port 'dbg_scl_out'
+WARNING: [IP_Flow 19-4698] Upgrade has added port 'dbg_sda_out'
+WARNING: [IP_Flow 19-3298] Detected external port differences while upgrading 'design_1_top_system_0_1'. These changes may impact your design.
+CRITICAL WARNING: [Coretcl 2-1280] The upgrade of 'design_1_top_system_0_1' has identified issues that may require user intervention. Please verify that the instance is correctly configured, and review any upgrade messages.
+Wrote  : <C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\bd\design_1\design_1.bd> 
+Wrote  : <C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
+delete_bd_objs [get_bd_nets Net]
+delete_bd_objs [get_bd_nets Net1]
+connect_bd_net [get_bd_ports i2c_sda_0] [get_bd_pins top_system_0/i2c_sda]
+connect_bd_net [get_bd_ports i2c_scl_0] [get_bd_pins top_system_0/i2c_scl]
+connect_bd_net [get_bd_pins top_system_0/dbg_sda_out] [get_bd_pins system_ila_1/probe0]
+connect_bd_net [get_bd_pins top_system_0/dbg_scl_out] [get_bd_pins system_ila_1/probe1]
+set_property HDL_ATTRIBUTE.DEBUG true [get_bd_nets {top_system_0_dbg_sda_out }]
+true
+set_property HDL_ATTRIBUTE.DEBUG true [get_bd_nets {top_system_0_dbg_scl_out }]
+true
+report_ip_status -name ip_status 
+validate_bd_design
+WARNING: [BD 41-1781] Updates have been made to one or more nets/interface connections marked for debug.
+Debug nets, which are already connected to any ILA IP core in the block-design, will be automatically available for debug in Hardware Manager.
+For unconnected Debug nets, please open synthesized design and use 'Set Up Debug' wizard to insert, modify or delete Debug Cores. 
+save_bd_design
+Wrote  : <C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\bd\design_1\design_1.bd> 
+Wrote  : <C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
+reset_run synth_1
+INFO: [Project 1-1161] Replacing file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/utils_1/imports/synth_1/top_system.dcp with file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/synth_1/design_1_wrapper.dcp
+launch_runs synth_1 -jobs 2
+INFO: [BD 41-1662] The design 'design_1.bd' is already validated. Therefore parameter propagation will not be re-run.
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net btn_right_0_0_1 as it connected to debug IP /system_ila_1 
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net clk_100Mhz_0_1 as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_led_data as it is marked for debug
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net top_system_0_led_clk as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_dbg_sda_out as it is marked for debug
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_dbg_scl_out as it is marked for debug
+VHDL Output written to : c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/synth/design_1.vhd
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net btn_right_0_0_1 as it connected to debug IP /system_ila_1 
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net clk_100Mhz_0_1 as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_led_data as it is marked for debug
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net top_system_0_led_clk as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_dbg_sda_out as it is marked for debug
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_dbg_scl_out as it is marked for debug
+VHDL Output written to : c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/sim/design_1.vhd
+VHDL Output written to : c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/hdl/design_1_wrapper.vhd
+INFO: [BD 41-1029] Generation completed for the IP Integrator block top_system_0 .
+INFO: [BD 41-1637] Generated targets are already up-to-date for block design 'bd_f60c' - hence not re-generating.
+INFO: [BD 41-1637] Generated targets are already up-to-date for block design 'bd_f69c' - hence not re-generating.
+Exporting to file c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/hw_handoff/design_1.hwh
+Generated Hardware Definition File c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/synth/design_1.hwdef
+[Tue Jul 14 17:32:32 2026] Launched design_1_top_system_0_1_synth_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_top_system_0_1_synth_1/runme.log
+[Tue Jul 14 17:32:32 2026] Launched synth_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/synth_1/runme.log
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+launch_runs impl_1 -jobs 2
+[Tue Jul 14 17:34:18 2026] Launched impl_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+[Tue Jul 14 17:36:19 2026] Launched impl_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/runme.log
+open_hw_manager
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2025.1
+  **** Build date : May  6 2025 at 09:15:36
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2025.1.0
+  ****** Build date   : May 13 2025-21:15:27
+    **** Build number : 2025.1.1747163727
+      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:07 . Memory (MB): peak = 2132.941 ; gain = 0.000
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292AD31A3A
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-2302] Device xc7a100t (JTAG device index = 0) is programmed with a design that has 2 ILA core(s).
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_2' trigger was armed at 2026-Jul-14 17:37:43
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_2' triggered at 2026-Jul-14 17:37:46
+INFO: [Labtools 27-3304] ILA Waveform data saved to file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/backup/hw_ila_data_2.ila. Use Tcl command 'read_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+ERROR: [Common 17-180] Spawn failed: La operación se completó correctamente.
+
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+ERROR: [Common 17-180] Spawn failed: La operación se completó correctamente.
+
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+ERROR: [Common 17-180] Spawn failed: La operación se completó correctamente.
+
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+report_ip_status -name ip_status 
+update_module_reference [get_ips  design_1_top_system_0_1]
+INFO: [IP_Flow 19-5107] Inferred bus interface 'reset_n' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'led_clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+CRITICAL WARNING: [IP_Flow 19-4751] Bus Interface 'led_clk': FREQ_HZ bus parameter is missing for output clock interface.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'reset_n' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'led_clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+CRITICAL WARNING: [IP_Flow 19-4751] Bus Interface 'led_clk': FREQ_HZ bus parameter is missing for output clock interface.
+Upgrading 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/design_1.bd'
+INFO: [IP_Flow 19-3420] Updated design_1_top_system_0_1 to use current project options
+Wrote  : <C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\bd\design_1\design_1.bd> 
+Wrote  : <C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
+reset_run synth_1
+INFO: [Project 1-1161] Replacing file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/utils_1/imports/synth_1/top_system.dcp with file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/synth_1/design_1_wrapper.dcp
+report_ip_status -name ip_status 
+validate_bd_design
+WARNING: [BD 41-1781] Updates have been made to one or more nets/interface connections marked for debug.
+Debug nets, which are already connected to any ILA IP core in the block-design, will be automatically available for debug in Hardware Manager.
+For unconnected Debug nets, please open synthesized design and use 'Set Up Debug' wizard to insert, modify or delete Debug Cores. 
+save_bd_design
+Wrote  : <C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\bd\design_1\design_1.bd> 
+Wrote  : <C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
+launch_runs synth_1 -jobs 2
+INFO: [BD 41-1662] The design 'design_1.bd' is already validated. Therefore parameter propagation will not be re-run.
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net btn_right_0_0_1 as it connected to debug IP /system_ila_1 
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net clk_100Mhz_0_1 as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_led_data as it is marked for debug
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net top_system_0_led_clk as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_dbg_sda_out as it is marked for debug
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_dbg_scl_out as it is marked for debug
+VHDL Output written to : c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/synth/design_1.vhd
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net btn_right_0_0_1 as it connected to debug IP /system_ila_1 
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net clk_100Mhz_0_1 as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_led_data as it is marked for debug
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net top_system_0_led_clk as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_dbg_sda_out as it is marked for debug
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_dbg_scl_out as it is marked for debug
+VHDL Output written to : c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/sim/design_1.vhd
+VHDL Output written to : c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/hdl/design_1_wrapper.vhd
+INFO: [BD 41-1029] Generation completed for the IP Integrator block top_system_0 .
+INFO: [BD 41-1637] Generated targets are already up-to-date for block design 'bd_f60c' - hence not re-generating.
+INFO: [BD 41-1637] Generated targets are already up-to-date for block design 'bd_f69c' - hence not re-generating.
+Exporting to file c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/hw_handoff/design_1.hwh
+Generated Hardware Definition File c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/synth/design_1.hwdef
+[Tue Jul 14 17:42:16 2026] Launched design_1_top_system_0_1_synth_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_top_system_0_1_synth_1/runme.log
+[Tue Jul 14 17:42:17 2026] Launched synth_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/synth_1/runme.log
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+ERROR: [Common 17-180] Spawn failed: La operación se completó correctamente.
+
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+ERROR: [Common 17-180] Spawn failed: La operación se completó correctamente.
+
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+report_ip_status -name ip_status 
+update_module_reference [get_ips  design_1_top_system_0_1]
+INFO: [IP_Flow 19-5107] Inferred bus interface 'reset_n' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'led_clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+CRITICAL WARNING: [IP_Flow 19-4751] Bus Interface 'led_clk': FREQ_HZ bus parameter is missing for output clock interface.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'reset_n' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'led_clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+CRITICAL WARNING: [IP_Flow 19-4751] Bus Interface 'led_clk': FREQ_HZ bus parameter is missing for output clock interface.
+Upgrading 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/design_1.bd'
+INFO: [IP_Flow 19-3420] Updated design_1_top_system_0_1 to use current project options
+Wrote  : <C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\bd\design_1\design_1.bd> 
+Wrote  : <C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+ERROR: [Common 17-180] Spawn failed: La operación se completó correctamente.
+
+report_ip_status -name ip_status 
+reset_run synth_1
+launch_runs synth_1 -jobs 2
+WARNING: [BD 41-1781] Updates have been made to one or more nets/interface connections marked for debug.
+Debug nets, which are already connected to any ILA IP core in the block-design, will be automatically available for debug in Hardware Manager.
+For unconnected Debug nets, please open synthesized design and use 'Set Up Debug' wizard to insert, modify or delete Debug Cores. 
+Wrote  : <C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\bd\design_1\design_1.bd> 
+Wrote  : <C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net btn_right_0_0_1 as it connected to debug IP /system_ila_1 
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net clk_100Mhz_0_1 as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_led_data as it is marked for debug
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net top_system_0_led_clk as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_dbg_sda_out as it is marked for debug
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_dbg_scl_out as it is marked for debug
+VHDL Output written to : c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/synth/design_1.vhd
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net btn_right_0_0_1 as it connected to debug IP /system_ila_1 
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net clk_100Mhz_0_1 as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_led_data as it is marked for debug
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net top_system_0_led_clk as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_dbg_sda_out as it is marked for debug
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_dbg_scl_out as it is marked for debug
+VHDL Output written to : c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/sim/design_1.vhd
+VHDL Output written to : c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/hdl/design_1_wrapper.vhd
+INFO: [BD 41-1029] Generation completed for the IP Integrator block top_system_0 .
+INFO: [BD 41-1637] Generated targets are already up-to-date for block design 'bd_f60c' - hence not re-generating.
+INFO: [BD 41-1637] Generated targets are already up-to-date for block design 'bd_f69c' - hence not re-generating.
+Exporting to file c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/hw_handoff/design_1.hwh
+Generated Hardware Definition File c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/synth/design_1.hwdef
+[Tue Jul 14 17:48:49 2026] Launched design_1_top_system_0_1_synth_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_top_system_0_1_synth_1/runme.log
+[Tue Jul 14 17:48:49 2026] Launched synth_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/synth_1/runme.log
+ERROR: [Common 17-180] Spawn failed: La operación se completó correctamente.
+
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+ERROR: [Common 17-180] Spawn failed: La operación se completó correctamente.
+
+launch_runs impl_1 -jobs 2
+[Tue Jul 14 17:51:03 2026] Launched impl_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+[Tue Jul 14 17:53:26 2026] Launched impl_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/runme.log
+open_hw_manager
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2025.1
+  **** Build date : May  6 2025 at 09:15:36
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2025.1.0
+  ****** Build date   : May 13 2025-21:15:27
+    **** Build number : 2025.1.1747163727
+      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:01 ; elapsed = 00:00:08 . Memory (MB): peak = 2861.477 ; gain = 0.000
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292AD31A3A
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-2302] Device xc7a100t (JTAG device index = 0) is programmed with a design that has 2 ILA core(s).
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-2302] Device xc7a100t (JTAG device index = 0) is programmed with a design that has 2 ILA core(s).
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_2' trigger was armed at 2026-Jul-14 17:56:13
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_2' triggered at 2026-Jul-14 17:56:16
+INFO: [Labtools 27-3304] ILA Waveform data saved to file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/backup/hw_ila_data_2.ila. Use Tcl command 'read_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+reset_run design_1_top_system_0_1_synth_1
+reset_run synth_1
+INFO: [Project 1-1161] Replacing file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/utils_1/imports/synth_1/top_system.dcp with file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/synth_1/design_1_wrapper.dcp
+launch_runs synth_1 -jobs 2
+[Tue Jul 14 18:02:46 2026] Launched design_1_top_system_0_1_synth_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_top_system_0_1_synth_1/runme.log
+[Tue Jul 14 18:02:46 2026] Launched synth_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/synth_1/runme.log
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+launch_runs impl_1 -jobs 2
+[Tue Jul 14 18:06:24 2026] Launched impl_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+[Tue Jul 14 18:08:30 2026] Launched impl_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/runme.log
+open_hw_manager
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2025.1
+  **** Build date : May  6 2025 at 09:15:36
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2025.1.0
+  ****** Build date   : May 13 2025-21:15:27
+    **** Build number : 2025.1.1747163727
+      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:07 . Memory (MB): peak = 2861.477 ; gain = 0.000
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292AD31A3A
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-2302] Device xc7a100t (JTAG device index = 0) is programmed with a design that has 2 ILA core(s).
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-2302] Device xc7a100t (JTAG device index = 0) is programmed with a design that has 2 ILA core(s).
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_2' trigger was armed at 2026-Jul-14 18:10:11
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_2' triggered at 2026-Jul-14 18:10:15
+INFO: [Labtools 27-3304] ILA Waveform data saved to file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/backup/hw_ila_data_2.ila. Use Tcl command 'read_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+report_ip_status -name ip_status 
+update_module_reference [get_ips  design_1_top_system_0_1]
+INFO: [IP_Flow 19-5107] Inferred bus interface 'reset_n' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'led_clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+CRITICAL WARNING: [IP_Flow 19-4751] Bus Interface 'led_clk': FREQ_HZ bus parameter is missing for output clock interface.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'reset_n' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'led_clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+CRITICAL WARNING: [IP_Flow 19-4751] Bus Interface 'led_clk': FREQ_HZ bus parameter is missing for output clock interface.
+Upgrading 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/design_1.bd'
+INFO: [IP_Flow 19-3420] Updated design_1_top_system_0_1 to use current project options
+WARNING: [IP_Flow 19-4698] Upgrade has added port 'i2s_bclk'
+WARNING: [IP_Flow 19-4698] Upgrade has added port 'i2s_dout'
+WARNING: [IP_Flow 19-4698] Upgrade has added port 'i2s_lrclk'
+WARNING: [IP_Flow 19-3298] Detected external port differences while upgrading 'design_1_top_system_0_1'. These changes may impact your design.
+CRITICAL WARNING: [Coretcl 2-1280] The upgrade of 'design_1_top_system_0_1' has identified issues that may require user intervention. Please verify that the instance is correctly configured, and review any upgrade messages.
+Wrote  : <C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\bd\design_1\design_1.bd> 
+Wrote  : <C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+ERROR: [Common 17-180] Spawn failed: La operación se completó correctamente.
+
+startgroup
+make_bd_pins_external  [get_bd_pins top_system_0/i2s_bclk]
+endgroup
+startgroup
+make_bd_pins_external  [get_bd_pins top_system_0/i2s_lrclk]
+endgroup
+startgroup
+make_bd_pins_external  [get_bd_pins top_system_0/i2s_dout]
+endgroup
+report_ip_status -name ip_status 
+validate_bd_design
+WARNING: [BD 41-1781] Updates have been made to one or more nets/interface connections marked for debug.
+Debug nets, which are already connected to any ILA IP core in the block-design, will be automatically available for debug in Hardware Manager.
+For unconnected Debug nets, please open synthesized design and use 'Set Up Debug' wizard to insert, modify or delete Debug Cores. 
+save_bd_design
+Wrote  : <C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\bd\design_1\design_1.bd> 
+Wrote  : <C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
+reset_run synth_1
+INFO: [Project 1-1161] Replacing file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/utils_1/imports/synth_1/top_system.dcp with file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/synth_1/design_1_wrapper.dcp
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+launch_runs synth_1 -jobs 2
+INFO: [BD 41-1662] The design 'design_1.bd' is already validated. Therefore parameter propagation will not be re-run.
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net btn_right_0_0_1 as it connected to debug IP /system_ila_1 
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net clk_100Mhz_0_1 as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_led_data as it is marked for debug
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net top_system_0_led_clk as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_dbg_sda_out as it is marked for debug
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_dbg_scl_out as it is marked for debug
+VHDL Output written to : c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/synth/design_1.vhd
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net btn_right_0_0_1 as it connected to debug IP /system_ila_1 
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net clk_100Mhz_0_1 as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_led_data as it is marked for debug
+WARNING: [BD 41-3256] Drive strength cannot be preserved for ports connected to net top_system_0_led_clk as it connected to debug IP /system_ila_0 
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_dbg_sda_out as it is marked for debug
+WARNING: [BD 41-3257] Drive strength cannot be preserved for ports connected to net top_system_0_dbg_scl_out as it is marked for debug
+VHDL Output written to : c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/sim/design_1.vhd
+VHDL Output written to : c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/hdl/design_1_wrapper.vhd
+INFO: [BD 41-1029] Generation completed for the IP Integrator block top_system_0 .
+INFO: [BD 41-1637] Generated targets are already up-to-date for block design 'bd_f60c' - hence not re-generating.
+INFO: [BD 41-1637] Generated targets are already up-to-date for block design 'bd_f69c' - hence not re-generating.
+Exporting to file c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/hw_handoff/design_1.hwh
+Generated Hardware Definition File c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/synth/design_1.hwdef
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+[Tue Jul 14 18:13:20 2026] Launched design_1_top_system_0_1_synth_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_top_system_0_1_synth_1/runme.log
+[Tue Jul 14 18:13:20 2026] Launched synth_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/synth_1/runme.log
+ERROR: [Common 17-180] Spawn failed: La operación se completó correctamente.
+
+update_compile_order -fileset sources_1
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+ERROR: [Common 17-180] Spawn failed: La operación se completó correctamente.
+
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+ERROR: [Common 17-180] Spawn failed: La operación se completó correctamente.
+
+launch_runs impl_1 -jobs 2
+[Tue Jul 14 18:17:16 2026] Launched impl_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+[Tue Jul 14 18:19:28 2026] Launched impl_1...
+Run output will be captured here: C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/runme.log
+open_hw_manager
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2025.1
+  **** Build date : May  6 2025 at 09:15:36
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2025.1.0
+  ****** Build date   : May 13 2025-21:15:27
+    **** Build number : 2025.1.1747163727
+      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:06 . Memory (MB): peak = 2861.477 ; gain = 0.000
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292AD31A3A
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-2302] Device xc7a100t (JTAG device index = 0) is programmed with a design that has 2 ILA core(s).
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-2302] Device xc7a100t (JTAG device index = 0) is programmed with a design that has 2 ILA core(s).
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_2' trigger was armed at 2026-Jul-14 18:20:41
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_2' triggered at 2026-Jul-14 18:20:46
+INFO: [Labtools 27-3304] ILA Waveform data saved to file C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/backup/hw_ila_data_2.ila. Use Tcl command 'read_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\tas2110_i2c_ctrl.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.srcs\sources_1\new\top_system.vhd:]

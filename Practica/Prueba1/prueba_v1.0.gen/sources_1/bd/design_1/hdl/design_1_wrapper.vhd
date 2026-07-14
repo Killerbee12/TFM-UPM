@@ -2,7 +2,7 @@
 --Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
---Date        : Wed Jul  8 20:21:34 2026
+--Date        : Tue Jul 14 18:13:16 2026
 --Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 --Command     : generate_target design_1_wrapper.bd
 --Design      : design_1_wrapper
@@ -22,6 +22,9 @@ entity design_1_wrapper is
     clk_100Mhz_0 : in STD_LOGIC;
     i2c_scl_0 : inout STD_LOGIC;
     i2c_sda_0 : inout STD_LOGIC;
+    i2s_bclk_0 : out STD_LOGIC;
+    i2s_dout_0 : out STD_LOGIC;
+    i2s_lrclk_0 : out STD_LOGIC;
     led_clk_0 : out STD_LOGIC;
     led_data_0 : out STD_LOGIC;
     reset_n_0 : in STD_LOGIC;
@@ -47,7 +50,10 @@ architecture STRUCTURE of design_1_wrapper is
     btn_right_0_0 : in STD_LOGIC;
     i2c_sda_0 : inout STD_LOGIC;
     i2c_scl_0 : inout STD_LOGIC;
-    btn_center_0_0 : in STD_LOGIC
+    btn_center_0_0 : in STD_LOGIC;
+    i2s_bclk_0 : out STD_LOGIC;
+    i2s_lrclk_0 : out STD_LOGIC;
+    i2s_dout_0 : out STD_LOGIC
   );
   end component design_1;
 begin
@@ -61,6 +67,9 @@ design_1_i: component design_1
       clk_100Mhz_0 => clk_100Mhz_0,
       i2c_scl_0 => i2c_scl_0,
       i2c_sda_0 => i2c_sda_0,
+      i2s_bclk_0 => i2s_bclk_0,
+      i2s_dout_0 => i2s_dout_0,
+      i2s_lrclk_0 => i2s_lrclk_0,
       led_clk_0 => led_clk_0,
       led_data_0 => led_data_0,
       reset_n_0 => reset_n_0,
