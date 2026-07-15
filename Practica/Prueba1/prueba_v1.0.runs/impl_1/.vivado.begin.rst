@@ -68,3 +68,18 @@
     <Process Command="vivado.bat" Owner="kille" Host="SAMSUNG_BOOK_3" Pid="6904" HostCore="12" HostMemory="08257945600">
     </Process>
 </ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="kille" Host="SAMSUNG_BOOK_3" Pid="10552" HostCore="12" HostMemory="08257945600">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="kille" Host="SAMSUNG_BOOK_3" Pid="32688" HostCore="12" HostMemory="08257945600">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="kille" Host="SAMSUNG_BOOK_3" Pid="27692" HostCore="12" HostMemory="08257945600">
+    </Process>
+</ProcessHandle>
