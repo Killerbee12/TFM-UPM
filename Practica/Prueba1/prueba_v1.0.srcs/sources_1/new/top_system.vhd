@@ -92,8 +92,8 @@ begin
 
     inst_i2s_tx: entity work.i2s_transceiver
         generic map(
-            mclk_sclk_ratio => 4,
-            sclk_ws_ratio   => 64,
+            mclk_sclk_ratio => 32, -- 100MHz / 32 = 3.125 MHz BCLK
+            sclk_ws_ratio   => 64, -- 3.125MHz / 64 = 48.828 kHz LRCLK (Standard Audio)
             d_width         => 24
         )
         port map(

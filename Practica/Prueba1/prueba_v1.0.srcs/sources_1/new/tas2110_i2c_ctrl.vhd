@@ -83,40 +83,49 @@ begin
                             -- Cambiar a Page 2
                             seq_rom(0) <= x"0002"; 
                             
-                            -- TG1_FREQ1 para 1000 Hz a fs=96kHz
+                            -- TG1_FREQ1 para 1000 Hz a fs=96kHz (Oscilador interno)
                             seq_rom(1) <= x"3C3F"; 
-                            seq_rom(2) <= x"3DDD"; 
-                            seq_rom(3) <= x"3E38"; 
-                            seq_rom(4) <= x"3FAE"; 
+                            seq_rom(2) <= x"3DDC"; 
+                            seq_rom(3) <= x"3ED1"; 
+                            seq_rom(4) <= x"3FF0"; 
                             
-                            -- TG1_FREQ2 para 1000 Hz
+                            -- TG1_FREQ2 para 1000 Hz a fs=96kHz
                             seq_rom(5) <= x"4008"; 
-                            seq_rom(6) <= x"415E"; 
-                            seq_rom(7) <= x"42C2"; 
-                            seq_rom(8) <= x"431E"; 
+                            seq_rom(6) <= x"415F"; 
+                            seq_rom(7) <= x"4218"; 
+                            seq_rom(8) <= x"43AC"; 
                             
-                            -- TG1_FREQ3 para 1000 Hz
+                            -- TG1_FREQ3 para 1000 Hz a fs=96kHz
                             seq_rom(9) <= x"4400"; 
                             seq_rom(10)<= x"4500"; 
                             seq_rom(11)<= x"4600"; 
                             seq_rom(12)<= x"475F"; 
                             
-                            -- AMP (-6dB = 0x4026E7E0)
-                            seq_rom(13)<= x"4840"; 
-                            seq_rom(14)<= x"4926"; 
-                            seq_rom(15)<= x"4AE7"; 
-                            seq_rom(16)<= x"4BE0"; 
+                            -- AMP (-24dB = 0x08138580)
+                            seq_rom(13)<= x"4808"; 
+                            seq_rom(14)<= x"4913"; 
+                            seq_rom(15)<= x"4A85"; 
+                            seq_rom(16)<= x"4B80"; 
                             
                             -- Cambiar a Page 0
                             seq_rom(17)<= x"0000"; 
-                            -- PWR_CTL = 0x0C (Active mode)
-                            seq_rom(18)<= x"020C";
-                            -- MISC_CFG4 = 0x18 (Clock source para Tone Gen = Internal Oscillator)
-                            seq_rom(19)<= x"3D18";
-                            -- TG1_EN = 0x40 (Play tone always)
-                            seq_rom(20)<= x"3F40"; 
                             
-                            seq_len <= 21;
+                            -- MISC_CFG1 = 0xF6 (Enable OCE_RETRY y OTE_RETRY)
+                            seq_rom(18)<= x"04F6";
+                            
+                            -- INT_CLK = 0x5D (Disable CLK_HALT_EN y Clear Latched Faults)
+                            seq_rom(19)<= x"305D";
+                            
+                            -- MISC_CFG4 = 0x18 (Clock source para Tone Gen = Internal Oscillator)
+                            seq_rom(20)<= x"3D18";
+                            
+                            -- PWR_CTL = 0x0C (Active mode)
+                            seq_rom(21)<= x"020C";
+                            
+                            -- TG1_EN = 0x40 (Play tone always)
+                            seq_rom(22)<= x"3F40"; 
+                            
+                            seq_len <= 23;
                             reg_cnt <= 0;
                             byte_cnt <= 0;
                             current_byte <= SLAVE_ADDR;
