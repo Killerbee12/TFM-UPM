@@ -30,7 +30,7 @@ architecture Behavioral of tas2110_i2c_ctrl is
     signal seq_len : integer range 0 to 31 := 0;
     
     -- Máquina de estados I2C
-    type state_t is (IDLE, START_COND, SEND_BIT, CHECK_ACK, STOP_COND, NEXT_REG, DELAY);
+    type state_t is (IDLE, START_COND, SEND_BIT, CHECK_ACK, STOP_COND, NEXT_REG, DELAY, POWER_WAIT);
     signal state : state_t := IDLE;
     
     -- Contadores y Registros
@@ -45,6 +45,7 @@ architecture Behavioral of tas2110_i2c_ctrl is
     
     -- Antirrebote simple para los botones (5ms)
     signal debounce : integer range 0 to 500_000 := 0;
+    signal pwr_wait_cnt : integer range 0 to 500_000 := 0;
 
 begin
 
@@ -66,6 +67,7 @@ begin
                 scl_out <= '1';
                 clk_div <= 0;
                 debounce <= 0;
+                pwr_wait_cnt <= 0;
             else
                 if debounce > 0 then
                     debounce <= debounce - 1;
@@ -77,55 +79,61 @@ begin
                         scl_out <= '1';
                         
                         if btn_start = '1' and debounce = 0 then
-                            -- SECUENCIA START TONE (400Hz aprox, -40dB)
-                            -- Usaremos el Internal Oscillator por defecto o asumimos que ya está.
+                            -- SECUENCIA START TONE (1000Hz, -24dB)
                             
-                            -- Cambiar a Page 2
-                            seq_rom(0) <= x"0002"; 
-                            
-                            -- TG1_FREQ1 para 1000 Hz a fs=96kHz (Oscilador interno)
-                            seq_rom(1) <= x"3C3F"; 
-                            seq_rom(2) <= x"3DDC"; 
-                            seq_rom(3) <= x"3ED1"; 
-                            seq_rom(4) <= x"3FF0"; 
-                            
-                            -- TG1_FREQ2 para 1000 Hz a fs=96kHz
-                            seq_rom(5) <= x"4008"; 
-                            seq_rom(6) <= x"415F"; 
-                            seq_rom(7) <= x"4218"; 
-                            seq_rom(8) <= x"43AC"; 
-                            
-                            -- TG1_FREQ3 para 1000 Hz a fs=96kHz
-                            seq_rom(9) <= x"4400"; 
-                            seq_rom(10)<= x"4500"; 
-                            seq_rom(11)<= x"4600"; 
-                            seq_rom(12)<= x"475F"; 
-                            
-                            -- AMP (-24dB = 0x08138580)
-                            seq_rom(13)<= x"4808"; 
-                            seq_rom(14)<= x"4913"; 
-                            seq_rom(15)<= x"4A85"; 
-                            seq_rom(16)<= x"4B80"; 
-                            
-                            -- Cambiar a Page 0
-                            seq_rom(17)<= x"0000"; 
+                            -- === Paso 1: Configurar Page 0 (reloj y misc) PRIMERO ===
+                            -- Seleccionar Page 0
+                            seq_rom(0) <= x"0000"; 
                             
                             -- MISC_CFG1 = 0xF6 (Enable OCE_RETRY y OTE_RETRY)
-                            seq_rom(18)<= x"04F6";
+                            seq_rom(1) <= x"04F6";
                             
                             -- INT_CLK = 0x5D (Disable CLK_HALT_EN y Clear Latched Faults)
-                            seq_rom(19)<= x"305D";
+                            seq_rom(2) <= x"305D";
                             
                             -- MISC_CFG4 = 0x18 (Clock source para Tone Gen = Internal Oscillator)
-                            seq_rom(20)<= x"3D18";
+                            seq_rom(3) <= x"3D18";
                             
-                            -- PWR_CTL = 0x0C (Active mode)
-                            seq_rom(21)<= x"020C";
+                            -- === Paso 2: Configurar Tone Generator en Page 2 ===
+                            -- Cambiar a Page 2
+                            seq_rom(4) <= x"0002"; 
+                            
+                            -- TG1_FREQ1 = round(2*cos(2*pi*1000/48828.125)*2^29) = 0x3F788A4F
+                            seq_rom(5) <= x"3C3F"; 
+                            seq_rom(6) <= x"3D78"; 
+                            seq_rom(7) <= x"3E8A"; 
+                            seq_rom(8) <= x"3F4F"; 
+                            
+                            -- TG1_FREQ2 = round(sin(2*pi*1000/48828.125)*2^31) = 0x106CF280
+                            seq_rom(9)  <= x"4010"; 
+                            seq_rom(10) <= x"416C"; 
+                            seq_rom(11) <= x"42F2"; 
+                            seq_rom(12) <= x"4380"; 
+                            
+                            -- TG1_FREQ3 = LCM(48828.125, 1000)/1000 - 1 = 3124 = 0x00000C34
+                            seq_rom(13) <= x"4400"; 
+                            seq_rom(14) <= x"4500"; 
+                            seq_rom(15) <= x"460C"; 
+                            seq_rom(16) <= x"4734"; 
+                            
+                            -- AMP (-6dB = 0x4026E73D) — Amplitud alta para pruebas
+                            seq_rom(17) <= x"4840"; 
+                            seq_rom(18) <= x"4926"; 
+                            seq_rom(19) <= x"4AE7"; 
+                            seq_rom(20) <= x"4B3D"; 
+                            
+                            -- === Paso 3: Volver a Page 0, activar y habilitar tone ===
+                            -- Cambiar a Page 0
+                            seq_rom(21) <= x"0000"; 
+                            
+                            -- PWR_CTL = 0x0C (Active mode) [idx 22]
+                            -- NOTA: Tras este registro se inserta un delay de 5ms automaticamente
+                            seq_rom(22) <= x"020C";
                             
                             -- TG1_EN = 0x40 (Play tone always)
-                            seq_rom(22)<= x"3F40"; 
+                            seq_rom(23) <= x"3F40"; 
                             
-                            seq_len <= 23;
+                            seq_len <= 24;
                             reg_cnt <= 0;
                             byte_cnt <= 0;
                             current_byte <= SLAVE_ADDR;
@@ -229,8 +237,14 @@ begin
                             reg_cnt <= reg_cnt + 1;
                             byte_cnt <= 0;
                             current_byte <= SLAVE_ADDR;
-                            state <= DELAY;
                             clk_div <= 0;
+                            -- Tras PWR_CTL (idx 22) insertar delay largo de 5ms
+                            if reg_cnt = 22 then
+                                state <= POWER_WAIT;
+                                pwr_wait_cnt <= 0;
+                            else
+                                state <= DELAY;
+                            end if;
                         end if;
                         
                     when DELAY =>
@@ -240,6 +254,16 @@ begin
                             clk_div <= 0;
                         else
                             clk_div <= clk_div + 1;
+                        end if;
+
+                    when POWER_WAIT =>
+                        -- Espera de 5ms (500.000 ciclos a 100MHz) tras activar PWR_CTL
+                        -- para que el TAS2110 se estabilice antes de habilitar el Tone Gen
+                        if pwr_wait_cnt = 500_000 then
+                            state <= START_COND;
+                            clk_div <= 0;
+                        else
+                            pwr_wait_cnt <= pwr_wait_cnt + 1;
                         end if;
 
                 end case;
