@@ -49,9 +49,11 @@ architecture Behavioral of tas2110_i2c_ctrl is
 
 begin
 
-    -- Tri-state buffers para I2C (Requiere Pull-ups externos en la placa)
-    i2c_sda <= '0' when sda_out = '0' else 'Z';
-    i2c_scl <= '0' when scl_out = '0' else 'Z';
+    -- Como no hay pull-ups externos, forzamos Push-Pull desde la FPGA.
+    -- SCL siempre es push-pull (el esclavo no hace clock stretching).
+    -- SDA es push-pull EXCEPTO durante el bit de ACK, donde dejamos 'Z' para que el esclavo pueda tirar a GND.
+    i2c_scl <= scl_out;
+    i2c_sda <= sda_out when state /= CHECK_ACK else 'Z';
     
     dbg_sda_out <= sda_out;
     dbg_scl_out <= scl_out;
