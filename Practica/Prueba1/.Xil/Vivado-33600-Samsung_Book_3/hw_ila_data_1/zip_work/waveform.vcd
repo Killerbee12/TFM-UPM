@@ -1,0 +1,43 @@
+$date
+        2026-Jul-29 16:48:11
+$end
+$version
+        Vivado v2025.1 (64-bit)
+$end
+$timescale
+        1ps
+$end
+$scope module dut $end
+$var reg 1 " design_1_i/system_ila_0/U0/probe0 $end
+$var reg 1 # design_1_i/system_ila_0/U0/probe1 $end
+$var reg 1 $ _TRIGGER $end
+$var reg 1 % _WINDOW $end
+$var reg 1 & _GAP $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0"
+1#
+0$
+1%
+0&
+$end
+#500
+1"
+0#
+1$
+#1000
+1#
+#1500
+0#
+#2000
+1#
+#2500
+0#
+#3000
+1#
+#3500
+0#
+#4000
+1#

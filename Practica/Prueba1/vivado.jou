@@ -3,10 +3,10 @@
 # SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
 # IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
 # SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-# Start of session at: Fri Jul 24 17:52:47 2026
-# Process ID         : 11464
+# Start of session at: Wed Jul 29 15:25:59 2026
+# Process ID         : 33600
 # Current directory  : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1
-# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent11212 C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.xpr
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent26672 C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1\prueba_v1.0.xpr
 # Log file           : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/vivado.log
 # Journal file       : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1\vivado.jou
 # Running On         : Samsung_Book_3
@@ -19,18 +19,11 @@
 # Host memory        : 8257 MB
 # Swap memory        : 18253 MB
 # Total Virtual      : 26511 MB
-# Available Virtual  : 12402 MB
+# Available Virtual  : 10928 MB
 #-----------------------------------------------------------
 start_gui
 open_project C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.xpr
 update_compile_order -fileset sources_1
-reset_run synth_1
-launch_runs synth_1 -jobs 2
-wait_on_run synth_1
-launch_runs impl_1 -jobs 2
-wait_on_run impl_1
-launch_runs impl_1 -to_step write_bitstream -jobs 2
-wait_on_run impl_1
 open_hw_manager
 connect_hw_server -allow_non_jtag
 open_hw_target
@@ -59,11 +52,483 @@ current_hw_device [get_hw_devices xc7a100t_0]
 refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
 display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
 display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+close_hw_manager
+open_bd_design {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/design_1.bd}
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:blk_mem_gen:8.4 blk_mem_gen_0
+endgroup
+delete_bd_objs [get_bd_cells blk_mem_gen_0]
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
 set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
 set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
 set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
 program_hw_devices [get_hw_devices xc7a100t_0]
 refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:blk_mem_gen:8.4 blk_mem_gen_0
+endgroup
+set_property name Memoria_ROM [get_bd_cells blk_mem_gen_0]
+set_property name Audio_ROM [get_bd_cells Memoria_ROM]
+set_property name audio_rom_ip [get_bd_cells Audio_ROM]
+set_property -dict [list CONFIG.Enable_32bit_Address.VALUE_SRC PROPAGATED] [get_bd_cells audio_rom_ip]
+set_property -dict [list \
+  CONFIG.Coe_File {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/Ludovico-Einaudi-Nuvole-Bianche.coe} \
+  CONFIG.Load_Init_File {true} \
+  CONFIG.Memory_Type {Single_Port_ROM} \
+  CONFIG.Write_Depth_A {200000} \
+  CONFIG.Write_Width_A {24} \
+  CONFIG.use_bram_block {Stand_Alone} \
+] [get_bd_cells audio_rom_ip]
+add_files -norecurse C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/new/audio_player.vhd
+update_compile_order -fileset sources_1
+report_ip_status -name ip_status 
+update_module_reference [get_ips  design_1_top_system_0_1]
+report_ip_status -name ip_status 
+report_ip_status -name ip_status 
+update_module_reference [get_ips  design_1_top_system_0_1]
+report_ip_status -name ip_status 
+connect_bd_net [get_bd_ports clk_100Mhz_0] [get_bd_pins audio_rom_ip/clka]
+connect_bd_net [get_bd_pins audio_rom_ip/ena] [get_bd_pins top_system_0/rom_ena]
+connect_bd_net [get_bd_pins audio_rom_ip/addra] [get_bd_pins top_system_0/rom_addra]
+connect_bd_net [get_bd_pins audio_rom_ip/douta] [get_bd_pins top_system_0/rom_douta]
+set_property location {1 148 255} [get_bd_cells audio_rom_ip]
+set_property location {1 139 97} [get_bd_cells audio_rom_ip]
+set_property location {3 810 171} [get_bd_cells system_ila_1]
+set_property location {3 822 306} [get_bd_cells system_ila_1]
+save_bd_design
+validate_bd_design
+report_ip_status -name ip_status 
+save_bd_design
+validate_bd_design -force
+save_bd_design
+reset_run synth_1
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1
+report_ip_status -name ip_status 
+launch_runs impl_1 -jobs 4
+wait_on_run impl_1
+report_ip_status -name ip_status 
+update_module_reference [get_ips  design_1_top_system_0_1]
+report_ip_status -name ip_status 
+startgroup
+set_property -dict [list \
+  CONFIG.Coe_File {c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/Ludovico-Einaudi-Nuvole-Bianche.coe} \
+  CONFIG.Write_Depth_A {160000} \
+] [get_bd_cells audio_rom_ip]
+endgroup
+validate_bd_design
+reset_run design_1_blk_mem_gen_0_1_synth_1
+save_bd_design
+reset_run synth_1
+launch_runs synth_1 -jobs 12
+wait_on_run synth_1
+launch_runs impl_1 -jobs 12
+wait_on_run impl_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+report_ip_status -name ip_status 
+update_module_reference [get_ips  design_1_top_system_0_1]
+report_ip_status -name ip_status 
+validate_bd_design
+save_bd_design
+reset_run synth_1
+launch_runs synth_1 -jobs 12
+wait_on_run synth_1
+launch_runs impl_1 -jobs 12
+wait_on_run impl_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+update_module_reference design_1_top_system_0_1
+report_ip_status -name ip_status 
+delete_bd_objs [get_bd_nets Net1] [get_bd_ports i2c_scl_0]
+startgroup
+make_bd_pins_external  [get_bd_pins top_system_0/i2c_scl]
+endgroup
+validate_bd_design
+save_bd_design
+reset_run synth_1
+report_ip_status -name ip_status 
+update_module_reference [get_ips  design_1_top_system_0_1]
+validate_bd_design
+save_bd_design
+report_ip_status -name ip_status 
+validate_bd_design -force
+save_bd_design
+launch_runs synth_1 -jobs 12
+wait_on_run synth_1
+launch_runs impl_1 -jobs 12
+wait_on_run impl_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+startgroup
+set_property CONFIG.Coe_File {c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/Ludovico-Einaudi-Nuvole-Bianche.coe} [get_bd_cells audio_rom_ip]
+endgroup
+report_ip_status -name ip_status 
+update_module_reference [get_ips  design_1_top_system_0_1]
+validate_bd_design
+report_ip_status -name ip_status 
+save_bd_design
+validate_bd_design -force
+save_bd_design
+reset_run synth_1
+launch_runs synth_1 -jobs 12
+wait_on_run synth_1
+launch_runs impl_1 -jobs 12
+wait_on_run impl_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+startgroup
+set_property CONFIG.Coe_File {c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/Ludovico-Einaudi-Nuvole-Bianche.coe} [get_bd_cells audio_rom_ip]
+endgroup
+validate_bd_design
+save_bd_design
+reset_run design_1_top_system_0_1_synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 12
+wait_on_run synth_1
+launch_runs impl_1 -jobs 12
+wait_on_run impl_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+validate_bd_design -force
+validate_bd_design -force
+save_bd_design
+reset_run design_1_top_system_0_1_synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 12
+wait_on_run synth_1
+launch_runs impl_1 -jobs 12
+wait_on_run impl_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+close_hw_manager
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+reset_run design_1_top_system_0_1_synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 12
+wait_on_run synth_1
+launch_runs impl_1 -jobs 12
+wait_on_run impl_1
+reset_run synth_1
+reset_run design_1_top_system_0_1_synth_1
+launch_runs synth_1 -jobs 12
+wait_on_run synth_1
+launch_runs impl_1 -jobs 12
+wait_on_run impl_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0
+endgroup
+set_property location {2 274 279} [get_bd_cells clk_wiz_0]
+set_property -dict [list \
+  CONFIG.CLKOUT1_JITTER {360.948} \
+  CONFIG.CLKOUT1_PHASE_ERROR {301.601} \
+  CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {12.288} \
+  CONFIG.CLKOUT2_JITTER {130.958} \
+  CONFIG.CLKOUT2_PHASE_ERROR {98.575} \
+  CONFIG.CLKOUT2_USED {false} \
+  CONFIG.MMCM_CLKFBOUT_MULT_F {48.000} \
+  CONFIG.MMCM_CLKOUT0_DIVIDE_F {78.125} \
+  CONFIG.MMCM_CLKOUT1_DIVIDE {1} \
+  CONFIG.MMCM_DIVCLK_DIVIDE {5} \
+  CONFIG.NUM_OUT_CLKS {1} \
+  CONFIG.USE_LOCKED {false} \
+  CONFIG.USE_RESET {false} \
+] [get_bd_cells clk_wiz_0]
+connect_bd_net [get_bd_ports clk_100Mhz_0] [get_bd_pins clk_wiz_0/clk_in1]
+report_ip_status -name ip_status 
+update_module_reference [get_ips  design_1_top_system_0_1]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins top_system_0/clk_audio]
+validate_bd_design
+report_ip_status -name ip_status 
+validate_bd_design -force
+save_bd_design
+reset_run synth_1
+launch_runs synth_1 -jobs 12
+wait_on_run synth_1
+launch_runs impl_1 -jobs 12
+wait_on_run impl_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+set_property HDL_ATTRIBUTE.DEBUG true [get_bd_nets {top_system_0_i2s_dout }]
+startgroup
+set_property CONFIG.C_NUM_OF_PROBES {4} [get_bd_cells system_ila_1]
+endgroup
+startgroup
+set_property CONFIG.C_NUM_OF_PROBES {5} [get_bd_cells system_ila_1]
+endgroup
+set_property HDL_ATTRIBUTE.DEBUG true [get_bd_nets {btn_center_0_0_1 }]
+connect_bd_net [get_bd_pins system_ila_1/probe3] [get_bd_pins top_system_0/i2s_dout]
+connect_bd_net [get_bd_ports btn_center_0_0] [get_bd_pins system_ila_1/probe4]
+validate_bd_design
+reset_run design_1_system_ila_1_1_synth_1
+save_bd_design
+reset_run synth_1
+launch_runs synth_1 -jobs 12
+wait_on_run synth_1
+launch_runs impl_1 -jobs 12
+wait_on_run impl_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'bR [get_hw_probes design_1_i/system_ila_1/U0/probe4 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+add_wave -into {hw_ila_data_2.wcfg} -radix hex { {design_1_i/system_ila_1/U0/probe3} }
+set_property NAME.CUSTOM top_system_0_i2s_dout [get_hw_probes design_1_i/system_ila_1/U0/probe3] 
+add_wave -into {hw_ila_data_2.wcfg} -radix hex { {design_1_i/system_ila_1/U0/probe4} {design_1_i/system_ila_1/U0/probe2} }
+set_property NAME.CUSTOM btn_center_0_0_1 [get_hw_probes design_1_i/system_ila_1/U0/probe4] 
+set_property NAME.CUSTOM btn_right_0_0 [get_hw_probes design_1_i/system_ila_1/U0/probe2] 
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+set_property TRIGGER_COMPARE_VALUE eq1'bX [get_hw_probes design_1_i/system_ila_1/U0/probe2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+report_ip_status -name ip_status 
+reset_run design_1_top_system_0_1_synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 12
+wait_on_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
 set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
 set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
 set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
@@ -75,13 +540,9 @@ display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices
 save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
 save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
 close_hw_manager
-reset_run design_1_top_system_0_1_synth_1
 reset_run synth_1
-launch_runs synth_1 -jobs 2
-wait_on_run synth_1
-launch_runs impl_1 -jobs 2
-wait_on_run impl_1
-launch_runs impl_1 -to_step write_bitstream -jobs 2
+reset_run design_1_top_system_0_1_synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
 wait_on_run impl_1
 open_hw_manager
 connect_hw_server -allow_non_jtag
@@ -91,14 +552,41 @@ set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueb
 set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
 current_hw_device [get_hw_devices xc7a100t_0]
 refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+reset_run synth_1
+reset_run design_1_top_system_0_1_synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
+close_hw_manager
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
 refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
 set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
 set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
 set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
 program_hw_devices [get_hw_devices xc7a100t_0]
 refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
-display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
 display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
-save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
-save_wave_config {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}
-close_hw_manager

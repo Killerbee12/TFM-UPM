@@ -2,7 +2,7 @@
 --Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
---Date        : Fri Jul 17 18:05:22 2026
+--Date        : Thu Jul 30 18:28:49 2026
 --Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 --Command     : generate_target design_1_wrapper.bd
 --Design      : design_1_wrapper
@@ -20,7 +20,7 @@ entity design_1_wrapper is
     btn_right_0_0 : in STD_LOGIC;
     btn_up_0_0 : in STD_LOGIC;
     clk_100Mhz_0 : in STD_LOGIC;
-    i2c_scl_0 : inout STD_LOGIC;
+    i2c_scl_0 : out STD_LOGIC;
     i2c_sda_0 : inout STD_LOGIC;
     i2s_bclk_0 : out STD_LOGIC;
     i2s_dout_0 : out STD_LOGIC;
@@ -49,11 +49,11 @@ architecture STRUCTURE of design_1_wrapper is
     btn_left_0_0 : in STD_LOGIC;
     btn_right_0_0 : in STD_LOGIC;
     i2c_sda_0 : inout STD_LOGIC;
-    i2c_scl_0 : inout STD_LOGIC;
     btn_center_0_0 : in STD_LOGIC;
     i2s_bclk_0 : out STD_LOGIC;
     i2s_lrclk_0 : out STD_LOGIC;
-    i2s_dout_0 : out STD_LOGIC
+    i2s_dout_0 : out STD_LOGIC;
+    i2c_scl_0 : out STD_LOGIC
   );
   end component design_1;
 begin

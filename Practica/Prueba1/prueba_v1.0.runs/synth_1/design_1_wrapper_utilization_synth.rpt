@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Fri Jul 24 19:00:30 2026
+| Date         : Thu Jul 30 19:25:05 2026
 | Host         : Samsung_Book_3 running 64-bit major release  (build 9200)
 | Command      : report_utilization -file design_1_wrapper_utilization_synth.rpt -pb design_1_wrapper_utilization_synth.pb
 | Design       : design_1_wrapper
@@ -149,21 +149,23 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| OBUF     |   21 |                  IO |
-| IBUF     |    7 |                  IO |
+| OBUF     |   22 |                  IO |
+| IBUF     |    6 |                  IO |
 +----------+------+---------------------+
 
 
 8. Black Boxes
 --------------
 
-+-------------------------+------+
-|         Ref Name        | Used |
-+-------------------------+------+
-| design_1_top_system_0_1 |    1 |
-| design_1_system_ila_1_1 |    1 |
-| design_1_system_ila_0_0 |    1 |
-+-------------------------+------+
++--------------------------+------+
+|         Ref Name         | Used |
++--------------------------+------+
+| design_1_top_system_0_1  |    1 |
+| design_1_system_ila_1_1  |    1 |
+| design_1_system_ila_0_0  |    1 |
+| design_1_clk_wiz_0_0     |    1 |
+| design_1_blk_mem_gen_0_1 |    1 |
++--------------------------+------+
 
 
 9. Instantiated Netlists

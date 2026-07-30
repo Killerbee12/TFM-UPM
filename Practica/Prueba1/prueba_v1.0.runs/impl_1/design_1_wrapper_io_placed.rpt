@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version              : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date                      : Fri Jul 24 19:02:47 2026
+| Date                      : Thu Jul 30 19:27:09 2026
 | Host                      : Samsung_Book_3 running 64-bit major release  (build 9200)
 | Command                   : report_io -file design_1_wrapper_io_placed.rpt
 | Design                    : design_1_wrapper
@@ -102,7 +102,7 @@ Table of Contents
 | D11        |                |            | GND                          | GND         |             |         |            |      |                     |                      |     0.0 |            |           |          |      |                  |              |                   |              |
 | D12        |                | High Range | IO_L6P_T0_15                 | User IO     |             |      15 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | D13        |                | High Range | IO_L6N_T0_VREF_15            | User IO     |             |      15 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
-| D14        | i2c_scl_0      | High Range | IO_L1P_T0_AD0P_15            | BIDIR       | LVCMOS33    |      15 |         12 | SLOW |                     |            FP_VTT_50 |         | FIXED      | PULLUP    |          |      | NONE             |              |                   |              |
+| D14        | i2c_scl_0      | High Range | IO_L1P_T0_AD0P_15            | OUTPUT      | LVCMOS33    |      15 |         12 | SLOW |                     |            FP_VTT_50 |         | FIXED      | PULLUP    |          |      | NONE             |              |                   |              |
 | D15        |                | High Range | IO_L12P_T1_MRCC_15           | User IO     |             |      15 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | D16        |                | High Range | VCCO_15                      | VCCO        |             |      15 |            |      |                     |                      |    3.30 |            |           |          |      |                  |              |                   |              |
 | D17        |                | High Range | IO_L16N_T2_A27_15            | User IO     |             |      15 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |

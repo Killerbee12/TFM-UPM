@@ -56,6 +56,7 @@ USE ieee.numeric_std.ALL;
 ENTITY design_1_top_system_0_1 IS
   PORT (
     clk_100Mhz : IN STD_LOGIC;
+    clk_audio : IN STD_LOGIC;
     reset_n : IN STD_LOGIC;
     btn_left_0 : IN STD_LOGIC;
     btn_right_0 : IN STD_LOGIC;
@@ -68,10 +69,13 @@ ENTITY design_1_top_system_0_1 IS
     led_clk : OUT STD_LOGIC;
     led_data : OUT STD_LOGIC;
     i2c_sda : INOUT STD_LOGIC;
-    i2c_scl : INOUT STD_LOGIC;
+    i2c_scl : OUT STD_LOGIC;
     i2s_bclk : OUT STD_LOGIC;
     i2s_lrclk : OUT STD_LOGIC;
     i2s_dout : OUT STD_LOGIC;
+    rom_ena : OUT STD_LOGIC;
+    rom_addra : OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
+    rom_douta : IN STD_LOGIC_VECTOR(23 DOWNTO 0);
     dbg_sda_out : OUT STD_LOGIC;
     dbg_scl_out : OUT STD_LOGIC
   );
@@ -83,6 +87,7 @@ ARCHITECTURE design_1_top_system_0_1_arch OF design_1_top_system_0_1 IS
   COMPONENT top_system IS
     PORT (
       clk_100Mhz : IN STD_LOGIC;
+      clk_audio : IN STD_LOGIC;
       reset_n : IN STD_LOGIC;
       btn_left_0 : IN STD_LOGIC;
       btn_right_0 : IN STD_LOGIC;
@@ -95,10 +100,13 @@ ARCHITECTURE design_1_top_system_0_1_arch OF design_1_top_system_0_1 IS
       led_clk : OUT STD_LOGIC;
       led_data : OUT STD_LOGIC;
       i2c_sda : INOUT STD_LOGIC;
-      i2c_scl : INOUT STD_LOGIC;
+      i2c_scl : OUT STD_LOGIC;
       i2s_bclk : OUT STD_LOGIC;
       i2s_lrclk : OUT STD_LOGIC;
       i2s_dout : OUT STD_LOGIC;
+      rom_ena : OUT STD_LOGIC;
+      rom_addra : OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
+      rom_douta : IN STD_LOGIC_VECTOR(23 DOWNTO 0);
       dbg_sda_out : OUT STD_LOGIC;
       dbg_scl_out : OUT STD_LOGIC
     );
@@ -116,6 +124,7 @@ BEGIN
   U0 : top_system
     PORT MAP (
       clk_100Mhz => clk_100Mhz,
+      clk_audio => clk_audio,
       reset_n => reset_n,
       btn_left_0 => btn_left_0,
       btn_right_0 => btn_right_0,
@@ -132,6 +141,9 @@ BEGIN
       i2s_bclk => i2s_bclk,
       i2s_lrclk => i2s_lrclk,
       i2s_dout => i2s_dout,
+      rom_ena => rom_ena,
+      rom_addra => rom_addra,
+      rom_douta => rom_douta,
       dbg_sda_out => dbg_sda_out,
       dbg_scl_out => dbg_scl_out
     );

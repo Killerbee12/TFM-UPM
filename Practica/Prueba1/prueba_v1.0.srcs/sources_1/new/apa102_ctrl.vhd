@@ -13,7 +13,9 @@ entity apa102_ctrl is
         
         led_clk     : out STD_LOGIC;
         led_data    : out STD_LOGIC;
-        current_rgb : out STD_LOGIC_VECTOR(23 downto 0)
+        current_rgb : out STD_LOGIC_VECTOR(23 downto 0);
+        current_brightness : out STD_LOGIC_VECTOR(4 downto 0);
+        active_channel_out : out integer range 0 to 3
     );
 end apa102_ctrl;
 
@@ -29,21 +31,21 @@ architecture Behavioral of apa102_ctrl is
     signal bit_cnt  : integer range 0 to 31 := 31;
     signal clk_div  : integer range 0 to 499 := 0;
     
-    -- Valores de color independientes (se inician a 0)
     signal val_R, val_G, val_B : unsigned(7 downto 0) := (others => '0');
+    signal val_brightness : unsigned(4 downto 0) := "11111"; -- Max brightness (31)
     
-    -- Active channel: 0=R, 1=G, 2=B
-    signal active_channel : integer range 0 to 2 := 0; 
+    -- Active channel: 0=R, 1=G, 2=B, 3=Brightness
+    signal active_channel : integer range 0 to 3 := 0; 
     
-    -- Debouncer timer (250ms at 100MHz)
     signal debounce_cnt : integer range 0 to 25_000_000 := 0;
     
     signal update_req : std_logic := '0';
 
 begin
     
-    -- Asignamos los colores al display de 7 segmentos (Formato BB_GG_RR)
+    active_channel_out <= active_channel;
     current_rgb <= std_logic_vector(val_B) & std_logic_vector(val_G) & std_logic_vector(val_R);
+    current_brightness <= std_logic_vector(val_brightness);
 
     process(clk_100MHz)
     begin
@@ -57,6 +59,7 @@ begin
                 val_R <= (others => '0');
                 val_G <= (others => '0');
                 val_B <= (others => '0');
+                val_brightness <= "11111";
                 active_channel <= 0;
                 debounce_cnt <= 0;
                 update_req <= '0';
@@ -70,6 +73,7 @@ begin
                         if active_channel = 0 then val_R <= val_R + 32;
                         elsif active_channel = 1 then val_G <= val_G + 32;
                         elsif active_channel = 2 then val_B <= val_B + 32;
+                        elsif active_channel = 3 then val_brightness <= val_brightness + 1;
                         end if;
                         update_req <= '1';
                         debounce_cnt <= 25_000_000;
@@ -78,12 +82,13 @@ begin
                         if active_channel = 0 then val_R <= val_R - 32;
                         elsif active_channel = 1 then val_G <= val_G - 32;
                         elsif active_channel = 2 then val_B <= val_B - 32;
+                        elsif active_channel = 3 then val_brightness <= val_brightness - 1;
                         end if;
                         update_req <= '1';
                         debounce_cnt <= 25_000_000;
                         
                     elsif btn_left = '1' then
-                        if active_channel = 2 then 
+                        if active_channel = 3 then 
                             active_channel <= 0; 
                         else 
                             active_channel <= active_channel + 1; 
@@ -108,7 +113,7 @@ begin
                     when LOAD_DATA =>
                         tx_buffer(0) <= (others => '0');
                         for i in 1 to 16 loop
-                            tx_buffer(i) <= x"FF" & std_logic_vector(val_B) & std_logic_vector(val_G) & std_logic_vector(val_R);
+                            tx_buffer(i) <= "111" & std_logic_vector(val_brightness) & std_logic_vector(val_B) & std_logic_vector(val_G) & std_logic_vector(val_R);
                         end loop;
                         tx_buffer(17) <= (others => '1');
                         

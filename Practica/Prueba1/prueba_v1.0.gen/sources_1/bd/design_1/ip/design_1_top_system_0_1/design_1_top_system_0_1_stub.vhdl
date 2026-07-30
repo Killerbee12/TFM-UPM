@@ -2,7 +2,7 @@
 -- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
--- Date        : Fri Jul 24 18:59:25 2026
+-- Date        : Thu Jul 30 19:24:11 2026
 -- Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
 --               c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_top_system_0_1/design_1_top_system_0_1_stub.vhdl
@@ -16,6 +16,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity design_1_top_system_0_1 is
   Port ( 
     clk_100Mhz : in STD_LOGIC;
+    clk_audio : in STD_LOGIC;
     reset_n : in STD_LOGIC;
     btn_left_0 : in STD_LOGIC;
     btn_right_0 : in STD_LOGIC;
@@ -28,10 +29,13 @@ entity design_1_top_system_0_1 is
     led_clk : out STD_LOGIC;
     led_data : out STD_LOGIC;
     i2c_sda : inout STD_LOGIC;
-    i2c_scl : inout STD_LOGIC;
+    i2c_scl : out STD_LOGIC;
     i2s_bclk : out STD_LOGIC;
     i2s_lrclk : out STD_LOGIC;
     i2s_dout : out STD_LOGIC;
+    rom_ena : out STD_LOGIC;
+    rom_addra : out STD_LOGIC_VECTOR ( 17 downto 0 );
+    rom_douta : in STD_LOGIC_VECTOR ( 23 downto 0 );
     dbg_sda_out : out STD_LOGIC;
     dbg_scl_out : out STD_LOGIC
   );
@@ -50,7 +54,7 @@ architecture stub of design_1_top_system_0_1 is
   attribute syn_black_box : boolean;
   attribute black_box_pad_pin : string;
   attribute syn_black_box of stub : architecture is true;
-  attribute black_box_pad_pin of stub : architecture is "clk_100Mhz,reset_n,btn_left_0,btn_right_0,btn_up_0,btn_down_0,btn_center_0,seg_out_0[6:0],seg_an_0[7:0],seg_dp_0,led_clk,led_data,i2c_sda,i2c_scl,i2s_bclk,i2s_lrclk,i2s_dout,dbg_sda_out,dbg_scl_out";
+  attribute black_box_pad_pin of stub : architecture is "clk_100Mhz,clk_audio,reset_n,btn_left_0,btn_right_0,btn_up_0,btn_down_0,btn_center_0,seg_out_0[6:0],seg_an_0[7:0],seg_dp_0,led_clk,led_data,i2c_sda,i2c_scl,i2s_bclk,i2s_lrclk,i2s_dout,rom_ena,rom_addra[17:0],rom_douta[23:0],dbg_sda_out,dbg_scl_out";
   attribute x_interface_info : string;
   attribute x_interface_info of reset_n : signal is "xilinx.com:signal:reset:1.0 reset_n RST";
   attribute x_interface_mode : string;

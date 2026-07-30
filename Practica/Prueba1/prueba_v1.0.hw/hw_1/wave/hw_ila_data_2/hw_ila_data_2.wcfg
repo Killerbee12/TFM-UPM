@@ -10,14 +10,16 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0"></ZoomStartTime>
-      <ZoomEndTime time="8"></ZoomEndTime>
+      <ZoomEndTime time="65,537"></ZoomEndTime>
       <Cursor1Time time="0"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="283"></NameColumnWidth>
+      <NameColumnWidth column_width="208"></NameColumnWidth>
       <ValueColumnWidth column_width="72"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="3" />
+   <WVObjectSize size="5" />
+   <wave_markers>
+   </wave_markers>
    <wvobject fp_name="design_1_i/system_ila_1/U0/probe0" type="array">
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="ElementShortName">design_1_i/system_ila_1/U0/probe0[0:0]</obj_property>
@@ -36,13 +38,40 @@
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
       <obj_property name="label">top_system_0_dbg_scl_out</obj_property>
    </wvobject>
-   <wvobject fp_name="design_1_i/system_ila_1/U0/probe2" type="array">
+   <wvobject fp_name="design_1_i/system_ila_1/U0/probe3" type="array">
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="ElementShortName">design_1_i/system_ila_1/U0/probe2[0:0]</obj_property>
-      <obj_property name="ObjectShortName">probe2[0:0]</obj_property>
-      <obj_property name="label">btn_right_0_0</obj_property>
+      <obj_property name="ElementShortName">design_1_i/system_ila_1/U0/probe3[0:0]</obj_property>
+      <obj_property name="ObjectShortName">probe3[0:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="label">top_system_0_i2s_dout</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider75">
+      <obj_property name="label">HARDWARE</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="group74" type="group">
+      <obj_property name="label">BOTONES</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="design_1_i/system_ila_1/U0/probe4" type="array">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">design_1_i/system_ila_1/U0/probe4[0:0]</obj_property>
+         <obj_property name="ObjectShortName">probe4[0:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="label">btn_center_0_0_1</obj_property>
+         <obj_property name="LABELRADIX">true</obj_property>
+         <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+      </wvobject>
+      <wvobject fp_name="design_1_i/system_ila_1/U0/probe2" type="array">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">design_1_i/system_ila_1/U0/probe2[0:0]</obj_property>
+         <obj_property name="ObjectShortName">probe2[0:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="label">btn_right_0_0</obj_property>
+         <obj_property name="LABELRADIX">true</obj_property>
+         <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+      </wvobject>
    </wvobject>
 </wave_config>

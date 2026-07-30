@@ -177,6 +177,48 @@
                                         ]
                                     }
                                 ]
+                            },
+                            {
+                                "name": "probe3",
+                                "id": 5,
+                                "type": "DATA_TRIGGER",
+                                "direction": "IN",
+                                "isVector": false,
+                                "leftIndex": 0,
+                                "rightIndex": 0,
+                                "portIndex": 3,
+                                "nets": [
+                                    {
+                                        "name": "design_1_i/system_ila_1/U0/probe3",
+                                        "isBus": true,
+                                        "subnets": [
+                                            {
+                                                "name": "design_1_i/system_ila_1/U0/probe3[0]"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe4",
+                                "id": 6,
+                                "type": "DATA_TRIGGER",
+                                "direction": "IN",
+                                "isVector": false,
+                                "leftIndex": 0,
+                                "rightIndex": 0,
+                                "portIndex": 4,
+                                "nets": [
+                                    {
+                                        "name": "design_1_i/system_ila_1/U0/probe4",
+                                        "isBus": true,
+                                        "subnets": [
+                                            {
+                                                "name": "design_1_i/system_ila_1/U0/probe4[0]"
+                                            }
+                                        ]
+                                    }
+                                ]
                             }
                         ],
                         "native_ports": [
@@ -222,6 +264,38 @@
                                         "physical_pin": {
                                             "id": 4,
                                             "name": "probe2",
+                                            "leftBit": 0,
+                                            "width": 1
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe3",
+                                "connectedBus": "top_system_0_i2s_dout",
+                                "protocol": "PROBE",
+                                "port_maps": [
+                                    {
+                                        "logical_port": "probe3",
+                                        "physical_pin": {
+                                            "id": 5,
+                                            "name": "probe3",
+                                            "leftBit": 0,
+                                            "width": 1
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe4",
+                                "connectedBus": "btn_center_0_0_1",
+                                "protocol": "PROBE",
+                                "port_maps": [
+                                    {
+                                        "logical_port": "probe4",
+                                        "physical_pin": {
+                                            "id": 6,
+                                            "name": "probe4",
                                             "leftBit": 0,
                                             "width": 1
                                         }

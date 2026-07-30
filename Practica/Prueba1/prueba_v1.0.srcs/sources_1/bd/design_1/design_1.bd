@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xA3AA0E40977C134",
+      "boundary_crc": "0xE86B3E62250DFA5D",
       "device": "xc7a100tcsg324-1",
       "gen_directory": "../../../../prueba_v1.0.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -13,7 +13,9 @@
     "design_tree": {
       "top_system_0": "",
       "system_ila_0": "",
-      "system_ila_1": ""
+      "system_ila_1": "",
+      "audio_rom_ip": "",
+      "clk_wiz_0": ""
     },
     "ports": {
       "clk_100Mhz_0": {
@@ -90,9 +92,6 @@
       "i2c_sda_0": {
         "direction": "IO"
       },
-      "i2c_scl_0": {
-        "direction": "IO"
-      },
       "btn_center_0_0": {
         "direction": "I"
       },
@@ -103,6 +102,9 @@
         "direction": "O"
       },
       "i2s_dout_0": {
+        "direction": "O"
+      },
+      "i2c_scl_0": {
         "direction": "O"
       }
     },
@@ -122,6 +124,23 @@
         "ports": {
           "clk_100Mhz": {
             "direction": "I"
+          },
+          "clk_audio": {
+            "direction": "I",
+            "parameters": {
+              "FREQ_HZ": {
+                "value": "12288000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
           },
           "reset_n": {
             "type": "rst",
@@ -166,7 +185,7 @@
             "direction": "IO"
           },
           "i2c_scl": {
-            "direction": "IO"
+            "direction": "O"
           },
           "i2s_bclk": {
             "direction": "O"
@@ -176,6 +195,19 @@
           },
           "i2s_dout": {
             "direction": "O"
+          },
+          "rom_ena": {
+            "direction": "O"
+          },
+          "rom_addra": {
+            "direction": "O",
+            "left": "17",
+            "right": "0"
+          },
+          "rom_douta": {
+            "direction": "I",
+            "left": "23",
+            "right": "0"
           },
           "dbg_sda_out": {
             "direction": "O"
@@ -222,13 +254,90 @@
             "value": "NATIVE"
           },
           "C_NUM_OF_PROBES": {
-            "value": "3"
+            "value": "5"
           },
           "C_PROBE0_TYPE": {
             "value": "0"
           },
           "C_PROBE1_TYPE": {
             "value": "0"
+          }
+        }
+      },
+      "audio_rom_ip": {
+        "vlnv": "xilinx.com:ip:blk_mem_gen:8.4",
+        "ip_revision": "11",
+        "xci_name": "design_1_blk_mem_gen_0_1",
+        "xci_path": "ip\\design_1_blk_mem_gen_0_1\\design_1_blk_mem_gen_0_1.xci",
+        "inst_hier_path": "audio_rom_ip",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "Coe_File": {
+            "value": "../../../../../../Ludovico-Einaudi-Nuvole-Bianche.coe"
+          },
+          "Load_Init_File": {
+            "value": "true"
+          },
+          "Memory_Type": {
+            "value": "Single_Port_ROM"
+          },
+          "Write_Depth_A": {
+            "value": "160000"
+          },
+          "Write_Width_A": {
+            "value": "24"
+          },
+          "use_bram_block": {
+            "value": "Stand_Alone"
+          }
+        }
+      },
+      "clk_wiz_0": {
+        "vlnv": "xilinx.com:ip:clk_wiz:6.0",
+        "ip_revision": "16",
+        "xci_name": "design_1_clk_wiz_0_0",
+        "xci_path": "ip\\design_1_clk_wiz_0_0\\design_1_clk_wiz_0_0.xci",
+        "inst_hier_path": "clk_wiz_0",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "CLKOUT1_JITTER": {
+            "value": "360.948"
+          },
+          "CLKOUT1_PHASE_ERROR": {
+            "value": "301.601"
+          },
+          "CLKOUT1_REQUESTED_OUT_FREQ": {
+            "value": "12.288"
+          },
+          "CLKOUT2_JITTER": {
+            "value": "130.958"
+          },
+          "CLKOUT2_PHASE_ERROR": {
+            "value": "98.575"
+          },
+          "CLKOUT2_USED": {
+            "value": "false"
+          },
+          "MMCM_CLKFBOUT_MULT_F": {
+            "value": "48.000"
+          },
+          "MMCM_CLKOUT0_DIVIDE_F": {
+            "value": "78.125"
+          },
+          "MMCM_CLKOUT1_DIVIDE": {
+            "value": "1"
+          },
+          "MMCM_DIVCLK_DIVIDE": {
+            "value": "5"
+          },
+          "NUM_OUT_CLKS": {
+            "value": "1"
+          },
+          "USE_LOCKED": {
+            "value": "false"
+          },
+          "USE_RESET": {
+            "value": "false"
           }
         }
       }
@@ -240,17 +349,26 @@
           "top_system_0/i2c_sda"
         ]
       },
-      "Net1": {
+      "audio_rom_ip_douta": {
         "ports": [
-          "i2c_scl_0",
-          "top_system_0/i2c_scl"
+          "audio_rom_ip/douta",
+          "top_system_0/rom_douta"
         ]
       },
       "btn_center_0_0_1": {
         "ports": [
           "btn_center_0_0",
-          "top_system_0/btn_center_0"
-        ]
+          "top_system_0/btn_center_0",
+          "system_ila_1/probe4"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       },
       "btn_down_0_0_1": {
         "ports": [
@@ -282,7 +400,15 @@
           "clk_100Mhz_0",
           "system_ila_0/clk",
           "system_ila_1/clk",
+          "audio_rom_ip/clka",
+          "clk_wiz_0/clk_in1",
           "top_system_0/clk_100Mhz"
+        ]
+      },
+      "clk_wiz_0_clk_out1": {
+        "ports": [
+          "clk_wiz_0/clk_out1",
+          "top_system_0/clk_audio"
         ]
       },
       "reset_n_0_1": {
@@ -319,6 +445,12 @@
           }
         }
       },
+      "top_system_0_i2c_scl": {
+        "ports": [
+          "top_system_0/i2c_scl",
+          "i2c_scl_0"
+        ]
+      },
       "top_system_0_i2s_bclk": {
         "ports": [
           "top_system_0/i2s_bclk",
@@ -328,8 +460,17 @@
       "top_system_0_i2s_dout": {
         "ports": [
           "top_system_0/i2s_dout",
-          "i2s_dout_0"
-        ]
+          "i2s_dout_0",
+          "system_ila_1/probe3"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       },
       "top_system_0_i2s_lrclk": {
         "ports": [
@@ -358,6 +499,18 @@
             "value": "true"
           }
         }
+      },
+      "top_system_0_rom_addra": {
+        "ports": [
+          "top_system_0/rom_addra",
+          "audio_rom_ip/addra"
+        ]
+      },
+      "top_system_0_rom_ena": {
+        "ports": [
+          "top_system_0/rom_ena",
+          "audio_rom_ip/ena"
+        ]
       },
       "top_system_0_seg_an_0": {
         "ports": [

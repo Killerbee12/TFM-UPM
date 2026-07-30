@@ -6,11 +6,11 @@ entity tas2110_i2c_ctrl is
     Port (
         clk_100MHz : in STD_LOGIC;
         reset_n    : in STD_LOGIC;
-        btn_start  : in STD_LOGIC; -- Botón para iniciar el pitido (btn_right)
-        btn_stop   : in STD_LOGIC; -- Botón para parar el pitido (btn_center)
+        btn_tone   : in STD_LOGIC; -- Botón para iniciar el pitido (btn_right)
+        btn_i2s    : in STD_LOGIC; -- Botón para música ROM (btn_center)
         
         i2c_sda    : inout STD_LOGIC;
-        i2c_scl    : inout STD_LOGIC;
+        i2c_scl    : out   STD_LOGIC;
         
         dbg_sda_out: out STD_LOGIC;
         dbg_scl_out: out STD_LOGIC;
@@ -27,7 +27,7 @@ architecture Behavioral of tas2110_i2c_ctrl is
     -- Rom de Secuencias (Dirección de Registro, Dato)
     type reg_array_t is array (0 to 31) of std_logic_vector(15 downto 0);
     signal seq_rom : reg_array_t := (others => (others => '0'));
-    signal seq_len : integer range 0 to 31 := 0;
+    signal seq_len : integer range 0 to 25 := 0;
     
     -- Máquina de estados I2C
     type state_t is (IDLE, START_COND, SEND_BIT, CHECK_ACK, STOP_COND, NEXT_REG, DELAY, POWER_WAIT);
@@ -80,60 +80,40 @@ begin
                         sda_out <= '1';
                         scl_out <= '1';
                         
-                        if btn_start = '1' and debounce = 0 then
+                        if btn_tone = '1' and debounce = 0 then
                             -- SECUENCIA START TONE (1000Hz, -24dB)
-                            
                             -- === Paso 1: Configurar Page 0 (reloj y misc) PRIMERO ===
-                            -- Seleccionar Page 0
                             seq_rom(0) <= x"0000"; 
-                            
-                            -- MISC_CFG1 = 0xF6 (Enable OCE_RETRY y OTE_RETRY)
-                            seq_rom(1) <= x"04F6";
-                            
-                            -- INT_CLK = 0x5D (Disable CLK_HALT_EN y Clear Latched Faults)
-                            seq_rom(2) <= x"305D";
-                            
-                            -- MISC_CFG4 = 0x18 (Clock source para Tone Gen = Internal Oscillator)
-                            seq_rom(3) <= x"3D18";
+                            seq_rom(1) <= x"04F6"; -- MISC_CFG1
+                            seq_rom(2) <= x"305D"; -- INT_CLK
+                            seq_rom(3) <= x"3D18"; -- MISC_CFG4
                             
                             -- === Paso 2: Configurar Tone Generator en Page 2 ===
-                            -- Cambiar a Page 2
                             seq_rom(4) <= x"0002"; 
-                            
-                            -- TG1_FREQ1 = round(2*cos(2*pi*1000/48828.125)*2^29) = 0x3F788A4F
                             seq_rom(5) <= x"3C3F"; 
                             seq_rom(6) <= x"3D78"; 
                             seq_rom(7) <= x"3E8A"; 
                             seq_rom(8) <= x"3F4F"; 
                             
-                            -- TG1_FREQ2 = round(sin(2*pi*1000/48828.125)*2^31) = 0x106CF280
                             seq_rom(9)  <= x"4010"; 
                             seq_rom(10) <= x"416C"; 
                             seq_rom(11) <= x"42F2"; 
                             seq_rom(12) <= x"4380"; 
                             
-                            -- TG1_FREQ3 = LCM(48828.125, 1000)/1000 - 1 = 3124 = 0x00000C34
                             seq_rom(13) <= x"4400"; 
                             seq_rom(14) <= x"4500"; 
                             seq_rom(15) <= x"460C"; 
                             seq_rom(16) <= x"4734"; 
                             
-                            -- AMP (-6dB = 0x4026E73D) — Amplitud alta para pruebas
                             seq_rom(17) <= x"4840"; 
                             seq_rom(18) <= x"4926"; 
                             seq_rom(19) <= x"4AE7"; 
                             seq_rom(20) <= x"4B3D"; 
                             
                             -- === Paso 3: Volver a Page 0, activar y habilitar tone ===
-                            -- Cambiar a Page 0
                             seq_rom(21) <= x"0000"; 
-                            
-                            -- PWR_CTL = 0x0C (Active mode) [idx 22]
-                            -- NOTA: Tras este registro se inserta un delay de 5ms automaticamente
-                            seq_rom(22) <= x"020C";
-                            
-                            -- TG1_EN = 0x40 (Play tone always)
-                            seq_rom(23) <= x"3F40"; 
+                            seq_rom(22) <= x"020C"; -- PWR_CTL (Active mode) [idx 22]
+                            seq_rom(23) <= x"3F40"; -- TG1_EN = 0x40
                             
                             seq_len <= 24;
                             reg_cnt <= 0;
@@ -142,14 +122,26 @@ begin
                             state <= START_COND;
                             debounce <= 500_000;
                             
-                        elsif btn_stop = '1' and debounce = 0 then
-                            -- SECUENCIA STOP TONE
-                            -- Cambiar a Page 0
+                        elsif btn_i2s = '1' and debounce = 0 then
+                            -- SECUENCIA I2S AUDIO (ROM)
+                            -- === Paso 1: Configurar Page 0 ===
                             seq_rom(0) <= x"0000"; 
-                            -- TG1_EN = 00 (Disabled) -> 0x00
-                            seq_rom(1) <= x"3F00"; 
                             
-                            seq_len <= 2;
+                            -- === Paso 2: Configurar formato I2S Explícito ===
+                            seq_rom(1) <= x"0601"; -- TDM_CFG0: 48kHz, AUTO RATE DISABLED (Bit 3=0), RX_EDGE=0
+                            seq_rom(2) <= x"0702"; -- TDM_CFG1: RX_OFFSET=1 (I2S standard)
+                            seq_rom(3) <= x"080A"; -- TDM_CFG2: Slot 0, 24-bit word, 32-bit slot
+                            
+                            -- === Paso 3: Configurar Volumen I2S ===
+                            seq_rom(4) <= x"0314"; -- PB_CFG1 = 0x14
+                            
+                            -- === Paso 4: Encender el amplificador (5ms wait automático) ===
+                            seq_rom(5) <= x"020C"; -- PWR_CTL = 0x0C (Active) -> POWER_WAIT
+                            
+                            -- === Paso 5: DESPUÉS del wait, deshabilitar el Tone Gen ===
+                            seq_rom(6) <= x"3F00"; -- TG1_EN = 0x00 (escuchar I2S)
+                            
+                            seq_len <= 7;
                             reg_cnt <= 0;
                             byte_cnt <= 0;
                             current_byte <= SLAVE_ADDR;
@@ -240,8 +232,9 @@ begin
                             byte_cnt <= 0;
                             current_byte <= SLAVE_ADDR;
                             clk_div <= 0;
-                            -- Tras PWR_CTL (idx 22) insertar delay largo de 5ms
-                            if reg_cnt = 22 then
+                            -- Tras PWR_CTL (reg addr = 0x02) insertar delay largo de 5ms
+                            -- Detectamos dinámicamente mirando el byte alto del registro actual
+                            if seq_rom(reg_cnt)(15 downto 8) = x"02" then
                                 state <= POWER_WAIT;
                                 pwr_wait_cnt <= 0;
                             else

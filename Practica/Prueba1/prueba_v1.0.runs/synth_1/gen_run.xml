@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1784912286" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/top_system.dcp">
+<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1785432198" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/top_system.dcp">
   <File Type="PA-TCL" Name="design_1_wrapper.tcl"/>
   <File Type="REPORTS-TCL" Name="design_1_wrapper_reports.tcl"/>
   <File Type="RDS-RDS" Name="design_1_wrapper.vds"/>
@@ -12,6 +12,12 @@
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/new/apa102_ctrl.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/audio_player.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -55,6 +61,12 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PPRDIR/Ludovico-Einaudi-Nuvole-Bianche.coe">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
       <Option Name="TopModule" Val="design_1_wrapper"/>
@@ -91,5 +103,7 @@
     <Step Id="synth_design"/>
   </Strategy>
   <BlockFileSet Type="BlockSrcs" Name="design_1_system_ila_1_1"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_blk_mem_gen_0_1"/>
   <BlockFileSet Type="BlockSrcs" Name="design_1_top_system_0_1"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_clk_wiz_0_0"/>
 </GenRun>

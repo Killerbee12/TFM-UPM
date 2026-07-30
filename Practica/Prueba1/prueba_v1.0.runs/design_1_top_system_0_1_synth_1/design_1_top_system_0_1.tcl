@@ -57,8 +57,9 @@ if {$::dispatch::connected} {
 
 OPTRACE "design_1_top_system_0_1_synth_1" START { ROLLUP_AUTO }
 set_param tcl.collectionResultDisplayLimit 0
-set_param chipscope.maxJobs 1
+set_param chipscope.maxJobs 3
 set_param general.usePosixSpawnForFork 1
+set_param bd.open.in_stealth_mode 1
 set_param xicom.use_bs_reader 1
 set_param project.vivado.isBlockSynthRun true
 OPTRACE "Creating in-memory project" START { }
@@ -81,6 +82,7 @@ OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_vhdl -library xil_defaultlib {
   C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/new/apa102_ctrl.vhd
+  C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/new/audio_player.vhd
   C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/new/i2s_transceiver.vhd
   C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/new/tas2110_i2c_ctrl.vhd
   C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/new/top_system.vhd

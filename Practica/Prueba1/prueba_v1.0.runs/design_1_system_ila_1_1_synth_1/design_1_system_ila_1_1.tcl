@@ -57,8 +57,9 @@ if {$::dispatch::connected} {
 
 OPTRACE "design_1_system_ila_1_1_synth_1" START { ROLLUP_AUTO }
 set_param tcl.collectionResultDisplayLimit 0
-set_param chipscope.maxJobs 1
+set_param chipscope.maxJobs 3
 set_param general.usePosixSpawnForFork 1
+set_param bd.open.in_stealth_mode 1
 set_param xicom.use_bs_reader 1
 set_param project.vivado.isBlockSynthRun true
 set_msg_config -msgmgr_mode ooc_run
@@ -78,7 +79,7 @@ set_property ip_output_repo c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Pru
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_ip -quiet c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/ip/design_1_system_ila_1_1/design_1_system_ila_1_1.xci
+read_ip -quiet C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/ip/design_1_system_ila_1_1/design_1_system_ila_1_1.xci
 set_property used_in_synthesis false [get_files -all c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_1_1/bd_0/ip/ip_0/ila_v6_2/constraints/ila_impl.xdc]
 set_property used_in_implementation false [get_files -all c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_1_1/bd_0/ip/ip_0/ila_v6_2/constraints/ila_impl.xdc]
 set_property used_in_implementation false [get_files -all c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_1_1/bd_0/ip/ip_0/ila_v6_2/constraints/ila.xdc]
