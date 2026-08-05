@@ -2,7 +2,7 @@
 --Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
---Date        : Thu Jul 30 18:28:49 2026
+--Date        : Wed Aug  5 17:07:54 2026
 --Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 --Command     : generate_target design_1.bd
 --Design      : design_1
@@ -83,21 +83,21 @@ architecture STRUCTURE of design_1 is
     probe4 : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
   end component design_1_system_ila_1_1;
-  component design_1_blk_mem_gen_0_1 is
-  port (
-    clka : in STD_LOGIC;
-    ena : in STD_LOGIC;
-    addra : in STD_LOGIC_VECTOR ( 17 downto 0 );
-    douta : out STD_LOGIC_VECTOR ( 23 downto 0 )
-  );
-  end component design_1_blk_mem_gen_0_1;
   component design_1_clk_wiz_0_0 is
   port (
     clk_in1 : in STD_LOGIC;
     clk_out1 : out STD_LOGIC
   );
   end component design_1_clk_wiz_0_0;
-  signal audio_rom_ip_douta : STD_LOGIC_VECTOR ( 23 downto 0 );
+  component design_1_blk_mem_gen_0_0 is
+  port (
+    clka : in STD_LOGIC;
+    ena : in STD_LOGIC;
+    addra : in STD_LOGIC_VECTOR ( 17 downto 0 );
+    douta : out STD_LOGIC_VECTOR ( 23 downto 0 )
+  );
+  end component design_1_blk_mem_gen_0_0;
+  signal blk_mem_gen_0_douta : STD_LOGIC_VECTOR ( 23 downto 0 );
   signal btn_center_0_0_1 : STD_LOGIC;
   attribute DEBUG : string;
   attribute DEBUG of btn_center_0_0_1 : signal is "true";
@@ -134,11 +134,11 @@ begin
   i2s_dout_0 <= top_system_0_i2s_dout;
   led_clk_0 <= top_system_0_led_clk;
   led_data_0 <= top_system_0_led_data;
-audio_rom_ip: component design_1_blk_mem_gen_0_1
+blk_mem_gen_0: component design_1_blk_mem_gen_0_0
      port map (
       addra(17 downto 0) => top_system_0_rom_addra(17 downto 0),
       clka => clk_100Mhz_0_1,
-      douta(23 downto 0) => audio_rom_ip_douta(23 downto 0),
+      douta(23 downto 0) => blk_mem_gen_0_douta(23 downto 0),
       ena => top_system_0_rom_ena
     );
 clk_wiz_0: component design_1_clk_wiz_0_0
@@ -181,7 +181,7 @@ top_system_0: component design_1_top_system_0_1
       led_data => top_system_0_led_data,
       reset_n => reset_n_0,
       rom_addra(17 downto 0) => top_system_0_rom_addra(17 downto 0),
-      rom_douta(23 downto 0) => audio_rom_ip_douta(23 downto 0),
+      rom_douta(23 downto 0) => blk_mem_gen_0_douta(23 downto 0),
       rom_ena => top_system_0_rom_ena,
       seg_an_0(7 downto 0) => seg_an_0_0(7 downto 0),
       seg_dp_0 => seg_dp_0_0,
