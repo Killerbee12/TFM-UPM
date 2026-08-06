@@ -3,12 +3,12 @@
 # SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
 # IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
 # SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-# Start of session at: Thu Jul 30 17:57:31 2026
-# Process ID         : 32864
-# Current directory  : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_clk_wiz_0_0_synth_1
+# Start of session at: Thu Aug  6 18:39:30 2026
+# Process ID         : 7160
+# Current directory  : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/design_1_clk_wiz_0_0_synth_1
 # Command line       : vivado.exe -log design_1_clk_wiz_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_clk_wiz_0_0.tcl
-# Log file           : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_clk_wiz_0_0_synth_1/design_1_clk_wiz_0_0.vds
-# Journal file       : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_clk_wiz_0_0_synth_1\vivado.jou
+# Log file           : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/design_1_clk_wiz_0_0_synth_1/design_1_clk_wiz_0_0.vds
+# Journal file       : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/design_1_clk_wiz_0_0_synth_1\vivado.jou
 # Running On         : Samsung_Book_3
 # Platform           : Windows Server 2016 or Windows 10
 # Operating System   : 26200
@@ -19,6 +19,6 @@
 # Host memory        : 8257 MB
 # Swap memory        : 18253 MB
 # Total Virtual      : 26511 MB
-# Available Virtual  : 6877 MB
+# Available Virtual  : 10990 MB
 #-----------------------------------------------------------
 source design_1_clk_wiz_0_0.tcl -notrace

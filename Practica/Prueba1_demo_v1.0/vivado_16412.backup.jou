@@ -1,0 +1,159 @@
+#-----------------------------------------------------------
+# Vivado v2025.1 (64-bit)
+# SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
+# IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
+# SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
+# Start of session at: Wed Aug  5 17:19:27 2026
+# Process ID         : 16412
+# Current directory  : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent18960 C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1_demo_v1.0\prueba1_demo.xpr
+# Log file           : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/vivado.log
+# Journal file       : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0\vivado.jou
+# Running On         : Samsung_Book_3
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : 13th Gen Intel(R) Core(TM) i5-1335U
+# CPU Frequency      : 2496 MHz
+# CPU Physical cores : 10
+# CPU Logical cores  : 12
+# Host memory        : 8257 MB
+# Swap memory        : 18253 MB
+# Total Virtual      : 26511 MB
+# Available Virtual  : 9264 MB
+#-----------------------------------------------------------
+start_guioopen_project C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.xprupdate_compile_order -fileset sources_1
+open_bd_design {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.srcs/sources_1/bd/design_1/design_1.bd}
+report_ip_status -name ip_status 
+update_module_reference [get_ips  design_1_top_system_0_1]
+report_ip_status -name ip_status 
+delete_bd_objs [get_bd_nets top_system_0_rom_ena] [get_bd_nets top_system_0_rom_addra] [get_bd_nets blk_mem_gen_0_douta] [get_bd_cells blk_mem_gen_0]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:fifo_generator:13.2 fifo_generator_0
+endgroup
+set_property location {2 386 693} [get_bd_cells fifo_generator_0]
+set_property -dict [list \
+  CONFIG.Full_Threshold_Assert_Value {1500} \
+  CONFIG.Input_Data_Width {8} \
+  CONFIG.Input_Depth {2048} \
+  CONFIG.Programmable_Full_Type {Single_Programmable_Full_Threshold_Constant} \
+  CONFIG.Valid_Flag {true} \
+] [get_bd_cells fifo_generator_0]
+connect_bd_net [get_bd_ports clk_100Mhz_0] [get_bd_pins fifo_generator_0/clk]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 util_vector_logic_0
+endgroup
+set_property CONFIG.C_OPERATION {not} [get_bd_cells util_vector_logic_0]
+set_property location {1 221 728} [get_bd_cells util_vector_logic_0]
+connect_bd_net [get_bd_ports reset_n_0] [get_bd_pins util_vector_logic_0/Op1]
+connect_bd_net [get_bd_pins util_vector_logic_0/Res] [get_bd_pins fifo_generator_0/srst]
+set_property location {1 122 422} [get_bd_cells util_vector_logic_0]
+connect_bd_net [get_bd_pins top_system_0/fifo_wr_en] [get_bd_pins fifo_generator_0/wr_en]
+connect_bd_net [get_bd_pins top_system_0/fifo_din] [get_bd_pins fifo_generator_0/din]
+connect_bd_net [get_bd_pins top_system_0/fifo_rd_en] [get_bd_pins fifo_generator_0/rd_en]
+connect_bd_net [get_bd_pins fifo_generator_0/full] [get_bd_pins top_system_0/fifo_prog_full]
+connect_bd_net [get_bd_pins fifo_generator_0/dout] [get_bd_pins top_system_0/fifo_dout]
+connect_bd_net [get_bd_pins fifo_generator_0/empty] [get_bd_pins top_system_0/fifo_empty]
+connect_bd_net [get_bd_pins fifo_generator_0/valid] [get_bd_pins top_system_0/fifo_valid]
+delete_bd_objs [get_bd_nets fifo_generator_0_full]
+connect_bd_net [get_bd_pins fifo_generator_0/prog_full] [get_bd_pins top_system_0/fifo_prog_full]
+startgroup
+make_bd_pins_external  [get_bd_pins top_system_0/sd_dat3] [get_bd_pins top_system_0/sd_dat2] [get_bd_pins top_system_0/sd_cmd] [get_bd_pins top_system_0/sd_clk] [get_bd_pins top_system_0/sd_dat1] [get_bd_pins top_system_0/sd_dat0]
+endgroup
+validate_bd_design
+set_property location {1433 571} [get_bd_ports sd_cmd_0]
+validate_bd_design -force
+report_ip_status -name ip_status 
+save_bd_design
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1
+report_ip_status -name ip_status 
+reset_run synth_1
+reset_run design_1_top_system_0_1_synth_1
+reset_run design_1_system_ila_0_0_synth_1
+reset_run design_1_fifo_generator_0_0_synth_1
+reset_run design_1_util_vector_logic_0_0_synth_1
+set_property USER_LOCKED 1 [get_ips design_1_util_vector_logic_0_0]
+report_ip_status -name ip_status 
+validate_bd_design -force
+save_bd_design
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1
+add_files -norecurse {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.srcs/sources_1/new/sdcmd_ctrl.v C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.srcs/sources_1/new/sd_reader.v C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.srcs/sources_1/new/sd_file_reader.v}
+update_compile_order -fileset sources_1
+reset_run synth_1
+reset_run design_1_top_system_0_1_synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1
+export_ip_user_files -of_objects  [get_files C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/new/sd_audio_streamer.vhd] -no_script -reset -force -quiet
+remove_files  C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/new/sd_audio_streamer.vhd
+export_ip_user_files -of_objects  [get_files C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/new/sd_controller.vhd] -no_script -reset -force -quiet
+remove_files  C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/new/sd_controller.vhd
+export_ip_user_files -of_objects  [get_files C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/new/spi_master.vhd] -no_script -reset -force -quiet
+remove_files  C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/new/spi_master.vhd
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_0/U0/ila_lib"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a100t_0] -filter {CELL_NAME=~"design_1_i/system_ila_1/U0/ila_lib"}]]
+set_property PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/impl_1/design_1_wrapper.ltx} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/impl_1/design_1_wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+report_ip_status -name ip_status 
+update_module_reference [get_ips  design_1_top_system_0_1]
+report_ip_status -name ip_status 
+startgroup
+make_bd_pins_external  [get_bd_pins top_system_0/LED_out]
+endgroup
+validate_bd_design
+save_bd_design
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1
+report_ip_status -name ip_status 
+update_module_reference [get_ips  design_1_top_system_0_1]
+report_ip_status -name ip_status 
+reset_target all [get_files  C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.srcs/sources_1/bd/design_1/design_1.bd]
+export_ip_user_files -of_objects  [get_files  C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.srcs/sources_1/bd/design_1/design_1.bd] -sync -no_script -force -quiet
+delete_ip_run [get_files -of_objects [get_fileset sources_1] C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.srcs/sources_1/bd/design_1/design_1.bd]
+generate_target all [get_files  C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.srcs/sources_1/bd/design_1/design_1.bd]
+catch { config_ip_cache -export [get_ips -all design_1_system_ila_0_0] }
+catch { config_ip_cache -export [get_ips -all design_1_system_ila_1_1] }
+catch { config_ip_cache -export [get_ips -all design_1_clk_wiz_0_0] }
+catch { config_ip_cache -export [get_ips -all design_1_fifo_generator_0_0] }
+export_ip_user_files -of_objects [get_files C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.srcs/sources_1/bd/design_1/design_1.bd] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.srcs/sources_1/bd/design_1/design_1.bd]
+launch_runs design_1_clk_wiz_0_0_synth_1 design_1_system_ila_1_1_synth_1 design_1_top_system_0_1_synth_1 -jobs 12
+wait_on_run design_1_clk_wiz_0_0_synth_1
+wait_on_run design_1_system_ila_1_1_synth_1
+wait_on_run design_1_top_system_0_1_synth_1
+export_simulation -lib_map_path [list {modelsim=C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.cache/compile_simlib/modelsim} {questa=C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.cache/compile_simlib/questa} {riviera=C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.cache/compile_simlib/riviera} {activehdl=C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.cache/compile_simlib/activehdl}] -of_objects [get_files C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.srcs/sources_1/bd/design_1/design_1.bd] -directory C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.ip_user_files/sim_scripts -ip_user_files_dir C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.ip_user_files -ipstatic_source_dir C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+startgroup
+make_bd_pins_external  [get_bd_pins top_system_0/sw0_reset]
+endgroup
+generate_target all [get_files  C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.srcs/sources_1/bd/design_1/design_1.bd]
+catch { config_ip_cache -export [get_ips -all design_1_system_ila_1_1] }
+catch { config_ip_cache -export [get_ips -all design_1_clk_wiz_0_0] }
+export_ip_user_files -of_objects [get_files C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.srcs/sources_1/bd/design_1/design_1.bd] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.srcs/sources_1/bd/design_1/design_1.bd]
+launch_runs design_1_clk_wiz_0_0_synth_1 design_1_system_ila_1_1_synth_1 design_1_top_system_0_1_synth_1 -jobs 12
+wait_on_run design_1_clk_wiz_0_0_synth_1
+wait_on_run design_1_system_ila_1_1_synth_1
+wait_on_run design_1_top_system_0_1_synth_1
+export_simulation -lib_map_path [list {modelsim=C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.cache/compile_simlib/modelsim} {questa=C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.cache/compile_simlib/questa} {riviera=C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.cache/compile_simlib/riviera} {activehdl=C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.cache/compile_simlib/activehdl}] -of_objects [get_files C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.srcs/sources_1/bd/design_1/design_1.bd] -directory C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.ip_user_files/sim_scripts -ip_user_files_dir C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.ip_user_files -ipstatic_source_dir C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+validate_bd_design -force
+save_bd_design
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 12
+wait_on_run impl_1

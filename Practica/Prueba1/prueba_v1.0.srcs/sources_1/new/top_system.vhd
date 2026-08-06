@@ -6,6 +6,7 @@ entity top_system is
         clk_100Mhz  : in STD_LOGIC;
         clk_audio   : in STD_LOGIC; -- Reloj exacto para I2S (12.288 MHz)
         reset_n     : in STD_LOGIC;
+        sw0_reset   : in STD_LOGIC; -- Reset APA102
         btn_left_0  : in STD_LOGIC;
         btn_right_0 : in STD_LOGIC;
         
@@ -96,7 +97,7 @@ begin
     inst_apa102_ctrl: entity work.apa102_ctrl
         port map(
             clk_100MHz  => clk_100Mhz,
-            reset_n     => reset_n,
+            reset_n     => sw0_reset,
             btn_left    => btn_left_0,
             btn_up      => btn_up_0,
             btn_down    => btn_down_0,

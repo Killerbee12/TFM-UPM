@@ -97,7 +97,6 @@ proc step_failed { step } {
 OPTRACE "impl_1" END { }
 }
 
-set_msg_config -id {Common 17-41} -limit 10000000
 
 OPTRACE "impl_1" START { ROLLUP_1 }
 OPTRACE "Phase: Init Design" START { ROLLUP_AUTO }
@@ -108,7 +107,7 @@ set rc [catch {
   set_param tcl.collectionResultDisplayLimit 0
   set_param chipscope.maxJobs 3
   set_param general.usePosixSpawnForFork 1
-  set_param bd.open.in_stealth_mode 1
+  set_param bd.open.in_stealth_mode 2
   set_param xicom.use_bs_reader 1
   set_param runs.launchOptions { -jobs 12  }
 OPTRACE "create in-memory project" START { }

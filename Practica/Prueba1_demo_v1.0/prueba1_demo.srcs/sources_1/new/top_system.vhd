@@ -1,11 +1,17 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
+library UNISIM;
+use UNISIM.VComponents.all;
+
 entity top_system is
     Port ( 
         clk_100Mhz  : in STD_LOGIC;
         clk_audio   : in STD_LOGIC; -- Reloj exacto para I2S (12.288 MHz)
+        clk_sd      : in STD_LOGIC; -- 50 MHz para SD reader (de clk_wiz_0 clk_out2)
         reset_n     : in STD_LOGIC;
+        pll_locked  : in STD_LOGIC; -- PLL locked signal from clk_wiz_0
+        sw0_reset   : in STD_LOGIC; -- Reset APA102
         btn_left_0  : in STD_LOGIC;
         btn_right_0 : in STD_LOGIC;
         
@@ -29,13 +35,29 @@ entity top_system is
         i2s_lrclk  : out STD_LOGIC;
         i2s_dout   : out STD_LOGIC;
         
-        -- Interfaz ROM externa (Block Design)
-        rom_ena     : out STD_LOGIC;
-        rom_addra   : out STD_LOGIC_VECTOR(17 downto 0);
-        rom_douta   : in  STD_LOGIC_VECTOR(23 downto 0);
+        -- MicroSD Card Interface
+        sd_reset    : out STD_LOGIC;
+        sd_clk      : out STD_LOGIC;
+        sd_cmd      : inout STD_LOGIC;
+        sd_dat0     : in  STD_LOGIC;
+        sd_dat1     : out STD_LOGIC;
+        sd_dat2     : out STD_LOGIC;
+        sd_dat3     : out STD_LOGIC;
+        
+        -- FIFO externa (Block Design IP Catalog)
+        fifo_wr_en     : out STD_LOGIC;
+        fifo_din       : out STD_LOGIC_VECTOR(7 downto 0);
+        fifo_prog_full : in  STD_LOGIC;
+        fifo_rd_en     : out STD_LOGIC;
+        fifo_dout      : in  STD_LOGIC_VECTOR(7 downto 0);
+        fifo_empty     : in  STD_LOGIC;
+        fifo_valid     : in  STD_LOGIC;
         
         dbg_sda_out: out STD_LOGIC;
-        dbg_scl_out: out STD_LOGIC
+        dbg_scl_out: out STD_LOGIC;
+        
+        -- Salida de LEDs para depuración SD (Conectar a puerto externo en BD)
+        LED_out : out STD_LOGIC_VECTOR(15 downto 0)
     );
 end top_system;
 
@@ -44,8 +66,22 @@ architecture Behavioral of top_system is
     signal dbg_sda_out_internal : STD_LOGIC;
     signal dbg_scl_out_internal : STD_LOGIC;
 
+    -- Reset limpio: solo se libera cuando PLL está locked Y botón no pulsado
+    signal sd_rstn      : STD_LOGIC;
+    
+    -- Señales tri-estado internas de la SD
+    signal sd_cmd_in    : STD_LOGIC;
+    signal sd_cmd_out   : STD_LOGIC;
+    signal sd_cmd_oe    : STD_LOGIC;
+
     -- Señales para el audio I2S
     signal i2s_lrclk_internal : STD_LOGIC;
+    
+    -- Señales de depuración SD
+    signal debug_sd_file_found : STD_LOGIC;
+    signal debug_sd_card_stat  : STD_LOGIC_VECTOR(3 downto 0);
+    signal debug_sd_card_type  : STD_LOGIC_VECTOR(1 downto 0);
+
     signal i2s_audio_data : STD_LOGIC_VECTOR(23 downto 0);
 
     -- signal i2c_busy : STD_LOGIC;
@@ -96,7 +132,7 @@ begin
     inst_apa102_ctrl: entity work.apa102_ctrl
         port map(
             clk_100MHz  => clk_100Mhz,
-            reset_n     => reset_n,
+            reset_n     => sw0_reset,
             btn_left    => btn_left_0,
             btn_up      => btn_up_0,
             btn_down    => btn_down_0,
@@ -190,16 +226,57 @@ begin
     dbg_scl_out <= dbg_scl_out_internal;
     i2s_lrclk <= i2s_lrclk_internal;
 
+    -- Pull up unused SD data pins for 1-bit SD bus mode
+    sd_dat1 <= '1';
+    sd_dat2 <= '1';
+    sd_dat3 <= '1';
+    sd_reset <= not reset_n; -- Tie to board reset so it power cycles! MIC2090-2 is active LOW enable!
+
+    -- Reset limpio: PLL estable + botón no pulsado
+    sd_rstn <= pll_locked and reset_n;
+    
+    -- Buffer tri-estado para sd_cmd (Instancia directa de IOBUF para forzar el hardware)
+    -- Evita que Vivado OOC synthesis convierta la Z en lógica
+    sd_cmd_iobuf : IOBUF
+    port map (
+        O  => sd_cmd_in,   -- Salida del buffer (hacia la FPGA)
+        IO => sd_cmd,      -- Puerto bidireccional físico
+        I  => sd_cmd_out,  -- Entrada al buffer (desde la FPGA)
+        T  => not sd_cmd_oe -- Enable (0 = conduce 'I' a 'IO', 1 = alta impedancia/lee 'IO' a 'O')
+    );
+
     inst_audio_player: entity work.audio_player
         port map(
-            clk        => clk_100Mhz,
-            reset_n    => reset_n,
+            clk        => clk_sd,  -- 50 MHz para SD reader (igual que el ejemplo)
+            reset_n    => sd_rstn,
             i2s_lrclk  => i2s_lrclk_internal,
             audio_data => i2s_audio_data,
-            rom_ena    => rom_ena,
-            rom_addra  => rom_addra,
-            rom_douta  => rom_douta
+            sd_clk     => sd_clk,
+            sd_cmd_in  => sd_cmd_in,
+            sd_cmd_out => sd_cmd_out,
+            sd_cmd_oe  => sd_cmd_oe,
+            sd_dat0    => sd_dat0,
+            
+            -- Puertos hacia el Block Design (FIFO Generator IP)
+            fifo_wr_en     => fifo_wr_en,
+            fifo_din       => fifo_din,
+            fifo_prog_full => fifo_prog_full,
+            fifo_rd_en     => fifo_rd_en,
+            fifo_dout      => fifo_dout,
+            fifo_empty     => fifo_empty,
+            fifo_valid     => fifo_valid,
+            
+            -- Señales de depuración SD
+            debug_sd_file_found => debug_sd_file_found,
+            debug_sd_card_stat  => debug_sd_card_stat,
+            debug_sd_card_type  => debug_sd_card_type
         );
+
+    -- Asignación de los LEDs de depuración
+    LED_out(15 downto 7) <= (others => '0');
+    LED_out(6 downto 5) <= debug_sd_card_type;
+    LED_out(4) <= debug_sd_file_found;
+    LED_out(3 downto 0) <= debug_sd_card_stat;
 
     inst_i2s_tx: entity work.i2s_transceiver
         generic map(
@@ -208,7 +285,7 @@ begin
             d_width         => 24
         )
         port map(
-            reset_n     => reset_n,
+            reset_n     => sd_rstn,
             mclk        => clk_audio, -- Nuevo reloj exacto!
             sclk        => i2s_bclk,
             ws          => i2s_lrclk_internal,

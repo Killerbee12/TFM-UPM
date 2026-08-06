@@ -2,7 +2,7 @@
 --Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
---Date        : Wed Aug  5 17:07:54 2026
+--Date        : Thu Aug  6 16:38:18 2026
 --Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 --Command     : generate_target design_1_wrapper.bd
 --Design      : design_1_wrapper
@@ -30,7 +30,8 @@ entity design_1_wrapper is
     reset_n_0 : in STD_LOGIC;
     seg_an_0_0 : out STD_LOGIC_VECTOR ( 7 downto 0 );
     seg_dp_0_0 : out STD_LOGIC;
-    seg_out_0_0 : out STD_LOGIC_VECTOR ( 6 downto 0 )
+    seg_out_0_0 : out STD_LOGIC_VECTOR ( 6 downto 0 );
+    sw0_reset_0 : in STD_LOGIC
   );
 end design_1_wrapper;
 
@@ -53,7 +54,8 @@ architecture STRUCTURE of design_1_wrapper is
     i2s_bclk_0 : out STD_LOGIC;
     i2s_lrclk_0 : out STD_LOGIC;
     i2s_dout_0 : out STD_LOGIC;
-    i2c_scl_0 : out STD_LOGIC
+    i2c_scl_0 : out STD_LOGIC;
+    sw0_reset_0 : in STD_LOGIC
   );
   end component design_1;
 begin
@@ -75,6 +77,7 @@ design_1_i: component design_1
       reset_n_0 => reset_n_0,
       seg_an_0_0(7 downto 0) => seg_an_0_0(7 downto 0),
       seg_dp_0_0 => seg_dp_0_0,
-      seg_out_0_0(6 downto 0) => seg_out_0_0(6 downto 0)
+      seg_out_0_0(6 downto 0) => seg_out_0_0(6 downto 0),
+      sw0_reset_0 => sw0_reset_0
     );
 end STRUCTURE;

@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xE86B3E62250DFA5D",
+      "boundary_crc": "0xE090DFC9CFCF92B5",
       "device": "xc7a100tcsg324-1",
       "gen_directory": "../../../../prueba1_demo.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -15,7 +15,8 @@
       "system_ila_0": "",
       "system_ila_1": "",
       "clk_wiz_0": "",
-      "blk_mem_gen_0": ""
+      "fifo_generator_0": "",
+      "util_vector_logic_0": ""
     },
     "ports": {
       "clk_100Mhz_0": {
@@ -106,6 +107,80 @@
       },
       "i2c_scl_0": {
         "direction": "O"
+      },
+      "sd_dat3_0": {
+        "direction": "O"
+      },
+      "sd_dat2_0": {
+        "direction": "O"
+      },
+      "sd_cmd_0": {
+        "direction": "IO"
+      },
+      "sd_clk_0": {
+        "type": "clk",
+        "direction": "O",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "design_1_top_system_0_1_sd_clk",
+            "value_src": "default_prop"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
+      },
+      "sd_dat1_0": {
+        "direction": "O"
+      },
+      "sd_dat0_0": {
+        "direction": "I"
+      },
+      "LED_out_0": {
+        "direction": "O",
+        "left": "15",
+        "right": "0"
+      },
+      "sw0_reset_0": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_LOW",
+            "value_src": "default"
+          }
+        }
+      },
+      "sd_reset_0": {
+        "type": "rst",
+        "direction": "O",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_LOW",
+            "value_src": "default"
+          }
+        }
       }
     },
     "components": {
@@ -129,7 +204,24 @@
             "direction": "I",
             "parameters": {
               "FREQ_HZ": {
-                "value": "12288000",
+                "value": "12288786",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "clk_sd": {
+            "direction": "I",
+            "parameters": {
+              "FREQ_HZ": {
+                "value": "50000000",
                 "value_src": "ip_prop"
               },
               "PHASE": {
@@ -143,6 +235,13 @@
             }
           },
           "reset_n": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "pll_locked": {
+            "direction": "I"
+          },
+          "sw0_reset": {
             "type": "rst",
             "direction": "I"
           },
@@ -196,24 +295,70 @@
           "i2s_dout": {
             "direction": "O"
           },
-          "rom_ena": {
+          "sd_reset": {
+            "type": "rst",
             "direction": "O"
           },
-          "rom_addra": {
+          "sd_clk": {
+            "type": "clk",
             "direction": "O",
-            "left": "17",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "sd_reset",
+                "value_src": "constant"
+              }
+            }
+          },
+          "sd_cmd": {
+            "direction": "IO"
+          },
+          "sd_dat0": {
+            "direction": "I"
+          },
+          "sd_dat1": {
+            "direction": "O"
+          },
+          "sd_dat2": {
+            "direction": "O"
+          },
+          "sd_dat3": {
+            "direction": "O"
+          },
+          "fifo_wr_en": {
+            "direction": "O"
+          },
+          "fifo_din": {
+            "direction": "O",
+            "left": "7",
             "right": "0"
           },
-          "rom_douta": {
+          "fifo_prog_full": {
+            "direction": "I"
+          },
+          "fifo_rd_en": {
+            "direction": "O"
+          },
+          "fifo_dout": {
             "direction": "I",
-            "left": "23",
+            "left": "7",
             "right": "0"
+          },
+          "fifo_empty": {
+            "direction": "I"
+          },
+          "fifo_valid": {
+            "direction": "I"
           },
           "dbg_sda_out": {
             "direction": "O"
           },
           "dbg_scl_out": {
             "direction": "O"
+          },
+          "LED_out": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
           }
         }
       },
@@ -273,74 +418,84 @@
         "has_run_ip_tcl": "true",
         "parameters": {
           "CLKOUT1_JITTER": {
-            "value": "360.948"
+            "value": "201.426"
           },
           "CLKOUT1_PHASE_ERROR": {
-            "value": "301.601"
+            "value": "98.575"
           },
           "CLKOUT1_REQUESTED_OUT_FREQ": {
             "value": "12.288"
           },
           "CLKOUT2_JITTER": {
-            "value": "130.958"
+            "value": "151.636"
           },
           "CLKOUT2_PHASE_ERROR": {
             "value": "98.575"
           },
+          "CLKOUT2_REQUESTED_OUT_FREQ": {
+            "value": "50"
+          },
           "CLKOUT2_USED": {
-            "value": "false"
+            "value": "true"
           },
           "MMCM_CLKFBOUT_MULT_F": {
-            "value": "48.000"
+            "value": "10.000"
           },
           "MMCM_CLKOUT0_DIVIDE_F": {
-            "value": "78.125"
+            "value": "81.375"
           },
           "MMCM_CLKOUT1_DIVIDE": {
-            "value": "1"
+            "value": "20"
           },
           "MMCM_DIVCLK_DIVIDE": {
-            "value": "5"
-          },
-          "NUM_OUT_CLKS": {
             "value": "1"
           },
+          "NUM_OUT_CLKS": {
+            "value": "2"
+          },
           "USE_LOCKED": {
-            "value": "false"
+            "value": "true"
           },
           "USE_RESET": {
             "value": "false"
           }
         }
       },
-      "blk_mem_gen_0": {
-        "vlnv": "xilinx.com:ip:blk_mem_gen:8.4",
-        "ip_revision": "11",
-        "xci_name": "design_1_blk_mem_gen_0_0",
-        "xci_path": "ip\\design_1_blk_mem_gen_0_0\\design_1_blk_mem_gen_0_0.xci",
-        "inst_hier_path": "blk_mem_gen_0",
+      "fifo_generator_0": {
+        "vlnv": "xilinx.com:ip:fifo_generator:13.2",
+        "ip_revision": "13",
+        "xci_name": "design_1_fifo_generator_0_0",
+        "xci_path": "ip\\design_1_fifo_generator_0_0\\design_1_fifo_generator_0_0.xci",
+        "inst_hier_path": "fifo_generator_0",
         "has_run_ip_tcl": "true",
         "parameters": {
-          "Coe_File": {
-            "value": "../../../../../../Ludovico-Einaudi-Nuvole-Bianche.coe"
+          "Full_Threshold_Assert_Value": {
+            "value": "1500"
           },
-          "Load_Init_File": {
+          "Input_Data_Width": {
+            "value": "8"
+          },
+          "Input_Depth": {
+            "value": "2048"
+          },
+          "Programmable_Full_Type": {
+            "value": "Single_Programmable_Full_Threshold_Constant"
+          },
+          "Valid_Flag": {
             "value": "true"
-          },
-          "Memory_Type": {
-            "value": "Single_Port_ROM"
-          },
-          "Register_PortA_Output_of_Memory_Primitives": {
-            "value": "false"
-          },
-          "Write_Depth_A": {
-            "value": "160000"
-          },
-          "Write_Width_A": {
-            "value": "24"
-          },
-          "use_bram_block": {
-            "value": "Stand_Alone"
+          }
+        }
+      },
+      "util_vector_logic_0": {
+        "vlnv": "xilinx.com:ip:util_vector_logic:2.0",
+        "ip_revision": "5",
+        "xci_name": "design_1_util_vector_logic_0_0",
+        "xci_path": "ip\\design_1_util_vector_logic_0_0\\design_1_util_vector_logic_0_0.xci",
+        "inst_hier_path": "util_vector_logic_0",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "C_OPERATION": {
+            "value": "not"
           }
         }
       }
@@ -352,10 +507,10 @@
           "top_system_0/i2c_sda"
         ]
       },
-      "blk_mem_gen_0_douta": {
+      "Net1": {
         "ports": [
-          "blk_mem_gen_0/douta",
-          "top_system_0/rom_douta"
+          "sd_cmd_0",
+          "top_system_0/sd_cmd"
         ]
       },
       "btn_center_0_0_1": {
@@ -404,7 +559,7 @@
           "system_ila_0/clk",
           "system_ila_1/clk",
           "clk_wiz_0/clk_in1",
-          "blk_mem_gen_0/clka",
+          "fifo_generator_0/clk",
           "top_system_0/clk_100Mhz"
         ]
       },
@@ -414,10 +569,65 @@
           "top_system_0/clk_audio"
         ]
       },
+      "clk_wiz_0_clk_out2": {
+        "ports": [
+          "clk_wiz_0/clk_out2",
+          "top_system_0/clk_sd"
+        ]
+      },
+      "clk_wiz_0_locked": {
+        "ports": [
+          "clk_wiz_0/locked",
+          "top_system_0/pll_locked"
+        ]
+      },
+      "fifo_generator_0_dout": {
+        "ports": [
+          "fifo_generator_0/dout",
+          "top_system_0/fifo_dout"
+        ]
+      },
+      "fifo_generator_0_empty": {
+        "ports": [
+          "fifo_generator_0/empty",
+          "top_system_0/fifo_empty"
+        ]
+      },
+      "fifo_generator_0_prog_full": {
+        "ports": [
+          "fifo_generator_0/prog_full",
+          "top_system_0/fifo_prog_full"
+        ]
+      },
+      "fifo_generator_0_valid": {
+        "ports": [
+          "fifo_generator_0/valid",
+          "top_system_0/fifo_valid"
+        ]
+      },
       "reset_n_0_1": {
         "ports": [
           "reset_n_0",
+          "util_vector_logic_0/Op1",
           "top_system_0/reset_n"
+        ]
+      },
+      "sd_dat0_0_1": {
+        "ports": [
+          "sd_dat0_0",
+          "top_system_0/sd_dat0"
+        ]
+      },
+      "sw0_reset_0_1": {
+        "ports": [
+          "sw0_reset_0",
+          "top_system_0/sw0_reset"
+        ]
+      },
+      "top_system_0_LED_out": {
+        "ports": [
+          "top_system_0/LED_out",
+          "LED_out_0"
         ]
       },
       "top_system_0_dbg_scl_out": {
@@ -447,6 +657,24 @@
             "value": "true"
           }
         }
+      },
+      "top_system_0_fifo_din": {
+        "ports": [
+          "top_system_0/fifo_din",
+          "fifo_generator_0/din"
+        ]
+      },
+      "top_system_0_fifo_rd_en": {
+        "ports": [
+          "top_system_0/fifo_rd_en",
+          "fifo_generator_0/rd_en"
+        ]
+      },
+      "top_system_0_fifo_wr_en": {
+        "ports": [
+          "top_system_0/fifo_wr_en",
+          "fifo_generator_0/wr_en"
+        ]
       },
       "top_system_0_i2c_scl": {
         "ports": [
@@ -503,16 +731,34 @@
           }
         }
       },
-      "top_system_0_rom_addra": {
+      "top_system_0_sd_clk": {
         "ports": [
-          "top_system_0/rom_addra",
-          "blk_mem_gen_0/addra"
+          "top_system_0/sd_clk",
+          "sd_clk_0"
         ]
       },
-      "top_system_0_rom_ena": {
+      "top_system_0_sd_dat1": {
         "ports": [
-          "top_system_0/rom_ena",
-          "blk_mem_gen_0/ena"
+          "top_system_0/sd_dat1",
+          "sd_dat1_0"
+        ]
+      },
+      "top_system_0_sd_dat2": {
+        "ports": [
+          "top_system_0/sd_dat2",
+          "sd_dat2_0"
+        ]
+      },
+      "top_system_0_sd_dat3": {
+        "ports": [
+          "top_system_0/sd_dat3",
+          "sd_dat3_0"
+        ]
+      },
+      "top_system_0_sd_reset": {
+        "ports": [
+          "top_system_0/sd_reset",
+          "sd_reset_0"
         ]
       },
       "top_system_0_seg_an_0": {
@@ -531,6 +777,12 @@
         "ports": [
           "top_system_0/seg_out_0",
           "seg_out_0_0"
+        ]
+      },
+      "util_vector_logic_0_Res": {
+        "ports": [
+          "util_vector_logic_0/Res",
+          "fifo_generator_0/srst"
         ]
       }
     }

@@ -2,7 +2,7 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-// Date        : Wed Aug  5 17:09:30 2026
+// Date        : Thu Aug  6 16:40:51 2026
 // Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
 //               c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_top_system_0_1/design_1_top_system_0_1_stub.v
@@ -16,16 +16,17 @@
 // Please paste the declaration into a Verilog source file or add the file as an additional source.
 (* CHECK_LICENSE_TYPE = "design_1_top_system_0_1,top_system,{}" *) (* core_generation_info = "design_1_top_system_0_1,top_system,{x_ipProduct=Vivado 2025.1,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=top_system,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED}" *) (* downgradeipidentifiedwarnings = "yes" *) 
 (* ip_definition_source = "module_ref" *) (* x_core_info = "top_system,Vivado 2025.1" *) 
-module design_1_top_system_0_1(clk_100Mhz, clk_audio, reset_n, btn_left_0, 
-  btn_right_0, btn_up_0, btn_down_0, btn_center_0, seg_out_0, seg_an_0, seg_dp_0, led_clk, 
-  led_data, i2c_sda, i2c_scl, i2s_bclk, i2s_lrclk, i2s_dout, rom_ena, rom_addra, rom_douta, 
+module design_1_top_system_0_1(clk_100Mhz, clk_audio, reset_n, sw0_reset, 
+  btn_left_0, btn_right_0, btn_up_0, btn_down_0, btn_center_0, seg_out_0, seg_an_0, seg_dp_0, 
+  led_clk, led_data, i2c_sda, i2c_scl, i2s_bclk, i2s_lrclk, i2s_dout, rom_ena, rom_addra, rom_douta, 
   dbg_sda_out, dbg_scl_out)
-/* synthesis syn_black_box black_box_pad_pin="reset_n,btn_left_0,btn_right_0,btn_up_0,btn_down_0,btn_center_0,seg_out_0[6:0],seg_an_0[7:0],seg_dp_0,led_clk,led_data,i2c_sda,i2c_scl,i2s_bclk,i2s_lrclk,i2s_dout,rom_ena,rom_addra[17:0],rom_douta[23:0],dbg_sda_out,dbg_scl_out" */
+/* synthesis syn_black_box black_box_pad_pin="reset_n,sw0_reset,btn_left_0,btn_right_0,btn_up_0,btn_down_0,btn_center_0,seg_out_0[6:0],seg_an_0[7:0],seg_dp_0,led_clk,led_data,i2c_sda,i2c_scl,i2s_bclk,i2s_lrclk,i2s_dout,rom_ena,rom_addra[17:0],rom_douta[23:0],dbg_sda_out,dbg_scl_out" */
 /* synthesis syn_force_seq_prim="clk_100Mhz" */
 /* synthesis syn_force_seq_prim="clk_audio" */;
   input clk_100Mhz /* synthesis syn_isclock = 1 */;
   input clk_audio /* synthesis syn_isclock = 1 */;
   (* x_interface_info = "xilinx.com:signal:reset:1.0 reset_n RST" *) (* x_interface_mode = "slave reset_n" *) (* x_interface_parameter = "XIL_INTERFACENAME reset_n, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input reset_n;
+  (* x_interface_info = "xilinx.com:signal:reset:1.0 sw0_reset RST" *) (* x_interface_mode = "slave sw0_reset" *) (* x_interface_parameter = "XIL_INTERFACENAME sw0_reset, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input sw0_reset;
   input btn_left_0;
   input btn_right_0;
   input btn_up_0;

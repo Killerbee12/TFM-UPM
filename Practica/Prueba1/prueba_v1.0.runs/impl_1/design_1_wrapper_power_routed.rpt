@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date             : Wed Aug  5 17:13:54 2026
+| Date             : Thu Aug  6 16:51:53 2026
 | Host             : Samsung_Book_3 running 64-bit major release  (build 9200)
 | Command          : report_power -file design_1_wrapper_power_routed.rpt -pb design_1_wrapper_power_summary_routed.pb -rpx design_1_wrapper_power_routed.rpx
 | Design           : design_1_wrapper
@@ -53,18 +53,18 @@ Table of Contents
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
 | Clocks                   |     0.021 |        7 |       --- |             --- |
-| Slice Logic              |     0.003 |     7513 |       --- |             --- |
-|   LUT as Logic           |     0.002 |     2424 |     63400 |            3.82 |
-|   Register               |    <0.001 |     3472 |    126800 |            2.74 |
+| Slice Logic              |     0.003 |     7530 |       --- |             --- |
+|   LUT as Logic           |     0.002 |     2432 |     63400 |            3.84 |
+|   Register               |    <0.001 |     3475 |    126800 |            2.74 |
 |   CARRY4                 |    <0.001 |       95 |     15850 |            0.60 |
-|   F7/F8 Muxes            |    <0.001 |      117 |     63400 |            0.18 |
 |   LUT as Shift Register  |    <0.001 |      151 |     19000 |            0.79 |
+|   F7/F8 Muxes            |    <0.001 |      116 |     63400 |            0.18 |
 |   LUT as Distributed RAM |    <0.001 |       24 |     19000 |            0.13 |
 |   Others                 |     0.000 |      669 |       --- |             --- |
-| Signals                  |     0.005 |     6137 |       --- |             --- |
+| Signals                  |     0.005 |     6144 |       --- |             --- |
 | Block RAM                |     0.018 |      121 |       135 |           89.63 |
 | MMCM                     |     0.118 |        1 |         6 |           16.67 |
-| I/O                      |     0.003 |       30 |       210 |           14.29 |
+| I/O                      |     0.003 |       31 |       210 |           14.76 |
 | Static Power             |     0.103 |          |           |                 |
 | Total                    |     0.271 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+

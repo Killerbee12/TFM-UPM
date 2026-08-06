@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Aug  5 17:07:55 2026" VIVADOVERSION="2025.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Aug  6 16:38:23 2026" VIVADOVERSION="2025.1">
 
   <SYSTEMINFO ARCH="artix7" DEVICE="7a100t" NAME="design_1" PACKAGE="csg324" SPEEDGRADE="-1"/>
 
@@ -93,6 +93,11 @@
     <PORT DIR="O" LEFT="6" NAME="seg_out_0_0" RIGHT="0" SIGIS="undef" SIGNAME="top_system_0_seg_out_0">
       <CONNECTIONS>
         <CONNECTION INSTANCE="top_system_0" PORT="seg_out_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="sw0_reset_0" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_sw0_reset_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="top_system_0" PORT="sw0_reset"/>
       </CONNECTIONS>
     </PORT>
   </EXTERNALPORTS>
@@ -9023,6 +9028,11 @@
         <PORT DIR="O" LEFT="6" NAME="seg_out_0" RIGHT="0" SIGIS="undef" SIGNAME="top_system_0_seg_out_0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="seg_out_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="sw0_reset" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_sw0_reset_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="sw0_reset_0"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>

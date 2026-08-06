@@ -39,6 +39,7 @@
         "clk_100Mhz": [ { "direction": "in" } ],
         "clk_audio": [ { "direction": "in" } ],
         "reset_n": [ { "direction": "in" } ],
+        "sw0_reset": [ { "direction": "in" } ],
         "btn_left_0": [ { "direction": "in" } ],
         "btn_right_0": [ { "direction": "in" } ],
         "btn_up_0": [ { "direction": "in" } ],
@@ -71,6 +72,18 @@
           },
           "port_maps": {
             "RST": [ { "physical_name": "reset_n" } ]
+          }
+        },
+        "sw0_reset": {
+          "vlnv": "xilinx.com:signal:reset:1.0",
+          "abstraction_type": "xilinx.com:signal:reset_rtl:1.0",
+          "mode": "slave",
+          "parameters": {
+            "POLARITY": [ { "value": "ACTIVE_LOW", "value_permission": "bd_and_user", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "INSERT_VIP": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "simulation.rtl", "is_ips_inferred": true, "is_static_object": false } ]
+          },
+          "port_maps": {
+            "RST": [ { "physical_name": "sw0_reset" } ]
           }
         },
         "led_clk": {

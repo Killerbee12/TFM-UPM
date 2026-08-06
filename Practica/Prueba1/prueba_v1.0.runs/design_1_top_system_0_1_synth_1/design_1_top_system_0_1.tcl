@@ -57,11 +57,9 @@ if {$::dispatch::connected} {
 
 OPTRACE "design_1_top_system_0_1_synth_1" START { ROLLUP_AUTO }
 set_param tcl.collectionResultDisplayLimit 0
-set_param chipscope.maxJobs 3
 set_param general.usePosixSpawnForFork 1
-set_param bd.open.in_stealth_mode 1
+set_param bd.open.in_stealth_mode 2
 set_param xicom.use_bs_reader 1
-set_msg_config -id {Common 17-41} -limit 10000000
 set_param project.vivado.isBlockSynthRun true
 OPTRACE "Creating in-memory project" START { }
 set_param ips.modRefOverrideMrefDirPath c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/mref

@@ -57,11 +57,9 @@ if {$::dispatch::connected} {
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
 set_param tcl.collectionResultDisplayLimit 0
-set_param chipscope.maxJobs 3
 set_param general.usePosixSpawnForFork 1
-set_param bd.open.in_stealth_mode 1
+set_param bd.open.in_stealth_mode 2
 set_param xicom.use_bs_reader 1
-set_msg_config -id {Common 17-41} -limit 10000000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a100tcsg324-1
 
@@ -78,7 +76,7 @@ set_property ip_output_repo c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Pru
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-add_files c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/Ludovico-Einaudi-Nuvole-Bianche.coe
+add_files C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/Ludovico-Einaudi-Nuvole-Bianche.coe
 read_vhdl -library xil_defaultlib C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/hdl/design_1_wrapper.vhd
 add_files C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.srcs/sources_1/bd/design_1/design_1.bd
 set_property used_in_implementation false [get_files -all c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.gen/sources_1/bd/design_1/ip/design_1_system_ila_0_0/bd_0/bd_f60c_ooc.xdc]

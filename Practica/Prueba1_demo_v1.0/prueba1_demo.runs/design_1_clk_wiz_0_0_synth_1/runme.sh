@@ -25,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1/prueba_v1.0.runs/design_1_clk_wiz_0_0_synth_1'
+HD_PWD='C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/design_1_clk_wiz_0_0_synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

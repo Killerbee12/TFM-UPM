@@ -57,7 +57,10 @@ ENTITY design_1_top_system_0_1 IS
   PORT (
     clk_100Mhz : IN STD_LOGIC;
     clk_audio : IN STD_LOGIC;
+    clk_sd : IN STD_LOGIC;
     reset_n : IN STD_LOGIC;
+    pll_locked : IN STD_LOGIC;
+    sw0_reset : IN STD_LOGIC;
     btn_left_0 : IN STD_LOGIC;
     btn_right_0 : IN STD_LOGIC;
     btn_up_0 : IN STD_LOGIC;
@@ -73,11 +76,23 @@ ENTITY design_1_top_system_0_1 IS
     i2s_bclk : OUT STD_LOGIC;
     i2s_lrclk : OUT STD_LOGIC;
     i2s_dout : OUT STD_LOGIC;
-    rom_ena : OUT STD_LOGIC;
-    rom_addra : OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
-    rom_douta : IN STD_LOGIC_VECTOR(23 DOWNTO 0);
+    sd_reset : OUT STD_LOGIC;
+    sd_clk : OUT STD_LOGIC;
+    sd_cmd : INOUT STD_LOGIC;
+    sd_dat0 : IN STD_LOGIC;
+    sd_dat1 : OUT STD_LOGIC;
+    sd_dat2 : OUT STD_LOGIC;
+    sd_dat3 : OUT STD_LOGIC;
+    fifo_wr_en : OUT STD_LOGIC;
+    fifo_din : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+    fifo_prog_full : IN STD_LOGIC;
+    fifo_rd_en : OUT STD_LOGIC;
+    fifo_dout : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    fifo_empty : IN STD_LOGIC;
+    fifo_valid : IN STD_LOGIC;
     dbg_sda_out : OUT STD_LOGIC;
-    dbg_scl_out : OUT STD_LOGIC
+    dbg_scl_out : OUT STD_LOGIC;
+    LED_out : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
   );
 END design_1_top_system_0_1;
 
@@ -88,7 +103,10 @@ ARCHITECTURE design_1_top_system_0_1_arch OF design_1_top_system_0_1 IS
     PORT (
       clk_100Mhz : IN STD_LOGIC;
       clk_audio : IN STD_LOGIC;
+      clk_sd : IN STD_LOGIC;
       reset_n : IN STD_LOGIC;
+      pll_locked : IN STD_LOGIC;
+      sw0_reset : IN STD_LOGIC;
       btn_left_0 : IN STD_LOGIC;
       btn_right_0 : IN STD_LOGIC;
       btn_up_0 : IN STD_LOGIC;
@@ -104,11 +122,23 @@ ARCHITECTURE design_1_top_system_0_1_arch OF design_1_top_system_0_1 IS
       i2s_bclk : OUT STD_LOGIC;
       i2s_lrclk : OUT STD_LOGIC;
       i2s_dout : OUT STD_LOGIC;
-      rom_ena : OUT STD_LOGIC;
-      rom_addra : OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
-      rom_douta : IN STD_LOGIC_VECTOR(23 DOWNTO 0);
+      sd_reset : OUT STD_LOGIC;
+      sd_clk : OUT STD_LOGIC;
+      sd_cmd : INOUT STD_LOGIC;
+      sd_dat0 : IN STD_LOGIC;
+      sd_dat1 : OUT STD_LOGIC;
+      sd_dat2 : OUT STD_LOGIC;
+      sd_dat3 : OUT STD_LOGIC;
+      fifo_wr_en : OUT STD_LOGIC;
+      fifo_din : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+      fifo_prog_full : IN STD_LOGIC;
+      fifo_rd_en : OUT STD_LOGIC;
+      fifo_dout : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+      fifo_empty : IN STD_LOGIC;
+      fifo_valid : IN STD_LOGIC;
       dbg_sda_out : OUT STD_LOGIC;
-      dbg_scl_out : OUT STD_LOGIC
+      dbg_scl_out : OUT STD_LOGIC;
+      LED_out : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
     );
   END COMPONENT top_system;
   ATTRIBUTE X_INTERFACE_INFO : STRING;
@@ -120,12 +150,24 @@ ARCHITECTURE design_1_top_system_0_1_arch OF design_1_top_system_0_1 IS
   ATTRIBUTE X_INTERFACE_INFO OF reset_n: SIGNAL IS "xilinx.com:signal:reset:1.0 reset_n RST";
   ATTRIBUTE X_INTERFACE_MODE OF reset_n: SIGNAL IS "slave reset_n";
   ATTRIBUTE X_INTERFACE_PARAMETER OF reset_n: SIGNAL IS "XIL_INTERFACENAME reset_n, POLARITY ACTIVE_LOW, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF sd_clk: SIGNAL IS "xilinx.com:signal:clock:1.0 sd_clk CLK";
+  ATTRIBUTE X_INTERFACE_MODE OF sd_clk: SIGNAL IS "master sd_clk";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF sd_clk: SIGNAL IS "XIL_INTERFACENAME sd_clk, ASSOCIATED_RESET sd_reset, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN design_1_top_system_0_1_sd_clk, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF sd_reset: SIGNAL IS "xilinx.com:signal:reset:1.0 sd_reset RST";
+  ATTRIBUTE X_INTERFACE_MODE OF sd_reset: SIGNAL IS "master sd_reset";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF sd_reset: SIGNAL IS "XIL_INTERFACENAME sd_reset, POLARITY ACTIVE_LOW, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF sw0_reset: SIGNAL IS "xilinx.com:signal:reset:1.0 sw0_reset RST";
+  ATTRIBUTE X_INTERFACE_MODE OF sw0_reset: SIGNAL IS "slave sw0_reset";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF sw0_reset: SIGNAL IS "XIL_INTERFACENAME sw0_reset, POLARITY ACTIVE_LOW, INSERT_VIP 0";
 BEGIN
   U0 : top_system
     PORT MAP (
       clk_100Mhz => clk_100Mhz,
       clk_audio => clk_audio,
+      clk_sd => clk_sd,
       reset_n => reset_n,
+      pll_locked => pll_locked,
+      sw0_reset => sw0_reset,
       btn_left_0 => btn_left_0,
       btn_right_0 => btn_right_0,
       btn_up_0 => btn_up_0,
@@ -141,10 +183,22 @@ BEGIN
       i2s_bclk => i2s_bclk,
       i2s_lrclk => i2s_lrclk,
       i2s_dout => i2s_dout,
-      rom_ena => rom_ena,
-      rom_addra => rom_addra,
-      rom_douta => rom_douta,
+      sd_reset => sd_reset,
+      sd_clk => sd_clk,
+      sd_cmd => sd_cmd,
+      sd_dat0 => sd_dat0,
+      sd_dat1 => sd_dat1,
+      sd_dat2 => sd_dat2,
+      sd_dat3 => sd_dat3,
+      fifo_wr_en => fifo_wr_en,
+      fifo_din => fifo_din,
+      fifo_prog_full => fifo_prog_full,
+      fifo_rd_en => fifo_rd_en,
+      fifo_dout => fifo_dout,
+      fifo_empty => fifo_empty,
+      fifo_valid => fifo_valid,
       dbg_sda_out => dbg_sda_out,
-      dbg_scl_out => dbg_scl_out
+      dbg_scl_out => dbg_scl_out,
+      LED_out => LED_out
     );
 END design_1_top_system_0_1_arch;

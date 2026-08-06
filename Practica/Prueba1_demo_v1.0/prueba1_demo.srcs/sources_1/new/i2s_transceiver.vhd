@@ -42,8 +42,8 @@ ARCHITECTURE logic OF i2s_transceiver IS
   -- Counter of sclk edges within one ws period
   SIGNAL ws_cnt        : INTEGER RANGE 0 TO sclk_ws_ratio-1 := 0;
 
-  -- Bit index for serialization (counts down from d_width-1 to 0)
-  SIGNAL bit_cnt       : INTEGER RANGE 0 TO d_width-1 := d_width-1;
+  -- Bit index for serialization (counts down from d_width to 0)
+  SIGNAL bit_cnt       : INTEGER RANGE 0 TO d_width := d_width;
 
   -- Latched copies of TX data (captured at start of each L/R phase)
   SIGNAL l_tx_shift    : STD_LOGIC_VECTOR(d_width-1 DOWNTO 0) := (OTHERS => '0');
@@ -66,7 +66,7 @@ BEGIN
       sclk_int    <= '0';
       ws_int      <= '0';
       ws_cnt      <= 0;
-      bit_cnt     <= d_width-1;
+      bit_cnt     <= d_width;
       sd_tx       <= '0';
       l_tx_shift  <= (OTHERS => '0');
       r_tx_shift  <= (OTHERS => '0');
@@ -97,21 +97,20 @@ BEGIN
             ws_cnt <= ws_cnt + 1;
           END IF;
 
-          -- At the boundary (ws_cnt = sclk_ws_ratio/2 - 1), toggle ws
-          -- and latch new data for the upcoming channel
+          -- At the boundary, toggle ws and latch new data
           IF ws_cnt = sclk_ws_ratio/2 - 1 THEN
             -- Transitioning from L -> R
             ws_int     <= '1';
             r_tx_shift <= r_data_tx;   -- Latch right channel data
-            bit_cnt    <= d_width - 1;
-            sd_tx      <= r_data_tx(d_width-1); -- First bit of R
+            bit_cnt    <= d_width;     -- Reset bit counter
+            sd_tx      <= '0';         -- 1 BCLK delay for standard I2S
           ELSIF ws_cnt = sclk_ws_ratio - 1 THEN
             -- Transitioning from R -> L
             ws_int     <= '0';
             l_tx_shift <= l_data_tx;   -- Latch left channel data
-            bit_cnt    <= d_width - 1;
-            sd_tx      <= l_data_tx(d_width-1); -- First bit of L
-            -- Also output received data at the end of a full L+R frame
+            bit_cnt    <= d_width;     -- Reset bit counter
+            sd_tx      <= '0';         -- 1 BCLK delay for standard I2S
+            -- Output received data
             l_data_rx  <= l_rx_shift;
             r_data_rx  <= r_rx_shift;
           ELSE

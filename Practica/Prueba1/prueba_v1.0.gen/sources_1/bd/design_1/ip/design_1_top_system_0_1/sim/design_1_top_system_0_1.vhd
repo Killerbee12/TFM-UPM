@@ -58,6 +58,7 @@ ENTITY design_1_top_system_0_1 IS
     clk_100Mhz : IN STD_LOGIC;
     clk_audio : IN STD_LOGIC;
     reset_n : IN STD_LOGIC;
+    sw0_reset : IN STD_LOGIC;
     btn_left_0 : IN STD_LOGIC;
     btn_right_0 : IN STD_LOGIC;
     btn_up_0 : IN STD_LOGIC;
@@ -89,6 +90,7 @@ ARCHITECTURE design_1_top_system_0_1_arch OF design_1_top_system_0_1 IS
       clk_100Mhz : IN STD_LOGIC;
       clk_audio : IN STD_LOGIC;
       reset_n : IN STD_LOGIC;
+      sw0_reset : IN STD_LOGIC;
       btn_left_0 : IN STD_LOGIC;
       btn_right_0 : IN STD_LOGIC;
       btn_up_0 : IN STD_LOGIC;
@@ -120,12 +122,16 @@ ARCHITECTURE design_1_top_system_0_1_arch OF design_1_top_system_0_1 IS
   ATTRIBUTE X_INTERFACE_INFO OF reset_n: SIGNAL IS "xilinx.com:signal:reset:1.0 reset_n RST";
   ATTRIBUTE X_INTERFACE_MODE OF reset_n: SIGNAL IS "slave reset_n";
   ATTRIBUTE X_INTERFACE_PARAMETER OF reset_n: SIGNAL IS "XIL_INTERFACENAME reset_n, POLARITY ACTIVE_LOW, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF sw0_reset: SIGNAL IS "xilinx.com:signal:reset:1.0 sw0_reset RST";
+  ATTRIBUTE X_INTERFACE_MODE OF sw0_reset: SIGNAL IS "slave sw0_reset";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF sw0_reset: SIGNAL IS "XIL_INTERFACENAME sw0_reset, POLARITY ACTIVE_LOW, INSERT_VIP 0";
 BEGIN
   U0 : top_system
     PORT MAP (
       clk_100Mhz => clk_100Mhz,
       clk_audio => clk_audio,
       reset_n => reset_n,
+      sw0_reset => sw0_reset,
       btn_left_0 => btn_left_0,
       btn_right_0 => btn_right_0,
       btn_up_0 => btn_up_0,
