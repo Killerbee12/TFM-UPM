@@ -556,10 +556,9 @@
       "clk_100Mhz_0_1": {
         "ports": [
           "clk_100Mhz_0",
-          "system_ila_0/clk",
-          "system_ila_1/clk",
           "clk_wiz_0/clk_in1",
-          "fifo_generator_0/clk",
+          "system_ila_1/clk",
+          "system_ila_0/clk",
           "top_system_0/clk_100Mhz"
         ]
       },
@@ -572,6 +571,7 @@
       "clk_wiz_0_clk_out2": {
         "ports": [
           "clk_wiz_0/clk_out2",
+          "fifo_generator_0/clk",
           "top_system_0/clk_sd"
         ]
       },

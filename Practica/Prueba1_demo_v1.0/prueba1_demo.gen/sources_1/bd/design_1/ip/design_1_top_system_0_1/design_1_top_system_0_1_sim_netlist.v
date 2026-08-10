@@ -2,7 +2,7 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-// Date        : Thu Aug  6 19:23:33 2026
+// Date        : Mon Aug 10 15:49:28 2026
 // Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/ip/design_1_top_system_0_1/design_1_top_system_0_1_sim_netlist.v
@@ -154,7 +154,8 @@ module design_1_top_system_0_1
         .btn_right_0(btn_right_0),
         .btn_up_0(btn_up_0),
         .card_stat(\^LED_out [3:0]),
-        .card_type(\^LED_out [5]),
+        .\card_type_reg[0] (\^LED_out [5]),
+        .\card_type_reg[1] (\^LED_out [6]),
         .clk_100Mhz(clk_100Mhz),
         .clk_audio(clk_audio),
         .clk_sd(clk_sd),
@@ -179,7 +180,6 @@ module design_1_top_system_0_1
         .sd_dat0(sd_dat0),
         .sd_reset(sd_reset),
         .sdclk_reg(sd_clk),
-        .sdv1_maybe_reg(\^LED_out [6]),
         .seg_an_0(seg_an_0),
         .seg_dp_0(seg_dp_0),
         .seg_out_0(seg_out_0),
@@ -2456,11 +2456,11 @@ module design_1_top_system_0_1_audio_player
     fifo_rd_en,
     sdclk_reg,
     Q,
-    card_type,
     file_found,
     T,
-    \sample_reg_reg[23]_0 ,
-    sdv1_maybe_reg,
+    \sample_reg_reg[15]_0 ,
+    \card_type_reg[0] ,
+    \card_type_reg[1] ,
     I,
     fifo_wr_en,
     fifo_din,
@@ -2469,8 +2469,8 @@ module design_1_top_system_0_1_audio_player
     sd_cmd_in,
     sd_dat0,
     fifo_prog_full,
-    fifo_valid,
     fifo_empty,
+    fifo_valid,
     fifo_dout,
     reset_n,
     pll_locked);
@@ -2478,11 +2478,11 @@ module design_1_top_system_0_1_audio_player
   output fifo_rd_en;
   output sdclk_reg;
   output [3:0]Q;
-  output [0:0]card_type;
   output file_found;
   output T;
-  output [23:0]\sample_reg_reg[23]_0 ;
-  output sdv1_maybe_reg;
+  output [15:0]\sample_reg_reg[15]_0 ;
+  output \card_type_reg[0] ;
+  output \card_type_reg[1] ;
   output I;
   output fifo_wr_en;
   output [7:0]fifo_din;
@@ -2491,20 +2491,21 @@ module design_1_top_system_0_1_audio_player
   input sd_cmd_in;
   input sd_dat0;
   input fifo_prog_full;
-  input fifo_valid;
   input fifo_empty;
+  input fifo_valid;
   input [7:0]fifo_dout;
   input reset_n;
   input pll_locked;
 
   wire \FSM_sequential_state[0]_i_1_n_0 ;
+  wire \FSM_sequential_state[0]_i_2_n_0 ;
   wire \FSM_sequential_state[1]_i_1_n_0 ;
   wire \FSM_sequential_state[2]_i_1_n_0 ;
-  wire \FSM_sequential_state[2]_i_2_n_0 ;
   wire I;
   wire [3:0]Q;
   wire T;
-  wire [0:0]card_type;
+  wire \card_type_reg[0] ;
+  wire \card_type_reg[1] ;
   wire clk_sd;
   wire [7:0]fifo_din;
   wire [7:0]fifo_dout;
@@ -2520,56 +2521,52 @@ module design_1_top_system_0_1_audio_player
   wire pll_locked;
   wire reset_n;
   wire reset_n_0;
-  wire [16:16]sample_reg;
-  wire \sample_reg[15]_i_1_n_0 ;
-  wire \sample_reg[7]_i_1_n_0 ;
-  wire [23:0]\sample_reg_reg[23]_0 ;
+  wire [8:0]sample_reg;
+  wire [15:0]sample_reg0_in;
+  wire \sample_reg[15]_i_3_n_0 ;
+  wire \sample_reg[7]_i_3_n_0 ;
+  wire [15:0]\sample_reg_reg[15]_0 ;
   wire sd_cmd_in;
   wire sd_dat0;
   wire sdclk_reg;
-  wire sdv1_maybe_reg;
-  wire [2:0]state;
+  wire [2:0]state__0;
 
   LUT6 #(
-    .INIT(64'h504F4F4A504A4A4A)) 
+    .INIT(64'hF0CFF0C1F0C0F0C1)) 
     \FSM_sequential_state[0]_i_1 
-       (.I0(\FSM_sequential_state[2]_i_2_n_0 ),
+       (.I0(\FSM_sequential_state[0]_i_2_n_0 ),
         .I1(fifo_empty),
-        .I2(state[0]),
-        .I3(state[2]),
-        .I4(state[1]),
+        .I2(state__0[0]),
+        .I3(state__0[2]),
+        .I4(state__0[1]),
         .I5(fifo_valid),
         .O(\FSM_sequential_state[0]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'h504FB0B0554FB0B0)) 
-    \FSM_sequential_state[1]_i_1 
-       (.I0(\FSM_sequential_state[2]_i_2_n_0 ),
-        .I1(fifo_empty),
-        .I2(state[0]),
-        .I3(state[2]),
-        .I4(state[1]),
-        .I5(fifo_valid),
-        .O(\FSM_sequential_state[1]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'h50B0FF0055B0FF00)) 
-    \FSM_sequential_state[2]_i_1 
-       (.I0(\FSM_sequential_state[2]_i_2_n_0 ),
-        .I1(fifo_empty),
-        .I2(state[0]),
-        .I3(state[2]),
-        .I4(state[1]),
-        .I5(fifo_valid),
-        .O(\FSM_sequential_state[2]_i_1_n_0 ));
-  LUT5 #(
-    .INIT(32'h00000004)) 
-    \FSM_sequential_state[2]_i_2 
+  LUT2 #(
+    .INIT(4'hB)) 
+    \FSM_sequential_state[0]_i_2 
        (.I0(lrclk_prev),
         .I1(lrclk_prev_reg_0),
-        .I2(state[0]),
-        .I3(state[1]),
-        .I4(state[2]),
-        .O(\FSM_sequential_state[2]_i_2_n_0 ));
-  (* FSM_ENCODED_STATES = "idle:000,req_b1:001,wait_b1:010,req_b2:011,wait_b2:100,req_b3:101,wait_b3:110," *) 
+        .O(\FSM_sequential_state[0]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair281" *) 
+  LUT4 #(
+    .INIT(16'hFB04)) 
+    \FSM_sequential_state[1]_i_1 
+       (.I0(fifo_empty),
+        .I1(state__0[0]),
+        .I2(state__0[2]),
+        .I3(state__0[1]),
+        .O(\FSM_sequential_state[1]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair281" *) 
+  LUT5 #(
+    .INIT(32'hF4C0F4F0)) 
+    \FSM_sequential_state[2]_i_1 
+       (.I0(fifo_empty),
+        .I1(state__0[0]),
+        .I2(state__0[2]),
+        .I3(state__0[1]),
+        .I4(fifo_valid),
+        .O(\FSM_sequential_state[2]_i_1_n_0 ));
+  (* FSM_ENCODED_STATES = "idle:000,req_b1:001,wait_b1:010,req_b2:011,wait_b2:100," *) 
   FDCE #(
     .INIT(1'b0)) 
     \FSM_sequential_state_reg[0] 
@@ -2577,8 +2574,8 @@ module design_1_top_system_0_1_audio_player
         .CE(1'b1),
         .CLR(reset_n_0),
         .D(\FSM_sequential_state[0]_i_1_n_0 ),
-        .Q(state[0]));
-  (* FSM_ENCODED_STATES = "idle:000,req_b1:001,wait_b1:010,req_b2:011,wait_b2:100,req_b3:101,wait_b3:110," *) 
+        .Q(state__0[0]));
+  (* FSM_ENCODED_STATES = "idle:000,req_b1:001,wait_b1:010,req_b2:011,wait_b2:100," *) 
   FDCE #(
     .INIT(1'b0)) 
     \FSM_sequential_state_reg[1] 
@@ -2586,8 +2583,8 @@ module design_1_top_system_0_1_audio_player
         .CE(1'b1),
         .CLR(reset_n_0),
         .D(\FSM_sequential_state[1]_i_1_n_0 ),
-        .Q(state[1]));
-  (* FSM_ENCODED_STATES = "idle:000,req_b1:001,wait_b1:010,req_b2:011,wait_b2:100,req_b3:101,wait_b3:110," *) 
+        .Q(state__0[1]));
+  (* FSM_ENCODED_STATES = "idle:000,req_b1:001,wait_b1:010,req_b2:011,wait_b2:100," *) 
   FDCE #(
     .INIT(1'b0)) 
     \FSM_sequential_state_reg[2] 
@@ -2595,14 +2592,14 @@ module design_1_top_system_0_1_audio_player
         .CE(1'b1),
         .CLR(reset_n_0),
         .D(\FSM_sequential_state[2]_i_1_n_0 ),
-        .Q(state[2]));
-  LUT4 #(
-    .INIT(16'h0222)) 
+        .Q(state__0[2]));
+  (* SOFT_HLUTNM = "soft_lutpair290" *) 
+  LUT3 #(
+    .INIT(8'h04)) 
     fifo_rd_en_i_1
-       (.I0(state[0]),
-        .I1(fifo_empty),
-        .I2(state[1]),
-        .I3(state[2]),
+       (.I0(state__0[2]),
+        .I1(state__0[0]),
+        .I2(fifo_empty),
         .O(fifo_rd_en_i_1_n_0));
   FDCE fifo_rd_en_reg
        (.C(clk_sd),
@@ -2618,227 +2615,320 @@ module design_1_top_system_0_1_audio_player
         .CLR(reset_n_0),
         .D(lrclk_prev_reg_0),
         .Q(lrclk_prev));
+  (* SOFT_HLUTNM = "soft_lutpair285" *) 
   LUT4 #(
-    .INIT(16'h1000)) 
+    .INIT(16'h0008)) 
+    \sample_reg[0]_i_1 
+       (.I0(fifo_dout[0]),
+        .I1(state__0[1]),
+        .I2(state__0[2]),
+        .I3(state__0[0]),
+        .O(sample_reg0_in[0]));
+  (* SOFT_HLUTNM = "soft_lutpair288" *) 
+  LUT4 #(
+    .INIT(16'h0008)) 
+    \sample_reg[10]_i_1 
+       (.I0(fifo_dout[2]),
+        .I1(state__0[2]),
+        .I2(state__0[0]),
+        .I3(state__0[1]),
+        .O(sample_reg0_in[10]));
+  (* SOFT_HLUTNM = "soft_lutpair288" *) 
+  LUT4 #(
+    .INIT(16'h0008)) 
+    \sample_reg[11]_i_1 
+       (.I0(fifo_dout[3]),
+        .I1(state__0[2]),
+        .I2(state__0[0]),
+        .I3(state__0[1]),
+        .O(sample_reg0_in[11]));
+  (* SOFT_HLUTNM = "soft_lutpair287" *) 
+  LUT4 #(
+    .INIT(16'h0008)) 
+    \sample_reg[12]_i_1 
+       (.I0(fifo_dout[4]),
+        .I1(state__0[2]),
+        .I2(state__0[0]),
+        .I3(state__0[1]),
+        .O(sample_reg0_in[12]));
+  (* SOFT_HLUTNM = "soft_lutpair287" *) 
+  LUT4 #(
+    .INIT(16'h0008)) 
+    \sample_reg[13]_i_1 
+       (.I0(fifo_dout[5]),
+        .I1(state__0[2]),
+        .I2(state__0[0]),
+        .I3(state__0[1]),
+        .O(sample_reg0_in[13]));
+  (* SOFT_HLUTNM = "soft_lutpair286" *) 
+  LUT4 #(
+    .INIT(16'h0008)) 
+    \sample_reg[14]_i_1 
+       (.I0(fifo_dout[6]),
+        .I1(state__0[2]),
+        .I2(state__0[0]),
+        .I3(state__0[1]),
+        .O(sample_reg0_in[14]));
+  LUT5 #(
+    .INIT(32'hFFFF1000)) 
     \sample_reg[15]_i_1 
-       (.I0(state[1]),
-        .I1(state[0]),
-        .I2(fifo_valid),
-        .I3(state[2]),
-        .O(\sample_reg[15]_i_1_n_0 ));
-  LUT4 #(
-    .INIT(16'h0080)) 
-    \sample_reg[23]_i_1 
-       (.I0(state[2]),
-        .I1(fifo_valid),
-        .I2(state[1]),
-        .I3(state[0]),
-        .O(sample_reg));
-  LUT4 #(
-    .INIT(16'h1000)) 
-    \sample_reg[7]_i_1 
-       (.I0(state[2]),
-        .I1(state[0]),
-        .I2(state[1]),
+       (.I0(state__0[1]),
+        .I1(state__0[0]),
+        .I2(state__0[2]),
         .I3(fifo_valid),
-        .O(\sample_reg[7]_i_1_n_0 ));
+        .I4(\sample_reg[15]_i_3_n_0 ),
+        .O(sample_reg[8]));
+  (* SOFT_HLUTNM = "soft_lutpair286" *) 
+  LUT4 #(
+    .INIT(16'h0008)) 
+    \sample_reg[15]_i_2 
+       (.I0(fifo_dout[7]),
+        .I1(state__0[2]),
+        .I2(state__0[0]),
+        .I3(state__0[1]),
+        .O(sample_reg0_in[15]));
+  LUT6 #(
+    .INIT(64'h0000010000000000)) 
+    \sample_reg[15]_i_3 
+       (.I0(state__0[2]),
+        .I1(state__0[0]),
+        .I2(state__0[1]),
+        .I3(fifo_empty),
+        .I4(lrclk_prev),
+        .I5(lrclk_prev_reg_0),
+        .O(\sample_reg[15]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair285" *) 
+  LUT4 #(
+    .INIT(16'h0008)) 
+    \sample_reg[1]_i_1 
+       (.I0(fifo_dout[1]),
+        .I1(state__0[1]),
+        .I2(state__0[2]),
+        .I3(state__0[0]),
+        .O(sample_reg0_in[1]));
+  (* SOFT_HLUTNM = "soft_lutpair284" *) 
+  LUT4 #(
+    .INIT(16'h0008)) 
+    \sample_reg[2]_i_1 
+       (.I0(fifo_dout[2]),
+        .I1(state__0[1]),
+        .I2(state__0[2]),
+        .I3(state__0[0]),
+        .O(sample_reg0_in[2]));
+  (* SOFT_HLUTNM = "soft_lutpair284" *) 
+  LUT4 #(
+    .INIT(16'h0008)) 
+    \sample_reg[3]_i_1 
+       (.I0(fifo_dout[3]),
+        .I1(state__0[1]),
+        .I2(state__0[2]),
+        .I3(state__0[0]),
+        .O(sample_reg0_in[3]));
+  (* SOFT_HLUTNM = "soft_lutpair283" *) 
+  LUT4 #(
+    .INIT(16'h0008)) 
+    \sample_reg[4]_i_1 
+       (.I0(fifo_dout[4]),
+        .I1(state__0[1]),
+        .I2(state__0[2]),
+        .I3(state__0[0]),
+        .O(sample_reg0_in[4]));
+  (* SOFT_HLUTNM = "soft_lutpair283" *) 
+  LUT4 #(
+    .INIT(16'h0008)) 
+    \sample_reg[5]_i_1 
+       (.I0(fifo_dout[5]),
+        .I1(state__0[1]),
+        .I2(state__0[2]),
+        .I3(state__0[0]),
+        .O(sample_reg0_in[5]));
+  (* SOFT_HLUTNM = "soft_lutpair282" *) 
+  LUT4 #(
+    .INIT(16'h0008)) 
+    \sample_reg[6]_i_1 
+       (.I0(fifo_dout[6]),
+        .I1(state__0[1]),
+        .I2(state__0[2]),
+        .I3(state__0[0]),
+        .O(sample_reg0_in[6]));
+  LUT6 #(
+    .INIT(64'h00000000AAAA0C00)) 
+    \sample_reg[7]_i_1 
+       (.I0(fifo_valid),
+        .I1(lrclk_prev_reg_0),
+        .I2(lrclk_prev),
+        .I3(fifo_empty),
+        .I4(state__0[1]),
+        .I5(\sample_reg[7]_i_3_n_0 ),
+        .O(sample_reg[0]));
+  (* SOFT_HLUTNM = "soft_lutpair282" *) 
+  LUT4 #(
+    .INIT(16'h0008)) 
+    \sample_reg[7]_i_2 
+       (.I0(fifo_dout[7]),
+        .I1(state__0[1]),
+        .I2(state__0[2]),
+        .I3(state__0[0]),
+        .O(sample_reg0_in[7]));
+  (* SOFT_HLUTNM = "soft_lutpair290" *) 
+  LUT2 #(
+    .INIT(4'hE)) 
+    \sample_reg[7]_i_3 
+       (.I0(state__0[2]),
+        .I1(state__0[0]),
+        .O(\sample_reg[7]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair289" *) 
+  LUT4 #(
+    .INIT(16'h0008)) 
+    \sample_reg[8]_i_1 
+       (.I0(fifo_dout[0]),
+        .I1(state__0[2]),
+        .I2(state__0[0]),
+        .I3(state__0[1]),
+        .O(sample_reg0_in[8]));
+  (* SOFT_HLUTNM = "soft_lutpair289" *) 
+  LUT4 #(
+    .INIT(16'h0008)) 
+    \sample_reg[9]_i_1 
+       (.I0(fifo_dout[1]),
+        .I1(state__0[2]),
+        .I2(state__0[0]),
+        .I3(state__0[1]),
+        .O(sample_reg0_in[9]));
   FDCE #(
     .INIT(1'b0)) 
     \sample_reg_reg[0] 
        (.C(clk_sd),
-        .CE(\sample_reg[7]_i_1_n_0 ),
+        .CE(sample_reg[0]),
         .CLR(reset_n_0),
-        .D(fifo_dout[0]),
-        .Q(\sample_reg_reg[23]_0 [0]));
+        .D(sample_reg0_in[0]),
+        .Q(\sample_reg_reg[15]_0 [0]));
   FDCE #(
     .INIT(1'b0)) 
     \sample_reg_reg[10] 
        (.C(clk_sd),
-        .CE(\sample_reg[15]_i_1_n_0 ),
+        .CE(sample_reg[8]),
         .CLR(reset_n_0),
-        .D(fifo_dout[2]),
-        .Q(\sample_reg_reg[23]_0 [10]));
+        .D(sample_reg0_in[10]),
+        .Q(\sample_reg_reg[15]_0 [10]));
   FDCE #(
     .INIT(1'b0)) 
     \sample_reg_reg[11] 
        (.C(clk_sd),
-        .CE(\sample_reg[15]_i_1_n_0 ),
+        .CE(sample_reg[8]),
         .CLR(reset_n_0),
-        .D(fifo_dout[3]),
-        .Q(\sample_reg_reg[23]_0 [11]));
+        .D(sample_reg0_in[11]),
+        .Q(\sample_reg_reg[15]_0 [11]));
   FDCE #(
     .INIT(1'b0)) 
     \sample_reg_reg[12] 
        (.C(clk_sd),
-        .CE(\sample_reg[15]_i_1_n_0 ),
+        .CE(sample_reg[8]),
         .CLR(reset_n_0),
-        .D(fifo_dout[4]),
-        .Q(\sample_reg_reg[23]_0 [12]));
+        .D(sample_reg0_in[12]),
+        .Q(\sample_reg_reg[15]_0 [12]));
   FDCE #(
     .INIT(1'b0)) 
     \sample_reg_reg[13] 
        (.C(clk_sd),
-        .CE(\sample_reg[15]_i_1_n_0 ),
+        .CE(sample_reg[8]),
         .CLR(reset_n_0),
-        .D(fifo_dout[5]),
-        .Q(\sample_reg_reg[23]_0 [13]));
+        .D(sample_reg0_in[13]),
+        .Q(\sample_reg_reg[15]_0 [13]));
   FDCE #(
     .INIT(1'b0)) 
     \sample_reg_reg[14] 
        (.C(clk_sd),
-        .CE(\sample_reg[15]_i_1_n_0 ),
+        .CE(sample_reg[8]),
         .CLR(reset_n_0),
-        .D(fifo_dout[6]),
-        .Q(\sample_reg_reg[23]_0 [14]));
+        .D(sample_reg0_in[14]),
+        .Q(\sample_reg_reg[15]_0 [14]));
   FDCE #(
     .INIT(1'b0)) 
     \sample_reg_reg[15] 
        (.C(clk_sd),
-        .CE(\sample_reg[15]_i_1_n_0 ),
+        .CE(sample_reg[8]),
         .CLR(reset_n_0),
-        .D(fifo_dout[7]),
-        .Q(\sample_reg_reg[23]_0 [15]));
-  FDCE #(
-    .INIT(1'b0)) 
-    \sample_reg_reg[16] 
-       (.C(clk_sd),
-        .CE(sample_reg),
-        .CLR(reset_n_0),
-        .D(fifo_dout[0]),
-        .Q(\sample_reg_reg[23]_0 [16]));
-  FDCE #(
-    .INIT(1'b0)) 
-    \sample_reg_reg[17] 
-       (.C(clk_sd),
-        .CE(sample_reg),
-        .CLR(reset_n_0),
-        .D(fifo_dout[1]),
-        .Q(\sample_reg_reg[23]_0 [17]));
-  FDCE #(
-    .INIT(1'b0)) 
-    \sample_reg_reg[18] 
-       (.C(clk_sd),
-        .CE(sample_reg),
-        .CLR(reset_n_0),
-        .D(fifo_dout[2]),
-        .Q(\sample_reg_reg[23]_0 [18]));
-  FDCE #(
-    .INIT(1'b0)) 
-    \sample_reg_reg[19] 
-       (.C(clk_sd),
-        .CE(sample_reg),
-        .CLR(reset_n_0),
-        .D(fifo_dout[3]),
-        .Q(\sample_reg_reg[23]_0 [19]));
+        .D(sample_reg0_in[15]),
+        .Q(\sample_reg_reg[15]_0 [15]));
   FDCE #(
     .INIT(1'b0)) 
     \sample_reg_reg[1] 
        (.C(clk_sd),
-        .CE(\sample_reg[7]_i_1_n_0 ),
+        .CE(sample_reg[0]),
         .CLR(reset_n_0),
-        .D(fifo_dout[1]),
-        .Q(\sample_reg_reg[23]_0 [1]));
-  FDCE #(
-    .INIT(1'b0)) 
-    \sample_reg_reg[20] 
-       (.C(clk_sd),
-        .CE(sample_reg),
-        .CLR(reset_n_0),
-        .D(fifo_dout[4]),
-        .Q(\sample_reg_reg[23]_0 [20]));
-  FDCE #(
-    .INIT(1'b0)) 
-    \sample_reg_reg[21] 
-       (.C(clk_sd),
-        .CE(sample_reg),
-        .CLR(reset_n_0),
-        .D(fifo_dout[5]),
-        .Q(\sample_reg_reg[23]_0 [21]));
-  FDCE #(
-    .INIT(1'b0)) 
-    \sample_reg_reg[22] 
-       (.C(clk_sd),
-        .CE(sample_reg),
-        .CLR(reset_n_0),
-        .D(fifo_dout[6]),
-        .Q(\sample_reg_reg[23]_0 [22]));
-  FDCE #(
-    .INIT(1'b0)) 
-    \sample_reg_reg[23] 
-       (.C(clk_sd),
-        .CE(sample_reg),
-        .CLR(reset_n_0),
-        .D(fifo_dout[7]),
-        .Q(\sample_reg_reg[23]_0 [23]));
+        .D(sample_reg0_in[1]),
+        .Q(\sample_reg_reg[15]_0 [1]));
   FDCE #(
     .INIT(1'b0)) 
     \sample_reg_reg[2] 
        (.C(clk_sd),
-        .CE(\sample_reg[7]_i_1_n_0 ),
+        .CE(sample_reg[0]),
         .CLR(reset_n_0),
-        .D(fifo_dout[2]),
-        .Q(\sample_reg_reg[23]_0 [2]));
+        .D(sample_reg0_in[2]),
+        .Q(\sample_reg_reg[15]_0 [2]));
   FDCE #(
     .INIT(1'b0)) 
     \sample_reg_reg[3] 
        (.C(clk_sd),
-        .CE(\sample_reg[7]_i_1_n_0 ),
+        .CE(sample_reg[0]),
         .CLR(reset_n_0),
-        .D(fifo_dout[3]),
-        .Q(\sample_reg_reg[23]_0 [3]));
+        .D(sample_reg0_in[3]),
+        .Q(\sample_reg_reg[15]_0 [3]));
   FDCE #(
     .INIT(1'b0)) 
     \sample_reg_reg[4] 
        (.C(clk_sd),
-        .CE(\sample_reg[7]_i_1_n_0 ),
+        .CE(sample_reg[0]),
         .CLR(reset_n_0),
-        .D(fifo_dout[4]),
-        .Q(\sample_reg_reg[23]_0 [4]));
+        .D(sample_reg0_in[4]),
+        .Q(\sample_reg_reg[15]_0 [4]));
   FDCE #(
     .INIT(1'b0)) 
     \sample_reg_reg[5] 
        (.C(clk_sd),
-        .CE(\sample_reg[7]_i_1_n_0 ),
+        .CE(sample_reg[0]),
         .CLR(reset_n_0),
-        .D(fifo_dout[5]),
-        .Q(\sample_reg_reg[23]_0 [5]));
+        .D(sample_reg0_in[5]),
+        .Q(\sample_reg_reg[15]_0 [5]));
   FDCE #(
     .INIT(1'b0)) 
     \sample_reg_reg[6] 
        (.C(clk_sd),
-        .CE(\sample_reg[7]_i_1_n_0 ),
+        .CE(sample_reg[0]),
         .CLR(reset_n_0),
-        .D(fifo_dout[6]),
-        .Q(\sample_reg_reg[23]_0 [6]));
+        .D(sample_reg0_in[6]),
+        .Q(\sample_reg_reg[15]_0 [6]));
   FDCE #(
     .INIT(1'b0)) 
     \sample_reg_reg[7] 
        (.C(clk_sd),
-        .CE(\sample_reg[7]_i_1_n_0 ),
+        .CE(sample_reg[0]),
         .CLR(reset_n_0),
-        .D(fifo_dout[7]),
-        .Q(\sample_reg_reg[23]_0 [7]));
+        .D(sample_reg0_in[7]),
+        .Q(\sample_reg_reg[15]_0 [7]));
   FDCE #(
     .INIT(1'b0)) 
     \sample_reg_reg[8] 
        (.C(clk_sd),
-        .CE(\sample_reg[15]_i_1_n_0 ),
+        .CE(sample_reg[8]),
         .CLR(reset_n_0),
-        .D(fifo_dout[0]),
-        .Q(\sample_reg_reg[23]_0 [8]));
+        .D(sample_reg0_in[8]),
+        .Q(\sample_reg_reg[15]_0 [8]));
   FDCE #(
     .INIT(1'b0)) 
     \sample_reg_reg[9] 
        (.C(clk_sd),
-        .CE(\sample_reg[15]_i_1_n_0 ),
+        .CE(sample_reg[8]),
         .CLR(reset_n_0),
-        .D(fifo_dout[1]),
-        .Q(\sample_reg_reg[23]_0 [9]));
+        .D(sample_reg0_in[9]),
+        .Q(\sample_reg_reg[15]_0 [9]));
   design_1_top_system_0_1_sd_file_reader sd_reader_inst
        (.I(I),
         .T(T),
         .card_stat(Q),
-        .card_type(card_type),
+        .\card_type_reg[0] (\card_type_reg[0] ),
+        .\card_type_reg[1] (\card_type_reg[1] ),
         .clk_sd(clk_sd),
         .fifo_din(fifo_din),
         .fifo_prog_full(fifo_prog_full),
@@ -2849,8 +2939,7 @@ module design_1_top_system_0_1_audio_player
         .reset_n_0(reset_n_0),
         .sd_cmd_in(sd_cmd_in),
         .sd_dat0(sd_dat0),
-        .sdclk_reg(sdclk_reg),
-        .sdv1_maybe_reg(sdv1_maybe_reg));
+        .sdclk_reg(sdclk_reg));
 endmodule
 
 (* ORIG_REF_NAME = "i2s_transceiver" *) 
@@ -2866,17 +2955,16 @@ module design_1_top_system_0_1_i2s_transceiver
   output i2s_dout;
   input clk_audio;
   input \mclk_cnt_reg[0]_0 ;
-  input [23:0]D;
+  input [15:0]D;
 
-  wire [23:0]D;
+  wire [15:0]D;
   wire bit_cnt;
-  wire bit_cnt0;
   wire \bit_cnt[0]_i_1__1_n_0 ;
   wire \bit_cnt[1]_i_1__1_n_0 ;
-  wire \bit_cnt[1]_i_2_n_0 ;
   wire \bit_cnt[2]_i_1__1_n_0 ;
   wire \bit_cnt[3]_i_1__0_n_0 ;
   wire \bit_cnt[4]_i_2__0_n_0 ;
+  wire \bit_cnt[4]_i_3__0_n_0 ;
   wire \bit_cnt_reg_n_0_[0] ;
   wire \bit_cnt_reg_n_0_[1] ;
   wire \bit_cnt_reg_n_0_[2] ;
@@ -2885,8 +2973,7 @@ module design_1_top_system_0_1_i2s_transceiver
   wire clk_audio;
   wire i2s_dout;
   wire \l_tx_shift[23]_i_1_n_0 ;
-  wire l_tx_shift__4;
-  wire \l_tx_shift_reg_n_0_[0] ;
+  wire \l_tx_shift[23]_i_2_n_0 ;
   wire \l_tx_shift_reg_n_0_[10] ;
   wire \l_tx_shift_reg_n_0_[11] ;
   wire \l_tx_shift_reg_n_0_[12] ;
@@ -2897,25 +2984,16 @@ module design_1_top_system_0_1_i2s_transceiver
   wire \l_tx_shift_reg_n_0_[17] ;
   wire \l_tx_shift_reg_n_0_[18] ;
   wire \l_tx_shift_reg_n_0_[19] ;
-  wire \l_tx_shift_reg_n_0_[1] ;
   wire \l_tx_shift_reg_n_0_[20] ;
   wire \l_tx_shift_reg_n_0_[21] ;
   wire \l_tx_shift_reg_n_0_[22] ;
   wire \l_tx_shift_reg_n_0_[23] ;
-  wire \l_tx_shift_reg_n_0_[2] ;
-  wire \l_tx_shift_reg_n_0_[3] ;
-  wire \l_tx_shift_reg_n_0_[4] ;
-  wire \l_tx_shift_reg_n_0_[5] ;
-  wire \l_tx_shift_reg_n_0_[6] ;
-  wire \l_tx_shift_reg_n_0_[7] ;
   wire \l_tx_shift_reg_n_0_[8] ;
   wire \l_tx_shift_reg_n_0_[9] ;
   wire mclk_cnt;
   wire \mclk_cnt_reg[0]_0 ;
   wire p_0_in;
-  wire r_tx_shift;
   wire \r_tx_shift[23]_i_1_n_0 ;
-  wire \r_tx_shift_reg_n_0_[0] ;
   wire \r_tx_shift_reg_n_0_[10] ;
   wire \r_tx_shift_reg_n_0_[11] ;
   wire \r_tx_shift_reg_n_0_[12] ;
@@ -2926,122 +3004,110 @@ module design_1_top_system_0_1_i2s_transceiver
   wire \r_tx_shift_reg_n_0_[17] ;
   wire \r_tx_shift_reg_n_0_[18] ;
   wire \r_tx_shift_reg_n_0_[19] ;
-  wire \r_tx_shift_reg_n_0_[1] ;
   wire \r_tx_shift_reg_n_0_[20] ;
   wire \r_tx_shift_reg_n_0_[21] ;
   wire \r_tx_shift_reg_n_0_[22] ;
   wire \r_tx_shift_reg_n_0_[23] ;
-  wire \r_tx_shift_reg_n_0_[2] ;
-  wire \r_tx_shift_reg_n_0_[3] ;
-  wire \r_tx_shift_reg_n_0_[4] ;
-  wire \r_tx_shift_reg_n_0_[5] ;
-  wire \r_tx_shift_reg_n_0_[6] ;
-  wire \r_tx_shift_reg_n_0_[7] ;
   wire \r_tx_shift_reg_n_0_[8] ;
   wire \r_tx_shift_reg_n_0_[9] ;
   wire sclk_int_i_1_n_0;
   wire sclk_int_reg_0;
+  wire sd_tx1_out;
   wire sd_tx_i_10_n_0;
   wire sd_tx_i_11_n_0;
   wire sd_tx_i_12_n_0;
   wire sd_tx_i_13_n_0;
   wire sd_tx_i_14_n_0;
-  wire sd_tx_i_19_n_0;
+  wire sd_tx_i_15_n_0;
+  wire sd_tx_i_16_n_0;
+  wire sd_tx_i_17_n_0;
+  wire sd_tx_i_18_n_0;
   wire sd_tx_i_1_n_0;
-  wire sd_tx_i_20_n_0;
-  wire sd_tx_i_21_n_0;
-  wire sd_tx_i_22_n_0;
-  wire sd_tx_i_23_n_0;
-  wire sd_tx_i_24_n_0;
-  wire sd_tx_i_25_n_0;
-  wire sd_tx_i_26_n_0;
+  wire sd_tx_i_2_n_0;
+  wire sd_tx_i_3_n_0;
   wire sd_tx_i_4_n_0;
-  wire sd_tx_i_5_n_0;
-  wire sd_tx_i_6_n_0;
-  wire sd_tx_i_7_n_0;
   wire sd_tx_i_8_n_0;
-  wire sd_tx_i_9_n_0;
-  wire sd_tx_reg_i_15_n_0;
-  wire sd_tx_reg_i_16_n_0;
-  wire sd_tx_reg_i_17_n_0;
-  wire sd_tx_reg_i_18_n_0;
-  wire sd_tx_reg_i_3_n_0;
-  wire [5:1]ws_cnt;
-  wire \ws_cnt[0]_i_1_n_0 ;
-  wire \ws_cnt[5]_i_1_n_0 ;
+  wire sd_tx_reg_i_5_n_0;
+  wire sd_tx_reg_i_6_n_0;
+  wire sd_tx_reg_i_7_n_0;
+  wire sd_tx_reg_i_9_n_0;
+  wire [5:0]ws_cnt;
+  wire \ws_cnt[4]_i_1_n_0 ;
   wire \ws_cnt_reg_n_0_[0] ;
   wire \ws_cnt_reg_n_0_[1] ;
   wire \ws_cnt_reg_n_0_[2] ;
   wire \ws_cnt_reg_n_0_[3] ;
   wire \ws_cnt_reg_n_0_[4] ;
   wire \ws_cnt_reg_n_0_[5] ;
-  wire ws_int__2;
   wire ws_int_i_1_n_0;
+  wire ws_int_i_2_n_0;
   wire ws_int_reg_0;
 
   LUT6 #(
-    .INIT(64'h000000007FFFFFFF)) 
+    .INIT(64'h1555555555555555)) 
     \bit_cnt[0]_i_1__1 
-       (.I0(\ws_cnt_reg_n_0_[2] ),
-        .I1(\ws_cnt_reg_n_0_[4] ),
-        .I2(\ws_cnt_reg_n_0_[0] ),
-        .I3(\ws_cnt_reg_n_0_[1] ),
-        .I4(\ws_cnt_reg_n_0_[3] ),
-        .I5(\bit_cnt_reg_n_0_[0] ),
-        .O(\bit_cnt[0]_i_1__1_n_0 ));
-  LUT6 #(
-    .INIT(64'h000000007FFFFFFF)) 
-    \bit_cnt[1]_i_1__1 
-       (.I0(\ws_cnt_reg_n_0_[2] ),
-        .I1(\ws_cnt_reg_n_0_[4] ),
-        .I2(\ws_cnt_reg_n_0_[0] ),
-        .I3(\ws_cnt_reg_n_0_[1] ),
-        .I4(\ws_cnt_reg_n_0_[3] ),
-        .I5(\bit_cnt[1]_i_2_n_0 ),
-        .O(\bit_cnt[1]_i_1__1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair295" *) 
-  LUT2 #(
-    .INIT(4'h6)) 
-    \bit_cnt[1]_i_2 
        (.I0(\bit_cnt_reg_n_0_[0] ),
-        .I1(\bit_cnt_reg_n_0_[1] ),
-        .O(\bit_cnt[1]_i_2_n_0 ));
+        .I1(\ws_cnt_reg_n_0_[2] ),
+        .I2(\ws_cnt_reg_n_0_[0] ),
+        .I3(\ws_cnt_reg_n_0_[1] ),
+        .I4(\ws_cnt_reg_n_0_[3] ),
+        .I5(\ws_cnt_reg_n_0_[4] ),
+        .O(\bit_cnt[0]_i_1__1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair297" *) 
+  LUT3 #(
+    .INIT(8'h41)) 
+    \bit_cnt[1]_i_1__1 
+       (.I0(ws_int_i_2_n_0),
+        .I1(\bit_cnt_reg_n_0_[0] ),
+        .I2(\bit_cnt_reg_n_0_[1] ),
+        .O(\bit_cnt[1]_i_1__1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair297" *) 
   LUT4 #(
-    .INIT(16'h8882)) 
+    .INIT(16'h00E1)) 
     \bit_cnt[2]_i_1__1 
-       (.I0(sd_tx_i_4_n_0),
-        .I1(\bit_cnt_reg_n_0_[2] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
-        .I3(\bit_cnt_reg_n_0_[1] ),
+       (.I0(\bit_cnt_reg_n_0_[1] ),
+        .I1(\bit_cnt_reg_n_0_[0] ),
+        .I2(\bit_cnt_reg_n_0_[2] ),
+        .I3(ws_int_i_2_n_0),
         .O(\bit_cnt[2]_i_1__1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair295" *) 
+  (* SOFT_HLUTNM = "soft_lutpair292" *) 
   LUT5 #(
-    .INIT(32'hAAA9FFFF)) 
+    .INIT(32'hFFFEAAAB)) 
     \bit_cnt[3]_i_1__0 
-       (.I0(\bit_cnt_reg_n_0_[3] ),
-        .I1(\bit_cnt_reg_n_0_[1] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
+       (.I0(ws_int_i_2_n_0),
+        .I1(\bit_cnt_reg_n_0_[0] ),
+        .I2(\bit_cnt_reg_n_0_[1] ),
         .I3(\bit_cnt_reg_n_0_[2] ),
-        .I4(sd_tx_i_4_n_0),
+        .I4(\bit_cnt_reg_n_0_[3] ),
         .O(\bit_cnt[3]_i_1__0_n_0 ));
   LUT4 #(
-    .INIT(16'h8A00)) 
+    .INIT(16'hB000)) 
     \bit_cnt[4]_i_1__0 
-       (.I0(mclk_cnt),
-        .I1(bit_cnt0),
-        .I2(sd_tx_i_4_n_0),
-        .I3(sclk_int_reg_0),
+       (.I0(ws_int_i_2_n_0),
+        .I1(\bit_cnt[4]_i_3__0_n_0 ),
+        .I2(sclk_int_reg_0),
+        .I3(mclk_cnt),
         .O(bit_cnt));
   LUT6 #(
-    .INIT(64'hAAAAAAA9FFFFFFFF)) 
+    .INIT(64'hFFFFFFFEAAAAAAAB)) 
     \bit_cnt[4]_i_2__0 
-       (.I0(\bit_cnt_reg_n_0_[4] ),
+       (.I0(ws_int_i_2_n_0),
         .I1(\bit_cnt_reg_n_0_[2] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
-        .I3(\bit_cnt_reg_n_0_[1] ),
+        .I2(\bit_cnt_reg_n_0_[1] ),
+        .I3(\bit_cnt_reg_n_0_[0] ),
         .I4(\bit_cnt_reg_n_0_[3] ),
-        .I5(sd_tx_i_4_n_0),
+        .I5(\bit_cnt_reg_n_0_[4] ),
         .O(\bit_cnt[4]_i_2__0_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair293" *) 
+  LUT5 #(
+    .INIT(32'h00000001)) 
+    \bit_cnt[4]_i_3__0 
+       (.I0(\bit_cnt_reg_n_0_[3] ),
+        .I1(\bit_cnt_reg_n_0_[0] ),
+        .I2(\bit_cnt_reg_n_0_[1] ),
+        .I3(\bit_cnt_reg_n_0_[2] ),
+        .I4(\bit_cnt_reg_n_0_[4] ),
+        .O(\bit_cnt[4]_i_3__0_n_0 ));
   FDCE #(
     .INIT(1'b0)) 
     \bit_cnt_reg[0] 
@@ -3082,38 +3148,31 @@ module design_1_top_system_0_1_i2s_transceiver
         .D(\bit_cnt[4]_i_2__0_n_0 ),
         .PRE(\mclk_cnt_reg[0]_0 ),
         .Q(\bit_cnt_reg_n_0_[4] ));
-  LUT3 #(
-    .INIT(8'h80)) 
+  LUT5 #(
+    .INIT(32'h00008000)) 
     \l_tx_shift[23]_i_1 
        (.I0(mclk_cnt),
-        .I1(l_tx_shift__4),
-        .I2(sclk_int_reg_0),
+        .I1(sclk_int_reg_0),
+        .I2(\ws_cnt_reg_n_0_[5] ),
+        .I3(\ws_cnt_reg_n_0_[4] ),
+        .I4(\l_tx_shift[23]_i_2_n_0 ),
         .O(\l_tx_shift[23]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'h8000000000000000)) 
+  (* SOFT_HLUTNM = "soft_lutpair296" *) 
+  LUT4 #(
+    .INIT(16'h7FFF)) 
     \l_tx_shift[23]_i_2 
        (.I0(\ws_cnt_reg_n_0_[2] ),
-        .I1(\ws_cnt_reg_n_0_[3] ),
+        .I1(\ws_cnt_reg_n_0_[0] ),
         .I2(\ws_cnt_reg_n_0_[1] ),
-        .I3(\ws_cnt_reg_n_0_[5] ),
-        .I4(\ws_cnt_reg_n_0_[4] ),
-        .I5(\ws_cnt_reg_n_0_[0] ),
-        .O(l_tx_shift__4));
-  FDCE #(
-    .INIT(1'b0)) 
-    \l_tx_shift_reg[0] 
-       (.C(clk_audio),
-        .CE(\l_tx_shift[23]_i_1_n_0 ),
-        .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[0]),
-        .Q(\l_tx_shift_reg_n_0_[0] ));
+        .I3(\ws_cnt_reg_n_0_[3] ),
+        .O(\l_tx_shift[23]_i_2_n_0 ));
   FDCE #(
     .INIT(1'b0)) 
     \l_tx_shift_reg[10] 
        (.C(clk_audio),
         .CE(\l_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[10]),
+        .D(D[2]),
         .Q(\l_tx_shift_reg_n_0_[10] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3121,7 +3180,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\l_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[11]),
+        .D(D[3]),
         .Q(\l_tx_shift_reg_n_0_[11] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3129,7 +3188,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\l_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[12]),
+        .D(D[4]),
         .Q(\l_tx_shift_reg_n_0_[12] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3137,7 +3196,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\l_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[13]),
+        .D(D[5]),
         .Q(\l_tx_shift_reg_n_0_[13] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3145,7 +3204,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\l_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[14]),
+        .D(D[6]),
         .Q(\l_tx_shift_reg_n_0_[14] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3153,7 +3212,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\l_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[15]),
+        .D(D[7]),
         .Q(\l_tx_shift_reg_n_0_[15] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3161,7 +3220,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\l_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[16]),
+        .D(D[8]),
         .Q(\l_tx_shift_reg_n_0_[16] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3169,7 +3228,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\l_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[17]),
+        .D(D[9]),
         .Q(\l_tx_shift_reg_n_0_[17] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3177,7 +3236,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\l_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[18]),
+        .D(D[10]),
         .Q(\l_tx_shift_reg_n_0_[18] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3185,23 +3244,15 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\l_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[19]),
+        .D(D[11]),
         .Q(\l_tx_shift_reg_n_0_[19] ));
-  FDCE #(
-    .INIT(1'b0)) 
-    \l_tx_shift_reg[1] 
-       (.C(clk_audio),
-        .CE(\l_tx_shift[23]_i_1_n_0 ),
-        .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[1]),
-        .Q(\l_tx_shift_reg_n_0_[1] ));
   FDCE #(
     .INIT(1'b0)) 
     \l_tx_shift_reg[20] 
        (.C(clk_audio),
         .CE(\l_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[20]),
+        .D(D[12]),
         .Q(\l_tx_shift_reg_n_0_[20] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3209,7 +3260,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\l_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[21]),
+        .D(D[13]),
         .Q(\l_tx_shift_reg_n_0_[21] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3217,7 +3268,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\l_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[22]),
+        .D(D[14]),
         .Q(\l_tx_shift_reg_n_0_[22] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3225,63 +3276,15 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\l_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[23]),
+        .D(D[15]),
         .Q(\l_tx_shift_reg_n_0_[23] ));
-  FDCE #(
-    .INIT(1'b0)) 
-    \l_tx_shift_reg[2] 
-       (.C(clk_audio),
-        .CE(\l_tx_shift[23]_i_1_n_0 ),
-        .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[2]),
-        .Q(\l_tx_shift_reg_n_0_[2] ));
-  FDCE #(
-    .INIT(1'b0)) 
-    \l_tx_shift_reg[3] 
-       (.C(clk_audio),
-        .CE(\l_tx_shift[23]_i_1_n_0 ),
-        .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[3]),
-        .Q(\l_tx_shift_reg_n_0_[3] ));
-  FDCE #(
-    .INIT(1'b0)) 
-    \l_tx_shift_reg[4] 
-       (.C(clk_audio),
-        .CE(\l_tx_shift[23]_i_1_n_0 ),
-        .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[4]),
-        .Q(\l_tx_shift_reg_n_0_[4] ));
-  FDCE #(
-    .INIT(1'b0)) 
-    \l_tx_shift_reg[5] 
-       (.C(clk_audio),
-        .CE(\l_tx_shift[23]_i_1_n_0 ),
-        .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[5]),
-        .Q(\l_tx_shift_reg_n_0_[5] ));
-  FDCE #(
-    .INIT(1'b0)) 
-    \l_tx_shift_reg[6] 
-       (.C(clk_audio),
-        .CE(\l_tx_shift[23]_i_1_n_0 ),
-        .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[6]),
-        .Q(\l_tx_shift_reg_n_0_[6] ));
-  FDCE #(
-    .INIT(1'b0)) 
-    \l_tx_shift_reg[7] 
-       (.C(clk_audio),
-        .CE(\l_tx_shift[23]_i_1_n_0 ),
-        .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[7]),
-        .Q(\l_tx_shift_reg_n_0_[7] ));
   FDCE #(
     .INIT(1'b0)) 
     \l_tx_shift_reg[8] 
        (.C(clk_audio),
         .CE(\l_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[8]),
+        .D(D[0]),
         .Q(\l_tx_shift_reg_n_0_[8] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3289,8 +3292,9 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\l_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[9]),
+        .D(D[1]),
         .Q(\l_tx_shift_reg_n_0_[9] ));
+  (* SOFT_HLUTNM = "soft_lutpair295" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \mclk_cnt[0]_i_1 
@@ -3304,28 +3308,21 @@ module design_1_top_system_0_1_i2s_transceiver
         .CLR(\mclk_cnt_reg[0]_0 ),
         .D(p_0_in),
         .Q(mclk_cnt));
-  LUT3 #(
-    .INIT(8'h80)) 
+  LUT4 #(
+    .INIT(16'h0080)) 
     \r_tx_shift[23]_i_1 
-       (.I0(mclk_cnt),
-        .I1(r_tx_shift),
-        .I2(sclk_int_reg_0),
+       (.I0(ws_int_i_2_n_0),
+        .I1(sclk_int_reg_0),
+        .I2(mclk_cnt),
+        .I3(\ws_cnt_reg_n_0_[5] ),
         .O(\r_tx_shift[23]_i_1_n_0 ));
-  FDCE #(
-    .INIT(1'b0)) 
-    \r_tx_shift_reg[0] 
-       (.C(clk_audio),
-        .CE(\r_tx_shift[23]_i_1_n_0 ),
-        .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[0]),
-        .Q(\r_tx_shift_reg_n_0_[0] ));
   FDCE #(
     .INIT(1'b0)) 
     \r_tx_shift_reg[10] 
        (.C(clk_audio),
         .CE(\r_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[10]),
+        .D(D[2]),
         .Q(\r_tx_shift_reg_n_0_[10] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3333,7 +3330,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\r_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[11]),
+        .D(D[3]),
         .Q(\r_tx_shift_reg_n_0_[11] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3341,7 +3338,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\r_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[12]),
+        .D(D[4]),
         .Q(\r_tx_shift_reg_n_0_[12] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3349,7 +3346,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\r_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[13]),
+        .D(D[5]),
         .Q(\r_tx_shift_reg_n_0_[13] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3357,7 +3354,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\r_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[14]),
+        .D(D[6]),
         .Q(\r_tx_shift_reg_n_0_[14] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3365,7 +3362,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\r_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[15]),
+        .D(D[7]),
         .Q(\r_tx_shift_reg_n_0_[15] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3373,7 +3370,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\r_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[16]),
+        .D(D[8]),
         .Q(\r_tx_shift_reg_n_0_[16] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3381,7 +3378,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\r_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[17]),
+        .D(D[9]),
         .Q(\r_tx_shift_reg_n_0_[17] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3389,7 +3386,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\r_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[18]),
+        .D(D[10]),
         .Q(\r_tx_shift_reg_n_0_[18] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3397,23 +3394,15 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\r_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[19]),
+        .D(D[11]),
         .Q(\r_tx_shift_reg_n_0_[19] ));
-  FDCE #(
-    .INIT(1'b0)) 
-    \r_tx_shift_reg[1] 
-       (.C(clk_audio),
-        .CE(\r_tx_shift[23]_i_1_n_0 ),
-        .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[1]),
-        .Q(\r_tx_shift_reg_n_0_[1] ));
   FDCE #(
     .INIT(1'b0)) 
     \r_tx_shift_reg[20] 
        (.C(clk_audio),
         .CE(\r_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[20]),
+        .D(D[12]),
         .Q(\r_tx_shift_reg_n_0_[20] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3421,7 +3410,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\r_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[21]),
+        .D(D[13]),
         .Q(\r_tx_shift_reg_n_0_[21] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3429,7 +3418,7 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\r_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[22]),
+        .D(D[14]),
         .Q(\r_tx_shift_reg_n_0_[22] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3437,63 +3426,15 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\r_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[23]),
+        .D(D[15]),
         .Q(\r_tx_shift_reg_n_0_[23] ));
-  FDCE #(
-    .INIT(1'b0)) 
-    \r_tx_shift_reg[2] 
-       (.C(clk_audio),
-        .CE(\r_tx_shift[23]_i_1_n_0 ),
-        .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[2]),
-        .Q(\r_tx_shift_reg_n_0_[2] ));
-  FDCE #(
-    .INIT(1'b0)) 
-    \r_tx_shift_reg[3] 
-       (.C(clk_audio),
-        .CE(\r_tx_shift[23]_i_1_n_0 ),
-        .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[3]),
-        .Q(\r_tx_shift_reg_n_0_[3] ));
-  FDCE #(
-    .INIT(1'b0)) 
-    \r_tx_shift_reg[4] 
-       (.C(clk_audio),
-        .CE(\r_tx_shift[23]_i_1_n_0 ),
-        .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[4]),
-        .Q(\r_tx_shift_reg_n_0_[4] ));
-  FDCE #(
-    .INIT(1'b0)) 
-    \r_tx_shift_reg[5] 
-       (.C(clk_audio),
-        .CE(\r_tx_shift[23]_i_1_n_0 ),
-        .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[5]),
-        .Q(\r_tx_shift_reg_n_0_[5] ));
-  FDCE #(
-    .INIT(1'b0)) 
-    \r_tx_shift_reg[6] 
-       (.C(clk_audio),
-        .CE(\r_tx_shift[23]_i_1_n_0 ),
-        .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[6]),
-        .Q(\r_tx_shift_reg_n_0_[6] ));
-  FDCE #(
-    .INIT(1'b0)) 
-    \r_tx_shift_reg[7] 
-       (.C(clk_audio),
-        .CE(\r_tx_shift[23]_i_1_n_0 ),
-        .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[7]),
-        .Q(\r_tx_shift_reg_n_0_[7] ));
   FDCE #(
     .INIT(1'b0)) 
     \r_tx_shift_reg[8] 
        (.C(clk_audio),
         .CE(\r_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[8]),
+        .D(D[0]),
         .Q(\r_tx_shift_reg_n_0_[8] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -3501,9 +3442,9 @@ module design_1_top_system_0_1_i2s_transceiver
        (.C(clk_audio),
         .CE(\r_tx_shift[23]_i_1_n_0 ),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(D[9]),
+        .D(D[1]),
         .Q(\r_tx_shift_reg_n_0_[9] ));
-  (* SOFT_HLUTNM = "soft_lutpair299" *) 
+  (* SOFT_HLUTNM = "soft_lutpair294" *) 
   LUT2 #(
     .INIT(4'h6)) 
     sclk_int_i_1
@@ -3518,255 +3459,179 @@ module design_1_top_system_0_1_i2s_transceiver
         .CLR(\mclk_cnt_reg[0]_0 ),
         .D(sclk_int_i_1_n_0),
         .Q(sclk_int_reg_0));
-  LUT6 #(
-    .INIT(64'h80FFFFFF80000000)) 
+  (* SOFT_HLUTNM = "soft_lutpair295" *) 
+  LUT5 #(
+    .INIT(32'h2FFF2000)) 
     sd_tx_i_1
-       (.I0(bit_cnt0),
-        .I1(sd_tx_reg_i_3_n_0),
-        .I2(sd_tx_i_4_n_0),
-        .I3(sclk_int_reg_0),
-        .I4(mclk_cnt),
-        .I5(i2s_dout),
+       (.I0(sd_tx_i_2_n_0),
+        .I1(sd_tx_i_3_n_0),
+        .I2(sclk_int_reg_0),
+        .I3(mclk_cnt),
+        .I4(i2s_dout),
         .O(sd_tx_i_1_n_0));
   LUT3 #(
-    .INIT(8'h1E)) 
+    .INIT(8'hA9)) 
     sd_tx_i_10
-       (.I0(\bit_cnt_reg_n_0_[1] ),
+       (.I0(\bit_cnt_reg_n_0_[2] ),
         .I1(\bit_cnt_reg_n_0_[0] ),
-        .I2(\bit_cnt_reg_n_0_[2] ),
+        .I2(\bit_cnt_reg_n_0_[1] ),
         .O(sd_tx_i_10_n_0));
   LUT6 #(
-    .INIT(64'hFCAF0CAFFCA00CA0)) 
+    .INIT(64'hFACF0ACFFAC00AC0)) 
     sd_tx_i_11
-       (.I0(\l_tx_shift_reg_n_0_[20] ),
-        .I1(\l_tx_shift_reg_n_0_[21] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
-        .I3(\bit_cnt_reg_n_0_[1] ),
-        .I4(\l_tx_shift_reg_n_0_[22] ),
-        .I5(\l_tx_shift_reg_n_0_[23] ),
-        .O(sd_tx_i_11_n_0));
-  LUT6 #(
-    .INIT(64'hFFFF01FEFE010000)) 
-    sd_tx_i_12
-       (.I0(\bit_cnt_reg_n_0_[2] ),
-        .I1(\bit_cnt_reg_n_0_[0] ),
-        .I2(\bit_cnt_reg_n_0_[1] ),
-        .I3(\bit_cnt_reg_n_0_[3] ),
-        .I4(sd_tx_reg_i_17_n_0),
-        .I5(sd_tx_reg_i_18_n_0),
-        .O(sd_tx_i_12_n_0));
-  LUT6 #(
-    .INIT(64'hFCAF0CAFFCA00CA0)) 
-    sd_tx_i_13
-       (.I0(\r_tx_shift_reg_n_0_[16] ),
-        .I1(\r_tx_shift_reg_n_0_[17] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
-        .I3(\bit_cnt_reg_n_0_[1] ),
-        .I4(\r_tx_shift_reg_n_0_[18] ),
-        .I5(\r_tx_shift_reg_n_0_[19] ),
-        .O(sd_tx_i_13_n_0));
-  LUT6 #(
-    .INIT(64'hFCAF0CAFFCA00CA0)) 
-    sd_tx_i_14
-       (.I0(\r_tx_shift_reg_n_0_[20] ),
-        .I1(\r_tx_shift_reg_n_0_[21] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
-        .I3(\bit_cnt_reg_n_0_[1] ),
-        .I4(\r_tx_shift_reg_n_0_[22] ),
-        .I5(\r_tx_shift_reg_n_0_[23] ),
-        .O(sd_tx_i_14_n_0));
-  LUT6 #(
-    .INIT(64'hFCAF0CAFFCA00CA0)) 
-    sd_tx_i_19
-       (.I0(\l_tx_shift_reg_n_0_[12] ),
-        .I1(\l_tx_shift_reg_n_0_[13] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
-        .I3(\bit_cnt_reg_n_0_[1] ),
-        .I4(\l_tx_shift_reg_n_0_[14] ),
-        .I5(\l_tx_shift_reg_n_0_[15] ),
-        .O(sd_tx_i_19_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair297" *) 
-  LUT5 #(
-    .INIT(32'hFFFFFFFE)) 
-    sd_tx_i_2
-       (.I0(\bit_cnt_reg_n_0_[1] ),
-        .I1(\bit_cnt_reg_n_0_[4] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
-        .I3(\bit_cnt_reg_n_0_[2] ),
-        .I4(\bit_cnt_reg_n_0_[3] ),
-        .O(bit_cnt0));
-  LUT6 #(
-    .INIT(64'hFCAF0CAFFCA00CA0)) 
-    sd_tx_i_20
-       (.I0(\l_tx_shift_reg_n_0_[8] ),
-        .I1(\l_tx_shift_reg_n_0_[9] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
-        .I3(\bit_cnt_reg_n_0_[1] ),
-        .I4(\l_tx_shift_reg_n_0_[10] ),
-        .I5(\l_tx_shift_reg_n_0_[11] ),
-        .O(sd_tx_i_20_n_0));
-  LUT6 #(
-    .INIT(64'hFCAF0CAFFCA00CA0)) 
-    sd_tx_i_21
-       (.I0(\l_tx_shift_reg_n_0_[4] ),
-        .I1(\l_tx_shift_reg_n_0_[5] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
-        .I3(\bit_cnt_reg_n_0_[1] ),
-        .I4(\l_tx_shift_reg_n_0_[6] ),
-        .I5(\l_tx_shift_reg_n_0_[7] ),
-        .O(sd_tx_i_21_n_0));
-  LUT6 #(
-    .INIT(64'hFCAF0CAFFCA00CA0)) 
-    sd_tx_i_22
-       (.I0(\l_tx_shift_reg_n_0_[0] ),
-        .I1(\l_tx_shift_reg_n_0_[1] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
-        .I3(\bit_cnt_reg_n_0_[1] ),
-        .I4(\l_tx_shift_reg_n_0_[2] ),
-        .I5(\l_tx_shift_reg_n_0_[3] ),
-        .O(sd_tx_i_22_n_0));
-  LUT6 #(
-    .INIT(64'hFCAF0CAFFCA00CA0)) 
-    sd_tx_i_23
-       (.I0(\r_tx_shift_reg_n_0_[12] ),
-        .I1(\r_tx_shift_reg_n_0_[13] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
-        .I3(\bit_cnt_reg_n_0_[1] ),
-        .I4(\r_tx_shift_reg_n_0_[14] ),
-        .I5(\r_tx_shift_reg_n_0_[15] ),
-        .O(sd_tx_i_23_n_0));
-  LUT6 #(
-    .INIT(64'hFCAF0CAFFCA00CA0)) 
-    sd_tx_i_24
        (.I0(\r_tx_shift_reg_n_0_[8] ),
         .I1(\r_tx_shift_reg_n_0_[9] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
-        .I3(\bit_cnt_reg_n_0_[1] ),
+        .I2(\bit_cnt_reg_n_0_[1] ),
+        .I3(\bit_cnt_reg_n_0_[0] ),
         .I4(\r_tx_shift_reg_n_0_[10] ),
         .I5(\r_tx_shift_reg_n_0_[11] ),
-        .O(sd_tx_i_24_n_0));
+        .O(sd_tx_i_11_n_0));
   LUT6 #(
-    .INIT(64'hFCAF0CAFFCA00CA0)) 
-    sd_tx_i_25
-       (.I0(\r_tx_shift_reg_n_0_[4] ),
-        .I1(\r_tx_shift_reg_n_0_[5] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
-        .I3(\bit_cnt_reg_n_0_[1] ),
-        .I4(\r_tx_shift_reg_n_0_[6] ),
-        .I5(\r_tx_shift_reg_n_0_[7] ),
-        .O(sd_tx_i_25_n_0));
-  LUT6 #(
-    .INIT(64'hFCAF0CAFFCA00CA0)) 
-    sd_tx_i_26
-       (.I0(\r_tx_shift_reg_n_0_[0] ),
-        .I1(\r_tx_shift_reg_n_0_[1] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
-        .I3(\bit_cnt_reg_n_0_[1] ),
-        .I4(\r_tx_shift_reg_n_0_[2] ),
-        .I5(\r_tx_shift_reg_n_0_[3] ),
-        .O(sd_tx_i_26_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair296" *) 
-  LUT5 #(
-    .INIT(32'h7FFFFFFF)) 
-    sd_tx_i_4
-       (.I0(\ws_cnt_reg_n_0_[3] ),
-        .I1(\ws_cnt_reg_n_0_[1] ),
-        .I2(\ws_cnt_reg_n_0_[0] ),
-        .I3(\ws_cnt_reg_n_0_[4] ),
-        .I4(\ws_cnt_reg_n_0_[2] ),
-        .O(sd_tx_i_4_n_0));
-  LUT5 #(
-    .INIT(32'hB8BBB888)) 
-    sd_tx_i_5
-       (.I0(sd_tx_i_7_n_0),
-        .I1(sd_tx_i_8_n_0),
-        .I2(sd_tx_i_9_n_0),
-        .I3(sd_tx_i_10_n_0),
-        .I4(sd_tx_i_11_n_0),
-        .O(sd_tx_i_5_n_0));
-  LUT5 #(
-    .INIT(32'hB8BBB888)) 
-    sd_tx_i_6
-       (.I0(sd_tx_i_12_n_0),
-        .I1(sd_tx_i_8_n_0),
-        .I2(sd_tx_i_13_n_0),
-        .I3(sd_tx_i_10_n_0),
-        .I4(sd_tx_i_14_n_0),
-        .O(sd_tx_i_6_n_0));
-  LUT6 #(
-    .INIT(64'hFFFF01FEFE010000)) 
-    sd_tx_i_7
-       (.I0(\bit_cnt_reg_n_0_[2] ),
-        .I1(\bit_cnt_reg_n_0_[0] ),
+    .INIT(64'hFACF0ACFFAC00AC0)) 
+    sd_tx_i_12
+       (.I0(\r_tx_shift_reg_n_0_[12] ),
+        .I1(\r_tx_shift_reg_n_0_[13] ),
         .I2(\bit_cnt_reg_n_0_[1] ),
-        .I3(\bit_cnt_reg_n_0_[3] ),
-        .I4(sd_tx_reg_i_15_n_0),
-        .I5(sd_tx_reg_i_16_n_0),
-        .O(sd_tx_i_7_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair297" *) 
-  LUT5 #(
-    .INIT(32'h0001FFFE)) 
-    sd_tx_i_8
-       (.I0(\bit_cnt_reg_n_0_[3] ),
-        .I1(\bit_cnt_reg_n_0_[1] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
-        .I3(\bit_cnt_reg_n_0_[2] ),
-        .I4(\bit_cnt_reg_n_0_[4] ),
-        .O(sd_tx_i_8_n_0));
+        .I3(\bit_cnt_reg_n_0_[0] ),
+        .I4(\r_tx_shift_reg_n_0_[14] ),
+        .I5(\r_tx_shift_reg_n_0_[15] ),
+        .O(sd_tx_i_12_n_0));
   LUT6 #(
-    .INIT(64'hFCAF0CAFFCA00CA0)) 
-    sd_tx_i_9
+    .INIT(64'hFACF0ACFFAC00AC0)) 
+    sd_tx_i_13
+       (.I0(\l_tx_shift_reg_n_0_[8] ),
+        .I1(\l_tx_shift_reg_n_0_[9] ),
+        .I2(\bit_cnt_reg_n_0_[1] ),
+        .I3(\bit_cnt_reg_n_0_[0] ),
+        .I4(\l_tx_shift_reg_n_0_[10] ),
+        .I5(\l_tx_shift_reg_n_0_[11] ),
+        .O(sd_tx_i_13_n_0));
+  LUT6 #(
+    .INIT(64'hFACF0ACFFAC00AC0)) 
+    sd_tx_i_14
+       (.I0(\l_tx_shift_reg_n_0_[12] ),
+        .I1(\l_tx_shift_reg_n_0_[13] ),
+        .I2(\bit_cnt_reg_n_0_[1] ),
+        .I3(\bit_cnt_reg_n_0_[0] ),
+        .I4(\l_tx_shift_reg_n_0_[14] ),
+        .I5(\l_tx_shift_reg_n_0_[15] ),
+        .O(sd_tx_i_14_n_0));
+  LUT6 #(
+    .INIT(64'hFACF0ACFFAC00AC0)) 
+    sd_tx_i_15
        (.I0(\l_tx_shift_reg_n_0_[16] ),
         .I1(\l_tx_shift_reg_n_0_[17] ),
-        .I2(\bit_cnt_reg_n_0_[0] ),
-        .I3(\bit_cnt_reg_n_0_[1] ),
+        .I2(\bit_cnt_reg_n_0_[1] ),
+        .I3(\bit_cnt_reg_n_0_[0] ),
         .I4(\l_tx_shift_reg_n_0_[18] ),
         .I5(\l_tx_shift_reg_n_0_[19] ),
-        .O(sd_tx_i_9_n_0));
+        .O(sd_tx_i_15_n_0));
+  LUT6 #(
+    .INIT(64'hFACF0ACFFAC00AC0)) 
+    sd_tx_i_16
+       (.I0(\l_tx_shift_reg_n_0_[20] ),
+        .I1(\l_tx_shift_reg_n_0_[21] ),
+        .I2(\bit_cnt_reg_n_0_[1] ),
+        .I3(\bit_cnt_reg_n_0_[0] ),
+        .I4(\l_tx_shift_reg_n_0_[22] ),
+        .I5(\l_tx_shift_reg_n_0_[23] ),
+        .O(sd_tx_i_16_n_0));
+  LUT6 #(
+    .INIT(64'hFACF0ACFFAC00AC0)) 
+    sd_tx_i_17
+       (.I0(\r_tx_shift_reg_n_0_[16] ),
+        .I1(\r_tx_shift_reg_n_0_[17] ),
+        .I2(\bit_cnt_reg_n_0_[1] ),
+        .I3(\bit_cnt_reg_n_0_[0] ),
+        .I4(\r_tx_shift_reg_n_0_[18] ),
+        .I5(\r_tx_shift_reg_n_0_[19] ),
+        .O(sd_tx_i_17_n_0));
+  LUT6 #(
+    .INIT(64'hFACF0ACFFAC00AC0)) 
+    sd_tx_i_18
+       (.I0(\r_tx_shift_reg_n_0_[20] ),
+        .I1(\r_tx_shift_reg_n_0_[21] ),
+        .I2(\bit_cnt_reg_n_0_[1] ),
+        .I3(\bit_cnt_reg_n_0_[0] ),
+        .I4(\r_tx_shift_reg_n_0_[22] ),
+        .I5(\r_tx_shift_reg_n_0_[23] ),
+        .O(sd_tx_i_18_n_0));
+  LUT6 #(
+    .INIT(64'hBEA6BEBEBEA6A6A6)) 
+    sd_tx_i_2
+       (.I0(\bit_cnt_reg_n_0_[4] ),
+        .I1(sd_tx_i_4_n_0),
+        .I2(\bit_cnt_reg_n_0_[3] ),
+        .I3(sd_tx_reg_i_5_n_0),
+        .I4(ws_int_reg_0),
+        .I5(sd_tx_reg_i_6_n_0),
+        .O(sd_tx_i_2_n_0));
+  LUT6 #(
+    .INIT(64'hAAABFFAAAAFBFFAA)) 
+    sd_tx_i_3
+       (.I0(ws_int_i_2_n_0),
+        .I1(sd_tx_reg_i_7_n_0),
+        .I2(ws_int_reg_0),
+        .I3(sd_tx_i_8_n_0),
+        .I4(\bit_cnt_reg_n_0_[4] ),
+        .I5(sd_tx_reg_i_9_n_0),
+        .O(sd_tx_i_3_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair293" *) 
+  LUT3 #(
+    .INIT(8'h01)) 
+    sd_tx_i_4
+       (.I0(\bit_cnt_reg_n_0_[0] ),
+        .I1(\bit_cnt_reg_n_0_[1] ),
+        .I2(\bit_cnt_reg_n_0_[2] ),
+        .O(sd_tx_i_4_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair292" *) 
+  LUT4 #(
+    .INIT(16'h0001)) 
+    sd_tx_i_8
+       (.I0(\bit_cnt_reg_n_0_[2] ),
+        .I1(\bit_cnt_reg_n_0_[1] ),
+        .I2(\bit_cnt_reg_n_0_[0] ),
+        .I3(\bit_cnt_reg_n_0_[3] ),
+        .O(sd_tx_i_8_n_0));
   FDCE sd_tx_reg
        (.C(clk_audio),
         .CE(1'b1),
         .CLR(\mclk_cnt_reg[0]_0 ),
         .D(sd_tx_i_1_n_0),
         .Q(i2s_dout));
-  MUXF7 sd_tx_reg_i_15
-       (.I0(sd_tx_i_19_n_0),
-        .I1(sd_tx_i_20_n_0),
-        .O(sd_tx_reg_i_15_n_0),
+  MUXF7 sd_tx_reg_i_5
+       (.I0(sd_tx_i_11_n_0),
+        .I1(sd_tx_i_12_n_0),
+        .O(sd_tx_reg_i_5_n_0),
         .S(sd_tx_i_10_n_0));
-  MUXF7 sd_tx_reg_i_16
-       (.I0(sd_tx_i_21_n_0),
-        .I1(sd_tx_i_22_n_0),
-        .O(sd_tx_reg_i_16_n_0),
+  MUXF7 sd_tx_reg_i_6
+       (.I0(sd_tx_i_13_n_0),
+        .I1(sd_tx_i_14_n_0),
+        .O(sd_tx_reg_i_6_n_0),
         .S(sd_tx_i_10_n_0));
-  MUXF7 sd_tx_reg_i_17
-       (.I0(sd_tx_i_23_n_0),
-        .I1(sd_tx_i_24_n_0),
-        .O(sd_tx_reg_i_17_n_0),
+  MUXF7 sd_tx_reg_i_7
+       (.I0(sd_tx_i_15_n_0),
+        .I1(sd_tx_i_16_n_0),
+        .O(sd_tx_reg_i_7_n_0),
         .S(sd_tx_i_10_n_0));
-  MUXF7 sd_tx_reg_i_18
-       (.I0(sd_tx_i_25_n_0),
-        .I1(sd_tx_i_26_n_0),
-        .O(sd_tx_reg_i_18_n_0),
+  MUXF7 sd_tx_reg_i_9
+       (.I0(sd_tx_i_17_n_0),
+        .I1(sd_tx_i_18_n_0),
+        .O(sd_tx_reg_i_9_n_0),
         .S(sd_tx_i_10_n_0));
-  MUXF7 sd_tx_reg_i_3
-       (.I0(sd_tx_i_5_n_0),
-        .I1(sd_tx_i_6_n_0),
-        .O(sd_tx_reg_i_3_n_0),
-        .S(ws_int_reg_0));
   LUT1 #(
     .INIT(2'h1)) 
     \ws_cnt[0]_i_1 
        (.I0(\ws_cnt_reg_n_0_[0] ),
-        .O(\ws_cnt[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair300" *) 
+        .O(ws_cnt[0]));
+  (* SOFT_HLUTNM = "soft_lutpair298" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \ws_cnt[1]_i_1 
        (.I0(\ws_cnt_reg_n_0_[0] ),
         .I1(\ws_cnt_reg_n_0_[1] ),
         .O(ws_cnt[1]));
-  (* SOFT_HLUTNM = "soft_lutpair300" *) 
+  (* SOFT_HLUTNM = "soft_lutpair298" *) 
   LUT3 #(
     .INIT(8'h6A)) 
     \ws_cnt[2]_i_1 
@@ -3774,54 +3639,54 @@ module design_1_top_system_0_1_i2s_transceiver
         .I1(\ws_cnt_reg_n_0_[0] ),
         .I2(\ws_cnt_reg_n_0_[1] ),
         .O(ws_cnt[2]));
-  (* SOFT_HLUTNM = "soft_lutpair298" *) 
+  (* SOFT_HLUTNM = "soft_lutpair296" *) 
   LUT4 #(
-    .INIT(16'h6CCC)) 
+    .INIT(16'h6AAA)) 
     \ws_cnt[3]_i_1 
-       (.I0(\ws_cnt_reg_n_0_[2] ),
-        .I1(\ws_cnt_reg_n_0_[3] ),
+       (.I0(\ws_cnt_reg_n_0_[3] ),
+        .I1(\ws_cnt_reg_n_0_[1] ),
         .I2(\ws_cnt_reg_n_0_[0] ),
-        .I3(\ws_cnt_reg_n_0_[1] ),
+        .I3(\ws_cnt_reg_n_0_[2] ),
         .O(ws_cnt[3]));
-  (* SOFT_HLUTNM = "soft_lutpair298" *) 
+  (* SOFT_HLUTNM = "soft_lutpair291" *) 
   LUT5 #(
-    .INIT(32'h7FFF8000)) 
+    .INIT(32'h6AAAAAAA)) 
     \ws_cnt[4]_i_1 
-       (.I0(\ws_cnt_reg_n_0_[2] ),
+       (.I0(\ws_cnt_reg_n_0_[4] ),
         .I1(\ws_cnt_reg_n_0_[3] ),
-        .I2(\ws_cnt_reg_n_0_[0] ),
-        .I3(\ws_cnt_reg_n_0_[1] ),
-        .I4(\ws_cnt_reg_n_0_[4] ),
-        .O(ws_cnt[4]));
+        .I2(\ws_cnt_reg_n_0_[1] ),
+        .I3(\ws_cnt_reg_n_0_[0] ),
+        .I4(\ws_cnt_reg_n_0_[2] ),
+        .O(\ws_cnt[4]_i_1_n_0 ));
   LUT2 #(
     .INIT(4'h8)) 
     \ws_cnt[5]_i_1 
-       (.I0(mclk_cnt),
-        .I1(sclk_int_reg_0),
-        .O(\ws_cnt[5]_i_1_n_0 ));
+       (.I0(sclk_int_reg_0),
+        .I1(mclk_cnt),
+        .O(sd_tx1_out));
   LUT6 #(
-    .INIT(64'h7FFFFFFF80000000)) 
+    .INIT(64'h6AAAAAAAAAAAAAAA)) 
     \ws_cnt[5]_i_2 
-       (.I0(\ws_cnt_reg_n_0_[2] ),
-        .I1(\ws_cnt_reg_n_0_[3] ),
+       (.I0(\ws_cnt_reg_n_0_[5] ),
+        .I1(\ws_cnt_reg_n_0_[2] ),
         .I2(\ws_cnt_reg_n_0_[0] ),
         .I3(\ws_cnt_reg_n_0_[1] ),
-        .I4(\ws_cnt_reg_n_0_[4] ),
-        .I5(\ws_cnt_reg_n_0_[5] ),
+        .I4(\ws_cnt_reg_n_0_[3] ),
+        .I5(\ws_cnt_reg_n_0_[4] ),
         .O(ws_cnt[5]));
   FDCE #(
     .INIT(1'b0)) 
     \ws_cnt_reg[0] 
        (.C(clk_audio),
-        .CE(\ws_cnt[5]_i_1_n_0 ),
+        .CE(sd_tx1_out),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(\ws_cnt[0]_i_1_n_0 ),
+        .D(ws_cnt[0]),
         .Q(\ws_cnt_reg_n_0_[0] ));
   FDCE #(
     .INIT(1'b0)) 
     \ws_cnt_reg[1] 
        (.C(clk_audio),
-        .CE(\ws_cnt[5]_i_1_n_0 ),
+        .CE(sd_tx1_out),
         .CLR(\mclk_cnt_reg[0]_0 ),
         .D(ws_cnt[1]),
         .Q(\ws_cnt_reg_n_0_[1] ));
@@ -3829,7 +3694,7 @@ module design_1_top_system_0_1_i2s_transceiver
     .INIT(1'b0)) 
     \ws_cnt_reg[2] 
        (.C(clk_audio),
-        .CE(\ws_cnt[5]_i_1_n_0 ),
+        .CE(sd_tx1_out),
         .CLR(\mclk_cnt_reg[0]_0 ),
         .D(ws_cnt[2]),
         .Q(\ws_cnt_reg_n_0_[2] ));
@@ -3837,7 +3702,7 @@ module design_1_top_system_0_1_i2s_transceiver
     .INIT(1'b0)) 
     \ws_cnt_reg[3] 
        (.C(clk_audio),
-        .CE(\ws_cnt[5]_i_1_n_0 ),
+        .CE(sd_tx1_out),
         .CLR(\mclk_cnt_reg[0]_0 ),
         .D(ws_cnt[3]),
         .Q(\ws_cnt_reg_n_0_[3] ));
@@ -3845,48 +3710,38 @@ module design_1_top_system_0_1_i2s_transceiver
     .INIT(1'b0)) 
     \ws_cnt_reg[4] 
        (.C(clk_audio),
-        .CE(\ws_cnt[5]_i_1_n_0 ),
+        .CE(sd_tx1_out),
         .CLR(\mclk_cnt_reg[0]_0 ),
-        .D(ws_cnt[4]),
+        .D(\ws_cnt[4]_i_1_n_0 ),
         .Q(\ws_cnt_reg_n_0_[4] ));
   FDCE #(
     .INIT(1'b0)) 
     \ws_cnt_reg[5] 
        (.C(clk_audio),
-        .CE(\ws_cnt[5]_i_1_n_0 ),
+        .CE(sd_tx1_out),
         .CLR(\mclk_cnt_reg[0]_0 ),
         .D(ws_cnt[5]),
         .Q(\ws_cnt_reg_n_0_[5] ));
-  (* SOFT_HLUTNM = "soft_lutpair299" *) 
+  (* SOFT_HLUTNM = "soft_lutpair294" *) 
   LUT5 #(
-    .INIT(32'hBFFF8000)) 
+    .INIT(32'h7FFF4000)) 
     ws_int_i_1
-       (.I0(r_tx_shift),
+       (.I0(\ws_cnt_reg_n_0_[5] ),
         .I1(mclk_cnt),
         .I2(sclk_int_reg_0),
-        .I3(ws_int__2),
+        .I3(ws_int_i_2_n_0),
         .I4(ws_int_reg_0),
         .O(ws_int_i_1_n_0));
-  LUT6 #(
-    .INIT(64'h4000000000000000)) 
-    ws_int_i_2
-       (.I0(\ws_cnt_reg_n_0_[5] ),
-        .I1(\ws_cnt_reg_n_0_[3] ),
-        .I2(\ws_cnt_reg_n_0_[4] ),
-        .I3(\ws_cnt_reg_n_0_[2] ),
-        .I4(\ws_cnt_reg_n_0_[0] ),
-        .I5(\ws_cnt_reg_n_0_[1] ),
-        .O(r_tx_shift));
-  (* SOFT_HLUTNM = "soft_lutpair296" *) 
+  (* SOFT_HLUTNM = "soft_lutpair291" *) 
   LUT5 #(
     .INIT(32'h80000000)) 
-    ws_int_i_3
-       (.I0(\ws_cnt_reg_n_0_[2] ),
+    ws_int_i_2
+       (.I0(\ws_cnt_reg_n_0_[4] ),
         .I1(\ws_cnt_reg_n_0_[3] ),
-        .I2(\ws_cnt_reg_n_0_[0] ),
-        .I3(\ws_cnt_reg_n_0_[1] ),
-        .I4(\ws_cnt_reg_n_0_[4] ),
-        .O(ws_int__2));
+        .I2(\ws_cnt_reg_n_0_[1] ),
+        .I3(\ws_cnt_reg_n_0_[0] ),
+        .I4(\ws_cnt_reg_n_0_[2] ),
+        .O(ws_int_i_2_n_0));
   FDCE #(
     .INIT(1'b0)) 
     ws_int_reg
@@ -3901,11 +3756,11 @@ endmodule
 module design_1_top_system_0_1_sd_file_reader
    (sdclk_reg,
     card_stat,
-    card_type,
     file_found,
     T,
     reset_n_0,
-    sdv1_maybe_reg,
+    \card_type_reg[0] ,
+    \card_type_reg[1] ,
     I,
     fifo_wr_en,
     fifo_din,
@@ -3917,11 +3772,11 @@ module design_1_top_system_0_1_sd_file_reader
     pll_locked);
   output sdclk_reg;
   output [3:0]card_stat;
-  output [0:0]card_type;
   output file_found;
   output T;
   output reset_n_0;
-  output sdv1_maybe_reg;
+  output \card_type_reg[0] ;
+  output \card_type_reg[1] ;
   output I;
   output fifo_wr_en;
   output [7:0]fifo_din;
@@ -3932,11 +3787,43 @@ module design_1_top_system_0_1_sd_file_reader
   input reset_n;
   input pll_locked;
 
+  wire \FSM_sequential_filesystem_state[0]_i_2_n_0 ;
+  wire \FSM_sequential_filesystem_state[1]_i_2_n_0 ;
+  wire \FSM_sequential_filesystem_state[1]_i_4_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_10_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_11_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_12_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_14_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_16_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_17_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_18_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_19_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_20_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_21_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_22_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_23_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_24_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_25_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_26_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_27_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_3_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_5_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_6_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_7_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_8_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_9_n_0 ;
+  wire \FSM_sequential_filesystem_state_reg[2]_i_13_n_2 ;
+  wire \FSM_sequential_filesystem_state_reg[2]_i_13_n_3 ;
+  wire \FSM_sequential_filesystem_state_reg[2]_i_15_n_0 ;
+  wire \FSM_sequential_filesystem_state_reg[2]_i_15_n_1 ;
+  wire \FSM_sequential_filesystem_state_reg[2]_i_15_n_2 ;
+  wire \FSM_sequential_filesystem_state_reg[2]_i_15_n_3 ;
   wire I;
   wire T;
   wire [15:0]bytes_per_sector;
   wire [3:0]card_stat;
-  wire [0:0]card_type;
+  wire \card_type_reg[0] ;
+  wire \card_type_reg[1] ;
   wire clk_sd;
   wire [7:0]cluster_sector_offset;
   wire \cluster_sector_offset[0]_i_1_n_0 ;
@@ -3988,6 +3875,8 @@ module design_1_top_system_0_1_sd_file_reader
   wire \curr_cluster[31]_i_31_n_0 ;
   wire \curr_cluster[31]_i_32_n_0 ;
   wire \curr_cluster[31]_i_33_n_0 ;
+  wire \curr_cluster[31]_i_34_n_0 ;
+  wire \curr_cluster[31]_i_35_n_0 ;
   wire \curr_cluster[31]_i_3_n_0 ;
   wire \curr_cluster[31]_i_4_n_0 ;
   wire \curr_cluster[31]_i_5_n_0 ;
@@ -4066,7 +3955,6 @@ module design_1_top_system_0_1_sd_file_reader
   wire file_found_i_7_n_0;
   wire file_found_i_8_n_0;
   wire file_found_i_9_n_0;
-  wire \file_name[0][7]_i_6_n_0 ;
   wire \file_name[8][5]_i_3_n_0 ;
   wire \file_name[8][5]_i_7_n_0 ;
   wire \file_name_reg_n_0_[0][0] ;
@@ -4141,7 +4029,7 @@ module design_1_top_system_0_1_sd_file_reader
   wire \file_name_reg_n_0_[8][5] ;
   wire \file_name_reg_n_0_[8][6] ;
   wire \file_name_reg_n_0_[8][7] ;
-  wire \file_namelen[7]_i_7_n_0 ;
+  wire \file_namelen[7]_i_6_n_0 ;
   wire \file_namelen_reg_n_0_[0] ;
   wire \file_namelen_reg_n_0_[1] ;
   wire \file_namelen_reg_n_0_[2] ;
@@ -4186,45 +4074,6 @@ module design_1_top_system_0_1_sd_file_reader
   wire \filesystem_reg_n_0_[0] ;
   wire \filesystem_reg_n_0_[1] ;
   wire [2:0]filesystem_state;
-  wire \filesystem_state[0]_i_2_n_0 ;
-  wire \filesystem_state[1]_i_2_n_0 ;
-  wire \filesystem_state[1]_i_4_n_0 ;
-  wire \filesystem_state[2]_i_10_n_0 ;
-  wire \filesystem_state[2]_i_11_n_0 ;
-  wire \filesystem_state[2]_i_12_n_0 ;
-  wire \filesystem_state[2]_i_13_n_0 ;
-  wire \filesystem_state[2]_i_15_n_0 ;
-  wire \filesystem_state[2]_i_16_n_0 ;
-  wire \filesystem_state[2]_i_17_n_0 ;
-  wire \filesystem_state[2]_i_18_n_0 ;
-  wire \filesystem_state[2]_i_20_n_0 ;
-  wire \filesystem_state[2]_i_21_n_0 ;
-  wire \filesystem_state[2]_i_22_n_0 ;
-  wire \filesystem_state[2]_i_23_n_0 ;
-  wire \filesystem_state[2]_i_24_n_0 ;
-  wire \filesystem_state[2]_i_25_n_0 ;
-  wire \filesystem_state[2]_i_26_n_0 ;
-  wire \filesystem_state[2]_i_27_n_0 ;
-  wire \filesystem_state[2]_i_28_n_0 ;
-  wire \filesystem_state[2]_i_29_n_0 ;
-  wire \filesystem_state[2]_i_2_n_0 ;
-  wire \filesystem_state[2]_i_30_n_0 ;
-  wire \filesystem_state[2]_i_31_n_0 ;
-  wire \filesystem_state[2]_i_32_n_0 ;
-  wire \filesystem_state[2]_i_33_n_0 ;
-  wire \filesystem_state[2]_i_34_n_0 ;
-  wire \filesystem_state[2]_i_3_n_0 ;
-  wire \filesystem_state[2]_i_5_n_0 ;
-  wire \filesystem_state[2]_i_6_n_0 ;
-  wire \filesystem_state[2]_i_7_n_0 ;
-  wire \filesystem_state[2]_i_8_n_0 ;
-  wire \filesystem_state[2]_i_9_n_0 ;
-  wire \filesystem_state_reg[2]_i_14_n_2 ;
-  wire \filesystem_state_reg[2]_i_14_n_3 ;
-  wire \filesystem_state_reg[2]_i_19_n_0 ;
-  wire \filesystem_state_reg[2]_i_19_n_1 ;
-  wire \filesystem_state_reg[2]_i_19_n_2 ;
-  wire \filesystem_state_reg[2]_i_19_n_3 ;
   wire [31:0]first_data_sector_no;
   wire \first_data_sector_no[0]_i_1_n_0 ;
   wire \first_data_sector_no[10]_i_1_n_0 ;
@@ -4536,8 +4385,8 @@ module design_1_top_system_0_1_sd_file_reader
   wire fready_reg_n_0;
   wire [31:0]fsize;
   wire [31:0]in18;
+  wire islong_i_11_n_0;
   wire islongok;
-  wire isshort_i_4_n_0;
   wire lastchar;
   wire \lastchar_reg_n_0_[0] ;
   wire \lastchar_reg_n_0_[1] ;
@@ -4548,7 +4397,7 @@ module design_1_top_system_0_1_sd_file_reader
   wire \lastchar_reg_n_0_[6] ;
   wire \lastchar_reg_n_0_[7] ;
   wire [5:0]longno;
-  wire \longno[5]_i_5_n_0 ;
+  wire \longno[5]_i_7_n_0 ;
   wire [5:0]longno_t;
   wire longvalid;
   wire outen_i_10_n_0;
@@ -5703,36 +5552,43 @@ module design_1_top_system_0_1_sd_file_reader
   wire \read_sector_no[30]_i_6_n_0 ;
   wire \read_sector_no[30]_i_7_n_0 ;
   wire \read_sector_no[30]_i_8_n_0 ;
+  wire \read_sector_no[31]_i_10_n_0 ;
   wire \read_sector_no[31]_i_11_n_0 ;
   wire \read_sector_no[31]_i_12_n_0 ;
   wire \read_sector_no[31]_i_13_n_0 ;
-  wire \read_sector_no[31]_i_14_n_0 ;
   wire \read_sector_no[31]_i_15_n_0 ;
   wire \read_sector_no[31]_i_16_n_0 ;
-  wire \read_sector_no[31]_i_17_n_0 ;
   wire \read_sector_no[31]_i_18_n_0 ;
+  wire \read_sector_no[31]_i_19_n_0 ;
   wire \read_sector_no[31]_i_20_n_0 ;
   wire \read_sector_no[31]_i_21_n_0 ;
   wire \read_sector_no[31]_i_22_n_0 ;
   wire \read_sector_no[31]_i_23_n_0 ;
+  wire \read_sector_no[31]_i_24_n_0 ;
+  wire \read_sector_no[31]_i_25_n_0 ;
+  wire \read_sector_no[31]_i_27_n_0 ;
+  wire \read_sector_no[31]_i_28_n_0 ;
   wire \read_sector_no[31]_i_29_n_0 ;
   wire \read_sector_no[31]_i_30_n_0 ;
-  wire \read_sector_no[31]_i_31_n_0 ;
-  wire \read_sector_no[31]_i_32_n_0 ;
-  wire \read_sector_no[31]_i_33_n_0 ;
-  wire \read_sector_no[31]_i_34_n_0 ;
-  wire \read_sector_no[31]_i_35_n_0 ;
   wire \read_sector_no[31]_i_36_n_0 ;
   wire \read_sector_no[31]_i_37_n_0 ;
   wire \read_sector_no[31]_i_38_n_0 ;
   wire \read_sector_no[31]_i_39_n_0 ;
+  wire \read_sector_no[31]_i_3_n_0 ;
   wire \read_sector_no[31]_i_40_n_0 ;
   wire \read_sector_no[31]_i_41_n_0 ;
   wire \read_sector_no[31]_i_42_n_0 ;
   wire \read_sector_no[31]_i_43_n_0 ;
-  wire \read_sector_no[31]_i_4_n_0 ;
+  wire \read_sector_no[31]_i_44_n_0 ;
+  wire \read_sector_no[31]_i_45_n_0 ;
+  wire \read_sector_no[31]_i_46_n_0 ;
+  wire \read_sector_no[31]_i_47_n_0 ;
+  wire \read_sector_no[31]_i_48_n_0 ;
+  wire \read_sector_no[31]_i_49_n_0 ;
+  wire \read_sector_no[31]_i_50_n_0 ;
   wire \read_sector_no[31]_i_5_n_0 ;
   wire \read_sector_no[31]_i_6_n_0 ;
+  wire \read_sector_no[31]_i_7_n_0 ;
   wire \read_sector_no[31]_i_8_n_0 ;
   wire \read_sector_no[31]_i_9_n_0 ;
   wire \read_sector_no[3]_i_11_n_0 ;
@@ -6069,41 +5925,41 @@ module design_1_top_system_0_1_sd_file_reader
   wire \read_sector_no_reg[28]_i_4_n_1 ;
   wire \read_sector_no_reg[28]_i_4_n_2 ;
   wire \read_sector_no_reg[28]_i_4_n_3 ;
-  wire \read_sector_no_reg[31]_i_10_n_1 ;
-  wire \read_sector_no_reg[31]_i_10_n_2 ;
-  wire \read_sector_no_reg[31]_i_10_n_3 ;
-  wire \read_sector_no_reg[31]_i_10_n_4 ;
-  wire \read_sector_no_reg[31]_i_10_n_5 ;
-  wire \read_sector_no_reg[31]_i_10_n_6 ;
-  wire \read_sector_no_reg[31]_i_10_n_7 ;
-  wire \read_sector_no_reg[31]_i_19_n_1 ;
-  wire \read_sector_no_reg[31]_i_19_n_2 ;
-  wire \read_sector_no_reg[31]_i_19_n_3 ;
-  wire \read_sector_no_reg[31]_i_24_n_1 ;
-  wire \read_sector_no_reg[31]_i_24_n_2 ;
-  wire \read_sector_no_reg[31]_i_24_n_3 ;
-  wire \read_sector_no_reg[31]_i_25_n_1 ;
-  wire \read_sector_no_reg[31]_i_25_n_2 ;
-  wire \read_sector_no_reg[31]_i_25_n_3 ;
+  wire \read_sector_no_reg[31]_i_14_n_2 ;
+  wire \read_sector_no_reg[31]_i_14_n_3 ;
+  wire \read_sector_no_reg[31]_i_17_n_1 ;
+  wire \read_sector_no_reg[31]_i_17_n_2 ;
+  wire \read_sector_no_reg[31]_i_17_n_3 ;
+  wire \read_sector_no_reg[31]_i_17_n_4 ;
+  wire \read_sector_no_reg[31]_i_17_n_5 ;
+  wire \read_sector_no_reg[31]_i_17_n_6 ;
+  wire \read_sector_no_reg[31]_i_17_n_7 ;
   wire \read_sector_no_reg[31]_i_26_n_1 ;
   wire \read_sector_no_reg[31]_i_26_n_2 ;
   wire \read_sector_no_reg[31]_i_26_n_3 ;
-  wire \read_sector_no_reg[31]_i_26_n_4 ;
-  wire \read_sector_no_reg[31]_i_26_n_5 ;
-  wire \read_sector_no_reg[31]_i_26_n_6 ;
-  wire \read_sector_no_reg[31]_i_26_n_7 ;
-  wire \read_sector_no_reg[31]_i_27_n_1 ;
-  wire \read_sector_no_reg[31]_i_27_n_2 ;
-  wire \read_sector_no_reg[31]_i_27_n_3 ;
-  wire \read_sector_no_reg[31]_i_28_n_1 ;
-  wire \read_sector_no_reg[31]_i_28_n_2 ;
-  wire \read_sector_no_reg[31]_i_28_n_3 ;
-  wire \read_sector_no_reg[31]_i_28_n_4 ;
-  wire \read_sector_no_reg[31]_i_28_n_5 ;
-  wire \read_sector_no_reg[31]_i_28_n_6 ;
-  wire \read_sector_no_reg[31]_i_28_n_7 ;
-  wire \read_sector_no_reg[31]_i_7_n_2 ;
-  wire \read_sector_no_reg[31]_i_7_n_3 ;
+  wire \read_sector_no_reg[31]_i_31_n_1 ;
+  wire \read_sector_no_reg[31]_i_31_n_2 ;
+  wire \read_sector_no_reg[31]_i_31_n_3 ;
+  wire \read_sector_no_reg[31]_i_32_n_1 ;
+  wire \read_sector_no_reg[31]_i_32_n_2 ;
+  wire \read_sector_no_reg[31]_i_32_n_3 ;
+  wire \read_sector_no_reg[31]_i_33_n_1 ;
+  wire \read_sector_no_reg[31]_i_33_n_2 ;
+  wire \read_sector_no_reg[31]_i_33_n_3 ;
+  wire \read_sector_no_reg[31]_i_33_n_4 ;
+  wire \read_sector_no_reg[31]_i_33_n_5 ;
+  wire \read_sector_no_reg[31]_i_33_n_6 ;
+  wire \read_sector_no_reg[31]_i_33_n_7 ;
+  wire \read_sector_no_reg[31]_i_34_n_1 ;
+  wire \read_sector_no_reg[31]_i_34_n_2 ;
+  wire \read_sector_no_reg[31]_i_34_n_3 ;
+  wire \read_sector_no_reg[31]_i_35_n_1 ;
+  wire \read_sector_no_reg[31]_i_35_n_2 ;
+  wire \read_sector_no_reg[31]_i_35_n_3 ;
+  wire \read_sector_no_reg[31]_i_35_n_4 ;
+  wire \read_sector_no_reg[31]_i_35_n_5 ;
+  wire \read_sector_no_reg[31]_i_35_n_6 ;
+  wire \read_sector_no_reg[31]_i_35_n_7 ;
   wire \read_sector_no_reg[3]_i_10_n_0 ;
   wire \read_sector_no_reg[3]_i_10_n_1 ;
   wire \read_sector_no_reg[3]_i_10_n_2 ;
@@ -6301,7 +6157,6 @@ module design_1_top_system_0_1_sd_file_reader
   wire sd_dat0;
   wire sdclk_reg;
   wire [7:0]sdtnamelen;
-  wire sdv1_maybe_reg;
   wire search_fat_i_10_n_0;
   wire search_fat_i_11_n_0;
   wire search_fat_i_12_n_0;
@@ -6494,33 +6349,33 @@ module design_1_top_system_0_1_sd_file_reader
   wire [15:8]target_cluster0;
   wire [15:0]target_cluster_fat16;
   wire u_sd_reader_n_10;
+  wire u_sd_reader_n_101;
+  wire u_sd_reader_n_102;
   wire u_sd_reader_n_103;
   wire u_sd_reader_n_104;
   wire u_sd_reader_n_105;
   wire u_sd_reader_n_106;
   wire u_sd_reader_n_107;
   wire u_sd_reader_n_108;
-  wire u_sd_reader_n_109;
   wire u_sd_reader_n_11;
-  wire u_sd_reader_n_110;
+  wire u_sd_reader_n_111;
   wire u_sd_reader_n_112;
   wire u_sd_reader_n_113;
   wire u_sd_reader_n_114;
   wire u_sd_reader_n_115;
-  wire u_sd_reader_n_116;
   wire u_sd_reader_n_117;
   wire u_sd_reader_n_118;
   wire u_sd_reader_n_119;
-  wire u_sd_reader_n_12;
   wire u_sd_reader_n_120;
+  wire u_sd_reader_n_121;
   wire u_sd_reader_n_122;
   wire u_sd_reader_n_123;
   wire u_sd_reader_n_124;
   wire u_sd_reader_n_125;
   wire u_sd_reader_n_126;
+  wire u_sd_reader_n_127;
   wire u_sd_reader_n_128;
   wire u_sd_reader_n_129;
-  wire u_sd_reader_n_13;
   wire u_sd_reader_n_130;
   wire u_sd_reader_n_131;
   wire u_sd_reader_n_132;
@@ -6529,9 +6384,7 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_135;
   wire u_sd_reader_n_136;
   wire u_sd_reader_n_137;
-  wire u_sd_reader_n_138;
   wire u_sd_reader_n_139;
-  wire u_sd_reader_n_14;
   wire u_sd_reader_n_140;
   wire u_sd_reader_n_141;
   wire u_sd_reader_n_142;
@@ -6542,8 +6395,7 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_147;
   wire u_sd_reader_n_148;
   wire u_sd_reader_n_149;
-  wire u_sd_reader_n_15;
-  wire u_sd_reader_n_151;
+  wire u_sd_reader_n_150;
   wire u_sd_reader_n_152;
   wire u_sd_reader_n_153;
   wire u_sd_reader_n_154;
@@ -6552,7 +6404,6 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_157;
   wire u_sd_reader_n_158;
   wire u_sd_reader_n_159;
-  wire u_sd_reader_n_16;
   wire u_sd_reader_n_160;
   wire u_sd_reader_n_161;
   wire u_sd_reader_n_162;
@@ -6563,7 +6414,6 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_167;
   wire u_sd_reader_n_168;
   wire u_sd_reader_n_169;
-  wire u_sd_reader_n_17;
   wire u_sd_reader_n_170;
   wire u_sd_reader_n_171;
   wire u_sd_reader_n_172;
@@ -6574,7 +6424,6 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_177;
   wire u_sd_reader_n_178;
   wire u_sd_reader_n_179;
-  wire u_sd_reader_n_18;
   wire u_sd_reader_n_180;
   wire u_sd_reader_n_181;
   wire u_sd_reader_n_182;
@@ -6585,7 +6434,6 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_187;
   wire u_sd_reader_n_188;
   wire u_sd_reader_n_189;
-  wire u_sd_reader_n_19;
   wire u_sd_reader_n_190;
   wire u_sd_reader_n_191;
   wire u_sd_reader_n_192;
@@ -6596,7 +6444,6 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_197;
   wire u_sd_reader_n_198;
   wire u_sd_reader_n_199;
-  wire u_sd_reader_n_20;
   wire u_sd_reader_n_200;
   wire u_sd_reader_n_201;
   wire u_sd_reader_n_202;
@@ -6607,7 +6454,6 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_207;
   wire u_sd_reader_n_208;
   wire u_sd_reader_n_209;
-  wire u_sd_reader_n_21;
   wire u_sd_reader_n_210;
   wire u_sd_reader_n_211;
   wire u_sd_reader_n_212;
@@ -6640,6 +6486,7 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_237;
   wire u_sd_reader_n_238;
   wire u_sd_reader_n_239;
+  wire u_sd_reader_n_24;
   wire u_sd_reader_n_240;
   wire u_sd_reader_n_241;
   wire u_sd_reader_n_242;
@@ -6650,6 +6497,7 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_247;
   wire u_sd_reader_n_248;
   wire u_sd_reader_n_249;
+  wire u_sd_reader_n_25;
   wire u_sd_reader_n_250;
   wire u_sd_reader_n_251;
   wire u_sd_reader_n_252;
@@ -6660,6 +6508,7 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_257;
   wire u_sd_reader_n_258;
   wire u_sd_reader_n_259;
+  wire u_sd_reader_n_26;
   wire u_sd_reader_n_260;
   wire u_sd_reader_n_261;
   wire u_sd_reader_n_262;
@@ -6670,6 +6519,7 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_267;
   wire u_sd_reader_n_268;
   wire u_sd_reader_n_269;
+  wire u_sd_reader_n_27;
   wire u_sd_reader_n_270;
   wire u_sd_reader_n_271;
   wire u_sd_reader_n_272;
@@ -6680,6 +6530,7 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_277;
   wire u_sd_reader_n_278;
   wire u_sd_reader_n_279;
+  wire u_sd_reader_n_28;
   wire u_sd_reader_n_280;
   wire u_sd_reader_n_281;
   wire u_sd_reader_n_282;
@@ -6690,6 +6541,7 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_287;
   wire u_sd_reader_n_288;
   wire u_sd_reader_n_289;
+  wire u_sd_reader_n_29;
   wire u_sd_reader_n_290;
   wire u_sd_reader_n_291;
   wire u_sd_reader_n_292;
@@ -6700,6 +6552,7 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_297;
   wire u_sd_reader_n_298;
   wire u_sd_reader_n_299;
+  wire u_sd_reader_n_30;
   wire u_sd_reader_n_300;
   wire u_sd_reader_n_301;
   wire u_sd_reader_n_302;
@@ -6710,8 +6563,10 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_307;
   wire u_sd_reader_n_308;
   wire u_sd_reader_n_309;
+  wire u_sd_reader_n_31;
   wire u_sd_reader_n_310;
   wire u_sd_reader_n_311;
+  wire u_sd_reader_n_312;
   wire u_sd_reader_n_313;
   wire u_sd_reader_n_314;
   wire u_sd_reader_n_315;
@@ -6785,17 +6640,17 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_377;
   wire u_sd_reader_n_378;
   wire u_sd_reader_n_379;
-  wire u_sd_reader_n_38;
   wire u_sd_reader_n_380;
   wire u_sd_reader_n_381;
   wire u_sd_reader_n_382;
   wire u_sd_reader_n_383;
   wire u_sd_reader_n_384;
   wire u_sd_reader_n_385;
-  wire u_sd_reader_n_386;
-  wire u_sd_reader_n_39;
+  wire u_sd_reader_n_46;
+  wire u_sd_reader_n_47;
   wire u_sd_reader_n_48;
   wire u_sd_reader_n_49;
+  wire u_sd_reader_n_5;
   wire u_sd_reader_n_50;
   wire u_sd_reader_n_51;
   wire u_sd_reader_n_52;
@@ -6806,7 +6661,6 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_57;
   wire u_sd_reader_n_58;
   wire u_sd_reader_n_59;
-  wire u_sd_reader_n_6;
   wire u_sd_reader_n_60;
   wire u_sd_reader_n_61;
   wire u_sd_reader_n_62;
@@ -6829,23 +6683,24 @@ module design_1_top_system_0_1_sd_file_reader
   wire u_sd_reader_n_78;
   wire u_sd_reader_n_79;
   wire u_sd_reader_n_8;
+  wire u_sd_reader_n_80;
   wire u_sd_reader_n_81;
   wire u_sd_reader_n_82;
   wire u_sd_reader_n_83;
   wire u_sd_reader_n_84;
   wire u_sd_reader_n_85;
-  wire u_sd_reader_n_86;
   wire u_sd_reader_n_87;
   wire u_sd_reader_n_88;
+  wire u_sd_reader_n_89;
   wire u_sd_reader_n_9;
   wire u_sd_reader_n_90;
   wire u_sd_reader_n_91;
   wire u_sd_reader_n_92;
   wire u_sd_reader_n_93;
   wire u_sd_reader_n_94;
-  wire [3:2]\NLW_filesystem_state_reg[2]_i_14_CO_UNCONNECTED ;
-  wire [3:0]\NLW_filesystem_state_reg[2]_i_14_O_UNCONNECTED ;
-  wire [3:0]\NLW_filesystem_state_reg[2]_i_19_O_UNCONNECTED ;
+  wire [3:2]\NLW_FSM_sequential_filesystem_state_reg[2]_i_13_CO_UNCONNECTED ;
+  wire [3:0]\NLW_FSM_sequential_filesystem_state_reg[2]_i_13_O_UNCONNECTED ;
+  wire [3:0]\NLW_FSM_sequential_filesystem_state_reg[2]_i_15_O_UNCONNECTED ;
   wire [3:2]\NLW_first_data_sector_no_reg[31]_i_2_CO_UNCONNECTED ;
   wire [3:3]\NLW_first_data_sector_no_reg[31]_i_2_O_UNCONNECTED ;
   wire [3:3]\NLW_first_data_sector_no_reg[31]_i_3_CO_UNCONNECTED ;
@@ -6961,21 +6816,263 @@ module design_1_top_system_0_1_sd_file_reader
   wire [17:0]NLW_read_sector_no2__0_BCOUT_UNCONNECTED;
   wire [3:0]NLW_read_sector_no2__0_CARRYOUT_UNCONNECTED;
   wire [47:0]NLW_read_sector_no2__0_PCOUT_UNCONNECTED;
-  wire [3:3]\NLW_read_sector_no_reg[31]_i_10_CO_UNCONNECTED ;
-  wire [3:3]\NLW_read_sector_no_reg[31]_i_19_CO_UNCONNECTED ;
-  wire [3:3]\NLW_read_sector_no_reg[31]_i_24_CO_UNCONNECTED ;
-  wire [3:3]\NLW_read_sector_no_reg[31]_i_25_CO_UNCONNECTED ;
+  wire [3:2]\NLW_read_sector_no_reg[31]_i_14_CO_UNCONNECTED ;
+  wire [3:3]\NLW_read_sector_no_reg[31]_i_14_O_UNCONNECTED ;
+  wire [3:3]\NLW_read_sector_no_reg[31]_i_17_CO_UNCONNECTED ;
   wire [3:3]\NLW_read_sector_no_reg[31]_i_26_CO_UNCONNECTED ;
-  wire [3:3]\NLW_read_sector_no_reg[31]_i_27_CO_UNCONNECTED ;
-  wire [3:3]\NLW_read_sector_no_reg[31]_i_28_CO_UNCONNECTED ;
-  wire [3:2]\NLW_read_sector_no_reg[31]_i_7_CO_UNCONNECTED ;
-  wire [3:3]\NLW_read_sector_no_reg[31]_i_7_O_UNCONNECTED ;
+  wire [3:3]\NLW_read_sector_no_reg[31]_i_31_CO_UNCONNECTED ;
+  wire [3:3]\NLW_read_sector_no_reg[31]_i_32_CO_UNCONNECTED ;
+  wire [3:3]\NLW_read_sector_no_reg[31]_i_33_CO_UNCONNECTED ;
+  wire [3:3]\NLW_read_sector_no_reg[31]_i_34_CO_UNCONNECTED ;
+  wire [3:3]\NLW_read_sector_no_reg[31]_i_35_CO_UNCONNECTED ;
   wire [3:3]\NLW_rootdir_sector_reg[31]_i_1_CO_UNCONNECTED ;
   wire [3:0]NLW_search_fat_reg_i_13_O_UNCONNECTED;
   wire [3:0]NLW_search_fat_reg_i_2_O_UNCONNECTED;
   wire [3:0]NLW_search_fat_reg_i_23_O_UNCONNECTED;
   wire [3:0]NLW_search_fat_reg_i_4_O_UNCONNECTED;
 
+  (* SOFT_HLUTNM = "soft_lutpair227" *) 
+  LUT4 #(
+    .INIT(16'h8085)) 
+    \FSM_sequential_filesystem_state[0]_i_2 
+       (.I0(filesystem_state[1]),
+        .I1(file_found),
+        .I2(filesystem_state[0]),
+        .I3(search_fat_reg_n_0),
+        .O(\FSM_sequential_filesystem_state[0]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair221" *) 
+  LUT5 #(
+    .INIT(32'hFFBFFFFF)) 
+    \FSM_sequential_filesystem_state[1]_i_2 
+       (.I0(\FSM_sequential_filesystem_state[2]_i_5_n_0 ),
+        .I1(filesystem_state[1]),
+        .I2(\rootdir_sectorcount[11]_i_3_n_0 ),
+        .I3(filesystem_state[0]),
+        .I4(read_sector_no1__1_i_19_n_0),
+        .O(\FSM_sequential_filesystem_state[1]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair230" *) 
+  LUT3 #(
+    .INIT(8'h01)) 
+    \FSM_sequential_filesystem_state[1]_i_4 
+       (.I0(filesystem_state[2]),
+        .I1(filesystem_state[0]),
+        .I2(filesystem_state[1]),
+        .O(\FSM_sequential_filesystem_state[1]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'h2200F0FF22FFF0FF)) 
+    \FSM_sequential_filesystem_state[2]_i_10 
+       (.I0(\FSM_sequential_filesystem_state_reg[2]_i_13_n_2 ),
+        .I1(file_found),
+        .I2(\read_sector_no[31]_i_3_n_0 ),
+        .I3(filesystem_state[1]),
+        .I4(filesystem_state[0]),
+        .I5(\read_sector_no[31]_i_13_n_0 ),
+        .O(\FSM_sequential_filesystem_state[2]_i_10_n_0 ));
+  LUT4 #(
+    .INIT(16'hFFFE)) 
+    \FSM_sequential_filesystem_state[2]_i_11 
+       (.I0(bytes_per_sector[4]),
+        .I1(bytes_per_sector[0]),
+        .I2(bytes_per_sector[6]),
+        .I3(bytes_per_sector[14]),
+        .O(\FSM_sequential_filesystem_state[2]_i_11_n_0 ));
+  LUT5 #(
+    .INIT(32'hFFFFFFFE)) 
+    \FSM_sequential_filesystem_state[2]_i_12 
+       (.I0(bytes_per_sector[13]),
+        .I1(bytes_per_sector[1]),
+        .I2(bytes_per_sector[8]),
+        .I3(bytes_per_sector[5]),
+        .I4(\FSM_sequential_filesystem_state[2]_i_14_n_0 ),
+        .O(\FSM_sequential_filesystem_state[2]_i_12_n_0 ));
+  LUT4 #(
+    .INIT(16'hFFFE)) 
+    \FSM_sequential_filesystem_state[2]_i_14 
+       (.I0(bytes_per_sector[15]),
+        .I1(bytes_per_sector[10]),
+        .I2(bytes_per_sector[2]),
+        .I3(bytes_per_sector[12]),
+        .O(\FSM_sequential_filesystem_state[2]_i_14_n_0 ));
+  LUT2 #(
+    .INIT(4'hE)) 
+    \FSM_sequential_filesystem_state[2]_i_16 
+       (.I0(rootdir_sectorcount[11]),
+        .I1(rootdir_sectorcount[10]),
+        .O(\FSM_sequential_filesystem_state[2]_i_16_n_0 ));
+  LUT2 #(
+    .INIT(4'hE)) 
+    \FSM_sequential_filesystem_state[2]_i_17 
+       (.I0(rootdir_sectorcount[9]),
+        .I1(rootdir_sectorcount[8]),
+        .O(\FSM_sequential_filesystem_state[2]_i_17_n_0 ));
+  LUT2 #(
+    .INIT(4'h1)) 
+    \FSM_sequential_filesystem_state[2]_i_18 
+       (.I0(rootdir_sectorcount[10]),
+        .I1(rootdir_sectorcount[11]),
+        .O(\FSM_sequential_filesystem_state[2]_i_18_n_0 ));
+  LUT2 #(
+    .INIT(4'h1)) 
+    \FSM_sequential_filesystem_state[2]_i_19 
+       (.I0(rootdir_sectorcount[8]),
+        .I1(rootdir_sectorcount[9]),
+        .O(\FSM_sequential_filesystem_state[2]_i_19_n_0 ));
+  LUT4 #(
+    .INIT(16'h22B2)) 
+    \FSM_sequential_filesystem_state[2]_i_20 
+       (.I0(rootdir_sectorcount[7]),
+        .I1(cluster_sector_offset[7]),
+        .I2(rootdir_sectorcount[6]),
+        .I3(cluster_sector_offset[6]),
+        .O(\FSM_sequential_filesystem_state[2]_i_20_n_0 ));
+  LUT4 #(
+    .INIT(16'h22B2)) 
+    \FSM_sequential_filesystem_state[2]_i_21 
+       (.I0(rootdir_sectorcount[5]),
+        .I1(cluster_sector_offset[5]),
+        .I2(rootdir_sectorcount[4]),
+        .I3(cluster_sector_offset[4]),
+        .O(\FSM_sequential_filesystem_state[2]_i_21_n_0 ));
+  LUT4 #(
+    .INIT(16'h22B2)) 
+    \FSM_sequential_filesystem_state[2]_i_22 
+       (.I0(rootdir_sectorcount[3]),
+        .I1(cluster_sector_offset[3]),
+        .I2(rootdir_sectorcount[2]),
+        .I3(cluster_sector_offset[2]),
+        .O(\FSM_sequential_filesystem_state[2]_i_22_n_0 ));
+  LUT4 #(
+    .INIT(16'h22B2)) 
+    \FSM_sequential_filesystem_state[2]_i_23 
+       (.I0(rootdir_sectorcount[1]),
+        .I1(cluster_sector_offset[1]),
+        .I2(rootdir_sectorcount[0]),
+        .I3(cluster_sector_offset[0]),
+        .O(\FSM_sequential_filesystem_state[2]_i_23_n_0 ));
+  LUT4 #(
+    .INIT(16'h9009)) 
+    \FSM_sequential_filesystem_state[2]_i_24 
+       (.I0(cluster_sector_offset[7]),
+        .I1(rootdir_sectorcount[7]),
+        .I2(cluster_sector_offset[6]),
+        .I3(rootdir_sectorcount[6]),
+        .O(\FSM_sequential_filesystem_state[2]_i_24_n_0 ));
+  LUT4 #(
+    .INIT(16'h9009)) 
+    \FSM_sequential_filesystem_state[2]_i_25 
+       (.I0(cluster_sector_offset[5]),
+        .I1(rootdir_sectorcount[5]),
+        .I2(cluster_sector_offset[4]),
+        .I3(rootdir_sectorcount[4]),
+        .O(\FSM_sequential_filesystem_state[2]_i_25_n_0 ));
+  LUT4 #(
+    .INIT(16'h9009)) 
+    \FSM_sequential_filesystem_state[2]_i_26 
+       (.I0(cluster_sector_offset[3]),
+        .I1(rootdir_sectorcount[3]),
+        .I2(cluster_sector_offset[2]),
+        .I3(rootdir_sectorcount[2]),
+        .O(\FSM_sequential_filesystem_state[2]_i_26_n_0 ));
+  LUT4 #(
+    .INIT(16'h9009)) 
+    \FSM_sequential_filesystem_state[2]_i_27 
+       (.I0(cluster_sector_offset[1]),
+        .I1(rootdir_sectorcount[1]),
+        .I2(cluster_sector_offset[0]),
+        .I3(rootdir_sectorcount[0]),
+        .O(\FSM_sequential_filesystem_state[2]_i_27_n_0 ));
+  LUT6 #(
+    .INIT(64'hDF005500DF0055FF)) 
+    \FSM_sequential_filesystem_state[2]_i_3 
+       (.I0(\FSM_sequential_filesystem_state[2]_i_6_n_0 ),
+        .I1(\FSM_sequential_filesystem_state[2]_i_7_n_0 ),
+        .I2(\FSM_sequential_filesystem_state[2]_i_8_n_0 ),
+        .I3(search_fat_i_3_n_0),
+        .I4(\FSM_sequential_filesystem_state[2]_i_9_n_0 ),
+        .I5(\FSM_sequential_filesystem_state[2]_i_10_n_0 ),
+        .O(\FSM_sequential_filesystem_state[2]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFFFFFB)) 
+    \FSM_sequential_filesystem_state[2]_i_5 
+       (.I0(\FSM_sequential_filesystem_state[2]_i_11_n_0 ),
+        .I1(bytes_per_sector[9]),
+        .I2(bytes_per_sector[11]),
+        .I3(bytes_per_sector[3]),
+        .I4(bytes_per_sector[7]),
+        .I5(\FSM_sequential_filesystem_state[2]_i_12_n_0 ),
+        .O(\FSM_sequential_filesystem_state[2]_i_5_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFFFFFBA8AFFFF)) 
+    \FSM_sequential_filesystem_state[2]_i_6 
+       (.I0(\curr_cluster[31]_i_8_n_0 ),
+        .I1(\filesystem_reg_n_0_[0] ),
+        .I2(\filesystem_reg_n_0_[1] ),
+        .I3(\curr_cluster[31]_i_7_n_0 ),
+        .I4(search_fat_reg_n_0),
+        .I5(\FSM_sequential_filesystem_state[2]_i_9_n_0 ),
+        .O(\FSM_sequential_filesystem_state[2]_i_6_n_0 ));
+  LUT2 #(
+    .INIT(4'h2)) 
+    \FSM_sequential_filesystem_state[2]_i_7 
+       (.I0(search_fat_reg_n_0),
+        .I1(\curr_cluster[31]_i_8_n_0 ),
+        .O(\FSM_sequential_filesystem_state[2]_i_7_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair223" *) 
+  LUT2 #(
+    .INIT(4'hB)) 
+    \FSM_sequential_filesystem_state[2]_i_8 
+       (.I0(search_fat_reg_n_0),
+        .I1(file_found),
+        .O(\FSM_sequential_filesystem_state[2]_i_8_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair230" *) 
+  LUT3 #(
+    .INIT(8'h8A)) 
+    \FSM_sequential_filesystem_state[2]_i_9 
+       (.I0(filesystem_state[2]),
+        .I1(filesystem_state[1]),
+        .I2(filesystem_state[0]),
+        .O(\FSM_sequential_filesystem_state[2]_i_9_n_0 ));
+  (* FSM_ENCODED_STATES = "iSTATE:000,SEARCH_MBR:001,SEARCH_DBR:010,LS_ROOT_FAT32:100,LS_ROOT_FAT16:011,iSTATE0:110,READ_A_FILE:101" *) 
+  FDCE #(
+    .INIT(1'b0)) 
+    \FSM_sequential_filesystem_state_reg[0] 
+       (.C(clk_sd),
+        .CE(1'b1),
+        .CLR(reset_n_0),
+        .D(u_sd_reader_n_112),
+        .Q(filesystem_state[0]));
+  (* FSM_ENCODED_STATES = "iSTATE:000,SEARCH_MBR:001,SEARCH_DBR:010,LS_ROOT_FAT32:100,LS_ROOT_FAT16:011,iSTATE0:110,READ_A_FILE:101" *) 
+  FDCE #(
+    .INIT(1'b0)) 
+    \FSM_sequential_filesystem_state_reg[1] 
+       (.C(clk_sd),
+        .CE(1'b1),
+        .CLR(reset_n_0),
+        .D(u_sd_reader_n_113),
+        .Q(filesystem_state[1]));
+  (* FSM_ENCODED_STATES = "iSTATE:000,SEARCH_MBR:001,SEARCH_DBR:010,LS_ROOT_FAT32:100,LS_ROOT_FAT16:011,iSTATE0:110,READ_A_FILE:101" *) 
+  FDCE #(
+    .INIT(1'b0)) 
+    \FSM_sequential_filesystem_state_reg[2] 
+       (.C(clk_sd),
+        .CE(1'b1),
+        .CLR(reset_n_0),
+        .D(u_sd_reader_n_111),
+        .Q(filesystem_state[2]));
+  CARRY4 \FSM_sequential_filesystem_state_reg[2]_i_13 
+       (.CI(\FSM_sequential_filesystem_state_reg[2]_i_15_n_0 ),
+        .CO({\NLW_FSM_sequential_filesystem_state_reg[2]_i_13_CO_UNCONNECTED [3:2],\FSM_sequential_filesystem_state_reg[2]_i_13_n_2 ,\FSM_sequential_filesystem_state_reg[2]_i_13_n_3 }),
+        .CYINIT(1'b0),
+        .DI({1'b0,1'b0,\FSM_sequential_filesystem_state[2]_i_16_n_0 ,\FSM_sequential_filesystem_state[2]_i_17_n_0 }),
+        .O(\NLW_FSM_sequential_filesystem_state_reg[2]_i_13_O_UNCONNECTED [3:0]),
+        .S({1'b0,1'b0,\FSM_sequential_filesystem_state[2]_i_18_n_0 ,\FSM_sequential_filesystem_state[2]_i_19_n_0 }));
+  CARRY4 \FSM_sequential_filesystem_state_reg[2]_i_15 
+       (.CI(1'b0),
+        .CO({\FSM_sequential_filesystem_state_reg[2]_i_15_n_0 ,\FSM_sequential_filesystem_state_reg[2]_i_15_n_1 ,\FSM_sequential_filesystem_state_reg[2]_i_15_n_2 ,\FSM_sequential_filesystem_state_reg[2]_i_15_n_3 }),
+        .CYINIT(1'b0),
+        .DI({\FSM_sequential_filesystem_state[2]_i_20_n_0 ,\FSM_sequential_filesystem_state[2]_i_21_n_0 ,\FSM_sequential_filesystem_state[2]_i_22_n_0 ,\FSM_sequential_filesystem_state[2]_i_23_n_0 }),
+        .O(\NLW_FSM_sequential_filesystem_state_reg[2]_i_15_O_UNCONNECTED [3:0]),
+        .S({\FSM_sequential_filesystem_state[2]_i_24_n_0 ,\FSM_sequential_filesystem_state[2]_i_25_n_0 ,\FSM_sequential_filesystem_state[2]_i_26_n_0 ,\FSM_sequential_filesystem_state[2]_i_27_n_0 }));
   LUT6 #(
     .INIT(64'h0000510010101010)) 
     \cluster_sector_offset[0]_i_1 
@@ -6986,7 +7083,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I4(search_fat_reg_n_0),
         .I5(filesystem_state[2]),
         .O(\cluster_sector_offset[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair239" *) 
+  (* SOFT_HLUTNM = "soft_lutpair228" *) 
   LUT3 #(
     .INIT(8'h06)) 
     \cluster_sector_offset[1]_i_1 
@@ -6994,7 +7091,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(cluster_sector_offset[0]),
         .I2(\cluster_sector_offset[4]_i_2_n_0 ),
         .O(\cluster_sector_offset[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair239" *) 
+  (* SOFT_HLUTNM = "soft_lutpair228" *) 
   LUT4 #(
     .INIT(16'h0078)) 
     \cluster_sector_offset[2]_i_1 
@@ -7003,7 +7100,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(cluster_sector_offset[2]),
         .I3(\cluster_sector_offset[4]_i_2_n_0 ),
         .O(\cluster_sector_offset[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair234" *) 
+  (* SOFT_HLUTNM = "soft_lutpair222" *) 
   LUT5 #(
     .INIT(32'h00007F80)) 
     \cluster_sector_offset[3]_i_1 
@@ -7023,7 +7120,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I4(cluster_sector_offset[4]),
         .I5(\cluster_sector_offset[4]_i_2_n_0 ),
         .O(\cluster_sector_offset[4]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair235" *) 
+  (* SOFT_HLUTNM = "soft_lutpair223" *) 
   LUT5 #(
     .INIT(32'hDFFF8ADF)) 
     \cluster_sector_offset[4]_i_2 
@@ -7063,7 +7160,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I4(search_fat_reg_n_0),
         .I5(filesystem_state[2]),
         .O(\cluster_sector_offset[6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair244" *) 
+  (* SOFT_HLUTNM = "soft_lutpair231" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \cluster_sector_offset[6]_i_2 
@@ -7080,7 +7177,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I4(search_fat_reg_n_0),
         .I5(filesystem_state[2]),
         .O(\cluster_sector_offset[7]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair244" *) 
+  (* SOFT_HLUTNM = "soft_lutpair231" *) 
   LUT3 #(
     .INIT(8'h95)) 
     \cluster_sector_offset[7]_i_4 
@@ -7088,14 +7185,14 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(cluster_sector_offset[6]),
         .I2(\cluster_sector_offset[7]_i_6_n_0 ),
         .O(\cluster_sector_offset[7]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair240" *) 
+  (* SOFT_HLUTNM = "soft_lutpair227" *) 
   LUT4 #(
-    .INIT(16'h5070)) 
+    .INIT(16'hFB33)) 
     \cluster_sector_offset[7]_i_5 
-       (.I0(filesystem_state[0]),
-        .I1(\filesystem_state_reg[2]_i_14_n_2 ),
-        .I2(filesystem_state[1]),
-        .I3(file_found),
+       (.I0(file_found),
+        .I1(filesystem_state[1]),
+        .I2(\FSM_sequential_filesystem_state_reg[2]_i_13_n_2 ),
+        .I3(filesystem_state[0]),
         .O(\cluster_sector_offset[7]_i_5_n_0 ));
   LUT6 #(
     .INIT(64'h8000000000000000)) 
@@ -7111,7 +7208,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \cluster_sector_offset_reg[0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_134),
+        .CE(u_sd_reader_n_123),
         .CLR(reset_n_0),
         .D(\cluster_sector_offset[0]_i_1_n_0 ),
         .Q(cluster_sector_offset[0]));
@@ -7119,7 +7216,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \cluster_sector_offset_reg[1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_134),
+        .CE(u_sd_reader_n_123),
         .CLR(reset_n_0),
         .D(\cluster_sector_offset[1]_i_1_n_0 ),
         .Q(cluster_sector_offset[1]));
@@ -7127,7 +7224,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \cluster_sector_offset_reg[2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_134),
+        .CE(u_sd_reader_n_123),
         .CLR(reset_n_0),
         .D(\cluster_sector_offset[2]_i_1_n_0 ),
         .Q(cluster_sector_offset[2]));
@@ -7135,7 +7232,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \cluster_sector_offset_reg[3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_134),
+        .CE(u_sd_reader_n_123),
         .CLR(reset_n_0),
         .D(\cluster_sector_offset[3]_i_1_n_0 ),
         .Q(cluster_sector_offset[3]));
@@ -7143,7 +7240,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \cluster_sector_offset_reg[4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_134),
+        .CE(u_sd_reader_n_123),
         .CLR(reset_n_0),
         .D(\cluster_sector_offset[4]_i_1_n_0 ),
         .Q(cluster_sector_offset[4]));
@@ -7151,7 +7248,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \cluster_sector_offset_reg[5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_134),
+        .CE(u_sd_reader_n_123),
         .CLR(reset_n_0),
         .D(\cluster_sector_offset[5]_i_1_n_0 ),
         .Q(cluster_sector_offset[5]));
@@ -7159,7 +7256,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \cluster_sector_offset_reg[6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_134),
+        .CE(u_sd_reader_n_123),
         .CLR(reset_n_0),
         .D(\cluster_sector_offset[6]_i_1_n_0 ),
         .Q(cluster_sector_offset[6]));
@@ -7167,11 +7264,11 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \cluster_sector_offset_reg[7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_134),
+        .CE(u_sd_reader_n_123),
         .CLR(reset_n_0),
         .D(\cluster_sector_offset[7]_i_2_n_0 ),
         .Q(cluster_sector_offset[7]));
-  (* SOFT_HLUTNM = "soft_lutpair246" *) 
+  (* SOFT_HLUTNM = "soft_lutpair221" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \cluster_size[7]_i_2 
@@ -7182,7 +7279,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \cluster_size_reg[0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\sector_content_reg_n_0_[13][0] ),
         .Q(cluster_size[0]));
@@ -7190,7 +7287,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \cluster_size_reg[1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\sector_content_reg_n_0_[13][1] ),
         .Q(cluster_size[1]));
@@ -7198,7 +7295,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \cluster_size_reg[2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\sector_content_reg_n_0_[13][2] ),
         .Q(cluster_size[2]));
@@ -7206,7 +7303,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \cluster_size_reg[3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\sector_content_reg_n_0_[13][3] ),
         .Q(cluster_size[3]));
@@ -7214,7 +7311,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \cluster_size_reg[4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\sector_content_reg_n_0_[13][4] ),
         .Q(cluster_size[4]));
@@ -7222,7 +7319,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \cluster_size_reg[5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\sector_content_reg_n_0_[13][5] ),
         .Q(cluster_size[5]));
@@ -7230,7 +7327,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \cluster_size_reg[6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\sector_content_reg_n_0_[13][6] ),
         .Q(cluster_size[6]));
@@ -7238,12 +7335,12 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \cluster_size_reg[7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\sector_content_reg_n_0_[13][7] ),
         .Q(cluster_size[7]));
   LUT5 #(
-    .INIT(32'h55CC55F0)) 
+    .INIT(32'hAACCAAF0)) 
     \curr_cluster[0]_i_1 
        (.I0(\curr_cluster[0]_i_2_n_0 ),
         .I1(file_cluster[0]),
@@ -7252,17 +7349,17 @@ module design_1_top_system_0_1_sd_file_reader
         .I4(filesystem_state[0]),
         .O(curr_cluster_t[0]));
   LUT6 #(
-    .INIT(64'h40407F7F404F707F)) 
+    .INIT(64'hBF80BF8FBF80B080)) 
     \curr_cluster[0]_i_2 
        (.I0(target_cluster_fat16[0]),
         .I1(\curr_cluster[31]_i_6_n_0 ),
         .I2(filesystem_state[0]),
-        .I3(file_cluster[0]),
-        .I4(target_cluster[0]),
-        .I5(search_fat_reg_n_0),
+        .I3(target_cluster[0]),
+        .I4(search_fat_reg_n_0),
+        .I5(file_cluster[0]),
         .O(\curr_cluster[0]_i_2_n_0 ));
   LUT5 #(
-    .INIT(32'h55CC55F0)) 
+    .INIT(32'hAACCAAF0)) 
     \curr_cluster[10]_i_1 
        (.I0(\curr_cluster[10]_i_2_n_0 ),
         .I1(file_cluster[10]),
@@ -7271,14 +7368,14 @@ module design_1_top_system_0_1_sd_file_reader
         .I4(filesystem_state[0]),
         .O(curr_cluster_t[10]));
   LUT6 #(
-    .INIT(64'h40407F7F404F707F)) 
+    .INIT(64'hBF80BF8FBF80B080)) 
     \curr_cluster[10]_i_2 
        (.I0(target_cluster_fat16[10]),
         .I1(\curr_cluster[31]_i_6_n_0 ),
         .I2(filesystem_state[0]),
-        .I3(file_cluster[10]),
-        .I4(target_cluster[10]),
-        .I5(search_fat_reg_n_0),
+        .I3(target_cluster[10]),
+        .I4(search_fat_reg_n_0),
+        .I5(file_cluster[10]),
         .O(\curr_cluster[10]_i_2_n_0 ));
   LUT5 #(
     .INIT(32'h55CC55F0)) 
@@ -7300,7 +7397,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I5(search_fat_reg_n_0),
         .O(\curr_cluster[11]_i_2_n_0 ));
   LUT5 #(
-    .INIT(32'h55CC55F0)) 
+    .INIT(32'hAACCAAF0)) 
     \curr_cluster[12]_i_1 
        (.I0(\curr_cluster[12]_i_2_n_0 ),
         .I1(file_cluster[12]),
@@ -7309,14 +7406,14 @@ module design_1_top_system_0_1_sd_file_reader
         .I4(filesystem_state[0]),
         .O(curr_cluster_t[12]));
   LUT6 #(
-    .INIT(64'h40407F7F404F707F)) 
+    .INIT(64'hBF80BF8FBF80B080)) 
     \curr_cluster[12]_i_2 
        (.I0(target_cluster_fat16[12]),
         .I1(\curr_cluster[31]_i_6_n_0 ),
         .I2(filesystem_state[0]),
-        .I3(file_cluster[12]),
-        .I4(target_cluster[12]),
-        .I5(search_fat_reg_n_0),
+        .I3(target_cluster[12]),
+        .I4(search_fat_reg_n_0),
+        .I5(file_cluster[12]),
         .O(\curr_cluster[12]_i_2_n_0 ));
   LUT5 #(
     .INIT(32'h55CC55F0)) 
@@ -7338,7 +7435,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I5(search_fat_reg_n_0),
         .O(\curr_cluster[13]_i_2_n_0 ));
   LUT5 #(
-    .INIT(32'h55CC55F0)) 
+    .INIT(32'hAACCAAF0)) 
     \curr_cluster[14]_i_1 
        (.I0(\curr_cluster[14]_i_2_n_0 ),
         .I1(file_cluster[14]),
@@ -7347,17 +7444,17 @@ module design_1_top_system_0_1_sd_file_reader
         .I4(filesystem_state[0]),
         .O(curr_cluster_t[14]));
   LUT6 #(
-    .INIT(64'h40407F7F404F707F)) 
+    .INIT(64'hBF80BF8FBF80B080)) 
     \curr_cluster[14]_i_2 
        (.I0(target_cluster_fat16[14]),
         .I1(\curr_cluster[31]_i_6_n_0 ),
         .I2(filesystem_state[0]),
-        .I3(file_cluster[14]),
-        .I4(target_cluster[14]),
-        .I5(search_fat_reg_n_0),
+        .I3(target_cluster[14]),
+        .I4(search_fat_reg_n_0),
+        .I5(file_cluster[14]),
         .O(\curr_cluster[14]_i_2_n_0 ));
   LUT5 #(
-    .INIT(32'h55CC55F0)) 
+    .INIT(32'hAACCAAF0)) 
     \curr_cluster[15]_i_1 
        (.I0(\curr_cluster[15]_i_2_n_0 ),
         .I1(file_cluster[15]),
@@ -7366,51 +7463,51 @@ module design_1_top_system_0_1_sd_file_reader
         .I4(filesystem_state[0]),
         .O(curr_cluster_t[15]));
   LUT6 #(
-    .INIT(64'h40407F7F404F707F)) 
+    .INIT(64'hBF80BF8FBF80B080)) 
     \curr_cluster[15]_i_2 
        (.I0(target_cluster_fat16[15]),
         .I1(\curr_cluster[31]_i_6_n_0 ),
         .I2(filesystem_state[0]),
-        .I3(file_cluster[15]),
-        .I4(target_cluster[15]),
-        .I5(search_fat_reg_n_0),
+        .I3(target_cluster[15]),
+        .I4(search_fat_reg_n_0),
+        .I5(file_cluster[15]),
         .O(\curr_cluster[15]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h22220000A0A0FF00)) 
+    .INIT(64'h0A0A00008888FF00)) 
     \curr_cluster[16]_i_1 
        (.I0(target_cluster[16]),
-        .I1(\curr_cluster[31]_i_6_n_0 ),
-        .I2(search_fat_reg_n_0),
+        .I1(search_fat_reg_n_0),
+        .I2(\curr_cluster[31]_i_6_n_0 ),
         .I3(in18[16]),
         .I4(filesystem_state[2]),
         .I5(filesystem_state[0]),
         .O(curr_cluster_t[16]));
   LUT6 #(
-    .INIT(64'h22220000A0A0FF00)) 
+    .INIT(64'h0A0A00008888FF00)) 
     \curr_cluster[17]_i_1 
        (.I0(target_cluster[17]),
-        .I1(\curr_cluster[31]_i_6_n_0 ),
-        .I2(search_fat_reg_n_0),
+        .I1(search_fat_reg_n_0),
+        .I2(\curr_cluster[31]_i_6_n_0 ),
         .I3(in18[17]),
         .I4(filesystem_state[2]),
         .I5(filesystem_state[0]),
         .O(curr_cluster_t[17]));
   LUT6 #(
-    .INIT(64'h22220000A0A0FF00)) 
+    .INIT(64'h0A0A00008888FF00)) 
     \curr_cluster[18]_i_1 
        (.I0(target_cluster[18]),
-        .I1(\curr_cluster[31]_i_6_n_0 ),
-        .I2(search_fat_reg_n_0),
+        .I1(search_fat_reg_n_0),
+        .I2(\curr_cluster[31]_i_6_n_0 ),
         .I3(in18[18]),
         .I4(filesystem_state[2]),
         .I5(filesystem_state[0]),
         .O(curr_cluster_t[18]));
   LUT6 #(
-    .INIT(64'h22220000A0A0FF00)) 
+    .INIT(64'h0A0A00008888FF00)) 
     \curr_cluster[19]_i_1 
        (.I0(target_cluster[19]),
-        .I1(\curr_cluster[31]_i_6_n_0 ),
-        .I2(search_fat_reg_n_0),
+        .I1(search_fat_reg_n_0),
+        .I2(\curr_cluster[31]_i_6_n_0 ),
         .I3(in18[19]),
         .I4(filesystem_state[2]),
         .I5(filesystem_state[0]),
@@ -7435,107 +7532,107 @@ module design_1_top_system_0_1_sd_file_reader
         .I5(search_fat_reg_n_0),
         .O(\curr_cluster[1]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h22220000A0A0FF00)) 
+    .INIT(64'h0A0A00008888FF00)) 
     \curr_cluster[20]_i_1 
        (.I0(target_cluster[20]),
-        .I1(\curr_cluster[31]_i_6_n_0 ),
-        .I2(search_fat_reg_n_0),
+        .I1(search_fat_reg_n_0),
+        .I2(\curr_cluster[31]_i_6_n_0 ),
         .I3(in18[20]),
         .I4(filesystem_state[2]),
         .I5(filesystem_state[0]),
         .O(curr_cluster_t[20]));
   LUT6 #(
-    .INIT(64'h22220000A0A0FF00)) 
+    .INIT(64'h0A0A00008888FF00)) 
     \curr_cluster[21]_i_1 
        (.I0(target_cluster[21]),
-        .I1(\curr_cluster[31]_i_6_n_0 ),
-        .I2(search_fat_reg_n_0),
+        .I1(search_fat_reg_n_0),
+        .I2(\curr_cluster[31]_i_6_n_0 ),
         .I3(in18[21]),
         .I4(filesystem_state[2]),
         .I5(filesystem_state[0]),
         .O(curr_cluster_t[21]));
   LUT6 #(
-    .INIT(64'h22220000A0A0FF00)) 
+    .INIT(64'h0A0A00008888FF00)) 
     \curr_cluster[22]_i_1 
        (.I0(target_cluster[22]),
-        .I1(\curr_cluster[31]_i_6_n_0 ),
-        .I2(search_fat_reg_n_0),
+        .I1(search_fat_reg_n_0),
+        .I2(\curr_cluster[31]_i_6_n_0 ),
         .I3(in18[22]),
         .I4(filesystem_state[2]),
         .I5(filesystem_state[0]),
         .O(curr_cluster_t[22]));
   LUT6 #(
-    .INIT(64'h22220000A0A0FF00)) 
+    .INIT(64'h0A0A00008888FF00)) 
     \curr_cluster[23]_i_1 
        (.I0(target_cluster[23]),
-        .I1(\curr_cluster[31]_i_6_n_0 ),
-        .I2(search_fat_reg_n_0),
+        .I1(search_fat_reg_n_0),
+        .I2(\curr_cluster[31]_i_6_n_0 ),
         .I3(in18[23]),
         .I4(filesystem_state[2]),
         .I5(filesystem_state[0]),
         .O(curr_cluster_t[23]));
   LUT6 #(
-    .INIT(64'h22220000A0A0FF00)) 
+    .INIT(64'h0A0A00008888FF00)) 
     \curr_cluster[24]_i_1 
        (.I0(target_cluster[24]),
-        .I1(\curr_cluster[31]_i_6_n_0 ),
-        .I2(search_fat_reg_n_0),
+        .I1(search_fat_reg_n_0),
+        .I2(\curr_cluster[31]_i_6_n_0 ),
         .I3(in18[24]),
         .I4(filesystem_state[2]),
         .I5(filesystem_state[0]),
         .O(curr_cluster_t[24]));
   LUT6 #(
-    .INIT(64'h22220000A0A0FF00)) 
+    .INIT(64'h0A0A00008888FF00)) 
     \curr_cluster[25]_i_1 
        (.I0(target_cluster[25]),
-        .I1(\curr_cluster[31]_i_6_n_0 ),
-        .I2(search_fat_reg_n_0),
+        .I1(search_fat_reg_n_0),
+        .I2(\curr_cluster[31]_i_6_n_0 ),
         .I3(in18[25]),
         .I4(filesystem_state[2]),
         .I5(filesystem_state[0]),
         .O(curr_cluster_t[25]));
   LUT6 #(
-    .INIT(64'h22220000A0A0FF00)) 
+    .INIT(64'h0A0A00008888FF00)) 
     \curr_cluster[26]_i_1 
        (.I0(target_cluster[26]),
-        .I1(\curr_cluster[31]_i_6_n_0 ),
-        .I2(search_fat_reg_n_0),
+        .I1(search_fat_reg_n_0),
+        .I2(\curr_cluster[31]_i_6_n_0 ),
         .I3(in18[26]),
         .I4(filesystem_state[2]),
         .I5(filesystem_state[0]),
         .O(curr_cluster_t[26]));
   LUT6 #(
-    .INIT(64'h22220000A0A0FF00)) 
+    .INIT(64'h0A0A00008888FF00)) 
     \curr_cluster[27]_i_1 
        (.I0(target_cluster[27]),
-        .I1(\curr_cluster[31]_i_6_n_0 ),
-        .I2(search_fat_reg_n_0),
+        .I1(search_fat_reg_n_0),
+        .I2(\curr_cluster[31]_i_6_n_0 ),
         .I3(in18[27]),
         .I4(filesystem_state[2]),
         .I5(filesystem_state[0]),
         .O(curr_cluster_t[27]));
   LUT6 #(
-    .INIT(64'h22220000A0A0FF00)) 
+    .INIT(64'h0A0A00008888FF00)) 
     \curr_cluster[28]_i_1 
        (.I0(target_cluster[28]),
-        .I1(\curr_cluster[31]_i_6_n_0 ),
-        .I2(search_fat_reg_n_0),
+        .I1(search_fat_reg_n_0),
+        .I2(\curr_cluster[31]_i_6_n_0 ),
         .I3(in18[28]),
         .I4(filesystem_state[2]),
         .I5(filesystem_state[0]),
         .O(curr_cluster_t[28]));
   LUT6 #(
-    .INIT(64'h22220000A0A0FF00)) 
+    .INIT(64'h0A0A00008888FF00)) 
     \curr_cluster[29]_i_1 
        (.I0(target_cluster[29]),
-        .I1(\curr_cluster[31]_i_6_n_0 ),
-        .I2(search_fat_reg_n_0),
+        .I1(search_fat_reg_n_0),
+        .I2(\curr_cluster[31]_i_6_n_0 ),
         .I3(in18[29]),
         .I4(filesystem_state[2]),
         .I5(filesystem_state[0]),
         .O(curr_cluster_t[29]));
   LUT5 #(
-    .INIT(32'h55CC55F0)) 
+    .INIT(32'hAACCAAF0)) 
     \curr_cluster[2]_i_1 
        (.I0(\curr_cluster[2]_i_2_n_0 ),
         .I1(file_cluster[2]),
@@ -7544,145 +7641,150 @@ module design_1_top_system_0_1_sd_file_reader
         .I4(filesystem_state[0]),
         .O(curr_cluster_t[2]));
   LUT6 #(
-    .INIT(64'h40407F7F404F707F)) 
+    .INIT(64'hBF80BF8FBF80B080)) 
     \curr_cluster[2]_i_2 
        (.I0(target_cluster_fat16[2]),
         .I1(\curr_cluster[31]_i_6_n_0 ),
         .I2(filesystem_state[0]),
-        .I3(file_cluster[2]),
-        .I4(target_cluster[2]),
-        .I5(search_fat_reg_n_0),
+        .I3(target_cluster[2]),
+        .I4(search_fat_reg_n_0),
+        .I5(file_cluster[2]),
         .O(\curr_cluster[2]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h22220000A0A0FF00)) 
+    .INIT(64'h0A0A00008888FF00)) 
     \curr_cluster[30]_i_1 
        (.I0(target_cluster[30]),
-        .I1(\curr_cluster[31]_i_6_n_0 ),
-        .I2(search_fat_reg_n_0),
+        .I1(search_fat_reg_n_0),
+        .I2(\curr_cluster[31]_i_6_n_0 ),
         .I3(in18[30]),
         .I4(filesystem_state[2]),
         .I5(filesystem_state[0]),
         .O(curr_cluster_t[30]));
-  LUT4 #(
-    .INIT(16'hFFDF)) 
+  LUT5 #(
+    .INIT(32'hFFFFFFFE)) 
     \curr_cluster[31]_i_10 
-       (.I0(\sector_content_reg_n_0_[511][7] ),
-        .I1(\sector_content_reg_n_0_[511][4] ),
-        .I2(\sector_content_reg_n_0_[510][0] ),
-        .I3(\sector_content_reg_n_0_[510][1] ),
+       (.I0(target_cluster_fat16[9]),
+        .I1(target_cluster_fat16[14]),
+        .I2(target_cluster_fat16[6]),
+        .I3(target_cluster_fat16[11]),
+        .I4(\curr_cluster[31]_i_18_n_0 ),
         .O(\curr_cluster[31]_i_10_n_0 ));
-  LUT4 #(
-    .INIT(16'h0040)) 
+  LUT6 #(
+    .INIT(64'h0000000000008000)) 
     \curr_cluster[31]_i_11 
-       (.I0(\sector_content_reg_n_0_[511][6] ),
-        .I1(\sector_content_reg_n_0_[510][6] ),
-        .I2(\sector_content_reg_n_0_[510][2] ),
-        .I3(\sector_content_reg_n_0_[510][5] ),
+       (.I0(target_cluster_fat16[10]),
+        .I1(target_cluster_fat16[14]),
+        .I2(target_cluster_fat16[4]),
+        .I3(target_cluster_fat16[7]),
+        .I4(\curr_cluster[31]_i_19_n_0 ),
+        .I5(\curr_cluster[31]_i_20_n_0 ),
         .O(\curr_cluster[31]_i_11_n_0 ));
-  LUT4 #(
-    .INIT(16'hFFEF)) 
-    \curr_cluster[31]_i_12 
-       (.I0(\sector_content_reg_n_0_[510][3] ),
-        .I1(\sector_content_reg_n_0_[511][2] ),
-        .I2(\sector_content_reg_n_0_[511][3] ),
-        .I3(\sector_content_reg_n_0_[510][7] ),
-        .O(\curr_cluster[31]_i_12_n_0 ));
-  LUT4 #(
-    .INIT(16'h0040)) 
-    \curr_cluster[31]_i_13 
-       (.I0(\sector_content_reg_n_0_[0][4] ),
-        .I1(\sector_content_reg_n_0_[0][3] ),
-        .I2(\sector_content_reg_n_0_[0][7] ),
-        .I3(\sector_content_reg_n_0_[0][2] ),
-        .O(\curr_cluster[31]_i_13_n_0 ));
-  LUT3 #(
-    .INIT(8'h80)) 
-    \curr_cluster[31]_i_14 
-       (.I0(\sector_content_reg_n_0_[0][0] ),
-        .I1(\sector_content_reg_n_0_[0][5] ),
-        .I2(\sector_content_reg_n_0_[0][6] ),
-        .O(\curr_cluster[31]_i_14_n_0 ));
   LUT6 #(
     .INIT(64'h0000000000000004)) 
-    \curr_cluster[31]_i_15 
+    \curr_cluster[31]_i_12 
        (.I0(\curr_cluster[31]_i_21_n_0 ),
         .I1(\curr_cluster[31]_i_22_n_0 ),
-        .I2(target_cluster[26]),
-        .I3(target_cluster[17]),
-        .I4(target_cluster[6]),
+        .I2(target_cluster[5]),
+        .I3(target_cluster[9]),
+        .I4(target_cluster[7]),
         .I5(\curr_cluster[31]_i_23_n_0 ),
-        .O(\curr_cluster[31]_i_15_n_0 ));
+        .O(\curr_cluster[31]_i_12_n_0 ));
   LUT4 #(
     .INIT(16'hFFFE)) 
-    \curr_cluster[31]_i_16 
+    \curr_cluster[31]_i_13 
        (.I0(\curr_cluster[31]_i_24_n_0 ),
         .I1(\curr_cluster[31]_i_25_n_0 ),
         .I2(\curr_cluster[31]_i_26_n_0 ),
         .I3(\curr_cluster[31]_i_27_n_0 ),
-        .O(\curr_cluster[31]_i_16_n_0 ));
-  LUT5 #(
-    .INIT(32'hFEFEFCFE)) 
-    \curr_cluster[31]_i_17 
+        .O(\curr_cluster[31]_i_13_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFEFEFE00)) 
+    \curr_cluster[31]_i_14 
        (.I0(\curr_cluster[31]_i_28_n_0 ),
         .I1(\curr_cluster[31]_i_29_n_0 ),
         .I2(\curr_cluster[31]_i_30_n_0 ),
         .I3(\curr_cluster[31]_i_31_n_0 ),
-        .I4(\curr_cluster[31]_i_23_n_0 ),
-        .O(\curr_cluster[31]_i_17_n_0 ));
-  LUT5 #(
-    .INIT(32'hFFFF7FFF)) 
-    \curr_cluster[31]_i_18 
-       (.I0(target_cluster[15]),
-        .I1(target_cluster[22]),
-        .I2(target_cluster[21]),
-        .I3(target_cluster[23]),
         .I4(\curr_cluster[31]_i_32_n_0 ),
-        .O(\curr_cluster[31]_i_18_n_0 ));
+        .I5(\curr_cluster[31]_i_33_n_0 ),
+        .O(\curr_cluster[31]_i_14_n_0 ));
   LUT5 #(
     .INIT(32'hFFFF7FFF)) 
-    \curr_cluster[31]_i_19 
-       (.I0(target_cluster[8]),
-        .I1(target_cluster[13]),
+    \curr_cluster[31]_i_15 
+       (.I0(target_cluster[18]),
+        .I1(target_cluster[22]),
+        .I2(target_cluster[20]),
+        .I3(target_cluster[21]),
+        .I4(\curr_cluster[31]_i_34_n_0 ),
+        .O(\curr_cluster[31]_i_15_n_0 ));
+  LUT5 #(
+    .INIT(32'hFFFF7FFF)) 
+    \curr_cluster[31]_i_16 
+       (.I0(target_cluster[12]),
+        .I1(target_cluster[17]),
         .I2(target_cluster[9]),
-        .I3(target_cluster[10]),
-        .I4(\curr_cluster[31]_i_33_n_0 ),
-        .O(\curr_cluster[31]_i_19_n_0 ));
-  LUT6 #(
-    .INIT(64'h22220000A0A0FF00)) 
-    \curr_cluster[31]_i_2 
-       (.I0(target_cluster[31]),
-        .I1(\curr_cluster[31]_i_6_n_0 ),
-        .I2(search_fat_reg_n_0),
-        .I3(in18[31]),
-        .I4(filesystem_state[2]),
-        .I5(filesystem_state[0]),
-        .O(curr_cluster_t[31]));
-  (* SOFT_HLUTNM = "soft_lutpair242" *) 
+        .I3(target_cluster[23]),
+        .I4(\curr_cluster[31]_i_35_n_0 ),
+        .O(\curr_cluster[31]_i_16_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair229" *) 
   LUT4 #(
     .INIT(16'h7FFE)) 
-    \curr_cluster[31]_i_20 
+    \curr_cluster[31]_i_17 
        (.I0(target_cluster[28]),
         .I1(target_cluster[31]),
         .I2(target_cluster[29]),
         .I3(target_cluster[30]),
+        .O(\curr_cluster[31]_i_17_n_0 ));
+  LUT4 #(
+    .INIT(16'hFFFE)) 
+    \curr_cluster[31]_i_18 
+       (.I0(target_cluster_fat16[2]),
+        .I1(target_cluster_fat16[1]),
+        .I2(target_cluster_fat16[12]),
+        .I3(target_cluster_fat16[7]),
+        .O(\curr_cluster[31]_i_18_n_0 ));
+  LUT4 #(
+    .INIT(16'h7FFF)) 
+    \curr_cluster[31]_i_19 
+       (.I0(target_cluster_fat16[12]),
+        .I1(target_cluster_fat16[9]),
+        .I2(target_cluster_fat16[15]),
+        .I3(target_cluster_fat16[8]),
+        .O(\curr_cluster[31]_i_19_n_0 ));
+  LUT6 #(
+    .INIT(64'h0A0A00008888FF00)) 
+    \curr_cluster[31]_i_2 
+       (.I0(target_cluster[31]),
+        .I1(search_fat_reg_n_0),
+        .I2(\curr_cluster[31]_i_6_n_0 ),
+        .I3(in18[31]),
+        .I4(filesystem_state[2]),
+        .I5(filesystem_state[0]),
+        .O(curr_cluster_t[31]));
+  LUT4 #(
+    .INIT(16'h7FFF)) 
+    \curr_cluster[31]_i_20 
+       (.I0(target_cluster_fat16[6]),
+        .I1(target_cluster_fat16[5]),
+        .I2(target_cluster_fat16[13]),
+        .I3(target_cluster_fat16[11]),
         .O(\curr_cluster[31]_i_20_n_0 ));
   LUT4 #(
     .INIT(16'hFFFE)) 
     \curr_cluster[31]_i_21 
-       (.I0(target_cluster[7]),
-        .I1(target_cluster[5]),
-        .I2(target_cluster[25]),
-        .I3(target_cluster[2]),
+       (.I0(target_cluster[15]),
+        .I1(target_cluster[1]),
+        .I2(target_cluster[23]),
+        .I3(target_cluster[12]),
         .O(\curr_cluster[31]_i_21_n_0 ));
   LUT4 #(
     .INIT(16'h0001)) 
     \curr_cluster[31]_i_22 
-       (.I0(target_cluster[9]),
-        .I1(target_cluster[4]),
-        .I2(target_cluster[24]),
-        .I3(target_cluster[3]),
+       (.I0(target_cluster[17]),
+        .I1(target_cluster[10]),
+        .I2(target_cluster[4]),
+        .I3(target_cluster[2]),
         .O(\curr_cluster[31]_i_22_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair242" *) 
+  (* SOFT_HLUTNM = "soft_lutpair229" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     \curr_cluster[31]_i_23 
@@ -7694,112 +7796,126 @@ module design_1_top_system_0_1_sd_file_reader
   LUT4 #(
     .INIT(16'hFFFE)) 
     \curr_cluster[31]_i_24 
-       (.I0(target_cluster[27]),
-        .I1(target_cluster[19]),
-        .I2(target_cluster[21]),
-        .I3(target_cluster[16]),
+       (.I0(target_cluster[25]),
+        .I1(target_cluster[3]),
+        .I2(target_cluster[24]),
+        .I3(target_cluster[6]),
         .O(\curr_cluster[31]_i_24_n_0 ));
   LUT4 #(
     .INIT(16'hFFFE)) 
     \curr_cluster[31]_i_25 
-       (.I0(target_cluster[23]),
-        .I1(target_cluster[22]),
-        .I2(target_cluster[20]),
-        .I3(target_cluster[15]),
+       (.I0(target_cluster[26]),
+        .I1(target_cluster[8]),
+        .I2(target_cluster[27]),
+        .I3(target_cluster[19]),
         .O(\curr_cluster[31]_i_25_n_0 ));
   LUT4 #(
     .INIT(16'hFFFE)) 
     \curr_cluster[31]_i_26 
-       (.I0(target_cluster[13]),
-        .I1(target_cluster[11]),
-        .I2(target_cluster[14]),
-        .I3(target_cluster[8]),
+       (.I0(target_cluster[18]),
+        .I1(target_cluster[16]),
+        .I2(target_cluster[22]),
+        .I3(target_cluster[21]),
         .O(\curr_cluster[31]_i_26_n_0 ));
   LUT4 #(
     .INIT(16'hFFFE)) 
     \curr_cluster[31]_i_27 
-       (.I0(target_cluster[18]),
-        .I1(target_cluster[12]),
-        .I2(target_cluster[10]),
-        .I3(target_cluster[1]),
+       (.I0(target_cluster[20]),
+        .I1(target_cluster[13]),
+        .I2(target_cluster[14]),
+        .I3(target_cluster[11]),
         .O(\curr_cluster[31]_i_27_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair243" *) 
-  LUT4 #(
-    .INIT(16'h7FFF)) 
+  (* SOFT_HLUTNM = "soft_lutpair248" *) 
+  LUT3 #(
+    .INIT(8'hFB)) 
     \curr_cluster[31]_i_28 
-       (.I0(target_cluster[3]),
-        .I1(target_cluster[0]),
-        .I2(target_cluster[2]),
-        .I3(target_cluster[1]),
+       (.I0(target_cluster[1]),
+        .I1(target_cluster[7]),
+        .I2(target_cluster[0]),
         .O(\curr_cluster[31]_i_28_n_0 ));
   LUT4 #(
-    .INIT(16'h7FFF)) 
+    .INIT(16'hEFFF)) 
     \curr_cluster[31]_i_29 
-       (.I0(target_cluster[7]),
-        .I1(target_cluster[6]),
-        .I2(target_cluster[27]),
-        .I3(target_cluster[26]),
+       (.I0(target_cluster[31]),
+        .I1(target_cluster[29]),
+        .I2(target_cluster[26]),
+        .I3(target_cluster[6]),
         .O(\curr_cluster[31]_i_29_n_0 ));
   LUT6 #(
-    .INIT(64'hA0A08A8000008A80)) 
+    .INIT(64'h2020F0FF7F7FF0FF)) 
     \curr_cluster[31]_i_3 
-       (.I0(search_fat_i_3_n_0),
+       (.I0(\curr_cluster[31]_i_6_n_0 ),
         .I1(\curr_cluster[31]_i_7_n_0 ),
-        .I2(search_fat_reg_n_0),
+        .I2(filesystem_state[0]),
         .I3(file_found),
-        .I4(filesystem_state[0]),
+        .I4(search_fat_reg_n_0),
         .I5(\curr_cluster[31]_i_8_n_0 ),
         .O(\curr_cluster[31]_i_3_n_0 ));
   LUT4 #(
-    .INIT(16'h7FFF)) 
+    .INIT(16'hFFFD)) 
     \curr_cluster[31]_i_30 
-       (.I0(target_cluster[25]),
-        .I1(target_cluster[24]),
-        .I2(target_cluster[5]),
-        .I3(target_cluster[4]),
+       (.I0(target_cluster[27]),
+        .I1(target_cluster[28]),
+        .I2(target_cluster[30]),
+        .I3(target_cluster[2]),
         .O(\curr_cluster[31]_i_30_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair243" *) 
-  LUT4 #(
-    .INIT(16'h0004)) 
+  (* SOFT_HLUTNM = "soft_lutpair248" *) 
+  LUT3 #(
+    .INIT(8'h7F)) 
     \curr_cluster[31]_i_31 
-       (.I0(target_cluster[2]),
-        .I1(target_cluster[3]),
-        .I2(target_cluster[1]),
-        .I3(target_cluster[0]),
+       (.I0(target_cluster[7]),
+        .I1(target_cluster[1]),
+        .I2(target_cluster[2]),
         .O(\curr_cluster[31]_i_31_n_0 ));
   LUT4 #(
     .INIT(16'h7FFF)) 
     \curr_cluster[31]_i_32 
-       (.I0(target_cluster[19]),
-        .I1(target_cluster[17]),
-        .I2(target_cluster[20]),
-        .I3(target_cluster[14]),
+       (.I0(target_cluster[26]),
+        .I1(target_cluster[6]),
+        .I2(target_cluster[27]),
+        .I3(target_cluster[0]),
         .O(\curr_cluster[31]_i_32_n_0 ));
+  LUT5 #(
+    .INIT(32'h7FFFFFFF)) 
+    \curr_cluster[31]_i_33 
+       (.I0(target_cluster[5]),
+        .I1(target_cluster[4]),
+        .I2(target_cluster[3]),
+        .I3(target_cluster[25]),
+        .I4(target_cluster[24]),
+        .O(\curr_cluster[31]_i_33_n_0 ));
   LUT4 #(
     .INIT(16'h7FFF)) 
-    \curr_cluster[31]_i_33 
-       (.I0(target_cluster[18]),
-        .I1(target_cluster[11]),
+    \curr_cluster[31]_i_34 
+       (.I0(target_cluster[11]),
+        .I1(target_cluster[8]),
         .I2(target_cluster[16]),
-        .I3(target_cluster[12]),
-        .O(\curr_cluster[31]_i_33_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair240" *) 
-  LUT3 #(
-    .INIT(8'h80)) 
+        .I3(target_cluster[15]),
+        .O(\curr_cluster[31]_i_34_n_0 ));
+  LUT4 #(
+    .INIT(16'h7FFF)) 
+    \curr_cluster[31]_i_35 
+       (.I0(target_cluster[19]),
+        .I1(target_cluster[10]),
+        .I2(target_cluster[14]),
+        .I3(target_cluster[13]),
+        .O(\curr_cluster[31]_i_35_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair250" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \curr_cluster[31]_i_4 
-       (.I0(filesystem_state[1]),
+       (.I0(file_found),
         .I1(filesystem_state[0]),
-        .I2(file_found),
         .O(\curr_cluster[31]_i_4_n_0 ));
   LUT6 #(
-    .INIT(64'hFFEFFFFFFFFFFFFF)) 
+    .INIT(64'hFFFFFBFFFFFFFFFF)) 
     \curr_cluster[31]_i_5 
-       (.I0(\curr_cluster[31]_i_9_n_0 ),
-        .I1(\curr_cluster[31]_i_10_n_0 ),
-        .I2(\curr_cluster[31]_i_11_n_0 ),
-        .I3(\curr_cluster[31]_i_12_n_0 ),
-        .I4(\curr_cluster[31]_i_13_n_0 ),
-        .I5(\curr_cluster[31]_i_14_n_0 ),
+       (.I0(\FSM_sequential_filesystem_state[2]_i_5_n_0 ),
+        .I1(filesystem_state[1]),
+        .I2(\read_sector_no[31]_i_3_n_0 ),
+        .I3(read_sector_no1__1_i_19_n_0),
+        .I4(filesystem_state[0]),
+        .I5(\rootdir_sectorcount[11]_i_3_n_0 ),
         .O(\curr_cluster[31]_i_5_n_0 ));
   LUT2 #(
     .INIT(4'h2)) 
@@ -7808,31 +7924,32 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\filesystem_reg_n_0_[0] ),
         .O(\curr_cluster[31]_i_6_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFDDDDDDD0)) 
+    .INIT(64'h00000000FFFFFFFE)) 
     \curr_cluster[31]_i_7 
-       (.I0(\curr_cluster[31]_i_15_n_0 ),
-        .I1(\curr_cluster[31]_i_16_n_0 ),
-        .I2(\curr_cluster[31]_i_17_n_0 ),
-        .I3(\curr_cluster[31]_i_18_n_0 ),
-        .I4(\curr_cluster[31]_i_19_n_0 ),
-        .I5(\curr_cluster[31]_i_20_n_0 ),
+       (.I0(target_cluster_fat16[8]),
+        .I1(target_cluster_fat16[15]),
+        .I2(target_cluster_fat16[3]),
+        .I3(\curr_cluster[31]_i_9_n_0 ),
+        .I4(\curr_cluster[31]_i_10_n_0 ),
+        .I5(\curr_cluster[31]_i_11_n_0 ),
         .O(\curr_cluster[31]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair241" *) 
-  LUT4 #(
-    .INIT(16'hFB08)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFFDDDDDDD0)) 
     \curr_cluster[31]_i_8 
-       (.I0(\filesystem_state[2]_i_13_n_0 ),
-        .I1(\filesystem_reg_n_0_[1] ),
-        .I2(\filesystem_reg_n_0_[0] ),
-        .I3(\curr_cluster[31]_i_7_n_0 ),
+       (.I0(\curr_cluster[31]_i_12_n_0 ),
+        .I1(\curr_cluster[31]_i_13_n_0 ),
+        .I2(\curr_cluster[31]_i_14_n_0 ),
+        .I3(\curr_cluster[31]_i_15_n_0 ),
+        .I4(\curr_cluster[31]_i_16_n_0 ),
+        .I5(\curr_cluster[31]_i_17_n_0 ),
         .O(\curr_cluster[31]_i_8_n_0 ));
   LUT4 #(
-    .INIT(16'hFF7F)) 
+    .INIT(16'hFFFE)) 
     \curr_cluster[31]_i_9 
-       (.I0(\sector_content_reg_n_0_[511][1] ),
-        .I1(\sector_content_reg_n_0_[510][4] ),
-        .I2(\sector_content_reg_n_0_[511][5] ),
-        .I3(\sector_content_reg_n_0_[511][0] ),
+       (.I0(target_cluster_fat16[13]),
+        .I1(target_cluster_fat16[10]),
+        .I2(target_cluster_fat16[5]),
+        .I3(target_cluster_fat16[4]),
         .O(\curr_cluster[31]_i_9_n_0 ));
   LUT5 #(
     .INIT(32'h55CC55F0)) 
@@ -7854,7 +7971,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I5(search_fat_reg_n_0),
         .O(\curr_cluster[3]_i_2_n_0 ));
   LUT5 #(
-    .INIT(32'h55CC55F0)) 
+    .INIT(32'hAACCAAF0)) 
     \curr_cluster[4]_i_1 
        (.I0(\curr_cluster[4]_i_2_n_0 ),
         .I1(file_cluster[4]),
@@ -7863,17 +7980,17 @@ module design_1_top_system_0_1_sd_file_reader
         .I4(filesystem_state[0]),
         .O(curr_cluster_t[4]));
   LUT6 #(
-    .INIT(64'h40407F7F404F707F)) 
+    .INIT(64'hBF80BF8FBF80B080)) 
     \curr_cluster[4]_i_2 
        (.I0(target_cluster_fat16[4]),
         .I1(\curr_cluster[31]_i_6_n_0 ),
         .I2(filesystem_state[0]),
-        .I3(file_cluster[4]),
-        .I4(target_cluster[4]),
-        .I5(search_fat_reg_n_0),
+        .I3(target_cluster[4]),
+        .I4(search_fat_reg_n_0),
+        .I5(file_cluster[4]),
         .O(\curr_cluster[4]_i_2_n_0 ));
   LUT5 #(
-    .INIT(32'h55CC55F0)) 
+    .INIT(32'hAACCAAF0)) 
     \curr_cluster[5]_i_1 
        (.I0(\curr_cluster[5]_i_2_n_0 ),
         .I1(file_cluster[5]),
@@ -7882,14 +7999,14 @@ module design_1_top_system_0_1_sd_file_reader
         .I4(filesystem_state[0]),
         .O(curr_cluster_t[5]));
   LUT6 #(
-    .INIT(64'h40407F7F404F707F)) 
+    .INIT(64'hBF80BF8FBF80B080)) 
     \curr_cluster[5]_i_2 
        (.I0(target_cluster_fat16[5]),
         .I1(\curr_cluster[31]_i_6_n_0 ),
         .I2(filesystem_state[0]),
-        .I3(file_cluster[5]),
-        .I4(target_cluster[5]),
-        .I5(search_fat_reg_n_0),
+        .I3(target_cluster[5]),
+        .I4(search_fat_reg_n_0),
+        .I5(file_cluster[5]),
         .O(\curr_cluster[5]_i_2_n_0 ));
   LUT5 #(
     .INIT(32'h55CC55F0)) 
@@ -7930,7 +8047,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I5(search_fat_reg_n_0),
         .O(\curr_cluster[7]_i_2_n_0 ));
   LUT5 #(
-    .INIT(32'h55CC55F0)) 
+    .INIT(32'hAACCAAF0)) 
     \curr_cluster[8]_i_1 
        (.I0(\curr_cluster[8]_i_2_n_0 ),
         .I1(file_cluster[8]),
@@ -7939,17 +8056,17 @@ module design_1_top_system_0_1_sd_file_reader
         .I4(filesystem_state[0]),
         .O(curr_cluster_t[8]));
   LUT6 #(
-    .INIT(64'h40407F7F404F707F)) 
+    .INIT(64'hBF80BF8FBF80B080)) 
     \curr_cluster[8]_i_2 
        (.I0(target_cluster_fat16[8]),
         .I1(\curr_cluster[31]_i_6_n_0 ),
         .I2(filesystem_state[0]),
-        .I3(file_cluster[8]),
-        .I4(target_cluster[8]),
-        .I5(search_fat_reg_n_0),
+        .I3(target_cluster[8]),
+        .I4(search_fat_reg_n_0),
+        .I5(file_cluster[8]),
         .O(\curr_cluster[8]_i_2_n_0 ));
   LUT5 #(
-    .INIT(32'h55CC55F0)) 
+    .INIT(32'hAACCAAF0)) 
     \curr_cluster[9]_i_1 
        (.I0(\curr_cluster[9]_i_2_n_0 ),
         .I1(file_cluster[9]),
@@ -7958,20 +8075,20 @@ module design_1_top_system_0_1_sd_file_reader
         .I4(filesystem_state[0]),
         .O(curr_cluster_t[9]));
   LUT6 #(
-    .INIT(64'h40407F7F404F707F)) 
+    .INIT(64'hBF80BF8FBF80B080)) 
     \curr_cluster[9]_i_2 
        (.I0(target_cluster_fat16[9]),
         .I1(\curr_cluster[31]_i_6_n_0 ),
         .I2(filesystem_state[0]),
-        .I3(file_cluster[9]),
-        .I4(target_cluster[9]),
-        .I5(search_fat_reg_n_0),
+        .I3(target_cluster[9]),
+        .I4(search_fat_reg_n_0),
+        .I5(file_cluster[9]),
         .O(\curr_cluster[9]_i_2_n_0 ));
   FDCE #(
     .INIT(1'b0)) 
     \curr_cluster_reg[0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[0]),
         .Q(\curr_cluster_reg_n_0_[0] ));
@@ -7979,7 +8096,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[10] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[10]),
         .Q(curr_cluster_fat_no[3]));
@@ -7987,7 +8104,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[11] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[11]),
         .Q(curr_cluster_fat_no[4]));
@@ -7995,7 +8112,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[12] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[12]),
         .Q(curr_cluster_fat_no[5]));
@@ -8003,7 +8120,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[13] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[13]),
         .Q(curr_cluster_fat_no[6]));
@@ -8011,7 +8128,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[14] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[14]),
         .Q(curr_cluster_fat_no[7]));
@@ -8019,7 +8136,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[15] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[15]),
         .Q(curr_cluster_fat_no[8]));
@@ -8027,7 +8144,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[16] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[16]),
         .Q(curr_cluster_fat_no[9]));
@@ -8035,7 +8152,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[17] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[17]),
         .Q(curr_cluster_fat_no[10]));
@@ -8043,7 +8160,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[18] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[18]),
         .Q(curr_cluster_fat_no[11]));
@@ -8051,7 +8168,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[19] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[19]),
         .Q(curr_cluster_fat_no[12]));
@@ -8059,7 +8176,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[1]),
         .Q(\curr_cluster_reg_n_0_[1] ));
@@ -8067,7 +8184,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[20] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[20]),
         .Q(curr_cluster_fat_no[13]));
@@ -8075,7 +8192,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[21] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[21]),
         .Q(curr_cluster_fat_no[14]));
@@ -8083,7 +8200,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[22] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[22]),
         .Q(curr_cluster_fat_no[15]));
@@ -8091,7 +8208,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[23] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[23]),
         .Q(curr_cluster_fat_no[16]));
@@ -8099,7 +8216,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[24] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[24]),
         .Q(curr_cluster_fat_no[17]));
@@ -8107,7 +8224,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[25] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[25]),
         .Q(curr_cluster_fat_no[18]));
@@ -8115,7 +8232,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[26] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[26]),
         .Q(curr_cluster_fat_no[19]));
@@ -8123,7 +8240,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[27] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[27]),
         .Q(curr_cluster_fat_no[20]));
@@ -8131,7 +8248,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[28] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[28]),
         .Q(curr_cluster_fat_no[21]));
@@ -8139,7 +8256,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[29] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[29]),
         .Q(curr_cluster_fat_no[22]));
@@ -8147,7 +8264,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[2]),
         .Q(\curr_cluster_reg_n_0_[2] ));
@@ -8155,7 +8272,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[30] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[30]),
         .Q(curr_cluster_fat_no[23]));
@@ -8163,7 +8280,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[31] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[31]),
         .Q(curr_cluster_fat_no[24]));
@@ -8171,7 +8288,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[3]),
         .Q(\curr_cluster_reg_n_0_[3] ));
@@ -8179,7 +8296,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[4]),
         .Q(\curr_cluster_reg_n_0_[4] ));
@@ -8187,7 +8304,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[5]),
         .Q(\curr_cluster_reg_n_0_[5] ));
@@ -8195,7 +8312,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[6]),
         .Q(\curr_cluster_reg_n_0_[6] ));
@@ -8203,7 +8320,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[7]),
         .Q(curr_cluster_fat_no[0]));
@@ -8211,7 +8328,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[8] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[8]),
         .Q(curr_cluster_fat_no[1]));
@@ -8219,7 +8336,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \curr_cluster_reg[9] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_135),
+        .CE(u_sd_reader_n_124),
         .CLR(reset_n_0),
         .D(curr_cluster_t[9]),
         .Q(curr_cluster_fat_no[2]));
@@ -8229,7 +8346,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_301),
+        .D(u_sd_reader_n_356),
         .Q(fcluster[0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8237,7 +8354,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_291),
+        .D(u_sd_reader_n_346),
         .Q(fcluster[10]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8245,7 +8362,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_290),
+        .D(u_sd_reader_n_345),
         .Q(fcluster[11]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8253,7 +8370,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_289),
+        .D(u_sd_reader_n_344),
         .Q(fcluster[12]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8261,7 +8378,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_288),
+        .D(u_sd_reader_n_343),
         .Q(fcluster[13]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8269,7 +8386,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_287),
+        .D(u_sd_reader_n_342),
         .Q(fcluster[14]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8277,7 +8394,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_286),
+        .D(u_sd_reader_n_341),
         .Q(fcluster[15]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8285,7 +8402,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_300),
+        .D(u_sd_reader_n_355),
         .Q(fcluster[1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8293,7 +8410,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_299),
+        .D(u_sd_reader_n_354),
         .Q(fcluster[2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8301,7 +8418,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_298),
+        .D(u_sd_reader_n_353),
         .Q(fcluster[3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8309,7 +8426,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_297),
+        .D(u_sd_reader_n_352),
         .Q(fcluster[4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8317,7 +8434,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_296),
+        .D(u_sd_reader_n_351),
         .Q(fcluster[5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8325,7 +8442,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_295),
+        .D(u_sd_reader_n_350),
         .Q(fcluster[6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8333,7 +8450,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_294),
+        .D(u_sd_reader_n_349),
         .Q(fcluster[7]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8341,7 +8458,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_293),
+        .D(u_sd_reader_n_348),
         .Q(fcluster[8]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8349,7 +8466,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_292),
+        .D(u_sd_reader_n_347),
         .Q(fcluster[9]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8373,7 +8490,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_94),
+        .D(u_sd_reader_n_11),
         .Q(fdtnamelen[2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8381,7 +8498,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_93),
+        .D(u_sd_reader_n_10),
         .Q(fdtnamelen[3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8389,7 +8506,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_92),
+        .D(u_sd_reader_n_9),
         .Q(fdtnamelen[4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8397,7 +8514,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_91),
+        .D(u_sd_reader_n_8),
         .Q(fdtnamelen[5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8405,7 +8522,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_90),
+        .D(u_sd_reader_n_7),
         .Q(fdtnamelen[6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8421,7 +8538,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_198),
+        .D(u_sd_reader_n_267),
         .Q(file_1st_cluster[0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8429,7 +8546,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_188),
+        .D(u_sd_reader_n_257),
         .Q(file_1st_cluster[10]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8437,7 +8554,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_187),
+        .D(u_sd_reader_n_256),
         .Q(file_1st_cluster[11]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8445,7 +8562,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_186),
+        .D(u_sd_reader_n_255),
         .Q(file_1st_cluster[12]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8453,7 +8570,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_185),
+        .D(u_sd_reader_n_254),
         .Q(file_1st_cluster[13]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8461,7 +8578,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_184),
+        .D(u_sd_reader_n_253),
         .Q(file_1st_cluster[14]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8469,7 +8586,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_183),
+        .D(u_sd_reader_n_252),
         .Q(file_1st_cluster[15]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8477,7 +8594,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_197),
+        .D(u_sd_reader_n_266),
         .Q(file_1st_cluster[1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8485,7 +8602,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_196),
+        .D(u_sd_reader_n_265),
         .Q(file_1st_cluster[2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8493,7 +8610,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_195),
+        .D(u_sd_reader_n_264),
         .Q(file_1st_cluster[3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8501,7 +8618,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_194),
+        .D(u_sd_reader_n_263),
         .Q(file_1st_cluster[4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8509,7 +8626,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_193),
+        .D(u_sd_reader_n_262),
         .Q(file_1st_cluster[5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8517,7 +8634,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_192),
+        .D(u_sd_reader_n_261),
         .Q(file_1st_cluster[6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8525,7 +8642,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_191),
+        .D(u_sd_reader_n_260),
         .Q(file_1st_cluster[7]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8533,7 +8650,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_190),
+        .D(u_sd_reader_n_259),
         .Q(file_1st_cluster[8]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8541,7 +8658,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_189),
+        .D(u_sd_reader_n_258),
         .Q(file_1st_cluster[9]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8549,7 +8666,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_182),
+        .D(u_sd_reader_n_384),
         .Q(data2[0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8557,7 +8674,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_172),
+        .D(u_sd_reader_n_374),
         .Q(\file_1st_size_reg_n_0_[10] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -8565,7 +8682,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_171),
+        .D(u_sd_reader_n_373),
         .Q(\file_1st_size_reg_n_0_[11] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -8573,7 +8690,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_170),
+        .D(u_sd_reader_n_372),
         .Q(\file_1st_size_reg_n_0_[12] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -8581,7 +8698,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_169),
+        .D(u_sd_reader_n_371),
         .Q(\file_1st_size_reg_n_0_[13] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -8589,7 +8706,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_168),
+        .D(u_sd_reader_n_370),
         .Q(\file_1st_size_reg_n_0_[14] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -8597,7 +8714,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_167),
+        .D(u_sd_reader_n_369),
         .Q(\file_1st_size_reg_n_0_[15] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -8605,7 +8722,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_166),
+        .D(u_sd_reader_n_368),
         .Q(data2[16]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8613,7 +8730,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_165),
+        .D(u_sd_reader_n_367),
         .Q(data2[17]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8621,7 +8738,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_164),
+        .D(u_sd_reader_n_366),
         .Q(data2[18]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8629,7 +8746,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_163),
+        .D(u_sd_reader_n_365),
         .Q(data2[19]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8637,7 +8754,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_181),
+        .D(u_sd_reader_n_383),
         .Q(data2[1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8645,7 +8762,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_162),
+        .D(u_sd_reader_n_364),
         .Q(data2[20]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8653,7 +8770,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_161),
+        .D(u_sd_reader_n_363),
         .Q(data2[21]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8661,7 +8778,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_160),
+        .D(u_sd_reader_n_362),
         .Q(data2[22]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8669,7 +8786,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_159),
+        .D(u_sd_reader_n_361),
         .Q(data2[23]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8677,7 +8794,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_180),
+        .D(u_sd_reader_n_382),
         .Q(data2[2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8685,7 +8802,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_179),
+        .D(u_sd_reader_n_381),
         .Q(data2[3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8693,7 +8810,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_178),
+        .D(u_sd_reader_n_380),
         .Q(data2[4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8701,7 +8818,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_177),
+        .D(u_sd_reader_n_379),
         .Q(data2[5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8709,7 +8826,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_176),
+        .D(u_sd_reader_n_378),
         .Q(data2[6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8717,7 +8834,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_175),
+        .D(u_sd_reader_n_377),
         .Q(data2[7]));
   FDCE #(
     .INIT(1'b0)) 
@@ -8725,7 +8842,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_174),
+        .D(u_sd_reader_n_376),
         .Q(\file_1st_size_reg_n_0_[8] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -8733,7 +8850,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_173),
+        .D(u_sd_reader_n_375),
         .Q(\file_1st_size_reg_n_0_[9] ));
   LUT6 #(
     .INIT(64'h0100000000000000)) 
@@ -9215,12 +9332,6 @@ module design_1_top_system_0_1_sd_file_reader
         .CLR(reset_n_0),
         .D(file_found14_out),
         .Q(file_found));
-  LUT2 #(
-    .INIT(4'h8)) 
-    \file_name[0][7]_i_6 
-       (.I0(\lastchar_reg_n_0_[3] ),
-        .I1(\lastchar_reg_n_0_[2] ),
-        .O(\file_name[0][7]_i_6_n_0 ));
   LUT4 #(
     .INIT(16'hAA8A)) 
     \file_name[8][5]_i_3 
@@ -9229,7 +9340,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\lastchar_reg_n_0_[6] ),
         .I3(\lastchar_reg_n_0_[7] ),
         .O(\file_name[8][5]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair236" *) 
+  (* SOFT_HLUTNM = "soft_lutpair224" *) 
   LUT5 #(
     .INIT(32'hC0808081)) 
     \file_name[8][5]_i_7 
@@ -9243,650 +9354,650 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \file_name_reg[0][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_305),
+        .CE(u_sd_reader_n_153),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_119),
+        .D(u_sd_reader_n_169),
         .Q(\file_name_reg_n_0_[0][0] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[0][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_305),
+        .CE(u_sd_reader_n_153),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_118),
+        .D(u_sd_reader_n_168),
         .Q(\file_name_reg_n_0_[0][1] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[0][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_305),
+        .CE(u_sd_reader_n_153),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_117),
+        .D(u_sd_reader_n_167),
         .Q(\file_name_reg_n_0_[0][2] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[0][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_305),
+        .CE(u_sd_reader_n_153),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_116),
+        .D(u_sd_reader_n_166),
         .Q(\file_name_reg_n_0_[0][3] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[0][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_305),
+        .CE(u_sd_reader_n_153),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_115),
+        .D(u_sd_reader_n_165),
         .Q(\file_name_reg_n_0_[0][4] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[0][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_305),
+        .CE(u_sd_reader_n_153),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_114),
+        .D(u_sd_reader_n_164),
         .Q(\file_name_reg_n_0_[0][5] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[0][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_305),
+        .CE(u_sd_reader_n_153),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_113),
+        .D(u_sd_reader_n_163),
         .Q(\file_name_reg_n_0_[0][6] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[0][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_305),
+        .CE(u_sd_reader_n_153),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_112),
+        .D(u_sd_reader_n_162),
         .Q(\file_name_reg_n_0_[0][7] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[1][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_306),
+        .CE(u_sd_reader_n_152),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_384),
+        .D(u_sd_reader_n_185),
         .Q(\file_name_reg_n_0_[1][0] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[1][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_306),
+        .CE(u_sd_reader_n_152),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_383),
+        .D(u_sd_reader_n_184),
         .Q(\file_name_reg_n_0_[1][1] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[1][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_306),
+        .CE(u_sd_reader_n_152),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_382),
+        .D(u_sd_reader_n_183),
         .Q(\file_name_reg_n_0_[1][2] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[1][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_306),
+        .CE(u_sd_reader_n_152),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_381),
+        .D(u_sd_reader_n_182),
         .Q(\file_name_reg_n_0_[1][3] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[1][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_306),
+        .CE(u_sd_reader_n_152),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_380),
+        .D(u_sd_reader_n_181),
         .Q(\file_name_reg_n_0_[1][4] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[1][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_306),
+        .CE(u_sd_reader_n_152),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_379),
+        .D(u_sd_reader_n_180),
         .Q(\file_name_reg_n_0_[1][5] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[1][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_306),
+        .CE(u_sd_reader_n_152),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_378),
+        .D(u_sd_reader_n_179),
         .Q(\file_name_reg_n_0_[1][6] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[1][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_306),
+        .CE(u_sd_reader_n_152),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_377),
+        .D(u_sd_reader_n_178),
         .Q(\file_name_reg_n_0_[1][7] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[2][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_308),
+        .CE(u_sd_reader_n_154),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_376),
+        .D(u_sd_reader_n_193),
         .Q(\file_name_reg_n_0_[2][0] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[2][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_308),
+        .CE(u_sd_reader_n_154),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_375),
+        .D(u_sd_reader_n_192),
         .Q(\file_name_reg_n_0_[2][1] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[2][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_308),
+        .CE(u_sd_reader_n_154),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_374),
+        .D(u_sd_reader_n_191),
         .Q(\file_name_reg_n_0_[2][2] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[2][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_308),
+        .CE(u_sd_reader_n_154),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_373),
+        .D(u_sd_reader_n_190),
         .Q(\file_name_reg_n_0_[2][3] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[2][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_308),
+        .CE(u_sd_reader_n_154),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_372),
+        .D(u_sd_reader_n_189),
         .Q(\file_name_reg_n_0_[2][4] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[2][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_308),
+        .CE(u_sd_reader_n_154),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_371),
+        .D(u_sd_reader_n_188),
         .Q(\file_name_reg_n_0_[2][5] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[2][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_308),
+        .CE(u_sd_reader_n_154),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_370),
+        .D(u_sd_reader_n_187),
         .Q(\file_name_reg_n_0_[2][6] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[2][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_308),
+        .CE(u_sd_reader_n_154),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_369),
+        .D(u_sd_reader_n_186),
         .Q(\file_name_reg_n_0_[2][7] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[3][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_309),
+        .CE(u_sd_reader_n_155),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_368),
+        .D(u_sd_reader_n_201),
         .Q(\file_name_reg_n_0_[3][0] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[3][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_309),
+        .CE(u_sd_reader_n_155),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_367),
+        .D(u_sd_reader_n_200),
         .Q(\file_name_reg_n_0_[3][1] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[3][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_309),
+        .CE(u_sd_reader_n_155),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_366),
+        .D(u_sd_reader_n_199),
         .Q(\file_name_reg_n_0_[3][2] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[3][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_309),
+        .CE(u_sd_reader_n_155),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_365),
+        .D(u_sd_reader_n_198),
         .Q(\file_name_reg_n_0_[3][3] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[3][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_309),
+        .CE(u_sd_reader_n_155),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_364),
+        .D(u_sd_reader_n_197),
         .Q(\file_name_reg_n_0_[3][4] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[3][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_309),
+        .CE(u_sd_reader_n_155),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_363),
+        .D(u_sd_reader_n_196),
         .Q(\file_name_reg_n_0_[3][5] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[3][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_309),
+        .CE(u_sd_reader_n_155),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_362),
+        .D(u_sd_reader_n_195),
         .Q(\file_name_reg_n_0_[3][6] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[3][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_309),
+        .CE(u_sd_reader_n_155),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_361),
+        .D(u_sd_reader_n_194),
         .Q(\file_name_reg_n_0_[3][7] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[4][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_304),
+        .CE(u_sd_reader_n_156),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_360),
+        .D(u_sd_reader_n_209),
         .Q(\file_name_reg_n_0_[4][0] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[4][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_304),
+        .CE(u_sd_reader_n_156),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_359),
+        .D(u_sd_reader_n_208),
         .Q(\file_name_reg_n_0_[4][1] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[4][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_304),
+        .CE(u_sd_reader_n_156),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_358),
+        .D(u_sd_reader_n_207),
         .Q(\file_name_reg_n_0_[4][2] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[4][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_304),
+        .CE(u_sd_reader_n_156),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_357),
+        .D(u_sd_reader_n_206),
         .Q(\file_name_reg_n_0_[4][3] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[4][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_304),
+        .CE(u_sd_reader_n_156),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_356),
+        .D(u_sd_reader_n_205),
         .Q(\file_name_reg_n_0_[4][4] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[4][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_304),
+        .CE(u_sd_reader_n_156),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_355),
+        .D(u_sd_reader_n_204),
         .Q(\file_name_reg_n_0_[4][5] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[4][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_304),
+        .CE(u_sd_reader_n_156),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_354),
+        .D(u_sd_reader_n_203),
         .Q(\file_name_reg_n_0_[4][6] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[4][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_304),
+        .CE(u_sd_reader_n_156),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_353),
+        .D(u_sd_reader_n_202),
         .Q(\file_name_reg_n_0_[4][7] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[5][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_307),
+        .CE(u_sd_reader_n_157),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_352),
+        .D(u_sd_reader_n_217),
         .Q(\file_name_reg_n_0_[5][0] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[5][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_307),
+        .CE(u_sd_reader_n_157),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_351),
+        .D(u_sd_reader_n_216),
         .Q(\file_name_reg_n_0_[5][1] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[5][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_307),
+        .CE(u_sd_reader_n_157),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_350),
+        .D(u_sd_reader_n_215),
         .Q(\file_name_reg_n_0_[5][2] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[5][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_307),
+        .CE(u_sd_reader_n_157),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_349),
+        .D(u_sd_reader_n_214),
         .Q(\file_name_reg_n_0_[5][3] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[5][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_307),
+        .CE(u_sd_reader_n_157),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_348),
+        .D(u_sd_reader_n_213),
         .Q(\file_name_reg_n_0_[5][4] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[5][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_307),
+        .CE(u_sd_reader_n_157),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_347),
+        .D(u_sd_reader_n_212),
         .Q(\file_name_reg_n_0_[5][5] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[5][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_307),
+        .CE(u_sd_reader_n_157),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_346),
+        .D(u_sd_reader_n_211),
         .Q(\file_name_reg_n_0_[5][6] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[5][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_307),
+        .CE(u_sd_reader_n_157),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_345),
+        .D(u_sd_reader_n_210),
         .Q(\file_name_reg_n_0_[5][7] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[6][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_310),
+        .CE(u_sd_reader_n_158),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_344),
+        .D(u_sd_reader_n_225),
         .Q(\file_name_reg_n_0_[6][0] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[6][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_310),
+        .CE(u_sd_reader_n_158),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_343),
+        .D(u_sd_reader_n_224),
         .Q(\file_name_reg_n_0_[6][1] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[6][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_310),
+        .CE(u_sd_reader_n_158),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_342),
+        .D(u_sd_reader_n_223),
         .Q(\file_name_reg_n_0_[6][2] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[6][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_310),
+        .CE(u_sd_reader_n_158),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_341),
+        .D(u_sd_reader_n_222),
         .Q(\file_name_reg_n_0_[6][3] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[6][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_310),
+        .CE(u_sd_reader_n_158),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_340),
+        .D(u_sd_reader_n_221),
         .Q(\file_name_reg_n_0_[6][4] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[6][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_310),
+        .CE(u_sd_reader_n_158),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_339),
+        .D(u_sd_reader_n_220),
         .Q(\file_name_reg_n_0_[6][5] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[6][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_310),
+        .CE(u_sd_reader_n_158),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_338),
+        .D(u_sd_reader_n_219),
         .Q(\file_name_reg_n_0_[6][6] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[6][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_310),
+        .CE(u_sd_reader_n_158),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_337),
+        .D(u_sd_reader_n_218),
         .Q(\file_name_reg_n_0_[6][7] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[7][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_311),
+        .CE(u_sd_reader_n_159),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_336),
+        .D(u_sd_reader_n_233),
         .Q(\file_name_reg_n_0_[7][0] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[7][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_311),
+        .CE(u_sd_reader_n_159),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_335),
+        .D(u_sd_reader_n_232),
         .Q(\file_name_reg_n_0_[7][1] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[7][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_311),
+        .CE(u_sd_reader_n_159),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_334),
+        .D(u_sd_reader_n_231),
         .Q(\file_name_reg_n_0_[7][2] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[7][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_311),
+        .CE(u_sd_reader_n_159),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_333),
+        .D(u_sd_reader_n_230),
         .Q(\file_name_reg_n_0_[7][3] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[7][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_311),
+        .CE(u_sd_reader_n_159),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_332),
+        .D(u_sd_reader_n_229),
         .Q(\file_name_reg_n_0_[7][4] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[7][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_311),
+        .CE(u_sd_reader_n_159),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_331),
+        .D(u_sd_reader_n_228),
         .Q(\file_name_reg_n_0_[7][5] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[7][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_311),
+        .CE(u_sd_reader_n_159),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_330),
+        .D(u_sd_reader_n_227),
         .Q(\file_name_reg_n_0_[7][6] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[7][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_311),
+        .CE(u_sd_reader_n_159),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_329),
+        .D(u_sd_reader_n_226),
         .Q(\file_name_reg_n_0_[7][7] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[8][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_303),
+        .CE(u_sd_reader_n_160),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_328),
+        .D(u_sd_reader_n_241),
         .Q(\file_name_reg_n_0_[8][0] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[8][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_303),
+        .CE(u_sd_reader_n_160),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_327),
+        .D(u_sd_reader_n_240),
         .Q(\file_name_reg_n_0_[8][1] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[8][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_303),
+        .CE(u_sd_reader_n_160),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_326),
+        .D(u_sd_reader_n_239),
         .Q(\file_name_reg_n_0_[8][2] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[8][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_303),
+        .CE(u_sd_reader_n_160),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_325),
+        .D(u_sd_reader_n_238),
         .Q(\file_name_reg_n_0_[8][3] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[8][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_303),
+        .CE(u_sd_reader_n_160),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_324),
+        .D(u_sd_reader_n_237),
         .Q(\file_name_reg_n_0_[8][4] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[8][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_303),
+        .CE(u_sd_reader_n_160),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_323),
+        .D(u_sd_reader_n_236),
         .Q(\file_name_reg_n_0_[8][5] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[8][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_303),
+        .CE(u_sd_reader_n_160),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_322),
+        .D(u_sd_reader_n_235),
         .Q(\file_name_reg_n_0_[8][6] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_name_reg[8][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_303),
+        .CE(u_sd_reader_n_160),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_321),
+        .D(u_sd_reader_n_234),
         .Q(\file_name_reg_n_0_[8][7] ));
-  (* SOFT_HLUTNM = "soft_lutpair236" *) 
+  (* SOFT_HLUTNM = "soft_lutpair224" *) 
   LUT4 #(
     .INIT(16'h0001)) 
-    \file_namelen[7]_i_7 
-       (.I0(\lastchar_reg_n_0_[0] ),
-        .I1(\lastchar_reg_n_0_[3] ),
-        .I2(\lastchar_reg_n_0_[1] ),
-        .I3(\lastchar_reg_n_0_[2] ),
-        .O(\file_namelen[7]_i_7_n_0 ));
+    \file_namelen[7]_i_6 
+       (.I0(\lastchar_reg_n_0_[1] ),
+        .I1(\lastchar_reg_n_0_[2] ),
+        .I2(\lastchar_reg_n_0_[0] ),
+        .I3(\lastchar_reg_n_0_[3] ),
+        .O(\file_namelen[7]_i_6_n_0 ));
   FDCE #(
     .INIT(1'b0)) 
     \file_namelen_reg[0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_212),
+        .CE(u_sd_reader_n_161),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_211),
+        .D(u_sd_reader_n_250),
         .Q(\file_namelen_reg_n_0_[0] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_namelen_reg[1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_212),
+        .CE(u_sd_reader_n_161),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_210),
+        .D(u_sd_reader_n_249),
         .Q(\file_namelen_reg_n_0_[1] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_namelen_reg[2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_212),
+        .CE(u_sd_reader_n_161),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_209),
+        .D(u_sd_reader_n_248),
         .Q(\file_namelen_reg_n_0_[2] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_namelen_reg[3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_212),
+        .CE(u_sd_reader_n_161),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_208),
+        .D(u_sd_reader_n_247),
         .Q(\file_namelen_reg_n_0_[3] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_namelen_reg[4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_212),
+        .CE(u_sd_reader_n_161),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_207),
+        .D(u_sd_reader_n_246),
         .Q(\file_namelen_reg_n_0_[4] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_namelen_reg[5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_212),
+        .CE(u_sd_reader_n_161),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_206),
+        .D(u_sd_reader_n_245),
         .Q(\file_namelen_reg_n_0_[5] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_namelen_reg[6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_212),
+        .CE(u_sd_reader_n_161),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_205),
+        .D(u_sd_reader_n_244),
         .Q(\file_namelen_reg_n_0_[6] ));
   FDCE #(
     .INIT(1'b0)) 
     \file_namelen_reg[7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_212),
+        .CE(u_sd_reader_n_161),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_204),
+        .D(u_sd_reader_n_243),
         .Q(\file_namelen_reg_n_0_[7] ));
   LUT6 #(
     .INIT(64'h0100000000000000)) 
@@ -10470,7 +10581,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_129),
+        .D(u_sd_reader_n_118),
         .Q(\filesystem_reg_n_0_[0] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -10478,319 +10589,9 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_130),
+        .D(u_sd_reader_n_119),
         .Q(\filesystem_reg_n_0_[1] ));
-  (* SOFT_HLUTNM = "soft_lutpair294" *) 
-  LUT2 #(
-    .INIT(4'h1)) 
-    \filesystem_state[0]_i_2 
-       (.I0(filesystem_state[2]),
-        .I1(filesystem_state[1]),
-        .O(\filesystem_state[0]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair233" *) 
-  LUT5 #(
-    .INIT(32'hFFF7FFFF)) 
-    \filesystem_state[1]_i_2 
-       (.I0(\rootdir_sectorcount[11]_i_3_n_0 ),
-        .I1(read_sector_no1__1_i_19_n_0),
-        .I2(\filesystem_state[2]_i_5_n_0 ),
-        .I3(filesystem_state[0]),
-        .I4(filesystem_state[1]),
-        .O(\filesystem_state[1]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair245" *) 
-  LUT3 #(
-    .INIT(8'h01)) 
-    \filesystem_state[1]_i_4 
-       (.I0(filesystem_state[1]),
-        .I1(filesystem_state[2]),
-        .I2(filesystem_state[0]),
-        .O(\filesystem_state[1]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'h2200F0FF22FFF0FF)) 
-    \filesystem_state[2]_i_10 
-       (.I0(\filesystem_state_reg[2]_i_14_n_2 ),
-        .I1(file_found),
-        .I2(\curr_cluster[31]_i_5_n_0 ),
-        .I3(filesystem_state[1]),
-        .I4(filesystem_state[0]),
-        .I5(\read_sector_no[31]_i_6_n_0 ),
-        .O(\filesystem_state[2]_i_10_n_0 ));
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    \filesystem_state[2]_i_11 
-       (.I0(bytes_per_sector[4]),
-        .I1(bytes_per_sector[0]),
-        .I2(bytes_per_sector[6]),
-        .I3(bytes_per_sector[14]),
-        .O(\filesystem_state[2]_i_11_n_0 ));
-  LUT5 #(
-    .INIT(32'hFFFFFFFE)) 
-    \filesystem_state[2]_i_12 
-       (.I0(bytes_per_sector[13]),
-        .I1(bytes_per_sector[1]),
-        .I2(bytes_per_sector[8]),
-        .I3(bytes_per_sector[5]),
-        .I4(\filesystem_state[2]_i_15_n_0 ),
-        .O(\filesystem_state[2]_i_12_n_0 ));
-  LUT6 #(
-    .INIT(64'h00000000FFFFFFFE)) 
-    \filesystem_state[2]_i_13 
-       (.I0(target_cluster_fat16[10]),
-        .I1(target_cluster_fat16[14]),
-        .I2(target_cluster_fat16[1]),
-        .I3(\filesystem_state[2]_i_16_n_0 ),
-        .I4(\filesystem_state[2]_i_17_n_0 ),
-        .I5(\filesystem_state[2]_i_18_n_0 ),
-        .O(\filesystem_state[2]_i_13_n_0 ));
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    \filesystem_state[2]_i_15 
-       (.I0(bytes_per_sector[15]),
-        .I1(bytes_per_sector[10]),
-        .I2(bytes_per_sector[2]),
-        .I3(bytes_per_sector[12]),
-        .O(\filesystem_state[2]_i_15_n_0 ));
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    \filesystem_state[2]_i_16 
-       (.I0(target_cluster_fat16[4]),
-        .I1(target_cluster_fat16[3]),
-        .I2(target_cluster_fat16[13]),
-        .I3(target_cluster_fat16[11]),
-        .O(\filesystem_state[2]_i_16_n_0 ));
-  LUT5 #(
-    .INIT(32'hFFFFFFFE)) 
-    \filesystem_state[2]_i_17 
-       (.I0(target_cluster_fat16[5]),
-        .I1(target_cluster_fat16[8]),
-        .I2(target_cluster_fat16[2]),
-        .I3(target_cluster_fat16[9]),
-        .I4(\filesystem_state[2]_i_24_n_0 ),
-        .O(\filesystem_state[2]_i_17_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000040000000)) 
-    \filesystem_state[2]_i_18 
-       (.I0(\filesystem_state[2]_i_25_n_0 ),
-        .I1(target_cluster_fat16[10]),
-        .I2(target_cluster_fat16[9]),
-        .I3(target_cluster_fat16[11]),
-        .I4(target_cluster_fat16[8]),
-        .I5(\filesystem_state[2]_i_26_n_0 ),
-        .O(\filesystem_state[2]_i_18_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair233" *) 
-  LUT4 #(
-    .INIT(16'h0002)) 
-    \filesystem_state[2]_i_2 
-       (.I0(filesystem_state[1]),
-        .I1(\filesystem_state[2]_i_5_n_0 ),
-        .I2(\rootdir_sectorcount[11]_i_3_n_0 ),
-        .I3(filesystem_state[0]),
-        .O(\filesystem_state[2]_i_2_n_0 ));
-  LUT2 #(
-    .INIT(4'hE)) 
-    \filesystem_state[2]_i_20 
-       (.I0(rootdir_sectorcount[11]),
-        .I1(rootdir_sectorcount[10]),
-        .O(\filesystem_state[2]_i_20_n_0 ));
-  LUT2 #(
-    .INIT(4'hE)) 
-    \filesystem_state[2]_i_21 
-       (.I0(rootdir_sectorcount[9]),
-        .I1(rootdir_sectorcount[8]),
-        .O(\filesystem_state[2]_i_21_n_0 ));
-  LUT2 #(
-    .INIT(4'h1)) 
-    \filesystem_state[2]_i_22 
-       (.I0(rootdir_sectorcount[10]),
-        .I1(rootdir_sectorcount[11]),
-        .O(\filesystem_state[2]_i_22_n_0 ));
-  LUT2 #(
-    .INIT(4'h1)) 
-    \filesystem_state[2]_i_23 
-       (.I0(rootdir_sectorcount[8]),
-        .I1(rootdir_sectorcount[9]),
-        .O(\filesystem_state[2]_i_23_n_0 ));
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    \filesystem_state[2]_i_24 
-       (.I0(target_cluster_fat16[15]),
-        .I1(target_cluster_fat16[6]),
-        .I2(target_cluster_fat16[12]),
-        .I3(target_cluster_fat16[7]),
-        .O(\filesystem_state[2]_i_24_n_0 ));
-  LUT4 #(
-    .INIT(16'h7FFF)) 
-    \filesystem_state[2]_i_25 
-       (.I0(target_cluster_fat16[14]),
-        .I1(target_cluster_fat16[13]),
-        .I2(target_cluster_fat16[15]),
-        .I3(target_cluster_fat16[12]),
-        .O(\filesystem_state[2]_i_25_n_0 ));
-  LUT4 #(
-    .INIT(16'h7FFF)) 
-    \filesystem_state[2]_i_26 
-       (.I0(target_cluster_fat16[7]),
-        .I1(target_cluster_fat16[6]),
-        .I2(target_cluster_fat16[5]),
-        .I3(target_cluster_fat16[4]),
-        .O(\filesystem_state[2]_i_26_n_0 ));
-  LUT4 #(
-    .INIT(16'h22B2)) 
-    \filesystem_state[2]_i_27 
-       (.I0(rootdir_sectorcount[7]),
-        .I1(cluster_sector_offset[7]),
-        .I2(rootdir_sectorcount[6]),
-        .I3(cluster_sector_offset[6]),
-        .O(\filesystem_state[2]_i_27_n_0 ));
-  LUT4 #(
-    .INIT(16'h22B2)) 
-    \filesystem_state[2]_i_28 
-       (.I0(rootdir_sectorcount[5]),
-        .I1(cluster_sector_offset[5]),
-        .I2(rootdir_sectorcount[4]),
-        .I3(cluster_sector_offset[4]),
-        .O(\filesystem_state[2]_i_28_n_0 ));
-  LUT4 #(
-    .INIT(16'h22B2)) 
-    \filesystem_state[2]_i_29 
-       (.I0(rootdir_sectorcount[3]),
-        .I1(cluster_sector_offset[3]),
-        .I2(rootdir_sectorcount[2]),
-        .I3(cluster_sector_offset[2]),
-        .O(\filesystem_state[2]_i_29_n_0 ));
-  LUT6 #(
-    .INIT(64'hDF005500DF0055FF)) 
-    \filesystem_state[2]_i_3 
-       (.I0(\filesystem_state[2]_i_6_n_0 ),
-        .I1(\filesystem_state[2]_i_7_n_0 ),
-        .I2(\filesystem_state[2]_i_8_n_0 ),
-        .I3(search_fat_i_3_n_0),
-        .I4(\filesystem_state[2]_i_9_n_0 ),
-        .I5(\filesystem_state[2]_i_10_n_0 ),
-        .O(\filesystem_state[2]_i_3_n_0 ));
-  LUT4 #(
-    .INIT(16'h22B2)) 
-    \filesystem_state[2]_i_30 
-       (.I0(rootdir_sectorcount[1]),
-        .I1(cluster_sector_offset[1]),
-        .I2(rootdir_sectorcount[0]),
-        .I3(cluster_sector_offset[0]),
-        .O(\filesystem_state[2]_i_30_n_0 ));
-  LUT4 #(
-    .INIT(16'h9009)) 
-    \filesystem_state[2]_i_31 
-       (.I0(cluster_sector_offset[7]),
-        .I1(rootdir_sectorcount[7]),
-        .I2(cluster_sector_offset[6]),
-        .I3(rootdir_sectorcount[6]),
-        .O(\filesystem_state[2]_i_31_n_0 ));
-  LUT4 #(
-    .INIT(16'h9009)) 
-    \filesystem_state[2]_i_32 
-       (.I0(cluster_sector_offset[5]),
-        .I1(rootdir_sectorcount[5]),
-        .I2(cluster_sector_offset[4]),
-        .I3(rootdir_sectorcount[4]),
-        .O(\filesystem_state[2]_i_32_n_0 ));
-  LUT4 #(
-    .INIT(16'h9009)) 
-    \filesystem_state[2]_i_33 
-       (.I0(cluster_sector_offset[3]),
-        .I1(rootdir_sectorcount[3]),
-        .I2(cluster_sector_offset[2]),
-        .I3(rootdir_sectorcount[2]),
-        .O(\filesystem_state[2]_i_33_n_0 ));
-  LUT4 #(
-    .INIT(16'h9009)) 
-    \filesystem_state[2]_i_34 
-       (.I0(cluster_sector_offset[1]),
-        .I1(rootdir_sectorcount[1]),
-        .I2(cluster_sector_offset[0]),
-        .I3(rootdir_sectorcount[0]),
-        .O(\filesystem_state[2]_i_34_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFB)) 
-    \filesystem_state[2]_i_5 
-       (.I0(\filesystem_state[2]_i_11_n_0 ),
-        .I1(bytes_per_sector[9]),
-        .I2(bytes_per_sector[11]),
-        .I3(bytes_per_sector[3]),
-        .I4(bytes_per_sector[7]),
-        .I5(\filesystem_state[2]_i_12_n_0 ),
-        .O(\filesystem_state[2]_i_5_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFBA8AFFFF)) 
-    \filesystem_state[2]_i_6 
-       (.I0(\curr_cluster[31]_i_7_n_0 ),
-        .I1(\filesystem_reg_n_0_[0] ),
-        .I2(\filesystem_reg_n_0_[1] ),
-        .I3(\filesystem_state[2]_i_13_n_0 ),
-        .I4(search_fat_reg_n_0),
-        .I5(\filesystem_state[2]_i_9_n_0 ),
-        .O(\filesystem_state[2]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair241" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
-    \filesystem_state[2]_i_7 
-       (.I0(search_fat_reg_n_0),
-        .I1(\curr_cluster[31]_i_7_n_0 ),
-        .O(\filesystem_state[2]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair235" *) 
-  LUT2 #(
-    .INIT(4'hB)) 
-    \filesystem_state[2]_i_8 
-       (.I0(search_fat_reg_n_0),
-        .I1(file_found),
-        .O(\filesystem_state[2]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair245" *) 
-  LUT3 #(
-    .INIT(8'h8A)) 
-    \filesystem_state[2]_i_9 
-       (.I0(filesystem_state[2]),
-        .I1(filesystem_state[1]),
-        .I2(filesystem_state[0]),
-        .O(\filesystem_state[2]_i_9_n_0 ));
-  (* FSM_ENCODED_STATES = "SEARCH_MBR:001,SEARCH_DBR:010,LS_ROOT_FAT32:100,LS_ROOT_FAT16:011,iSTATE:110,READ_A_FILE:101,iSTATE0:000" *) 
-  FDCE #(
-    .INIT(1'b0)) 
-    \filesystem_state_reg[0] 
-       (.C(clk_sd),
-        .CE(1'b1),
-        .CLR(reset_n_0),
-        .D(u_sd_reader_n_122),
-        .Q(filesystem_state[0]));
-  (* FSM_ENCODED_STATES = "SEARCH_MBR:001,SEARCH_DBR:010,LS_ROOT_FAT32:100,LS_ROOT_FAT16:011,iSTATE:110,READ_A_FILE:101,iSTATE0:000" *) 
-  FDCE #(
-    .INIT(1'b0)) 
-    \filesystem_state_reg[1] 
-       (.C(clk_sd),
-        .CE(1'b1),
-        .CLR(reset_n_0),
-        .D(u_sd_reader_n_123),
-        .Q(filesystem_state[1]));
-  (* FSM_ENCODED_STATES = "SEARCH_MBR:001,SEARCH_DBR:010,LS_ROOT_FAT32:100,LS_ROOT_FAT16:011,iSTATE:110,READ_A_FILE:101,iSTATE0:000" *) 
-  FDCE #(
-    .INIT(1'b0)) 
-    \filesystem_state_reg[2] 
-       (.C(clk_sd),
-        .CE(1'b1),
-        .CLR(reset_n_0),
-        .D(u_sd_reader_n_124),
-        .Q(filesystem_state[2]));
-  CARRY4 \filesystem_state_reg[2]_i_14 
-       (.CI(\filesystem_state_reg[2]_i_19_n_0 ),
-        .CO({\NLW_filesystem_state_reg[2]_i_14_CO_UNCONNECTED [3:2],\filesystem_state_reg[2]_i_14_n_2 ,\filesystem_state_reg[2]_i_14_n_3 }),
-        .CYINIT(1'b0),
-        .DI({1'b0,1'b0,\filesystem_state[2]_i_20_n_0 ,\filesystem_state[2]_i_21_n_0 }),
-        .O(\NLW_filesystem_state_reg[2]_i_14_O_UNCONNECTED [3:0]),
-        .S({1'b0,1'b0,\filesystem_state[2]_i_22_n_0 ,\filesystem_state[2]_i_23_n_0 }));
-  CARRY4 \filesystem_state_reg[2]_i_19 
-       (.CI(1'b0),
-        .CO({\filesystem_state_reg[2]_i_19_n_0 ,\filesystem_state_reg[2]_i_19_n_1 ,\filesystem_state_reg[2]_i_19_n_2 ,\filesystem_state_reg[2]_i_19_n_3 }),
-        .CYINIT(1'b0),
-        .DI({\filesystem_state[2]_i_27_n_0 ,\filesystem_state[2]_i_28_n_0 ,\filesystem_state[2]_i_29_n_0 ,\filesystem_state[2]_i_30_n_0 }),
-        .O(\NLW_filesystem_state_reg[2]_i_19_O_UNCONNECTED [3:0]),
-        .S({\filesystem_state[2]_i_31_n_0 ,\filesystem_state[2]_i_32_n_0 ,\filesystem_state[2]_i_33_n_0 ,\filesystem_state[2]_i_34_n_0 }));
+  (* SOFT_HLUTNM = "soft_lutpair247" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[0]_i_1 
@@ -10798,7 +10599,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I2(first_data_sector_no_t0[0]),
         .O(\first_data_sector_no[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair257" *) 
+  (* SOFT_HLUTNM = "soft_lutpair242" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[10]_i_1 
@@ -10806,7 +10607,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I2(first_data_sector_no_t0[10]),
         .O(\first_data_sector_no[10]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair256" *) 
+  (* SOFT_HLUTNM = "soft_lutpair242" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[11]_i_1 
@@ -10875,7 +10676,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I3(first_data_sector_no_t2[9]),
         .I4(read_sector_no07_out[9]),
         .O(\first_data_sector_no[11]_i_9_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair256" *) 
+  (* SOFT_HLUTNM = "soft_lutpair241" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[12]_i_1 
@@ -10914,7 +10715,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(read_sector_no07_out[8]),
         .I2(read_sector_no07_out[9]),
         .O(\first_data_sector_no[12]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair255" *) 
+  (* SOFT_HLUTNM = "soft_lutpair241" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[13]_i_1 
@@ -10922,7 +10723,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I2(first_data_sector_no_t0[13]),
         .O(\first_data_sector_no[13]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair255" *) 
+  (* SOFT_HLUTNM = "soft_lutpair240" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[14]_i_1 
@@ -10930,7 +10731,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I2(first_data_sector_no_t0[14]),
         .O(\first_data_sector_no[14]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair254" *) 
+  (* SOFT_HLUTNM = "soft_lutpair240" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[15]_i_1 
@@ -10969,7 +10770,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(read_sector_no07_out[11]),
         .I2(read_sector_no07_out[12]),
         .O(\first_data_sector_no[15]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair254" *) 
+  (* SOFT_HLUTNM = "soft_lutpair239" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[16]_i_1 
@@ -11001,7 +10802,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.I0(read_sector_no07_out[12]),
         .I1(read_sector_no07_out[13]),
         .O(\first_data_sector_no[16]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair253" *) 
+  (* SOFT_HLUTNM = "soft_lutpair239" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[17]_i_1 
@@ -11009,7 +10810,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I2(first_data_sector_no_t0[17]),
         .O(\first_data_sector_no[17]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair253" *) 
+  (* SOFT_HLUTNM = "soft_lutpair238" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[18]_i_1 
@@ -11017,7 +10818,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I2(first_data_sector_no_t0[18]),
         .O(\first_data_sector_no[18]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair252" *) 
+  (* SOFT_HLUTNM = "soft_lutpair238" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[19]_i_1 
@@ -11049,7 +10850,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.I0(read_sector_no07_out[15]),
         .I1(read_sector_no07_out[16]),
         .O(\first_data_sector_no[19]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair261" *) 
+  (* SOFT_HLUTNM = "soft_lutpair247" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[1]_i_1 
@@ -11057,7 +10858,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I2(first_data_sector_no_t0[1]),
         .O(\first_data_sector_no[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair252" *) 
+  (* SOFT_HLUTNM = "soft_lutpair237" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[20]_i_1 
@@ -11089,7 +10890,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.I0(read_sector_no07_out[16]),
         .I1(read_sector_no07_out[17]),
         .O(\first_data_sector_no[20]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair251" *) 
+  (* SOFT_HLUTNM = "soft_lutpair237" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[21]_i_1 
@@ -11097,7 +10898,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I2(first_data_sector_no_t0[21]),
         .O(\first_data_sector_no[21]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair251" *) 
+  (* SOFT_HLUTNM = "soft_lutpair236" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[22]_i_1 
@@ -11105,7 +10906,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I2(first_data_sector_no_t0[22]),
         .O(\first_data_sector_no[22]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair250" *) 
+  (* SOFT_HLUTNM = "soft_lutpair236" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[23]_i_1 
@@ -11137,7 +10938,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.I0(read_sector_no07_out[19]),
         .I1(read_sector_no07_out[20]),
         .O(\first_data_sector_no[23]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair250" *) 
+  (* SOFT_HLUTNM = "soft_lutpair235" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[24]_i_1 
@@ -11169,7 +10970,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.I0(read_sector_no07_out[20]),
         .I1(read_sector_no07_out[21]),
         .O(\first_data_sector_no[24]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair249" *) 
+  (* SOFT_HLUTNM = "soft_lutpair235" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[25]_i_1 
@@ -11177,7 +10978,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I2(first_data_sector_no_t0[25]),
         .O(\first_data_sector_no[25]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair249" *) 
+  (* SOFT_HLUTNM = "soft_lutpair234" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[26]_i_1 
@@ -11185,7 +10986,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I2(first_data_sector_no_t0[26]),
         .O(\first_data_sector_no[26]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair248" *) 
+  (* SOFT_HLUTNM = "soft_lutpair234" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[27]_i_1 
@@ -11217,7 +11018,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.I0(read_sector_no07_out[23]),
         .I1(read_sector_no07_out[24]),
         .O(\first_data_sector_no[27]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair248" *) 
+  (* SOFT_HLUTNM = "soft_lutpair233" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[28]_i_1 
@@ -11249,7 +11050,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.I0(read_sector_no07_out[24]),
         .I1(read_sector_no07_out[25]),
         .O(\first_data_sector_no[28]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair247" *) 
+  (* SOFT_HLUTNM = "soft_lutpair233" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[29]_i_1 
@@ -11257,7 +11058,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I2(first_data_sector_no_t0[29]),
         .O(\first_data_sector_no[29]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair261" *) 
+  (* SOFT_HLUTNM = "soft_lutpair246" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[2]_i_1 
@@ -11265,7 +11066,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I2(first_data_sector_no_t0[2]),
         .O(\first_data_sector_no[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair247" *) 
+  (* SOFT_HLUTNM = "soft_lutpair232" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[30]_i_1 
@@ -11273,7 +11074,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I2(first_data_sector_no_t0[30]),
         .O(\first_data_sector_no[30]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair246" *) 
+  (* SOFT_HLUTNM = "soft_lutpair232" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[31]_i_1 
@@ -11323,7 +11124,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.I0(read_sector_no07_out[28]),
         .I1(read_sector_no07_out[29]),
         .O(\first_data_sector_no[31]_i_9_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair260" *) 
+  (* SOFT_HLUTNM = "soft_lutpair246" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[3]_i_1 
@@ -11376,7 +11177,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.I0(read_sector_no07_out[0]),
         .I1(first_data_sector_no_t2[0]),
         .O(\first_data_sector_no[3]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair260" *) 
+  (* SOFT_HLUTNM = "soft_lutpair245" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[4]_i_1 
@@ -11432,7 +11233,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.I0(read_sector_no07_out[1]),
         .I1(\sector_content_reg_n_0_[13][0] ),
         .O(\first_data_sector_no[4]_i_9_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair259" *) 
+  (* SOFT_HLUTNM = "soft_lutpair245" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[5]_i_1 
@@ -11440,7 +11241,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I2(first_data_sector_no_t0[5]),
         .O(\first_data_sector_no[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair259" *) 
+  (* SOFT_HLUTNM = "soft_lutpair244" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[6]_i_1 
@@ -11448,7 +11249,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I2(first_data_sector_no_t0[6]),
         .O(\first_data_sector_no[6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair258" *) 
+  (* SOFT_HLUTNM = "soft_lutpair244" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[7]_i_1 
@@ -11524,7 +11325,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I4(read_sector_no07_out[5]),
         .I5(first_data_sector_no_t2[5]),
         .O(\first_data_sector_no[7]_i_9_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair258" *) 
+  (* SOFT_HLUTNM = "soft_lutpair243" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[8]_i_1 
@@ -11588,7 +11389,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(read_sector_no07_out[6]),
         .I3(\sector_content_reg_n_0_[13][5] ),
         .O(\first_data_sector_no[8]_i_9_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair257" *) 
+  (* SOFT_HLUTNM = "soft_lutpair243" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \first_data_sector_no[9]_i_1 
@@ -11600,7 +11401,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[0]_i_1_n_0 ),
         .Q(first_data_sector_no[0]));
@@ -11608,7 +11409,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[10] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[10]_i_1_n_0 ),
         .Q(first_data_sector_no[10]));
@@ -11616,7 +11417,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[11] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[11]_i_1_n_0 ),
         .Q(first_data_sector_no[11]));
@@ -11632,7 +11433,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[12] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[12]_i_1_n_0 ),
         .Q(first_data_sector_no[12]));
@@ -11648,7 +11449,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[13] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[13]_i_1_n_0 ),
         .Q(first_data_sector_no[13]));
@@ -11656,7 +11457,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[14] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[14]_i_1_n_0 ),
         .Q(first_data_sector_no[14]));
@@ -11664,7 +11465,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[15] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[15]_i_1_n_0 ),
         .Q(first_data_sector_no[15]));
@@ -11680,7 +11481,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[16] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[16]_i_1_n_0 ),
         .Q(first_data_sector_no[16]));
@@ -11696,7 +11497,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[17] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[17]_i_1_n_0 ),
         .Q(first_data_sector_no[17]));
@@ -11704,7 +11505,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[18] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[18]_i_1_n_0 ),
         .Q(first_data_sector_no[18]));
@@ -11712,7 +11513,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[19] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[19]_i_1_n_0 ),
         .Q(first_data_sector_no[19]));
@@ -11728,7 +11529,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[1]_i_1_n_0 ),
         .Q(first_data_sector_no[1]));
@@ -11736,7 +11537,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[20] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[20]_i_1_n_0 ),
         .Q(first_data_sector_no[20]));
@@ -11752,7 +11553,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[21] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[21]_i_1_n_0 ),
         .Q(first_data_sector_no[21]));
@@ -11760,7 +11561,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[22] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[22]_i_1_n_0 ),
         .Q(first_data_sector_no[22]));
@@ -11768,7 +11569,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[23] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[23]_i_1_n_0 ),
         .Q(first_data_sector_no[23]));
@@ -11784,7 +11585,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[24] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[24]_i_1_n_0 ),
         .Q(first_data_sector_no[24]));
@@ -11800,7 +11601,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[25] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[25]_i_1_n_0 ),
         .Q(first_data_sector_no[25]));
@@ -11808,7 +11609,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[26] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[26]_i_1_n_0 ),
         .Q(first_data_sector_no[26]));
@@ -11816,7 +11617,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[27] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[27]_i_1_n_0 ),
         .Q(first_data_sector_no[27]));
@@ -11832,7 +11633,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[28] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[28]_i_1_n_0 ),
         .Q(first_data_sector_no[28]));
@@ -11848,7 +11649,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[29] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[29]_i_1_n_0 ),
         .Q(first_data_sector_no[29]));
@@ -11856,7 +11657,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[2]_i_1_n_0 ),
         .Q(first_data_sector_no[2]));
@@ -11864,7 +11665,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[30] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[30]_i_1_n_0 ),
         .Q(first_data_sector_no[30]));
@@ -11872,7 +11673,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[31] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[31]_i_1_n_0 ),
         .Q(first_data_sector_no[31]));
@@ -11896,7 +11697,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[3]_i_1_n_0 ),
         .Q(first_data_sector_no[3]));
@@ -11912,7 +11713,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[4]_i_1_n_0 ),
         .Q(first_data_sector_no[4]));
@@ -11928,7 +11729,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[5]_i_1_n_0 ),
         .Q(first_data_sector_no[5]));
@@ -11936,7 +11737,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[6]_i_1_n_0 ),
         .Q(first_data_sector_no[6]));
@@ -11944,7 +11745,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[7]_i_1_n_0 ),
         .Q(first_data_sector_no[7]));
@@ -11960,7 +11761,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[8] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[8]_i_1_n_0 ),
         .Q(first_data_sector_no[8]));
@@ -11976,7 +11777,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_data_sector_no_reg[9] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(\first_data_sector_no[9]_i_1_n_0 ),
         .Q(first_data_sector_no[9]));
@@ -12080,7 +11881,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[0]),
         .Q(first_fat_sector_no[0]));
@@ -12088,7 +11889,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[10] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[10]),
         .Q(first_fat_sector_no[10]));
@@ -12096,7 +11897,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[11] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[11]),
         .Q(first_fat_sector_no[11]));
@@ -12112,7 +11913,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[12] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[12]),
         .Q(first_fat_sector_no[12]));
@@ -12120,7 +11921,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[13] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[13]),
         .Q(first_fat_sector_no[13]));
@@ -12128,7 +11929,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[14] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[14]),
         .Q(first_fat_sector_no[14]));
@@ -12136,7 +11937,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[15] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[15]),
         .Q(first_fat_sector_no[15]));
@@ -12152,7 +11953,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[16] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[16]),
         .Q(first_fat_sector_no[16]));
@@ -12160,7 +11961,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[17] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[17]),
         .Q(first_fat_sector_no[17]));
@@ -12168,7 +11969,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[18] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[18]),
         .Q(first_fat_sector_no[18]));
@@ -12176,7 +11977,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[19] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[19]),
         .Q(first_fat_sector_no[19]));
@@ -12192,7 +11993,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[1]),
         .Q(first_fat_sector_no[1]));
@@ -12200,7 +12001,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[20] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[20]),
         .Q(first_fat_sector_no[20]));
@@ -12208,7 +12009,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[21] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[21]),
         .Q(first_fat_sector_no[21]));
@@ -12216,7 +12017,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[22] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[22]),
         .Q(first_fat_sector_no[22]));
@@ -12224,7 +12025,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[23] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[23]),
         .Q(first_fat_sector_no[23]));
@@ -12240,7 +12041,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[24] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[24]),
         .Q(first_fat_sector_no[24]));
@@ -12248,7 +12049,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[25] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[25]),
         .Q(first_fat_sector_no[25]));
@@ -12256,7 +12057,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[26] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[26]),
         .Q(first_fat_sector_no[26]));
@@ -12264,7 +12065,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[27] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[27]),
         .Q(first_fat_sector_no[27]));
@@ -12280,7 +12081,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[28] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[28]),
         .Q(first_fat_sector_no[28]));
@@ -12288,7 +12089,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[29] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[29]),
         .Q(first_fat_sector_no[29]));
@@ -12296,7 +12097,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[2]),
         .Q(first_fat_sector_no[2]));
@@ -12304,7 +12105,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[30] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[30]),
         .Q(first_fat_sector_no[30]));
@@ -12312,7 +12113,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[31] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[31]),
         .Q(first_fat_sector_no[31]));
@@ -12328,7 +12129,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[3]),
         .Q(first_fat_sector_no[3]));
@@ -12344,7 +12145,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[4]),
         .Q(first_fat_sector_no[4]));
@@ -12352,7 +12153,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[5]),
         .Q(first_fat_sector_no[5]));
@@ -12360,7 +12161,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[6]),
         .Q(first_fat_sector_no[6]));
@@ -12368,7 +12169,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[7]),
         .Q(first_fat_sector_no[7]));
@@ -12384,7 +12185,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[8] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[8]),
         .Q(first_fat_sector_no[8]));
@@ -12392,11 +12193,11 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \first_fat_sector_no_reg[9] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_133),
+        .CE(u_sd_reader_n_122),
         .CLR(reset_n_0),
         .D(read_sector_no16_in[9]),
         .Q(first_fat_sector_no[9]));
-  (* SOFT_HLUTNM = "soft_lutpair238" *) 
+  (* SOFT_HLUTNM = "soft_lutpair226" *) 
   LUT5 #(
     .INIT(32'h00000001)) 
     \fname[7][7]_i_2 
@@ -12416,7 +12217,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I4(\file_namelen_reg_n_0_[4] ),
         .I5(\file_namelen_reg_n_0_[3] ),
         .O(\fname[8][7]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair238" *) 
+  (* SOFT_HLUTNM = "soft_lutpair226" *) 
   LUT3 #(
     .INIT(8'h01)) 
     \fname[8][7]_i_3 
@@ -12430,7 +12231,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_285),
+        .D(u_sd_reader_n_340),
         .Q(\fname_reg[0]_10 [0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12438,7 +12239,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_284),
+        .D(u_sd_reader_n_339),
         .Q(\fname_reg[0]_10 [1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12446,7 +12247,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_283),
+        .D(u_sd_reader_n_338),
         .Q(\fname_reg[0]_10 [2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12454,7 +12255,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_282),
+        .D(u_sd_reader_n_337),
         .Q(\fname_reg[0]_10 [3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12462,7 +12263,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_281),
+        .D(u_sd_reader_n_336),
         .Q(\fname_reg[0]_10 [4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12470,7 +12271,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_280),
+        .D(u_sd_reader_n_335),
         .Q(\fname_reg[0]_10 [5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12478,7 +12279,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_279),
+        .D(u_sd_reader_n_334),
         .Q(\fname_reg[0]_10 [6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12486,7 +12287,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_278),
+        .D(u_sd_reader_n_333),
         .Q(\fname_reg[0]_10 [7]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12494,7 +12295,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_277),
+        .D(u_sd_reader_n_332),
         .Q(\fname_reg[1]_9 [0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12502,7 +12303,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_276),
+        .D(u_sd_reader_n_331),
         .Q(\fname_reg[1]_9 [1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12510,7 +12311,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_275),
+        .D(u_sd_reader_n_330),
         .Q(\fname_reg[1]_9 [2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12518,7 +12319,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_274),
+        .D(u_sd_reader_n_329),
         .Q(\fname_reg[1]_9 [3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12526,7 +12327,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_273),
+        .D(u_sd_reader_n_328),
         .Q(\fname_reg[1]_9 [4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12534,7 +12335,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_272),
+        .D(u_sd_reader_n_327),
         .Q(\fname_reg[1]_9 [5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12542,7 +12343,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_271),
+        .D(u_sd_reader_n_326),
         .Q(\fname_reg[1]_9 [6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12550,7 +12351,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_270),
+        .D(u_sd_reader_n_325),
         .Q(\fname_reg[1]_9 [7]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12558,7 +12359,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_269),
+        .D(u_sd_reader_n_324),
         .Q(\fname_reg[2]_8 [0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12566,7 +12367,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_268),
+        .D(u_sd_reader_n_323),
         .Q(\fname_reg[2]_8 [1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12574,7 +12375,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_267),
+        .D(u_sd_reader_n_322),
         .Q(\fname_reg[2]_8 [2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12582,7 +12383,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_266),
+        .D(u_sd_reader_n_321),
         .Q(\fname_reg[2]_8 [3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12590,7 +12391,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_265),
+        .D(u_sd_reader_n_320),
         .Q(\fname_reg[2]_8 [4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12598,7 +12399,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_264),
+        .D(u_sd_reader_n_319),
         .Q(\fname_reg[2]_8 [5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12606,7 +12407,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_263),
+        .D(u_sd_reader_n_318),
         .Q(\fname_reg[2]_8 [6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12614,7 +12415,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_262),
+        .D(u_sd_reader_n_317),
         .Q(\fname_reg[2]_8 [7]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12622,7 +12423,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_261),
+        .D(u_sd_reader_n_316),
         .Q(\fname_reg[3]_7 [0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12630,7 +12431,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_260),
+        .D(u_sd_reader_n_315),
         .Q(\fname_reg[3]_7 [1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12638,7 +12439,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_259),
+        .D(u_sd_reader_n_314),
         .Q(\fname_reg[3]_7 [2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12646,7 +12447,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_258),
+        .D(u_sd_reader_n_313),
         .Q(\fname_reg[3]_7 [3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12654,7 +12455,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_257),
+        .D(u_sd_reader_n_312),
         .Q(\fname_reg[3]_7 [4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12662,7 +12463,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_256),
+        .D(u_sd_reader_n_311),
         .Q(\fname_reg[3]_7 [5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12670,7 +12471,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_255),
+        .D(u_sd_reader_n_310),
         .Q(\fname_reg[3]_7 [6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12678,7 +12479,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_254),
+        .D(u_sd_reader_n_309),
         .Q(\fname_reg[3]_7 [7]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12686,7 +12487,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_253),
+        .D(u_sd_reader_n_308),
         .Q(\fname_reg[4]_6 [0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12694,7 +12495,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_252),
+        .D(u_sd_reader_n_307),
         .Q(\fname_reg[4]_6 [1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12702,7 +12503,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_251),
+        .D(u_sd_reader_n_306),
         .Q(\fname_reg[4]_6 [2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12710,7 +12511,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_250),
+        .D(u_sd_reader_n_305),
         .Q(\fname_reg[4]_6 [3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12718,7 +12519,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_249),
+        .D(u_sd_reader_n_304),
         .Q(\fname_reg[4]_6 [4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12726,7 +12527,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_248),
+        .D(u_sd_reader_n_303),
         .Q(\fname_reg[4]_6 [5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12734,7 +12535,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_247),
+        .D(u_sd_reader_n_302),
         .Q(\fname_reg[4]_6 [6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12742,7 +12543,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_246),
+        .D(u_sd_reader_n_301),
         .Q(\fname_reg[4]_6 [7]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12750,7 +12551,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_245),
+        .D(u_sd_reader_n_300),
         .Q(\fname_reg[5]_5 [0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12758,7 +12559,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_244),
+        .D(u_sd_reader_n_299),
         .Q(\fname_reg[5]_5 [1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12766,7 +12567,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_243),
+        .D(u_sd_reader_n_298),
         .Q(\fname_reg[5]_5 [2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12774,7 +12575,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_242),
+        .D(u_sd_reader_n_297),
         .Q(\fname_reg[5]_5 [3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12782,7 +12583,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_241),
+        .D(u_sd_reader_n_296),
         .Q(\fname_reg[5]_5 [4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12790,7 +12591,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_240),
+        .D(u_sd_reader_n_295),
         .Q(\fname_reg[5]_5 [5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12798,7 +12599,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_239),
+        .D(u_sd_reader_n_294),
         .Q(\fname_reg[5]_5 [6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12806,7 +12607,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_238),
+        .D(u_sd_reader_n_293),
         .Q(\fname_reg[5]_5 [7]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12814,7 +12615,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_237),
+        .D(u_sd_reader_n_292),
         .Q(\fname_reg[6]_4 [0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12822,7 +12623,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_236),
+        .D(u_sd_reader_n_291),
         .Q(\fname_reg[6]_4 [1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12830,7 +12631,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_235),
+        .D(u_sd_reader_n_290),
         .Q(\fname_reg[6]_4 [2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12838,7 +12639,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_234),
+        .D(u_sd_reader_n_289),
         .Q(\fname_reg[6]_4 [3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12846,7 +12647,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_233),
+        .D(u_sd_reader_n_288),
         .Q(\fname_reg[6]_4 [4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12854,7 +12655,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_232),
+        .D(u_sd_reader_n_287),
         .Q(\fname_reg[6]_4 [5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12862,7 +12663,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_231),
+        .D(u_sd_reader_n_286),
         .Q(\fname_reg[6]_4 [6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12870,7 +12671,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_230),
+        .D(u_sd_reader_n_285),
         .Q(\fname_reg[6]_4 [7]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12878,7 +12679,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_229),
+        .D(u_sd_reader_n_284),
         .Q(\fname_reg[7]_3 [0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12886,7 +12687,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_228),
+        .D(u_sd_reader_n_283),
         .Q(\fname_reg[7]_3 [1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12894,7 +12695,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_227),
+        .D(u_sd_reader_n_282),
         .Q(\fname_reg[7]_3 [2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12902,7 +12703,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_226),
+        .D(u_sd_reader_n_281),
         .Q(\fname_reg[7]_3 [3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12910,7 +12711,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_225),
+        .D(u_sd_reader_n_280),
         .Q(\fname_reg[7]_3 [4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12918,7 +12719,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_224),
+        .D(u_sd_reader_n_279),
         .Q(\fname_reg[7]_3 [5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12926,7 +12727,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_223),
+        .D(u_sd_reader_n_278),
         .Q(\fname_reg[7]_3 [6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12934,7 +12735,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_222),
+        .D(u_sd_reader_n_277),
         .Q(\fname_reg[7]_3 [7]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12942,7 +12743,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_221),
+        .D(u_sd_reader_n_276),
         .Q(\fname_reg[8]_2 [0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12950,7 +12751,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_220),
+        .D(u_sd_reader_n_275),
         .Q(\fname_reg[8]_2 [1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12958,7 +12759,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_219),
+        .D(u_sd_reader_n_274),
         .Q(\fname_reg[8]_2 [2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12966,7 +12767,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_218),
+        .D(u_sd_reader_n_273),
         .Q(\fname_reg[8]_2 [3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12974,7 +12775,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_217),
+        .D(u_sd_reader_n_272),
         .Q(\fname_reg[8]_2 [4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12982,7 +12783,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_216),
+        .D(u_sd_reader_n_271),
         .Q(\fname_reg[8]_2 [5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12990,7 +12791,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_215),
+        .D(u_sd_reader_n_270),
         .Q(\fname_reg[8]_2 [6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -12998,7 +12799,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_214),
+        .D(u_sd_reader_n_269),
         .Q(\fname_reg[8]_2 [7]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13006,7 +12807,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_88),
+        .D(u_sd_reader_n_94),
         .Q(fnamelen[0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13014,7 +12815,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_87),
+        .D(u_sd_reader_n_93),
         .Q(fnamelen[1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13022,7 +12823,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_86),
+        .D(u_sd_reader_n_92),
         .Q(fnamelen[2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13030,7 +12831,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_85),
+        .D(u_sd_reader_n_91),
         .Q(fnamelen[3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13038,7 +12839,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_84),
+        .D(u_sd_reader_n_90),
         .Q(fnamelen[4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13046,7 +12847,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_83),
+        .D(u_sd_reader_n_89),
         .Q(fnamelen[5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13054,7 +12855,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_82),
+        .D(u_sd_reader_n_88),
         .Q(fnamelen[6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13062,7 +12863,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_81),
+        .D(u_sd_reader_n_87),
         .Q(fnamelen[7]));
   LUT1 #(
     .INIT(2'h1)) 
@@ -13403,7 +13204,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_79),
+        .D(u_sd_reader_n_85),
         .Q(fsize[0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13411,7 +13212,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_69),
+        .D(u_sd_reader_n_75),
         .Q(fsize[10]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13419,7 +13220,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_68),
+        .D(u_sd_reader_n_74),
         .Q(fsize[11]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13427,7 +13228,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_67),
+        .D(u_sd_reader_n_73),
         .Q(fsize[12]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13435,7 +13236,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_66),
+        .D(u_sd_reader_n_72),
         .Q(fsize[13]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13443,7 +13244,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_65),
+        .D(u_sd_reader_n_71),
         .Q(fsize[14]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13451,7 +13252,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_64),
+        .D(u_sd_reader_n_70),
         .Q(fsize[15]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13459,7 +13260,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_63),
+        .D(u_sd_reader_n_69),
         .Q(fsize[16]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13467,7 +13268,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_62),
+        .D(u_sd_reader_n_68),
         .Q(fsize[17]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13475,7 +13276,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_61),
+        .D(u_sd_reader_n_67),
         .Q(fsize[18]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13483,7 +13284,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_60),
+        .D(u_sd_reader_n_66),
         .Q(fsize[19]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13491,7 +13292,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_78),
+        .D(u_sd_reader_n_84),
         .Q(fsize[1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13499,7 +13300,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_59),
+        .D(u_sd_reader_n_65),
         .Q(fsize[20]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13507,7 +13308,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_58),
+        .D(u_sd_reader_n_64),
         .Q(fsize[21]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13515,7 +13316,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_57),
+        .D(u_sd_reader_n_63),
         .Q(fsize[22]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13523,7 +13324,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_56),
+        .D(u_sd_reader_n_62),
         .Q(fsize[23]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13531,7 +13332,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_55),
+        .D(u_sd_reader_n_61),
         .Q(fsize[24]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13539,7 +13340,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_54),
+        .D(u_sd_reader_n_60),
         .Q(fsize[25]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13547,7 +13348,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_53),
+        .D(u_sd_reader_n_59),
         .Q(fsize[26]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13555,7 +13356,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_52),
+        .D(u_sd_reader_n_58),
         .Q(fsize[27]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13563,7 +13364,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_51),
+        .D(u_sd_reader_n_57),
         .Q(fsize[28]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13571,7 +13372,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_50),
+        .D(u_sd_reader_n_56),
         .Q(fsize[29]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13579,7 +13380,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_77),
+        .D(u_sd_reader_n_83),
         .Q(fsize[2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13587,7 +13388,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_49),
+        .D(u_sd_reader_n_55),
         .Q(fsize[30]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13595,7 +13396,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_48),
+        .D(u_sd_reader_n_54),
         .Q(fsize[31]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13603,7 +13404,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_76),
+        .D(u_sd_reader_n_82),
         .Q(fsize[3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13611,7 +13412,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_75),
+        .D(u_sd_reader_n_81),
         .Q(fsize[4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13619,7 +13420,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_74),
+        .D(u_sd_reader_n_80),
         .Q(fsize[5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13627,7 +13428,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_73),
+        .D(u_sd_reader_n_79),
         .Q(fsize[6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13635,7 +13436,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_72),
+        .D(u_sd_reader_n_78),
         .Q(fsize[7]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13643,7 +13444,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_71),
+        .D(u_sd_reader_n_77),
         .Q(fsize[8]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13651,15 +13452,24 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_70),
+        .D(u_sd_reader_n_76),
         .Q(fsize[9]));
+  LUT5 #(
+    .INIT(32'hFFFFFFFE)) 
+    islong_i_11
+       (.I0(longno[1]),
+        .I1(longno[5]),
+        .I2(longno[4]),
+        .I3(longno[3]),
+        .I4(longno[2]),
+        .O(islong_i_11_n_0));
   FDCE #(
     .INIT(1'b0)) 
     islong_reg
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_302),
+        .D(u_sd_reader_n_150),
         .Q(p_0_in23_in));
   FDCE #(
     .INIT(1'b0)) 
@@ -13667,22 +13477,15 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_128),
+        .D(u_sd_reader_n_117),
         .Q(islongok));
-  LUT3 #(
-    .INIT(8'h7F)) 
-    isshort_i_4
-       (.I0(longno[0]),
-        .I1(p_0_in23_in),
-        .I2(\longno[5]_i_5_n_0 ),
-        .O(isshort_i_4_n_0));
   FDCE #(
     .INIT(1'b0)) 
     isshort_reg
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_120),
+        .D(u_sd_reader_n_242),
         .Q(p_2_in));
   FDCE #(
     .INIT(1'b0)) 
@@ -13748,15 +13551,13 @@ module design_1_top_system_0_1_sd_file_reader
         .CLR(reset_n_0),
         .D(rdata[7]),
         .Q(\lastchar_reg_n_0_[7] ));
-  LUT5 #(
-    .INIT(32'h00000001)) 
-    \longno[5]_i_5 
-       (.I0(longno[2]),
-        .I1(longno[3]),
-        .I2(longno[4]),
-        .I3(longno[1]),
-        .I4(longno[5]),
-        .O(\longno[5]_i_5_n_0 ));
+  LUT3 #(
+    .INIT(8'hBF)) 
+    \longno[5]_i_7 
+       (.I0(islong_i_11_n_0),
+        .I1(longno[0]),
+        .I2(p_0_in23_in),
+        .O(\longno[5]_i_7_n_0 ));
   FDCE #(
     .INIT(1'b0)) 
     \longno_reg[0] 
@@ -13811,7 +13612,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_126),
+        .D(u_sd_reader_n_115),
         .Q(longvalid));
   FDCE #(
     .INIT(1'b0)) 
@@ -13819,7 +13620,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_110),
+        .D(u_sd_reader_n_108),
         .Q(fifo_din[0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13827,7 +13628,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_109),
+        .D(u_sd_reader_n_107),
         .Q(fifo_din[1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13835,7 +13636,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_108),
+        .D(u_sd_reader_n_106),
         .Q(fifo_din[2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13843,7 +13644,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_107),
+        .D(u_sd_reader_n_105),
         .Q(fifo_din[3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13851,7 +13652,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_106),
+        .D(u_sd_reader_n_104),
         .Q(fifo_din[4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13859,7 +13660,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_105),
+        .D(u_sd_reader_n_103),
         .Q(fifo_din[5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13867,7 +13668,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_104),
+        .D(u_sd_reader_n_102),
         .Q(fifo_din[6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -13875,7 +13676,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_103),
+        .D(u_sd_reader_n_101),
         .Q(fifo_din[7]));
   LUT4 #(
     .INIT(16'h9009)) 
@@ -14600,7 +14401,7 @@ module design_1_top_system_0_1_sd_file_reader
         .CEAD(1'b0),
         .CEALUMODE(1'b0),
         .CEB1(1'b0),
-        .CEB2(u_sd_reader_n_148),
+        .CEB2(u_sd_reader_n_144),
         .CEC(1'b0),
         .CECARRYIN(1'b0),
         .CECTRL(1'b0),
@@ -14829,7 +14630,7 @@ module design_1_top_system_0_1_sd_file_reader
         .CEAD(1'b0),
         .CEALUMODE(1'b0),
         .CEB1(1'b0),
-        .CEB2(u_sd_reader_n_148),
+        .CEB2(u_sd_reader_n_144),
         .CEC(1'b0),
         .CECARRYIN(1'b0),
         .CECTRL(1'b0),
@@ -15620,9 +15421,9 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[0]_i_2 
        (.I0(\read_sector_no[0]_i_4_n_0 ),
         .I1(\read_sector_no_reg_n_0_[0] ),
-        .I2(\read_sector_no[31]_i_6_n_0 ),
+        .I2(\read_sector_no[31]_i_13_n_0 ),
         .I3(\sector_content_reg_n_0_[454][0] ),
-        .I4(\read_sector_no[31]_i_8_n_0 ),
+        .I4(\read_sector_no[31]_i_15_n_0 ),
         .I5(\read_sector_no[0]_i_5_n_0 ),
         .O(\read_sector_no[0]_i_2_n_0 ));
   LUT6 #(
@@ -15630,7 +15431,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[0]_i_3 
        (.I0(\read_sector_no_reg[3]_i_5_n_7 ),
         .I1(\read_sector_no[0]_i_6_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[0]_i_7_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[0]_i_8_n_0 ),
@@ -15638,10 +15439,10 @@ module design_1_top_system_0_1_sd_file_reader
   LUT4 #(
     .INIT(16'h0004)) 
     \read_sector_no[0]_i_4 
-       (.I0(\curr_cluster[31]_i_12_n_0 ),
-        .I1(\curr_cluster[31]_i_11_n_0 ),
-        .I2(\curr_cluster[31]_i_10_n_0 ),
-        .I3(\curr_cluster[31]_i_9_n_0 ),
+       (.I0(\read_sector_no[31]_i_10_n_0 ),
+        .I1(\read_sector_no[31]_i_9_n_0 ),
+        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_7_n_0 ),
         .O(\read_sector_no[0]_i_4_n_0 ));
   LUT5 #(
     .INIT(32'hB8BBB888)) 
@@ -15669,7 +15470,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[3]_i_5_n_7 ),
         .O(\read_sector_no[0]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair292" *) 
+  (* SOFT_HLUTNM = "soft_lutpair280" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[0]_i_8 
@@ -15677,7 +15478,6 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[0]),
         .O(\read_sector_no[0]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair293" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[0]_i_9 
@@ -15689,9 +15489,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[10]_i_2 
        (.I0(\sector_content_reg_n_0_[455][2] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[10]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[10]_i_4_n_0 ),
         .O(\read_sector_no[10]_i_2_n_0 ));
   LUT6 #(
@@ -15699,7 +15499,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[10]_i_3 
        (.I0(\read_sector_no_reg[11]_i_5_n_5 ),
         .I1(\read_sector_no[10]_i_5_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[10]_i_6_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[10]_i_7_n_0 ),
@@ -15730,7 +15530,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[11]_i_5_n_5 ),
         .O(\read_sector_no[10]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair282" *) 
+  (* SOFT_HLUTNM = "soft_lutpair270" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[10]_i_7 
@@ -15738,7 +15538,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[10]),
         .O(\read_sector_no[10]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair283" *) 
+  (* SOFT_HLUTNM = "soft_lutpair271" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[10]_i_8 
@@ -15774,9 +15574,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[11]_i_2 
        (.I0(\sector_content_reg_n_0_[455][3] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[11]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[11]_i_4_n_0 ),
         .O(\read_sector_no[11]_i_2_n_0 ));
   LUT2 #(
@@ -15844,7 +15644,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[11]_i_3 
        (.I0(\read_sector_no_reg[11]_i_5_n_4 ),
         .I1(\read_sector_no[11]_i_6_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[11]_i_7_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[11]_i_8_n_0 ),
@@ -15981,7 +15781,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[11]_i_5_n_4 ),
         .O(\read_sector_no[11]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair282" *) 
+  (* SOFT_HLUTNM = "soft_lutpair270" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[11]_i_8 
@@ -15989,7 +15789,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[11]),
         .O(\read_sector_no[11]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair283" *) 
+  (* SOFT_HLUTNM = "soft_lutpair269" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[11]_i_9 
@@ -16001,9 +15801,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[12]_i_2 
        (.I0(\sector_content_reg_n_0_[455][4] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[12]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[12]_i_5_n_0 ),
         .O(\read_sector_no[12]_i_2_n_0 ));
   LUT6 #(
@@ -16011,7 +15811,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[12]_i_3 
        (.I0(\read_sector_no_reg[15]_i_5_n_7 ),
         .I1(\read_sector_no[12]_i_6_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[12]_i_7_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[12]_i_8_n_0 ),
@@ -16042,7 +15842,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[15]_i_5_n_7 ),
         .O(\read_sector_no[12]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair280" *) 
+  (* SOFT_HLUTNM = "soft_lutpair268" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[12]_i_8 
@@ -16050,7 +15850,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[12]),
         .O(\read_sector_no[12]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair281" *) 
+  (* SOFT_HLUTNM = "soft_lutpair269" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[12]_i_9 
@@ -16062,9 +15862,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[13]_i_2 
        (.I0(\sector_content_reg_n_0_[455][5] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[13]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[13]_i_4_n_0 ),
         .O(\read_sector_no[13]_i_2_n_0 ));
   LUT6 #(
@@ -16072,7 +15872,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[13]_i_3 
        (.I0(\read_sector_no_reg[15]_i_5_n_6 ),
         .I1(\read_sector_no[13]_i_5_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[13]_i_6_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[13]_i_7_n_0 ),
@@ -16103,7 +15903,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[15]_i_5_n_6 ),
         .O(\read_sector_no[13]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair280" *) 
+  (* SOFT_HLUTNM = "soft_lutpair268" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[13]_i_7 
@@ -16111,7 +15911,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[13]),
         .O(\read_sector_no[13]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair281" *) 
+  (* SOFT_HLUTNM = "soft_lutpair267" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[13]_i_8 
@@ -16123,9 +15923,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[14]_i_2 
        (.I0(\sector_content_reg_n_0_[455][6] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[14]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[14]_i_4_n_0 ),
         .O(\read_sector_no[14]_i_2_n_0 ));
   LUT6 #(
@@ -16133,7 +15933,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[14]_i_3 
        (.I0(\read_sector_no_reg[15]_i_5_n_5 ),
         .I1(\read_sector_no[14]_i_5_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[14]_i_6_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[14]_i_7_n_0 ),
@@ -16164,7 +15964,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[15]_i_5_n_5 ),
         .O(\read_sector_no[14]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair278" *) 
+  (* SOFT_HLUTNM = "soft_lutpair266" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[14]_i_7 
@@ -16172,7 +15972,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[14]),
         .O(\read_sector_no[14]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair279" *) 
+  (* SOFT_HLUTNM = "soft_lutpair267" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[14]_i_8 
@@ -16208,9 +16008,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[15]_i_2 
        (.I0(\sector_content_reg_n_0_[455][7] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[15]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[15]_i_4_n_0 ),
         .O(\read_sector_no[15]_i_2_n_0 ));
   LUT2 #(
@@ -16278,7 +16078,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[15]_i_3 
        (.I0(\read_sector_no_reg[15]_i_5_n_4 ),
         .I1(\read_sector_no[15]_i_6_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[15]_i_7_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[15]_i_8_n_0 ),
@@ -16413,7 +16213,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[15]_i_5_n_4 ),
         .O(\read_sector_no[15]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair278" *) 
+  (* SOFT_HLUTNM = "soft_lutpair266" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[15]_i_8 
@@ -16421,7 +16221,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[15]),
         .O(\read_sector_no[15]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair279" *) 
+  (* SOFT_HLUTNM = "soft_lutpair265" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[15]_i_9 
@@ -16433,9 +16233,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[16]_i_2 
        (.I0(\sector_content_reg_n_0_[456][0] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[16]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[16]_i_5_n_0 ),
         .O(\read_sector_no[16]_i_2_n_0 ));
   LUT6 #(
@@ -16443,7 +16243,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[16]_i_3 
        (.I0(\read_sector_no_reg[19]_i_5_n_7 ),
         .I1(\read_sector_no[16]_i_6_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[16]_i_7_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[16]_i_8_n_0 ),
@@ -16474,7 +16274,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[19]_i_5_n_7 ),
         .O(\read_sector_no[16]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair276" *) 
+  (* SOFT_HLUTNM = "soft_lutpair264" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[16]_i_8 
@@ -16482,7 +16282,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[16]),
         .O(\read_sector_no[16]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair277" *) 
+  (* SOFT_HLUTNM = "soft_lutpair265" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[16]_i_9 
@@ -16494,9 +16294,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[17]_i_2 
        (.I0(\sector_content_reg_n_0_[456][1] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[17]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[17]_i_4_n_0 ),
         .O(\read_sector_no[17]_i_2_n_0 ));
   LUT6 #(
@@ -16504,7 +16304,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[17]_i_3 
        (.I0(\read_sector_no_reg[19]_i_5_n_6 ),
         .I1(\read_sector_no[17]_i_5_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[17]_i_6_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[17]_i_7_n_0 ),
@@ -16535,7 +16335,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[19]_i_5_n_6 ),
         .O(\read_sector_no[17]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair276" *) 
+  (* SOFT_HLUTNM = "soft_lutpair264" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[17]_i_7 
@@ -16543,7 +16343,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[17]),
         .O(\read_sector_no[17]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair277" *) 
+  (* SOFT_HLUTNM = "soft_lutpair263" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[17]_i_8 
@@ -16555,9 +16355,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[18]_i_2 
        (.I0(\sector_content_reg_n_0_[456][2] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[18]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[18]_i_4_n_0 ),
         .O(\read_sector_no[18]_i_2_n_0 ));
   LUT6 #(
@@ -16565,7 +16365,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[18]_i_3 
        (.I0(\read_sector_no_reg[19]_i_5_n_5 ),
         .I1(\read_sector_no[18]_i_5_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[18]_i_6_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[18]_i_7_n_0 ),
@@ -16596,7 +16396,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[19]_i_5_n_5 ),
         .O(\read_sector_no[18]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair274" *) 
+  (* SOFT_HLUTNM = "soft_lutpair262" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[18]_i_7 
@@ -16604,7 +16404,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[18]),
         .O(\read_sector_no[18]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair275" *) 
+  (* SOFT_HLUTNM = "soft_lutpair263" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[18]_i_8 
@@ -16640,9 +16440,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[19]_i_2 
        (.I0(\sector_content_reg_n_0_[456][3] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[19]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[19]_i_4_n_0 ),
         .O(\read_sector_no[19]_i_2_n_0 ));
   LUT2 #(
@@ -16710,7 +16510,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[19]_i_3 
        (.I0(\read_sector_no_reg[19]_i_5_n_4 ),
         .I1(\read_sector_no[19]_i_6_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[19]_i_7_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[19]_i_8_n_0 ),
@@ -16845,7 +16645,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[19]_i_5_n_4 ),
         .O(\read_sector_no[19]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair274" *) 
+  (* SOFT_HLUTNM = "soft_lutpair262" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[19]_i_8 
@@ -16853,7 +16653,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[19]),
         .O(\read_sector_no[19]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair275" *) 
+  (* SOFT_HLUTNM = "soft_lutpair261" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[19]_i_9 
@@ -16865,9 +16665,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[1]_i_2 
        (.I0(\sector_content_reg_n_0_[454][1] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[1]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[1]_i_4_n_0 ),
         .O(\read_sector_no[1]_i_2_n_0 ));
   LUT6 #(
@@ -16875,7 +16675,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[1]_i_3 
        (.I0(\read_sector_no_reg[3]_i_5_n_6 ),
         .I1(\read_sector_no[1]_i_5_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[1]_i_6_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[1]_i_7_n_0 ),
@@ -16906,7 +16706,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[3]_i_5_n_6 ),
         .O(\read_sector_no[1]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair292" *) 
+  (* SOFT_HLUTNM = "soft_lutpair280" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[1]_i_7 
@@ -16914,7 +16714,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[1]),
         .O(\read_sector_no[1]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair293" *) 
+  (* SOFT_HLUTNM = "soft_lutpair279" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[1]_i_8 
@@ -16926,9 +16726,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[20]_i_2 
        (.I0(\sector_content_reg_n_0_[456][4] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[20]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[20]_i_5_n_0 ),
         .O(\read_sector_no[20]_i_2_n_0 ));
   LUT6 #(
@@ -16936,7 +16736,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[20]_i_3 
        (.I0(\read_sector_no_reg[23]_i_5_n_7 ),
         .I1(\read_sector_no[20]_i_6_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[20]_i_7_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[20]_i_8_n_0 ),
@@ -16967,7 +16767,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[23]_i_5_n_7 ),
         .O(\read_sector_no[20]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair272" *) 
+  (* SOFT_HLUTNM = "soft_lutpair260" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[20]_i_8 
@@ -16975,7 +16775,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[20]),
         .O(\read_sector_no[20]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair273" *) 
+  (* SOFT_HLUTNM = "soft_lutpair261" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[20]_i_9 
@@ -16987,9 +16787,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[21]_i_2 
        (.I0(\sector_content_reg_n_0_[456][5] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[21]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[21]_i_4_n_0 ),
         .O(\read_sector_no[21]_i_2_n_0 ));
   LUT6 #(
@@ -16997,7 +16797,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[21]_i_3 
        (.I0(\read_sector_no_reg[23]_i_5_n_6 ),
         .I1(\read_sector_no[21]_i_5_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[21]_i_6_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[21]_i_7_n_0 ),
@@ -17028,7 +16828,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[23]_i_5_n_6 ),
         .O(\read_sector_no[21]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair272" *) 
+  (* SOFT_HLUTNM = "soft_lutpair260" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[21]_i_7 
@@ -17036,7 +16836,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[21]),
         .O(\read_sector_no[21]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair273" *) 
+  (* SOFT_HLUTNM = "soft_lutpair259" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[21]_i_8 
@@ -17048,9 +16848,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[22]_i_2 
        (.I0(\sector_content_reg_n_0_[456][6] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[22]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[22]_i_4_n_0 ),
         .O(\read_sector_no[22]_i_2_n_0 ));
   LUT6 #(
@@ -17058,7 +16858,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[22]_i_3 
        (.I0(\read_sector_no_reg[23]_i_5_n_5 ),
         .I1(\read_sector_no[22]_i_5_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[22]_i_6_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[22]_i_7_n_0 ),
@@ -17089,7 +16889,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[23]_i_5_n_5 ),
         .O(\read_sector_no[22]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair270" *) 
+  (* SOFT_HLUTNM = "soft_lutpair258" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[22]_i_7 
@@ -17097,7 +16897,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[22]),
         .O(\read_sector_no[22]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair271" *) 
+  (* SOFT_HLUTNM = "soft_lutpair259" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[22]_i_8 
@@ -17133,9 +16933,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[23]_i_2 
        (.I0(\sector_content_reg_n_0_[456][7] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[23]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[23]_i_4_n_0 ),
         .O(\read_sector_no[23]_i_2_n_0 ));
   LUT2 #(
@@ -17203,7 +17003,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[23]_i_3 
        (.I0(\read_sector_no_reg[23]_i_5_n_4 ),
         .I1(\read_sector_no[23]_i_6_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[23]_i_7_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[23]_i_8_n_0 ),
@@ -17338,7 +17138,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[23]_i_5_n_4 ),
         .O(\read_sector_no[23]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair270" *) 
+  (* SOFT_HLUTNM = "soft_lutpair258" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[23]_i_8 
@@ -17346,7 +17146,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[23]),
         .O(\read_sector_no[23]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair271" *) 
+  (* SOFT_HLUTNM = "soft_lutpair257" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[23]_i_9 
@@ -17358,9 +17158,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[24]_i_2 
        (.I0(\sector_content_reg_n_0_[457][0] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[24]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[24]_i_5_n_0 ),
         .O(\read_sector_no[24]_i_2_n_0 ));
   LUT6 #(
@@ -17368,7 +17168,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[24]_i_3 
        (.I0(\read_sector_no_reg[27]_i_5_n_7 ),
         .I1(\read_sector_no[24]_i_6_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[24]_i_7_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[24]_i_8_n_0 ),
@@ -17399,7 +17199,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[27]_i_5_n_7 ),
         .O(\read_sector_no[24]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair268" *) 
+  (* SOFT_HLUTNM = "soft_lutpair256" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[24]_i_8 
@@ -17407,7 +17207,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[24]),
         .O(\read_sector_no[24]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair269" *) 
+  (* SOFT_HLUTNM = "soft_lutpair257" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[24]_i_9 
@@ -17419,9 +17219,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[25]_i_2 
        (.I0(\sector_content_reg_n_0_[457][1] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[25]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[25]_i_4_n_0 ),
         .O(\read_sector_no[25]_i_2_n_0 ));
   LUT6 #(
@@ -17429,7 +17229,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[25]_i_3 
        (.I0(\read_sector_no_reg[27]_i_5_n_6 ),
         .I1(\read_sector_no[25]_i_5_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[25]_i_6_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[25]_i_7_n_0 ),
@@ -17460,7 +17260,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[27]_i_5_n_6 ),
         .O(\read_sector_no[25]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair268" *) 
+  (* SOFT_HLUTNM = "soft_lutpair256" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[25]_i_7 
@@ -17468,7 +17268,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[25]),
         .O(\read_sector_no[25]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair269" *) 
+  (* SOFT_HLUTNM = "soft_lutpair255" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[25]_i_8 
@@ -17480,9 +17280,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[26]_i_2 
        (.I0(\sector_content_reg_n_0_[457][2] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[26]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[26]_i_4_n_0 ),
         .O(\read_sector_no[26]_i_2_n_0 ));
   LUT6 #(
@@ -17490,7 +17290,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[26]_i_3 
        (.I0(\read_sector_no_reg[27]_i_5_n_5 ),
         .I1(\read_sector_no[26]_i_5_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[26]_i_6_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[26]_i_7_n_0 ),
@@ -17521,7 +17321,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[27]_i_5_n_5 ),
         .O(\read_sector_no[26]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair266" *) 
+  (* SOFT_HLUTNM = "soft_lutpair254" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[26]_i_7 
@@ -17529,7 +17329,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[26]),
         .O(\read_sector_no[26]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair267" *) 
+  (* SOFT_HLUTNM = "soft_lutpair255" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[26]_i_8 
@@ -17565,9 +17365,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[27]_i_2 
        (.I0(\sector_content_reg_n_0_[457][3] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[27]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[27]_i_4_n_0 ),
         .O(\read_sector_no[27]_i_2_n_0 ));
   LUT2 #(
@@ -17635,7 +17435,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[27]_i_3 
        (.I0(\read_sector_no_reg[27]_i_5_n_4 ),
         .I1(\read_sector_no[27]_i_6_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[27]_i_7_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[27]_i_8_n_0 ),
@@ -17724,7 +17524,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[27]_i_5_n_4 ),
         .O(\read_sector_no[27]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair266" *) 
+  (* SOFT_HLUTNM = "soft_lutpair254" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[27]_i_8 
@@ -17732,7 +17532,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[27]),
         .O(\read_sector_no[27]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair267" *) 
+  (* SOFT_HLUTNM = "soft_lutpair253" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[27]_i_9 
@@ -17744,17 +17544,17 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[28]_i_2 
        (.I0(\sector_content_reg_n_0_[457][4] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[28]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[28]_i_5_n_0 ),
         .O(\read_sector_no[28]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hAFA0CFCFAFA0C0C0)) 
     \read_sector_no[28]_i_3 
-       (.I0(\read_sector_no_reg[31]_i_10_n_7 ),
+       (.I0(\read_sector_no_reg[31]_i_17_n_7 ),
         .I1(\read_sector_no[28]_i_6_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[28]_i_7_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[28]_i_8_n_0 ),
@@ -17775,7 +17575,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(file_found),
         .I2(p_3_in[28]),
         .I3(search_fat_reg_i_2_n_0),
-        .I4(\read_sector_no_reg[31]_i_26_n_7 ),
+        .I4(\read_sector_no_reg[31]_i_33_n_7 ),
         .O(\read_sector_no[28]_i_6_n_0 ));
   LUT4 #(
     .INIT(16'hFB08)) 
@@ -17783,9 +17583,9 @@ module design_1_top_system_0_1_sd_file_reader
        (.I0(read_sector_no0_n_77),
         .I1(\filesystem_reg_n_0_[1] ),
         .I2(\filesystem_reg_n_0_[0] ),
-        .I3(\read_sector_no_reg[31]_i_10_n_7 ),
+        .I3(\read_sector_no_reg[31]_i_17_n_7 ),
         .O(\read_sector_no[28]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair264" *) 
+  (* SOFT_HLUTNM = "soft_lutpair252" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[28]_i_8 
@@ -17793,29 +17593,29 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[28]),
         .O(\read_sector_no[28]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair265" *) 
+  (* SOFT_HLUTNM = "soft_lutpair253" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[28]_i_9 
        (.I0(read_sector_no01_out[28]),
         .I1(file_found),
-        .I2(\read_sector_no_reg[31]_i_28_n_7 ),
+        .I2(\read_sector_no_reg[31]_i_35_n_7 ),
         .O(\read_sector_no[28]_i_9_n_0 ));
   LUT5 #(
     .INIT(32'hB8FFB800)) 
     \read_sector_no[29]_i_2 
        (.I0(\sector_content_reg_n_0_[457][5] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[29]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[29]_i_4_n_0 ),
         .O(\read_sector_no[29]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hAFA0CFCFAFA0C0C0)) 
     \read_sector_no[29]_i_3 
-       (.I0(\read_sector_no_reg[31]_i_10_n_6 ),
+       (.I0(\read_sector_no_reg[31]_i_17_n_6 ),
         .I1(\read_sector_no[29]_i_5_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[29]_i_6_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[29]_i_7_n_0 ),
@@ -17836,7 +17636,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(file_found),
         .I2(p_3_in[29]),
         .I3(search_fat_reg_i_2_n_0),
-        .I4(\read_sector_no_reg[31]_i_26_n_6 ),
+        .I4(\read_sector_no_reg[31]_i_33_n_6 ),
         .O(\read_sector_no[29]_i_5_n_0 ));
   LUT4 #(
     .INIT(16'hFB08)) 
@@ -17844,9 +17644,9 @@ module design_1_top_system_0_1_sd_file_reader
        (.I0(read_sector_no0_n_76),
         .I1(\filesystem_reg_n_0_[1] ),
         .I2(\filesystem_reg_n_0_[0] ),
-        .I3(\read_sector_no_reg[31]_i_10_n_6 ),
+        .I3(\read_sector_no_reg[31]_i_17_n_6 ),
         .O(\read_sector_no[29]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair264" *) 
+  (* SOFT_HLUTNM = "soft_lutpair252" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[29]_i_7 
@@ -17854,21 +17654,21 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[29]),
         .O(\read_sector_no[29]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair265" *) 
+  (* SOFT_HLUTNM = "soft_lutpair251" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[29]_i_8 
        (.I0(read_sector_no01_out[29]),
         .I1(file_found),
-        .I2(\read_sector_no_reg[31]_i_28_n_6 ),
+        .I2(\read_sector_no_reg[31]_i_35_n_6 ),
         .O(\read_sector_no[29]_i_8_n_0 ));
   LUT5 #(
     .INIT(32'hB8FFB800)) 
     \read_sector_no[2]_i_2 
        (.I0(\sector_content_reg_n_0_[454][2] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[2]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[2]_i_4_n_0 ),
         .O(\read_sector_no[2]_i_2_n_0 ));
   LUT6 #(
@@ -17876,7 +17676,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[2]_i_3 
        (.I0(\read_sector_no_reg[3]_i_5_n_5 ),
         .I1(\read_sector_no[2]_i_5_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[2]_i_6_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[2]_i_7_n_0 ),
@@ -17907,7 +17707,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[3]_i_5_n_5 ),
         .O(\read_sector_no[2]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair290" *) 
+  (* SOFT_HLUTNM = "soft_lutpair278" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[2]_i_7 
@@ -17915,7 +17715,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[2]),
         .O(\read_sector_no[2]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair291" *) 
+  (* SOFT_HLUTNM = "soft_lutpair279" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[2]_i_8 
@@ -17927,17 +17727,17 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[30]_i_2 
        (.I0(\sector_content_reg_n_0_[457][6] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[30]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[30]_i_4_n_0 ),
         .O(\read_sector_no[30]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hAFA0CFCFAFA0C0C0)) 
     \read_sector_no[30]_i_3 
-       (.I0(\read_sector_no_reg[31]_i_10_n_5 ),
+       (.I0(\read_sector_no_reg[31]_i_17_n_5 ),
         .I1(\read_sector_no[30]_i_5_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[30]_i_6_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[30]_i_7_n_0 ),
@@ -17958,7 +17758,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(file_found),
         .I2(p_3_in[30]),
         .I3(search_fat_reg_i_2_n_0),
-        .I4(\read_sector_no_reg[31]_i_26_n_5 ),
+        .I4(\read_sector_no_reg[31]_i_33_n_5 ),
         .O(\read_sector_no[30]_i_5_n_0 ));
   LUT4 #(
     .INIT(16'hFB08)) 
@@ -17966,9 +17766,9 @@ module design_1_top_system_0_1_sd_file_reader
        (.I0(read_sector_no0_n_75),
         .I1(\filesystem_reg_n_0_[1] ),
         .I2(\filesystem_reg_n_0_[0] ),
-        .I3(\read_sector_no_reg[31]_i_10_n_5 ),
+        .I3(\read_sector_no_reg[31]_i_17_n_5 ),
         .O(\read_sector_no[30]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair262" *) 
+  (* SOFT_HLUTNM = "soft_lutpair249" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[30]_i_7 
@@ -17976,243 +17776,300 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[30]),
         .O(\read_sector_no[30]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair263" *) 
+  (* SOFT_HLUTNM = "soft_lutpair251" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[30]_i_8 
        (.I0(read_sector_no01_out[30]),
         .I1(file_found),
-        .I2(\read_sector_no_reg[31]_i_28_n_5 ),
+        .I2(\read_sector_no_reg[31]_i_35_n_5 ),
         .O(\read_sector_no[30]_i_8_n_0 ));
-  LUT5 #(
-    .INIT(32'hB8BBB888)) 
+  LUT4 #(
+    .INIT(16'hFFEF)) 
+    \read_sector_no[31]_i_10 
+       (.I0(\sector_content_reg_n_0_[510][3] ),
+        .I1(\sector_content_reg_n_0_[511][2] ),
+        .I2(\sector_content_reg_n_0_[511][3] ),
+        .I3(\sector_content_reg_n_0_[511][6] ),
+        .O(\read_sector_no[31]_i_10_n_0 ));
+  LUT4 #(
+    .INIT(16'h0040)) 
     \read_sector_no[31]_i_11 
-       (.I0(read_sector_no01_out[31]),
-        .I1(file_found),
-        .I2(p_3_in[31]),
-        .I3(search_fat_reg_i_2_n_0),
-        .I4(\read_sector_no_reg[31]_i_26_n_4 ),
+       (.I0(\sector_content_reg_n_0_[0][4] ),
+        .I1(\sector_content_reg_n_0_[0][3] ),
+        .I2(\sector_content_reg_n_0_[0][7] ),
+        .I3(\sector_content_reg_n_0_[0][2] ),
         .O(\read_sector_no[31]_i_11_n_0 ));
-  LUT4 #(
-    .INIT(16'hFB08)) 
+  LUT3 #(
+    .INIT(8'h80)) 
     \read_sector_no[31]_i_12 
-       (.I0(read_sector_no0_n_74),
-        .I1(\filesystem_reg_n_0_[1] ),
-        .I2(\filesystem_reg_n_0_[0] ),
-        .I3(\read_sector_no_reg[31]_i_10_n_4 ),
+       (.I0(\sector_content_reg_n_0_[0][0] ),
+        .I1(\sector_content_reg_n_0_[0][5] ),
+        .I2(\sector_content_reg_n_0_[0][6] ),
         .O(\read_sector_no[31]_i_12_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair262" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \read_sector_no[31]_i_13 
-       (.I0(p_3_in[31]),
-        .I1(search_fat_reg_i_2_n_0),
-        .I2(read_sector_no02_in[31]),
-        .O(\read_sector_no[31]_i_13_n_0 ));
-  LUT4 #(
-    .INIT(16'h7FFF)) 
-    \read_sector_no[31]_i_14 
-       (.I0(\sector_content_reg_n_0_[511][5] ),
-        .I1(\sector_content_reg_n_0_[511][7] ),
-        .I2(\sector_content_reg_n_0_[511][1] ),
-        .I3(\sector_content_reg_n_0_[511][3] ),
-        .O(\read_sector_no[31]_i_14_n_0 ));
-  LUT4 #(
-    .INIT(16'h8000)) 
-    \read_sector_no[31]_i_15 
-       (.I0(\sector_content_reg_n_0_[510][4] ),
-        .I1(\sector_content_reg_n_0_[510][6] ),
-        .I2(\sector_content_reg_n_0_[510][0] ),
-        .I3(\sector_content_reg_n_0_[510][2] ),
-        .O(\read_sector_no[31]_i_15_n_0 ));
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    \read_sector_no[31]_i_16 
-       (.I0(\sector_content_reg_n_0_[510][1] ),
-        .I1(\sector_content_reg_n_0_[510][3] ),
-        .I2(\sector_content_reg_n_0_[510][5] ),
-        .I3(\sector_content_reg_n_0_[510][7] ),
-        .O(\read_sector_no[31]_i_16_n_0 ));
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    \read_sector_no[31]_i_17 
-       (.I0(\sector_content_reg_n_0_[511][4] ),
-        .I1(\sector_content_reg_n_0_[511][6] ),
-        .I2(\sector_content_reg_n_0_[511][0] ),
-        .I3(\sector_content_reg_n_0_[511][2] ),
-        .O(\read_sector_no[31]_i_17_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair263" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \read_sector_no[31]_i_18 
-       (.I0(read_sector_no01_out[31]),
-        .I1(file_found),
-        .I2(\read_sector_no_reg[31]_i_28_n_4 ),
-        .O(\read_sector_no[31]_i_18_n_0 ));
-  LUT2 #(
-    .INIT(4'h6)) 
-    \read_sector_no[31]_i_20 
-       (.I0(first_data_sector_no[31]),
-        .I1(read_sector_no1__6_n_91),
-        .O(\read_sector_no[31]_i_20_n_0 ));
-  LUT2 #(
-    .INIT(4'h6)) 
-    \read_sector_no[31]_i_21 
-       (.I0(first_data_sector_no[30]),
-        .I1(read_sector_no1__6_n_92),
-        .O(\read_sector_no[31]_i_21_n_0 ));
-  LUT2 #(
-    .INIT(4'h6)) 
-    \read_sector_no[31]_i_22 
-       (.I0(first_data_sector_no[29]),
-        .I1(read_sector_no1__6_n_93),
-        .O(\read_sector_no[31]_i_22_n_0 ));
-  LUT2 #(
-    .INIT(4'h6)) 
-    \read_sector_no[31]_i_23 
-       (.I0(first_data_sector_no[28]),
-        .I1(read_sector_no1__6_n_94),
-        .O(\read_sector_no[31]_i_23_n_0 ));
-  LUT2 #(
-    .INIT(4'h6)) 
-    \read_sector_no[31]_i_29 
-       (.I0(read_sector_no1__0_n_91),
-        .I1(read_sector_no13_in[31]),
-        .O(\read_sector_no[31]_i_29_n_0 ));
-  LUT2 #(
-    .INIT(4'h6)) 
-    \read_sector_no[31]_i_30 
-       (.I0(read_sector_no13_in[30]),
-        .I1(read_sector_no1__0_n_92),
-        .O(\read_sector_no[31]_i_30_n_0 ));
-  LUT2 #(
-    .INIT(4'h6)) 
-    \read_sector_no[31]_i_31 
-       (.I0(read_sector_no13_in[29]),
-        .I1(read_sector_no1__0_n_93),
-        .O(\read_sector_no[31]_i_31_n_0 ));
-  LUT2 #(
-    .INIT(4'h6)) 
-    \read_sector_no[31]_i_32 
-       (.I0(read_sector_no13_in[28]),
-        .I1(read_sector_no1__0_n_94),
-        .O(\read_sector_no[31]_i_32_n_0 ));
-  LUT2 #(
-    .INIT(4'h6)) 
-    \read_sector_no[31]_i_33 
-       (.I0(read_sector_no1__4_n_91),
-        .I1(first_data_sector_no[31]),
-        .O(\read_sector_no[31]_i_33_n_0 ));
-  LUT2 #(
-    .INIT(4'h6)) 
-    \read_sector_no[31]_i_34 
-       (.I0(first_data_sector_no[30]),
-        .I1(read_sector_no1__4_n_92),
-        .O(\read_sector_no[31]_i_34_n_0 ));
-  LUT2 #(
-    .INIT(4'h6)) 
-    \read_sector_no[31]_i_35 
-       (.I0(first_data_sector_no[29]),
-        .I1(read_sector_no1__4_n_93),
-        .O(\read_sector_no[31]_i_35_n_0 ));
-  LUT2 #(
-    .INIT(4'h6)) 
-    \read_sector_no[31]_i_36 
-       (.I0(first_data_sector_no[28]),
-        .I1(read_sector_no1__4_n_94),
-        .O(\read_sector_no[31]_i_36_n_0 ));
-  LUT2 #(
-    .INIT(4'h8)) 
-    \read_sector_no[31]_i_37 
-       (.I0(read_sector_no2__0_n_93),
-        .I1(first_data_sector_no[29]),
-        .O(\read_sector_no[31]_i_37_n_0 ));
-  LUT2 #(
-    .INIT(4'h8)) 
-    \read_sector_no[31]_i_38 
-       (.I0(read_sector_no2__0_n_94),
-        .I1(first_data_sector_no[28]),
-        .O(\read_sector_no[31]_i_38_n_0 ));
-  LUT2 #(
-    .INIT(4'h8)) 
-    \read_sector_no[31]_i_39 
-       (.I0(read_sector_no2__0_n_95),
-        .I1(first_data_sector_no[27]),
-        .O(\read_sector_no[31]_i_39_n_0 ));
-  LUT5 #(
-    .INIT(32'hB8FFB800)) 
-    \read_sector_no[31]_i_4 
-       (.I0(\sector_content_reg_n_0_[457][7] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
-        .I2(read_sector_no0__0[31]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
-        .I4(\read_sector_no[31]_i_9_n_0 ),
-        .O(\read_sector_no[31]_i_4_n_0 ));
-  LUT4 #(
-    .INIT(16'h8778)) 
-    \read_sector_no[31]_i_40 
-       (.I0(first_data_sector_no[30]),
-        .I1(read_sector_no2__0_n_92),
-        .I2(read_sector_no2__0_n_91),
-        .I3(first_data_sector_no[31]),
-        .O(\read_sector_no[31]_i_40_n_0 ));
-  LUT4 #(
-    .INIT(16'h8778)) 
-    \read_sector_no[31]_i_41 
-       (.I0(first_data_sector_no[29]),
-        .I1(read_sector_no2__0_n_93),
-        .I2(first_data_sector_no[30]),
-        .I3(read_sector_no2__0_n_92),
-        .O(\read_sector_no[31]_i_41_n_0 ));
-  LUT4 #(
-    .INIT(16'h8778)) 
-    \read_sector_no[31]_i_42 
-       (.I0(first_data_sector_no[28]),
-        .I1(read_sector_no2__0_n_94),
-        .I2(first_data_sector_no[29]),
-        .I3(read_sector_no2__0_n_93),
-        .O(\read_sector_no[31]_i_42_n_0 ));
-  LUT4 #(
-    .INIT(16'h8778)) 
-    \read_sector_no[31]_i_43 
-       (.I0(first_data_sector_no[27]),
-        .I1(read_sector_no2__0_n_95),
-        .I2(first_data_sector_no[28]),
-        .I3(read_sector_no2__0_n_94),
-        .O(\read_sector_no[31]_i_43_n_0 ));
-  LUT6 #(
-    .INIT(64'hAFA0CFCFAFA0C0C0)) 
-    \read_sector_no[31]_i_5 
-       (.I0(\read_sector_no_reg[31]_i_10_n_4 ),
-        .I1(\read_sector_no[31]_i_11_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
-        .I3(\read_sector_no[31]_i_12_n_0 ),
-        .I4(search_fat_reg_n_0),
-        .I5(\read_sector_no[31]_i_13_n_0 ),
-        .O(\read_sector_no[31]_i_5_n_0 ));
   LUT4 #(
     .INIT(16'h0004)) 
-    \read_sector_no[31]_i_6 
-       (.I0(\read_sector_no[31]_i_14_n_0 ),
-        .I1(\read_sector_no[31]_i_15_n_0 ),
-        .I2(\read_sector_no[31]_i_16_n_0 ),
-        .I3(\read_sector_no[31]_i_17_n_0 ),
-        .O(\read_sector_no[31]_i_6_n_0 ));
+    \read_sector_no[31]_i_13 
+       (.I0(\read_sector_no[31]_i_21_n_0 ),
+        .I1(\read_sector_no[31]_i_22_n_0 ),
+        .I2(\read_sector_no[31]_i_23_n_0 ),
+        .I3(\read_sector_no[31]_i_24_n_0 ),
+        .O(\read_sector_no[31]_i_13_n_0 ));
   LUT3 #(
     .INIT(8'h47)) 
-    \read_sector_no[31]_i_8 
+    \read_sector_no[31]_i_15 
        (.I0(filesystem_state[0]),
         .I1(filesystem_state[2]),
         .I2(filesystem_state[1]),
-        .O(\read_sector_no[31]_i_8_n_0 ));
+        .O(\read_sector_no[31]_i_15_n_0 ));
   LUT5 #(
     .INIT(32'hB8BBB888)) 
-    \read_sector_no[31]_i_9 
-       (.I0(\read_sector_no[31]_i_18_n_0 ),
+    \read_sector_no[31]_i_16 
+       (.I0(\read_sector_no[31]_i_25_n_0 ),
         .I1(filesystem_state[0]),
         .I2(read_sector_no04_out[31]),
         .I3(\rootdir_sectorcount[11]_i_3_n_0 ),
         .I4(read_sector_no07_out[31]),
+        .O(\read_sector_no[31]_i_16_n_0 ));
+  LUT5 #(
+    .INIT(32'hB8BBB888)) 
+    \read_sector_no[31]_i_18 
+       (.I0(read_sector_no01_out[31]),
+        .I1(file_found),
+        .I2(p_3_in[31]),
+        .I3(search_fat_reg_i_2_n_0),
+        .I4(\read_sector_no_reg[31]_i_33_n_4 ),
+        .O(\read_sector_no[31]_i_18_n_0 ));
+  LUT4 #(
+    .INIT(16'hFB08)) 
+    \read_sector_no[31]_i_19 
+       (.I0(read_sector_no0_n_74),
+        .I1(\filesystem_reg_n_0_[1] ),
+        .I2(\filesystem_reg_n_0_[0] ),
+        .I3(\read_sector_no_reg[31]_i_17_n_4 ),
+        .O(\read_sector_no[31]_i_19_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair249" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \read_sector_no[31]_i_20 
+       (.I0(p_3_in[31]),
+        .I1(search_fat_reg_i_2_n_0),
+        .I2(read_sector_no02_in[31]),
+        .O(\read_sector_no[31]_i_20_n_0 ));
+  LUT4 #(
+    .INIT(16'h7FFF)) 
+    \read_sector_no[31]_i_21 
+       (.I0(\sector_content_reg_n_0_[511][5] ),
+        .I1(\sector_content_reg_n_0_[511][7] ),
+        .I2(\sector_content_reg_n_0_[511][1] ),
+        .I3(\sector_content_reg_n_0_[511][3] ),
+        .O(\read_sector_no[31]_i_21_n_0 ));
+  LUT4 #(
+    .INIT(16'h8000)) 
+    \read_sector_no[31]_i_22 
+       (.I0(\sector_content_reg_n_0_[510][4] ),
+        .I1(\sector_content_reg_n_0_[510][6] ),
+        .I2(\sector_content_reg_n_0_[510][0] ),
+        .I3(\sector_content_reg_n_0_[510][2] ),
+        .O(\read_sector_no[31]_i_22_n_0 ));
+  LUT4 #(
+    .INIT(16'hFFFE)) 
+    \read_sector_no[31]_i_23 
+       (.I0(\sector_content_reg_n_0_[510][1] ),
+        .I1(\sector_content_reg_n_0_[510][3] ),
+        .I2(\sector_content_reg_n_0_[510][5] ),
+        .I3(\sector_content_reg_n_0_[510][7] ),
+        .O(\read_sector_no[31]_i_23_n_0 ));
+  LUT4 #(
+    .INIT(16'hFFFE)) 
+    \read_sector_no[31]_i_24 
+       (.I0(\sector_content_reg_n_0_[511][4] ),
+        .I1(\sector_content_reg_n_0_[511][6] ),
+        .I2(\sector_content_reg_n_0_[511][0] ),
+        .I3(\sector_content_reg_n_0_[511][2] ),
+        .O(\read_sector_no[31]_i_24_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair250" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \read_sector_no[31]_i_25 
+       (.I0(read_sector_no01_out[31]),
+        .I1(file_found),
+        .I2(\read_sector_no_reg[31]_i_35_n_4 ),
+        .O(\read_sector_no[31]_i_25_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \read_sector_no[31]_i_27 
+       (.I0(first_data_sector_no[31]),
+        .I1(read_sector_no1__6_n_91),
+        .O(\read_sector_no[31]_i_27_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \read_sector_no[31]_i_28 
+       (.I0(first_data_sector_no[30]),
+        .I1(read_sector_no1__6_n_92),
+        .O(\read_sector_no[31]_i_28_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \read_sector_no[31]_i_29 
+       (.I0(first_data_sector_no[29]),
+        .I1(read_sector_no1__6_n_93),
+        .O(\read_sector_no[31]_i_29_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFEFFFFFFFFFFFFF)) 
+    \read_sector_no[31]_i_3 
+       (.I0(\read_sector_no[31]_i_7_n_0 ),
+        .I1(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_9_n_0 ),
+        .I3(\read_sector_no[31]_i_10_n_0 ),
+        .I4(\read_sector_no[31]_i_11_n_0 ),
+        .I5(\read_sector_no[31]_i_12_n_0 ),
+        .O(\read_sector_no[31]_i_3_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \read_sector_no[31]_i_30 
+       (.I0(first_data_sector_no[28]),
+        .I1(read_sector_no1__6_n_94),
+        .O(\read_sector_no[31]_i_30_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \read_sector_no[31]_i_36 
+       (.I0(read_sector_no1__0_n_91),
+        .I1(read_sector_no13_in[31]),
+        .O(\read_sector_no[31]_i_36_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \read_sector_no[31]_i_37 
+       (.I0(read_sector_no13_in[30]),
+        .I1(read_sector_no1__0_n_92),
+        .O(\read_sector_no[31]_i_37_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \read_sector_no[31]_i_38 
+       (.I0(read_sector_no13_in[29]),
+        .I1(read_sector_no1__0_n_93),
+        .O(\read_sector_no[31]_i_38_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \read_sector_no[31]_i_39 
+       (.I0(read_sector_no13_in[28]),
+        .I1(read_sector_no1__0_n_94),
+        .O(\read_sector_no[31]_i_39_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \read_sector_no[31]_i_40 
+       (.I0(read_sector_no1__4_n_91),
+        .I1(first_data_sector_no[31]),
+        .O(\read_sector_no[31]_i_40_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \read_sector_no[31]_i_41 
+       (.I0(first_data_sector_no[30]),
+        .I1(read_sector_no1__4_n_92),
+        .O(\read_sector_no[31]_i_41_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \read_sector_no[31]_i_42 
+       (.I0(first_data_sector_no[29]),
+        .I1(read_sector_no1__4_n_93),
+        .O(\read_sector_no[31]_i_42_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \read_sector_no[31]_i_43 
+       (.I0(first_data_sector_no[28]),
+        .I1(read_sector_no1__4_n_94),
+        .O(\read_sector_no[31]_i_43_n_0 ));
+  LUT2 #(
+    .INIT(4'h8)) 
+    \read_sector_no[31]_i_44 
+       (.I0(read_sector_no2__0_n_93),
+        .I1(first_data_sector_no[29]),
+        .O(\read_sector_no[31]_i_44_n_0 ));
+  LUT2 #(
+    .INIT(4'h8)) 
+    \read_sector_no[31]_i_45 
+       (.I0(read_sector_no2__0_n_94),
+        .I1(first_data_sector_no[28]),
+        .O(\read_sector_no[31]_i_45_n_0 ));
+  LUT2 #(
+    .INIT(4'h8)) 
+    \read_sector_no[31]_i_46 
+       (.I0(read_sector_no2__0_n_95),
+        .I1(first_data_sector_no[27]),
+        .O(\read_sector_no[31]_i_46_n_0 ));
+  LUT4 #(
+    .INIT(16'h8778)) 
+    \read_sector_no[31]_i_47 
+       (.I0(first_data_sector_no[30]),
+        .I1(read_sector_no2__0_n_92),
+        .I2(read_sector_no2__0_n_91),
+        .I3(first_data_sector_no[31]),
+        .O(\read_sector_no[31]_i_47_n_0 ));
+  LUT4 #(
+    .INIT(16'h8778)) 
+    \read_sector_no[31]_i_48 
+       (.I0(first_data_sector_no[29]),
+        .I1(read_sector_no2__0_n_93),
+        .I2(first_data_sector_no[30]),
+        .I3(read_sector_no2__0_n_92),
+        .O(\read_sector_no[31]_i_48_n_0 ));
+  LUT4 #(
+    .INIT(16'h8778)) 
+    \read_sector_no[31]_i_49 
+       (.I0(first_data_sector_no[28]),
+        .I1(read_sector_no2__0_n_94),
+        .I2(first_data_sector_no[29]),
+        .I3(read_sector_no2__0_n_93),
+        .O(\read_sector_no[31]_i_49_n_0 ));
+  LUT5 #(
+    .INIT(32'hB8FFB800)) 
+    \read_sector_no[31]_i_5 
+       (.I0(\sector_content_reg_n_0_[457][7] ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
+        .I2(read_sector_no0__0[31]),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
+        .I4(\read_sector_no[31]_i_16_n_0 ),
+        .O(\read_sector_no[31]_i_5_n_0 ));
+  LUT4 #(
+    .INIT(16'h8778)) 
+    \read_sector_no[31]_i_50 
+       (.I0(first_data_sector_no[27]),
+        .I1(read_sector_no2__0_n_95),
+        .I2(first_data_sector_no[28]),
+        .I3(read_sector_no2__0_n_94),
+        .O(\read_sector_no[31]_i_50_n_0 ));
+  LUT6 #(
+    .INIT(64'hAFA0CFCFAFA0C0C0)) 
+    \read_sector_no[31]_i_6 
+       (.I0(\read_sector_no_reg[31]_i_17_n_4 ),
+        .I1(\read_sector_no[31]_i_18_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
+        .I3(\read_sector_no[31]_i_19_n_0 ),
+        .I4(search_fat_reg_n_0),
+        .I5(\read_sector_no[31]_i_20_n_0 ),
+        .O(\read_sector_no[31]_i_6_n_0 ));
+  LUT4 #(
+    .INIT(16'hFFDF)) 
+    \read_sector_no[31]_i_7 
+       (.I0(\sector_content_reg_n_0_[510][2] ),
+        .I1(\sector_content_reg_n_0_[510][5] ),
+        .I2(\sector_content_reg_n_0_[511][7] ),
+        .I3(\sector_content_reg_n_0_[511][4] ),
+        .O(\read_sector_no[31]_i_7_n_0 ));
+  LUT4 #(
+    .INIT(16'hFF7F)) 
+    \read_sector_no[31]_i_8 
+       (.I0(\sector_content_reg_n_0_[511][1] ),
+        .I1(\sector_content_reg_n_0_[510][4] ),
+        .I2(\sector_content_reg_n_0_[511][5] ),
+        .I3(\sector_content_reg_n_0_[511][0] ),
+        .O(\read_sector_no[31]_i_8_n_0 ));
+  LUT4 #(
+    .INIT(16'h0040)) 
+    \read_sector_no[31]_i_9 
+       (.I0(\sector_content_reg_n_0_[510][7] ),
+        .I1(\sector_content_reg_n_0_[510][6] ),
+        .I2(\sector_content_reg_n_0_[510][0] ),
+        .I3(\sector_content_reg_n_0_[510][1] ),
         .O(\read_sector_no[31]_i_9_n_0 ));
   LUT2 #(
     .INIT(4'h6)) 
@@ -18242,9 +18099,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[3]_i_2 
        (.I0(\sector_content_reg_n_0_[454][3] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[3]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[3]_i_4_n_0 ),
         .O(\read_sector_no[3]_i_2_n_0 ));
   LUT2 #(
@@ -18318,7 +18175,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[3]_i_3 
        (.I0(\read_sector_no_reg[3]_i_5_n_4 ),
         .I1(\read_sector_no[3]_i_6_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[3]_i_7_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[3]_i_8_n_0 ),
@@ -18466,7 +18323,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.I0(rootdir_sector[0]),
         .I1(cluster_sector_offset[0]),
         .O(\read_sector_no[3]_i_46_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair234" *) 
+  (* SOFT_HLUTNM = "soft_lutpair222" *) 
   LUT4 #(
     .INIT(16'h6AAA)) 
     \read_sector_no[3]_i_47 
@@ -18492,7 +18349,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[3]_i_5_n_4 ),
         .O(\read_sector_no[3]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair290" *) 
+  (* SOFT_HLUTNM = "soft_lutpair278" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[3]_i_8 
@@ -18500,7 +18357,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[3]),
         .O(\read_sector_no[3]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair291" *) 
+  (* SOFT_HLUTNM = "soft_lutpair277" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[3]_i_9 
@@ -18512,9 +18369,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[4]_i_2 
        (.I0(\sector_content_reg_n_0_[454][4] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[4]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[4]_i_5_n_0 ),
         .O(\read_sector_no[4]_i_2_n_0 ));
   LUT6 #(
@@ -18522,7 +18379,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[4]_i_3 
        (.I0(\read_sector_no_reg[7]_i_5_n_7 ),
         .I1(\read_sector_no[4]_i_6_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[4]_i_7_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[4]_i_8_n_0 ),
@@ -18553,7 +18410,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[7]_i_5_n_7 ),
         .O(\read_sector_no[4]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair288" *) 
+  (* SOFT_HLUTNM = "soft_lutpair276" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[4]_i_8 
@@ -18561,7 +18418,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[4]),
         .O(\read_sector_no[4]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair289" *) 
+  (* SOFT_HLUTNM = "soft_lutpair277" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[4]_i_9 
@@ -18573,9 +18430,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[5]_i_2 
        (.I0(\sector_content_reg_n_0_[454][5] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[5]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[5]_i_4_n_0 ),
         .O(\read_sector_no[5]_i_2_n_0 ));
   LUT6 #(
@@ -18583,7 +18440,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[5]_i_3 
        (.I0(\read_sector_no_reg[7]_i_5_n_6 ),
         .I1(\read_sector_no[5]_i_5_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[5]_i_6_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[5]_i_7_n_0 ),
@@ -18614,7 +18471,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[7]_i_5_n_6 ),
         .O(\read_sector_no[5]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair288" *) 
+  (* SOFT_HLUTNM = "soft_lutpair276" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[5]_i_7 
@@ -18622,7 +18479,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[5]),
         .O(\read_sector_no[5]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair289" *) 
+  (* SOFT_HLUTNM = "soft_lutpair275" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[5]_i_8 
@@ -18634,9 +18491,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[6]_i_2 
        (.I0(\sector_content_reg_n_0_[454][6] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[6]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[6]_i_4_n_0 ),
         .O(\read_sector_no[6]_i_2_n_0 ));
   LUT6 #(
@@ -18644,7 +18501,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[6]_i_3 
        (.I0(\read_sector_no_reg[7]_i_5_n_5 ),
         .I1(\read_sector_no[6]_i_5_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[6]_i_6_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[6]_i_7_n_0 ),
@@ -18675,7 +18532,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[7]_i_5_n_5 ),
         .O(\read_sector_no[6]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair286" *) 
+  (* SOFT_HLUTNM = "soft_lutpair274" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[6]_i_7 
@@ -18683,7 +18540,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[6]),
         .O(\read_sector_no[6]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair287" *) 
+  (* SOFT_HLUTNM = "soft_lutpair275" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[6]_i_8 
@@ -18719,9 +18576,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[7]_i_2 
        (.I0(\sector_content_reg_n_0_[454][7] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[7]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[7]_i_4_n_0 ),
         .O(\read_sector_no[7]_i_2_n_0 ));
   LUT2 #(
@@ -18793,7 +18650,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[7]_i_3 
        (.I0(\read_sector_no_reg[7]_i_5_n_4 ),
         .I1(\read_sector_no[7]_i_6_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[7]_i_7_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[7]_i_8_n_0 ),
@@ -18974,7 +18831,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[7]_i_5_n_4 ),
         .O(\read_sector_no[7]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair286" *) 
+  (* SOFT_HLUTNM = "soft_lutpair274" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[7]_i_8 
@@ -18982,7 +18839,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[7]),
         .O(\read_sector_no[7]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair287" *) 
+  (* SOFT_HLUTNM = "soft_lutpair273" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[7]_i_9 
@@ -18994,9 +18851,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[8]_i_2 
        (.I0(\sector_content_reg_n_0_[455][0] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[8]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[8]_i_5_n_0 ),
         .O(\read_sector_no[8]_i_2_n_0 ));
   LUT6 #(
@@ -19004,7 +18861,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[8]_i_3 
        (.I0(\read_sector_no_reg[11]_i_5_n_7 ),
         .I1(\read_sector_no[8]_i_6_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[8]_i_7_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[8]_i_8_n_0 ),
@@ -19035,7 +18892,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[11]_i_5_n_7 ),
         .O(\read_sector_no[8]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair284" *) 
+  (* SOFT_HLUTNM = "soft_lutpair272" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[8]_i_8 
@@ -19043,7 +18900,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[8]),
         .O(\read_sector_no[8]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair285" *) 
+  (* SOFT_HLUTNM = "soft_lutpair273" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[8]_i_9 
@@ -19055,9 +18912,9 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(32'hB8FFB800)) 
     \read_sector_no[9]_i_2 
        (.I0(\sector_content_reg_n_0_[455][1] ),
-        .I1(\read_sector_no[31]_i_6_n_0 ),
+        .I1(\read_sector_no[31]_i_13_n_0 ),
         .I2(read_sector_no0__0[9]),
-        .I3(\read_sector_no[31]_i_8_n_0 ),
+        .I3(\read_sector_no[31]_i_15_n_0 ),
         .I4(\read_sector_no[9]_i_4_n_0 ),
         .O(\read_sector_no[9]_i_2_n_0 ));
   LUT6 #(
@@ -19065,7 +18922,7 @@ module design_1_top_system_0_1_sd_file_reader
     \read_sector_no[9]_i_3 
        (.I0(\read_sector_no_reg[11]_i_5_n_6 ),
         .I1(\read_sector_no[9]_i_5_n_0 ),
-        .I2(\read_sector_no[31]_i_8_n_0 ),
+        .I2(\read_sector_no[31]_i_15_n_0 ),
         .I3(\read_sector_no[9]_i_6_n_0 ),
         .I4(search_fat_reg_n_0),
         .I5(\read_sector_no[9]_i_7_n_0 ),
@@ -19096,7 +18953,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(\filesystem_reg_n_0_[0] ),
         .I3(\read_sector_no_reg[11]_i_5_n_6 ),
         .O(\read_sector_no[9]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair284" *) 
+  (* SOFT_HLUTNM = "soft_lutpair272" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[9]_i_7 
@@ -19104,7 +18961,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I1(search_fat_reg_i_2_n_0),
         .I2(read_sector_no02_in[9]),
         .O(\read_sector_no[9]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair285" *) 
+  (* SOFT_HLUTNM = "soft_lutpair271" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \read_sector_no[9]_i_8 
@@ -19116,7 +18973,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[0]),
         .Q(\read_sector_no_reg_n_0_[0] ));
@@ -19129,7 +18986,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[10] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[10]),
         .Q(\read_sector_no_reg_n_0_[10] ));
@@ -19142,7 +18999,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[11] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[11]),
         .Q(\read_sector_no_reg_n_0_[11] ));
@@ -19211,7 +19068,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[12] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[12]),
         .Q(\read_sector_no_reg_n_0_[12] ));
@@ -19232,7 +19089,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[13] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[13]),
         .Q(\read_sector_no_reg_n_0_[13] ));
@@ -19245,7 +19102,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[14] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[14]),
         .Q(\read_sector_no_reg_n_0_[14] ));
@@ -19258,7 +19115,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[15] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[15]),
         .Q(\read_sector_no_reg_n_0_[15] ));
@@ -19327,7 +19184,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[16] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[16]),
         .Q(\read_sector_no_reg_n_0_[16] ));
@@ -19348,7 +19205,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[17] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[17]),
         .Q(\read_sector_no_reg_n_0_[17] ));
@@ -19361,7 +19218,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[18] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[18]),
         .Q(\read_sector_no_reg_n_0_[18] ));
@@ -19374,7 +19231,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[19] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[19]),
         .Q(\read_sector_no_reg_n_0_[19] ));
@@ -19443,7 +19300,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[1]),
         .Q(\read_sector_no_reg_n_0_[1] ));
@@ -19456,7 +19313,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[20] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[20]),
         .Q(\read_sector_no_reg_n_0_[20] ));
@@ -19477,7 +19334,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[21] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[21]),
         .Q(\read_sector_no_reg_n_0_[21] ));
@@ -19490,7 +19347,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[22] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[22]),
         .Q(\read_sector_no_reg_n_0_[22] ));
@@ -19503,7 +19360,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[23] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[23]),
         .Q(\read_sector_no_reg_n_0_[23] ));
@@ -19572,7 +19429,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[24] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[24]),
         .Q(\read_sector_no_reg_n_0_[24] ));
@@ -19593,7 +19450,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[25] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[25]),
         .Q(\read_sector_no_reg_n_0_[25] ));
@@ -19606,7 +19463,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[26] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[26]),
         .Q(\read_sector_no_reg_n_0_[26] ));
@@ -19619,7 +19476,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[27] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[27]),
         .Q(\read_sector_no_reg_n_0_[27] ));
@@ -19688,7 +19545,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[28] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[28]),
         .Q(\read_sector_no_reg_n_0_[28] ));
@@ -19709,7 +19566,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[29] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[29]),
         .Q(\read_sector_no_reg_n_0_[29] ));
@@ -19722,7 +19579,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[2]),
         .Q(\read_sector_no_reg_n_0_[2] ));
@@ -19735,7 +19592,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[30] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[30]),
         .Q(\read_sector_no_reg_n_0_[30] ));
@@ -19748,84 +19605,84 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[31] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[31]),
         .Q(\read_sector_no_reg_n_0_[31] ));
   (* ADDER_THRESHOLD = "35" *) 
-  CARRY4 \read_sector_no_reg[31]_i_10 
+  CARRY4 \read_sector_no_reg[31]_i_14 
+       (.CI(\read_sector_no_reg[28]_i_4_n_0 ),
+        .CO({\NLW_read_sector_no_reg[31]_i_14_CO_UNCONNECTED [3:2],\read_sector_no_reg[31]_i_14_n_2 ,\read_sector_no_reg[31]_i_14_n_3 }),
+        .CYINIT(1'b0),
+        .DI({1'b0,1'b0,1'b0,1'b0}),
+        .O({\NLW_read_sector_no_reg[31]_i_14_O_UNCONNECTED [3],read_sector_no0__0[31:29]}),
+        .S({1'b0,\read_sector_no_reg_n_0_[31] ,\read_sector_no_reg_n_0_[30] ,\read_sector_no_reg_n_0_[29] }));
+  (* ADDER_THRESHOLD = "35" *) 
+  CARRY4 \read_sector_no_reg[31]_i_17 
        (.CI(\read_sector_no_reg[27]_i_5_n_0 ),
-        .CO({\NLW_read_sector_no_reg[31]_i_10_CO_UNCONNECTED [3],\read_sector_no_reg[31]_i_10_n_1 ,\read_sector_no_reg[31]_i_10_n_2 ,\read_sector_no_reg[31]_i_10_n_3 }),
+        .CO({\NLW_read_sector_no_reg[31]_i_17_CO_UNCONNECTED [3],\read_sector_no_reg[31]_i_17_n_1 ,\read_sector_no_reg[31]_i_17_n_2 ,\read_sector_no_reg[31]_i_17_n_3 }),
         .CYINIT(1'b0),
         .DI({1'b0,first_data_sector_no[30:28]}),
-        .O({\read_sector_no_reg[31]_i_10_n_4 ,\read_sector_no_reg[31]_i_10_n_5 ,\read_sector_no_reg[31]_i_10_n_6 ,\read_sector_no_reg[31]_i_10_n_7 }),
-        .S({\read_sector_no[31]_i_20_n_0 ,\read_sector_no[31]_i_21_n_0 ,\read_sector_no[31]_i_22_n_0 ,\read_sector_no[31]_i_23_n_0 }));
-  (* ADDER_THRESHOLD = "35" *) 
-  CARRY4 \read_sector_no_reg[31]_i_19 
-       (.CI(\read_sector_no_reg[27]_i_10_n_0 ),
-        .CO({\NLW_read_sector_no_reg[31]_i_19_CO_UNCONNECTED [3],\read_sector_no_reg[31]_i_19_n_1 ,\read_sector_no_reg[31]_i_19_n_2 ,\read_sector_no_reg[31]_i_19_n_3 }),
-        .CYINIT(1'b0),
-        .DI({1'b0,read_sector_no13_in[30:28]}),
-        .O(read_sector_no04_out[31:28]),
-        .S({\read_sector_no[31]_i_29_n_0 ,\read_sector_no[31]_i_30_n_0 ,\read_sector_no[31]_i_31_n_0 ,\read_sector_no[31]_i_32_n_0 }));
+        .O({\read_sector_no_reg[31]_i_17_n_4 ,\read_sector_no_reg[31]_i_17_n_5 ,\read_sector_no_reg[31]_i_17_n_6 ,\read_sector_no_reg[31]_i_17_n_7 }),
+        .S({\read_sector_no[31]_i_27_n_0 ,\read_sector_no[31]_i_28_n_0 ,\read_sector_no[31]_i_29_n_0 ,\read_sector_no[31]_i_30_n_0 }));
   MUXF7 \read_sector_no_reg[31]_i_2 
-       (.I0(\read_sector_no[31]_i_4_n_0 ),
-        .I1(\read_sector_no[31]_i_5_n_0 ),
+       (.I0(\read_sector_no[31]_i_5_n_0 ),
+        .I1(\read_sector_no[31]_i_6_n_0 ),
         .O(read_sector_no[31]),
         .S(filesystem_state[2]));
   (* ADDER_THRESHOLD = "35" *) 
-  CARRY4 \read_sector_no_reg[31]_i_24 
+  CARRY4 \read_sector_no_reg[31]_i_26 
+       (.CI(\read_sector_no_reg[27]_i_10_n_0 ),
+        .CO({\NLW_read_sector_no_reg[31]_i_26_CO_UNCONNECTED [3],\read_sector_no_reg[31]_i_26_n_1 ,\read_sector_no_reg[31]_i_26_n_2 ,\read_sector_no_reg[31]_i_26_n_3 }),
+        .CYINIT(1'b0),
+        .DI({1'b0,read_sector_no13_in[30:28]}),
+        .O(read_sector_no04_out[31:28]),
+        .S({\read_sector_no[31]_i_36_n_0 ,\read_sector_no[31]_i_37_n_0 ,\read_sector_no[31]_i_38_n_0 ,\read_sector_no[31]_i_39_n_0 }));
+  (* ADDER_THRESHOLD = "35" *) 
+  CARRY4 \read_sector_no_reg[31]_i_31 
        (.CI(\read_sector_no_reg[27]_i_15_n_0 ),
-        .CO({\NLW_read_sector_no_reg[31]_i_24_CO_UNCONNECTED [3],\read_sector_no_reg[31]_i_24_n_1 ,\read_sector_no_reg[31]_i_24_n_2 ,\read_sector_no_reg[31]_i_24_n_3 }),
+        .CO({\NLW_read_sector_no_reg[31]_i_31_CO_UNCONNECTED [3],\read_sector_no_reg[31]_i_31_n_1 ,\read_sector_no_reg[31]_i_31_n_2 ,\read_sector_no_reg[31]_i_31_n_3 }),
         .CYINIT(1'b0),
         .DI({1'b0,first_data_sector_no[30:28]}),
         .O(read_sector_no01_out[31:28]),
-        .S({\read_sector_no[31]_i_33_n_0 ,\read_sector_no[31]_i_34_n_0 ,\read_sector_no[31]_i_35_n_0 ,\read_sector_no[31]_i_36_n_0 }));
-  (* ADDER_THRESHOLD = "35" *) 
-  CARRY4 \read_sector_no_reg[31]_i_25 
-       (.CI(\read_sector_no_reg[27]_i_16_n_0 ),
-        .CO({\NLW_read_sector_no_reg[31]_i_25_CO_UNCONNECTED [3],\read_sector_no_reg[31]_i_25_n_1 ,\read_sector_no_reg[31]_i_25_n_2 ,\read_sector_no_reg[31]_i_25_n_3 }),
-        .CYINIT(1'b0),
-        .DI({1'b0,\read_sector_no[31]_i_37_n_0 ,\read_sector_no[31]_i_38_n_0 ,\read_sector_no[31]_i_39_n_0 }),
-        .O(p_3_in[31:28]),
         .S({\read_sector_no[31]_i_40_n_0 ,\read_sector_no[31]_i_41_n_0 ,\read_sector_no[31]_i_42_n_0 ,\read_sector_no[31]_i_43_n_0 }));
   (* ADDER_THRESHOLD = "35" *) 
-  CARRY4 \read_sector_no_reg[31]_i_26 
+  CARRY4 \read_sector_no_reg[31]_i_32 
+       (.CI(\read_sector_no_reg[27]_i_16_n_0 ),
+        .CO({\NLW_read_sector_no_reg[31]_i_32_CO_UNCONNECTED [3],\read_sector_no_reg[31]_i_32_n_1 ,\read_sector_no_reg[31]_i_32_n_2 ,\read_sector_no_reg[31]_i_32_n_3 }),
+        .CYINIT(1'b0),
+        .DI({1'b0,\read_sector_no[31]_i_44_n_0 ,\read_sector_no[31]_i_45_n_0 ,\read_sector_no[31]_i_46_n_0 }),
+        .O(p_3_in[31:28]),
+        .S({\read_sector_no[31]_i_47_n_0 ,\read_sector_no[31]_i_48_n_0 ,\read_sector_no[31]_i_49_n_0 ,\read_sector_no[31]_i_50_n_0 }));
+  (* ADDER_THRESHOLD = "35" *) 
+  CARRY4 \read_sector_no_reg[31]_i_33 
        (.CI(\read_sector_no_reg[27]_i_17_n_0 ),
-        .CO({\NLW_read_sector_no_reg[31]_i_26_CO_UNCONNECTED [3],\read_sector_no_reg[31]_i_26_n_1 ,\read_sector_no_reg[31]_i_26_n_2 ,\read_sector_no_reg[31]_i_26_n_3 }),
+        .CO({\NLW_read_sector_no_reg[31]_i_33_CO_UNCONNECTED [3],\read_sector_no_reg[31]_i_33_n_1 ,\read_sector_no_reg[31]_i_33_n_2 ,\read_sector_no_reg[31]_i_33_n_3 }),
         .CYINIT(1'b0),
         .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O({\read_sector_no_reg[31]_i_26_n_4 ,\read_sector_no_reg[31]_i_26_n_5 ,\read_sector_no_reg[31]_i_26_n_6 ,\read_sector_no_reg[31]_i_26_n_7 }),
+        .O({\read_sector_no_reg[31]_i_33_n_4 ,\read_sector_no_reg[31]_i_33_n_5 ,\read_sector_no_reg[31]_i_33_n_6 ,\read_sector_no_reg[31]_i_33_n_7 }),
         .S(first_fat_sector_no[31:28]));
   (* ADDER_THRESHOLD = "35" *) 
-  CARRY4 \read_sector_no_reg[31]_i_27 
+  CARRY4 \read_sector_no_reg[31]_i_34 
        (.CI(\read_sector_no_reg[27]_i_18_n_0 ),
-        .CO({\NLW_read_sector_no_reg[31]_i_27_CO_UNCONNECTED [3],\read_sector_no_reg[31]_i_27_n_1 ,\read_sector_no_reg[31]_i_27_n_2 ,\read_sector_no_reg[31]_i_27_n_3 }),
+        .CO({\NLW_read_sector_no_reg[31]_i_34_CO_UNCONNECTED [3],\read_sector_no_reg[31]_i_34_n_1 ,\read_sector_no_reg[31]_i_34_n_2 ,\read_sector_no_reg[31]_i_34_n_3 }),
         .CYINIT(1'b0),
         .DI({1'b0,1'b0,1'b0,1'b0}),
         .O(read_sector_no02_in[31:28]),
         .S(first_fat_sector_no[31:28]));
   (* ADDER_THRESHOLD = "35" *) 
-  CARRY4 \read_sector_no_reg[31]_i_28 
+  CARRY4 \read_sector_no_reg[31]_i_35 
        (.CI(\read_sector_no_reg[27]_i_19_n_0 ),
-        .CO({\NLW_read_sector_no_reg[31]_i_28_CO_UNCONNECTED [3],\read_sector_no_reg[31]_i_28_n_1 ,\read_sector_no_reg[31]_i_28_n_2 ,\read_sector_no_reg[31]_i_28_n_3 }),
+        .CO({\NLW_read_sector_no_reg[31]_i_35_CO_UNCONNECTED [3],\read_sector_no_reg[31]_i_35_n_1 ,\read_sector_no_reg[31]_i_35_n_2 ,\read_sector_no_reg[31]_i_35_n_3 }),
         .CYINIT(1'b0),
         .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O({\read_sector_no_reg[31]_i_28_n_4 ,\read_sector_no_reg[31]_i_28_n_5 ,\read_sector_no_reg[31]_i_28_n_6 ,\read_sector_no_reg[31]_i_28_n_7 }),
+        .O({\read_sector_no_reg[31]_i_35_n_4 ,\read_sector_no_reg[31]_i_35_n_5 ,\read_sector_no_reg[31]_i_35_n_6 ,\read_sector_no_reg[31]_i_35_n_7 }),
         .S(rootdir_sector[31:28]));
-  (* ADDER_THRESHOLD = "35" *) 
-  CARRY4 \read_sector_no_reg[31]_i_7 
-       (.CI(\read_sector_no_reg[28]_i_4_n_0 ),
-        .CO({\NLW_read_sector_no_reg[31]_i_7_CO_UNCONNECTED [3:2],\read_sector_no_reg[31]_i_7_n_2 ,\read_sector_no_reg[31]_i_7_n_3 }),
-        .CYINIT(1'b0),
-        .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O({\NLW_read_sector_no_reg[31]_i_7_O_UNCONNECTED [3],read_sector_no0__0[31:29]}),
-        .S({1'b0,\read_sector_no_reg_n_0_[31] ,\read_sector_no_reg_n_0_[30] ,\read_sector_no_reg_n_0_[29] }));
   FDCE #(
     .INIT(1'b0)) 
     \read_sector_no_reg[3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[3]),
         .Q(\read_sector_no_reg_n_0_[3] ));
@@ -19894,7 +19751,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[4]),
         .Q(\read_sector_no_reg_n_0_[4] ));
@@ -19915,7 +19772,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[5]),
         .Q(\read_sector_no_reg_n_0_[5] ));
@@ -19928,7 +19785,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[6]),
         .Q(\read_sector_no_reg_n_0_[6] ));
@@ -19941,7 +19798,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[7]),
         .Q(\read_sector_no_reg_n_0_[7] ));
@@ -20010,7 +19867,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[8] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[8]),
         .Q(\read_sector_no_reg_n_0_[8] ));
@@ -20031,7 +19888,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \read_sector_no_reg[9] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_131),
+        .CE(u_sd_reader_n_120),
         .CLR(reset_n_0),
         .D(read_sector_no[9]),
         .Q(\read_sector_no_reg_n_0_[9] ));
@@ -20046,7 +19903,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_6),
+        .D(u_sd_reader_n_5),
         .Q(read_start_reg_n_0));
   LUT2 #(
     .INIT(4'h6)) 
@@ -20244,7 +20101,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[0]),
         .Q(rootdir_sector[0]));
@@ -20252,7 +20109,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[10] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[10]),
         .Q(rootdir_sector[10]));
@@ -20260,7 +20117,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[11] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[11]),
         .Q(rootdir_sector[11]));
@@ -20276,7 +20133,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[12] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[12]),
         .Q(rootdir_sector[12]));
@@ -20284,7 +20141,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[13] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[13]),
         .Q(rootdir_sector[13]));
@@ -20292,7 +20149,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[14] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[14]),
         .Q(rootdir_sector[14]));
@@ -20300,7 +20157,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[15] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[15]),
         .Q(rootdir_sector[15]));
@@ -20316,7 +20173,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[16] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[16]),
         .Q(rootdir_sector[16]));
@@ -20324,7 +20181,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[17] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[17]),
         .Q(rootdir_sector[17]));
@@ -20332,7 +20189,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[18] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[18]),
         .Q(rootdir_sector[18]));
@@ -20340,7 +20197,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[19] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[19]),
         .Q(rootdir_sector[19]));
@@ -20356,7 +20213,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[1]),
         .Q(rootdir_sector[1]));
@@ -20364,7 +20221,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[20] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[20]),
         .Q(rootdir_sector[20]));
@@ -20372,7 +20229,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[21] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[21]),
         .Q(rootdir_sector[21]));
@@ -20380,7 +20237,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[22] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[22]),
         .Q(rootdir_sector[22]));
@@ -20388,7 +20245,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[23] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[23]),
         .Q(rootdir_sector[23]));
@@ -20404,7 +20261,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[24] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[24]),
         .Q(rootdir_sector[24]));
@@ -20412,7 +20269,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[25] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[25]),
         .Q(rootdir_sector[25]));
@@ -20420,7 +20277,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[26] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[26]),
         .Q(rootdir_sector[26]));
@@ -20428,7 +20285,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[27] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[27]),
         .Q(rootdir_sector[27]));
@@ -20444,7 +20301,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[28] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[28]),
         .Q(rootdir_sector[28]));
@@ -20452,7 +20309,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[29] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[29]),
         .Q(rootdir_sector[29]));
@@ -20460,7 +20317,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[2]),
         .Q(rootdir_sector[2]));
@@ -20468,7 +20325,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[30] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[30]),
         .Q(rootdir_sector[30]));
@@ -20476,7 +20333,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[31] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[31]),
         .Q(rootdir_sector[31]));
@@ -20492,7 +20349,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[3]),
         .Q(rootdir_sector[3]));
@@ -20508,7 +20365,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[4]),
         .Q(rootdir_sector[4]));
@@ -20516,7 +20373,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[5]),
         .Q(rootdir_sector[5]));
@@ -20524,7 +20381,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[6]),
         .Q(rootdir_sector[6]));
@@ -20532,7 +20389,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[7]),
         .Q(rootdir_sector[7]));
@@ -20548,7 +20405,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[8] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[8]),
         .Q(rootdir_sector[8]));
@@ -20556,7 +20413,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sector_reg[9] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(read_sector_no07_out[9]),
         .Q(rootdir_sector[9]));
@@ -20576,14 +20433,14 @@ module design_1_top_system_0_1_sd_file_reader
        (.I0(p_0_in1_in[2]),
         .I1(p_0_in1_in[3]),
         .I2(p_0_in1_in[4]),
-        .I3(p_0_in1_in[12]),
+        .I3(p_0_in1_in[15]),
         .O(\rootdir_sectorcount[11]_i_4_n_0 ));
   LUT5 #(
     .INIT(32'hFFFFFFFE)) 
     \rootdir_sectorcount[11]_i_5 
        (.I0(p_0_in1_in[11]),
         .I1(p_0_in1_in[10]),
-        .I2(p_0_in1_in[0]),
+        .I2(p_0_in1_in[14]),
         .I3(p_0_in1_in[13]),
         .I4(\rootdir_sectorcount[11]_i_6_n_0 ),
         .O(\rootdir_sectorcount[11]_i_5_n_0 ));
@@ -20591,15 +20448,15 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(16'hFFFE)) 
     \rootdir_sectorcount[11]_i_6 
        (.I0(p_0_in1_in[1]),
-        .I1(p_0_in1_in[15]),
+        .I1(p_0_in1_in[0]),
         .I2(p_0_in1_in[9]),
-        .I3(p_0_in1_in[14]),
+        .I3(p_0_in1_in[12]),
         .O(\rootdir_sectorcount[11]_i_6_n_0 ));
   FDCE #(
     .INIT(1'b0)) 
     \rootdir_sectorcount_reg[0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(first_data_sector_no_t2[0]),
         .Q(rootdir_sectorcount[0]));
@@ -20607,7 +20464,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sectorcount_reg[10] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(first_data_sector_no_t2[10]),
         .Q(rootdir_sectorcount[10]));
@@ -20615,7 +20472,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sectorcount_reg[11] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(first_data_sector_no_t2[11]),
         .Q(rootdir_sectorcount[11]));
@@ -20623,7 +20480,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sectorcount_reg[1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(first_data_sector_no_t2[1]),
         .Q(rootdir_sectorcount[1]));
@@ -20631,7 +20488,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sectorcount_reg[2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(first_data_sector_no_t2[2]),
         .Q(rootdir_sectorcount[2]));
@@ -20639,7 +20496,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sectorcount_reg[3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(first_data_sector_no_t2[3]),
         .Q(rootdir_sectorcount[3]));
@@ -20647,7 +20504,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sectorcount_reg[4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(first_data_sector_no_t2[4]),
         .Q(rootdir_sectorcount[4]));
@@ -20655,7 +20512,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sectorcount_reg[5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(first_data_sector_no_t2[5]),
         .Q(rootdir_sectorcount[5]));
@@ -20663,7 +20520,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sectorcount_reg[6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(first_data_sector_no_t2[6]),
         .Q(rootdir_sectorcount[6]));
@@ -20671,7 +20528,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sectorcount_reg[7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(first_data_sector_no_t2[7]),
         .Q(rootdir_sectorcount[7]));
@@ -20679,7 +20536,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sectorcount_reg[8] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(first_data_sector_no_t2[8]),
         .Q(rootdir_sectorcount[8]));
@@ -20687,7 +20544,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \rootdir_sectorcount_reg[9] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_132),
+        .CE(u_sd_reader_n_121),
         .CLR(reset_n_0),
         .D(first_data_sector_no_t2[9]),
         .Q(rootdir_sectorcount[9]));
@@ -20697,7 +20554,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_320),
+        .D(u_sd_reader_n_177),
         .Q(sdtnamelen[0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -20705,7 +20562,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_319),
+        .D(u_sd_reader_n_176),
         .Q(sdtnamelen[1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -20713,7 +20570,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_318),
+        .D(u_sd_reader_n_175),
         .Q(sdtnamelen[2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -20721,7 +20578,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_317),
+        .D(u_sd_reader_n_174),
         .Q(sdtnamelen[3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -20729,7 +20586,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_316),
+        .D(u_sd_reader_n_173),
         .Q(sdtnamelen[4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -20737,7 +20594,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_315),
+        .D(u_sd_reader_n_172),
         .Q(sdtnamelen[5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -20745,7 +20602,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_314),
+        .D(u_sd_reader_n_171),
         .Q(sdtnamelen[6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -20753,7 +20610,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(fready152_out),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_313),
+        .D(u_sd_reader_n_170),
         .Q(sdtnamelen[7]));
   LUT4 #(
     .INIT(16'hFFFB)) 
@@ -20843,7 +20700,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(cluster_size[5]),
         .I3(cluster_size[7]),
         .O(search_fat_i_21_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair237" *) 
+  (* SOFT_HLUTNM = "soft_lutpair225" *) 
   LUT5 #(
     .INIT(32'h00000001)) 
     search_fat_i_22
@@ -20901,7 +20758,6 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(cluster_size[5]),
         .I3(cluster_size[7]),
         .O(search_fat_i_29_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair294" *) 
   LUT2 #(
     .INIT(4'h2)) 
     search_fat_i_3
@@ -21000,7 +20856,7 @@ module design_1_top_system_0_1_sd_file_reader
         .I2(cluster_size[0]),
         .I3(cluster_sector_offset[0]),
         .O(search_fat_i_39_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair237" *) 
+  (* SOFT_HLUTNM = "soft_lutpair225" *) 
   LUT3 #(
     .INIT(8'h01)) 
     search_fat_i_40
@@ -21054,7 +20910,7 @@ module design_1_top_system_0_1_sd_file_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_125),
+        .D(u_sd_reader_n_114),
         .Q(search_fat_reg_n_0));
   (* COMPARATOR_THRESHOLD = "11" *) 
   CARRY4 search_fat_reg_i_13
@@ -21092,7 +20948,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[0][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_149),
+        .CE(u_sd_reader_n_145),
         .D(rdata[0]),
         .Q(\sector_content_reg_n_0_[0][0] ),
         .R(1'b0));
@@ -21100,7 +20956,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[0][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_149),
+        .CE(u_sd_reader_n_145),
         .D(rdata[2]),
         .Q(\sector_content_reg_n_0_[0][2] ),
         .R(1'b0));
@@ -21108,7 +20964,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[0][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_149),
+        .CE(u_sd_reader_n_145),
         .D(rdata[3]),
         .Q(\sector_content_reg_n_0_[0][3] ),
         .R(1'b0));
@@ -21116,7 +20972,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[0][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_149),
+        .CE(u_sd_reader_n_145),
         .D(rdata[4]),
         .Q(\sector_content_reg_n_0_[0][4] ),
         .R(1'b0));
@@ -21124,7 +20980,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[0][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_149),
+        .CE(u_sd_reader_n_145),
         .D(rdata[5]),
         .Q(\sector_content_reg_n_0_[0][5] ),
         .R(1'b0));
@@ -21132,7 +20988,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[0][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_149),
+        .CE(u_sd_reader_n_145),
         .D(rdata[6]),
         .Q(\sector_content_reg_n_0_[0][6] ),
         .R(1'b0));
@@ -21140,7 +20996,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[0][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_149),
+        .CE(u_sd_reader_n_145),
         .D(rdata[7]),
         .Q(\sector_content_reg_n_0_[0][7] ),
         .R(1'b0));
@@ -21148,7 +21004,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[11][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_138),
+        .CE(u_sd_reader_n_140),
         .D(rdata[0]),
         .Q(bytes_per_sector[0]),
         .R(1'b0));
@@ -21156,7 +21012,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[11][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_138),
+        .CE(u_sd_reader_n_140),
         .D(rdata[1]),
         .Q(bytes_per_sector[1]),
         .R(1'b0));
@@ -21164,7 +21020,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[11][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_138),
+        .CE(u_sd_reader_n_140),
         .D(rdata[2]),
         .Q(bytes_per_sector[2]),
         .R(1'b0));
@@ -21172,7 +21028,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[11][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_138),
+        .CE(u_sd_reader_n_140),
         .D(rdata[3]),
         .Q(bytes_per_sector[3]),
         .R(1'b0));
@@ -21180,7 +21036,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[11][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_138),
+        .CE(u_sd_reader_n_140),
         .D(rdata[4]),
         .Q(bytes_per_sector[4]),
         .R(1'b0));
@@ -21188,7 +21044,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[11][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_138),
+        .CE(u_sd_reader_n_140),
         .D(rdata[5]),
         .Q(bytes_per_sector[5]),
         .R(1'b0));
@@ -21196,7 +21052,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[11][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_138),
+        .CE(u_sd_reader_n_140),
         .D(rdata[6]),
         .Q(bytes_per_sector[6]),
         .R(1'b0));
@@ -21204,7 +21060,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[11][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_138),
+        .CE(u_sd_reader_n_140),
         .D(rdata[7]),
         .Q(bytes_per_sector[7]),
         .R(1'b0));
@@ -21212,7 +21068,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[12][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_137),
+        .CE(u_sd_reader_n_139),
         .D(rdata[0]),
         .Q(bytes_per_sector[8]),
         .R(1'b0));
@@ -21220,7 +21076,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[12][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_137),
+        .CE(u_sd_reader_n_139),
         .D(rdata[1]),
         .Q(bytes_per_sector[9]),
         .R(1'b0));
@@ -21228,7 +21084,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[12][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_137),
+        .CE(u_sd_reader_n_139),
         .D(rdata[2]),
         .Q(bytes_per_sector[10]),
         .R(1'b0));
@@ -21236,7 +21092,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[12][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_137),
+        .CE(u_sd_reader_n_139),
         .D(rdata[3]),
         .Q(bytes_per_sector[11]),
         .R(1'b0));
@@ -21244,7 +21100,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[12][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_137),
+        .CE(u_sd_reader_n_139),
         .D(rdata[4]),
         .Q(bytes_per_sector[12]),
         .R(1'b0));
@@ -21252,7 +21108,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[12][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_137),
+        .CE(u_sd_reader_n_139),
         .D(rdata[5]),
         .Q(bytes_per_sector[13]),
         .R(1'b0));
@@ -21260,7 +21116,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[12][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_137),
+        .CE(u_sd_reader_n_139),
         .D(rdata[6]),
         .Q(bytes_per_sector[14]),
         .R(1'b0));
@@ -21268,7 +21124,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[12][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_137),
+        .CE(u_sd_reader_n_139),
         .D(rdata[7]),
         .Q(bytes_per_sector[15]),
         .R(1'b0));
@@ -21340,7 +21196,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[14][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_136),
+        .CE(u_sd_reader_n_137),
         .D(rdata[0]),
         .Q(resv_sectors[0]),
         .R(1'b0));
@@ -21348,7 +21204,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[14][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_136),
+        .CE(u_sd_reader_n_137),
         .D(rdata[1]),
         .Q(resv_sectors[1]),
         .R(1'b0));
@@ -21356,7 +21212,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[14][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_136),
+        .CE(u_sd_reader_n_137),
         .D(rdata[2]),
         .Q(resv_sectors[2]),
         .R(1'b0));
@@ -21364,7 +21220,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[14][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_136),
+        .CE(u_sd_reader_n_137),
         .D(rdata[3]),
         .Q(resv_sectors[3]),
         .R(1'b0));
@@ -21372,7 +21228,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[14][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_136),
+        .CE(u_sd_reader_n_137),
         .D(rdata[4]),
         .Q(resv_sectors[4]),
         .R(1'b0));
@@ -21380,7 +21236,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[14][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_136),
+        .CE(u_sd_reader_n_137),
         .D(rdata[5]),
         .Q(resv_sectors[5]),
         .R(1'b0));
@@ -21388,7 +21244,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[14][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_136),
+        .CE(u_sd_reader_n_137),
         .D(rdata[6]),
         .Q(resv_sectors[6]),
         .R(1'b0));
@@ -21396,7 +21252,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[14][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_136),
+        .CE(u_sd_reader_n_137),
         .D(rdata[7]),
         .Q(resv_sectors[7]),
         .R(1'b0));
@@ -21404,7 +21260,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[15][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_153),
+        .CE(u_sd_reader_n_136),
         .D(rdata[0]),
         .Q(resv_sectors[8]),
         .R(1'b0));
@@ -21412,7 +21268,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[15][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_153),
+        .CE(u_sd_reader_n_136),
         .D(rdata[1]),
         .Q(resv_sectors[9]),
         .R(1'b0));
@@ -21420,7 +21276,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[15][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_153),
+        .CE(u_sd_reader_n_136),
         .D(rdata[2]),
         .Q(resv_sectors[10]),
         .R(1'b0));
@@ -21428,7 +21284,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[15][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_153),
+        .CE(u_sd_reader_n_136),
         .D(rdata[3]),
         .Q(resv_sectors[11]),
         .R(1'b0));
@@ -21436,7 +21292,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[15][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_153),
+        .CE(u_sd_reader_n_136),
         .D(rdata[4]),
         .Q(resv_sectors[12]),
         .R(1'b0));
@@ -21444,7 +21300,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[15][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_153),
+        .CE(u_sd_reader_n_136),
         .D(rdata[5]),
         .Q(resv_sectors[13]),
         .R(1'b0));
@@ -21452,7 +21308,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[15][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_153),
+        .CE(u_sd_reader_n_136),
         .D(rdata[6]),
         .Q(resv_sectors[14]),
         .R(1'b0));
@@ -21460,7 +21316,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[15][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_153),
+        .CE(u_sd_reader_n_136),
         .D(rdata[7]),
         .Q(resv_sectors[15]),
         .R(1'b0));
@@ -21468,7 +21324,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[17][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_152),
+        .CE(u_sd_reader_n_125),
         .D(rdata[4]),
         .Q(first_data_sector_no_t2[0]),
         .R(1'b0));
@@ -21476,7 +21332,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[17][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_152),
+        .CE(u_sd_reader_n_125),
         .D(rdata[5]),
         .Q(first_data_sector_no_t2[1]),
         .R(1'b0));
@@ -21484,7 +21340,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[17][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_152),
+        .CE(u_sd_reader_n_125),
         .D(rdata[6]),
         .Q(first_data_sector_no_t2[2]),
         .R(1'b0));
@@ -21492,7 +21348,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[17][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_152),
+        .CE(u_sd_reader_n_125),
         .D(rdata[7]),
         .Q(first_data_sector_no_t2[3]),
         .R(1'b0));
@@ -21500,7 +21356,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[18][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_151),
+        .CE(u_sd_reader_n_141),
         .D(rdata[0]),
         .Q(first_data_sector_no_t2[4]),
         .R(1'b0));
@@ -21508,7 +21364,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[18][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_151),
+        .CE(u_sd_reader_n_141),
         .D(rdata[1]),
         .Q(first_data_sector_no_t2[5]),
         .R(1'b0));
@@ -21516,7 +21372,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[18][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_151),
+        .CE(u_sd_reader_n_141),
         .D(rdata[2]),
         .Q(first_data_sector_no_t2[6]),
         .R(1'b0));
@@ -21524,7 +21380,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[18][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_151),
+        .CE(u_sd_reader_n_141),
         .D(rdata[3]),
         .Q(first_data_sector_no_t2[7]),
         .R(1'b0));
@@ -21532,7 +21388,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[18][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_151),
+        .CE(u_sd_reader_n_141),
         .D(rdata[4]),
         .Q(first_data_sector_no_t2[8]),
         .R(1'b0));
@@ -21540,7 +21396,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[18][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_151),
+        .CE(u_sd_reader_n_141),
         .D(rdata[5]),
         .Q(first_data_sector_no_t2[9]),
         .R(1'b0));
@@ -21548,7 +21404,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[18][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_151),
+        .CE(u_sd_reader_n_141),
         .D(rdata[6]),
         .Q(first_data_sector_no_t2[10]),
         .R(1'b0));
@@ -21556,7 +21412,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[18][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_151),
+        .CE(u_sd_reader_n_141),
         .D(rdata[7]),
         .Q(first_data_sector_no_t2[11]),
         .R(1'b0));
@@ -21564,7 +21420,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[22][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_7),
+        .CE(u_sd_reader_n_142),
         .D(rdata[0]),
         .Q(p_0_in1_in[0]),
         .R(1'b0));
@@ -21572,7 +21428,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[22][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_7),
+        .CE(u_sd_reader_n_142),
         .D(rdata[1]),
         .Q(p_0_in1_in[1]),
         .R(1'b0));
@@ -21580,7 +21436,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[22][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_7),
+        .CE(u_sd_reader_n_142),
         .D(rdata[2]),
         .Q(p_0_in1_in[2]),
         .R(1'b0));
@@ -21588,7 +21444,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[22][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_7),
+        .CE(u_sd_reader_n_142),
         .D(rdata[3]),
         .Q(p_0_in1_in[3]),
         .R(1'b0));
@@ -21596,7 +21452,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[22][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_7),
+        .CE(u_sd_reader_n_142),
         .D(rdata[4]),
         .Q(p_0_in1_in[4]),
         .R(1'b0));
@@ -21604,7 +21460,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[22][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_7),
+        .CE(u_sd_reader_n_142),
         .D(rdata[5]),
         .Q(p_0_in1_in[5]),
         .R(1'b0));
@@ -21612,7 +21468,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[22][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_7),
+        .CE(u_sd_reader_n_142),
         .D(rdata[6]),
         .Q(p_0_in1_in[6]),
         .R(1'b0));
@@ -21620,7 +21476,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[22][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_7),
+        .CE(u_sd_reader_n_142),
         .D(rdata[7]),
         .Q(p_0_in1_in[7]),
         .R(1'b0));
@@ -21628,7 +21484,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[23][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_154),
+        .CE(u_sd_reader_n_126),
         .D(rdata[0]),
         .Q(p_0_in1_in[8]),
         .R(1'b0));
@@ -21636,7 +21492,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[23][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_154),
+        .CE(u_sd_reader_n_126),
         .D(rdata[1]),
         .Q(p_0_in1_in[9]),
         .R(1'b0));
@@ -21644,7 +21500,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[23][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_154),
+        .CE(u_sd_reader_n_126),
         .D(rdata[2]),
         .Q(p_0_in1_in[10]),
         .R(1'b0));
@@ -21652,7 +21508,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[23][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_154),
+        .CE(u_sd_reader_n_126),
         .D(rdata[3]),
         .Q(p_0_in1_in[11]),
         .R(1'b0));
@@ -21660,7 +21516,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[23][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_154),
+        .CE(u_sd_reader_n_126),
         .D(rdata[4]),
         .Q(p_0_in1_in[12]),
         .R(1'b0));
@@ -21668,7 +21524,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[23][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_154),
+        .CE(u_sd_reader_n_126),
         .D(rdata[5]),
         .Q(p_0_in1_in[13]),
         .R(1'b0));
@@ -21676,7 +21532,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[23][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_154),
+        .CE(u_sd_reader_n_126),
         .D(rdata[6]),
         .Q(p_0_in1_in[14]),
         .R(1'b0));
@@ -21684,7 +21540,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[23][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_154),
+        .CE(u_sd_reader_n_126),
         .D(rdata[7]),
         .Q(p_0_in1_in[15]),
         .R(1'b0));
@@ -21692,7 +21548,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[36][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_145),
+        .CE(u_sd_reader_n_132),
         .D(rdata[0]),
         .Q(\sector_content_reg_n_0_[36][0] ),
         .R(1'b0));
@@ -21700,7 +21556,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[36][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_145),
+        .CE(u_sd_reader_n_132),
         .D(rdata[1]),
         .Q(\sector_content_reg_n_0_[36][1] ),
         .R(1'b0));
@@ -21708,7 +21564,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[36][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_145),
+        .CE(u_sd_reader_n_132),
         .D(rdata[2]),
         .Q(\sector_content_reg_n_0_[36][2] ),
         .R(1'b0));
@@ -21716,7 +21572,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[36][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_145),
+        .CE(u_sd_reader_n_132),
         .D(rdata[3]),
         .Q(\sector_content_reg_n_0_[36][3] ),
         .R(1'b0));
@@ -21724,7 +21580,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[36][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_145),
+        .CE(u_sd_reader_n_132),
         .D(rdata[4]),
         .Q(\sector_content_reg_n_0_[36][4] ),
         .R(1'b0));
@@ -21732,7 +21588,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[36][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_145),
+        .CE(u_sd_reader_n_132),
         .D(rdata[5]),
         .Q(\sector_content_reg_n_0_[36][5] ),
         .R(1'b0));
@@ -21740,7 +21596,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[36][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_145),
+        .CE(u_sd_reader_n_132),
         .D(rdata[6]),
         .Q(\sector_content_reg_n_0_[36][6] ),
         .R(1'b0));
@@ -21748,7 +21604,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[36][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_145),
+        .CE(u_sd_reader_n_132),
         .D(rdata[7]),
         .Q(\sector_content_reg_n_0_[36][7] ),
         .R(1'b0));
@@ -21756,7 +21612,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[37][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_143),
+        .CE(u_sd_reader_n_133),
         .D(rdata[0]),
         .Q(\sector_content_reg_n_0_[37][0] ),
         .R(1'b0));
@@ -21764,7 +21620,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[37][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_143),
+        .CE(u_sd_reader_n_133),
         .D(rdata[1]),
         .Q(\sector_content_reg_n_0_[37][1] ),
         .R(1'b0));
@@ -21772,7 +21628,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[37][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_143),
+        .CE(u_sd_reader_n_133),
         .D(rdata[2]),
         .Q(\sector_content_reg_n_0_[37][2] ),
         .R(1'b0));
@@ -21780,7 +21636,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[37][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_143),
+        .CE(u_sd_reader_n_133),
         .D(rdata[3]),
         .Q(\sector_content_reg_n_0_[37][3] ),
         .R(1'b0));
@@ -21788,7 +21644,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[37][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_143),
+        .CE(u_sd_reader_n_133),
         .D(rdata[4]),
         .Q(\sector_content_reg_n_0_[37][4] ),
         .R(1'b0));
@@ -21796,7 +21652,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[37][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_143),
+        .CE(u_sd_reader_n_133),
         .D(rdata[5]),
         .Q(\sector_content_reg_n_0_[37][5] ),
         .R(1'b0));
@@ -21804,7 +21660,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[37][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_143),
+        .CE(u_sd_reader_n_133),
         .D(rdata[6]),
         .Q(\sector_content_reg_n_0_[37][6] ),
         .R(1'b0));
@@ -21812,7 +21668,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[37][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_143),
+        .CE(u_sd_reader_n_133),
         .D(rdata[7]),
         .Q(\sector_content_reg_n_0_[37][7] ),
         .R(1'b0));
@@ -21820,7 +21676,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[38][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_147),
+        .CE(u_sd_reader_n_130),
         .D(rdata[0]),
         .Q(\sector_content_reg_n_0_[38][0] ),
         .R(1'b0));
@@ -21828,7 +21684,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[38][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_147),
+        .CE(u_sd_reader_n_130),
         .D(rdata[1]),
         .Q(\sector_content_reg_n_0_[38][1] ),
         .R(1'b0));
@@ -21836,7 +21692,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[38][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_147),
+        .CE(u_sd_reader_n_130),
         .D(rdata[2]),
         .Q(\sector_content_reg_n_0_[38][2] ),
         .R(1'b0));
@@ -21844,7 +21700,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[38][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_147),
+        .CE(u_sd_reader_n_130),
         .D(rdata[3]),
         .Q(\sector_content_reg_n_0_[38][3] ),
         .R(1'b0));
@@ -21852,7 +21708,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[38][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_147),
+        .CE(u_sd_reader_n_130),
         .D(rdata[4]),
         .Q(\sector_content_reg_n_0_[38][4] ),
         .R(1'b0));
@@ -21860,7 +21716,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[38][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_147),
+        .CE(u_sd_reader_n_130),
         .D(rdata[5]),
         .Q(\sector_content_reg_n_0_[38][5] ),
         .R(1'b0));
@@ -21868,7 +21724,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[38][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_147),
+        .CE(u_sd_reader_n_130),
         .D(rdata[6]),
         .Q(\sector_content_reg_n_0_[38][6] ),
         .R(1'b0));
@@ -21876,7 +21732,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[38][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_147),
+        .CE(u_sd_reader_n_130),
         .D(rdata[7]),
         .Q(\sector_content_reg_n_0_[38][7] ),
         .R(1'b0));
@@ -21884,7 +21740,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[39][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_141),
+        .CE(u_sd_reader_n_129),
         .D(rdata[0]),
         .Q(\sector_content_reg_n_0_[39][0] ),
         .R(1'b0));
@@ -21892,7 +21748,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[39][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_141),
+        .CE(u_sd_reader_n_129),
         .D(rdata[1]),
         .Q(\sector_content_reg_n_0_[39][1] ),
         .R(1'b0));
@@ -21900,7 +21756,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[39][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_141),
+        .CE(u_sd_reader_n_129),
         .D(rdata[2]),
         .Q(\sector_content_reg_n_0_[39][2] ),
         .R(1'b0));
@@ -21908,7 +21764,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[39][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_141),
+        .CE(u_sd_reader_n_129),
         .D(rdata[3]),
         .Q(\sector_content_reg_n_0_[39][3] ),
         .R(1'b0));
@@ -21916,7 +21772,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[39][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_141),
+        .CE(u_sd_reader_n_129),
         .D(rdata[4]),
         .Q(\sector_content_reg_n_0_[39][4] ),
         .R(1'b0));
@@ -21924,7 +21780,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[39][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_141),
+        .CE(u_sd_reader_n_129),
         .D(rdata[5]),
         .Q(\sector_content_reg_n_0_[39][5] ),
         .R(1'b0));
@@ -21932,7 +21788,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[39][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_141),
+        .CE(u_sd_reader_n_129),
         .D(rdata[6]),
         .Q(\sector_content_reg_n_0_[39][6] ),
         .R(1'b0));
@@ -21940,7 +21796,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[39][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_141),
+        .CE(u_sd_reader_n_129),
         .D(rdata[7]),
         .Q(\sector_content_reg_n_0_[39][7] ),
         .R(1'b0));
@@ -21948,7 +21804,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[44][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_146),
+        .CE(u_sd_reader_n_135),
         .D(rdata[0]),
         .Q(\sector_content_reg_n_0_[44][0] ),
         .R(1'b0));
@@ -21956,7 +21812,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[44][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_146),
+        .CE(u_sd_reader_n_135),
         .D(rdata[1]),
         .Q(\sector_content_reg_n_0_[44][1] ),
         .R(1'b0));
@@ -21964,7 +21820,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[44][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_146),
+        .CE(u_sd_reader_n_135),
         .D(rdata[2]),
         .Q(\sector_content_reg_n_0_[44][2] ),
         .R(1'b0));
@@ -21972,7 +21828,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[44][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_146),
+        .CE(u_sd_reader_n_135),
         .D(rdata[3]),
         .Q(\sector_content_reg_n_0_[44][3] ),
         .R(1'b0));
@@ -21980,7 +21836,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[44][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_146),
+        .CE(u_sd_reader_n_135),
         .D(rdata[4]),
         .Q(\sector_content_reg_n_0_[44][4] ),
         .R(1'b0));
@@ -21988,7 +21844,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[44][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_146),
+        .CE(u_sd_reader_n_135),
         .D(rdata[5]),
         .Q(\sector_content_reg_n_0_[44][5] ),
         .R(1'b0));
@@ -21996,7 +21852,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[44][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_146),
+        .CE(u_sd_reader_n_135),
         .D(rdata[6]),
         .Q(\sector_content_reg_n_0_[44][6] ),
         .R(1'b0));
@@ -22004,7 +21860,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[44][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_146),
+        .CE(u_sd_reader_n_135),
         .D(rdata[7]),
         .Q(\sector_content_reg_n_0_[44][7] ),
         .R(1'b0));
@@ -22012,7 +21868,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[454][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_199),
+        .CE(u_sd_reader_n_128),
         .D(rdata[0]),
         .Q(\sector_content_reg_n_0_[454][0] ),
         .R(1'b0));
@@ -22020,7 +21876,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[454][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_199),
+        .CE(u_sd_reader_n_128),
         .D(rdata[1]),
         .Q(\sector_content_reg_n_0_[454][1] ),
         .R(1'b0));
@@ -22028,7 +21884,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[454][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_199),
+        .CE(u_sd_reader_n_128),
         .D(rdata[2]),
         .Q(\sector_content_reg_n_0_[454][2] ),
         .R(1'b0));
@@ -22036,7 +21892,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[454][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_199),
+        .CE(u_sd_reader_n_128),
         .D(rdata[3]),
         .Q(\sector_content_reg_n_0_[454][3] ),
         .R(1'b0));
@@ -22044,7 +21900,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[454][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_199),
+        .CE(u_sd_reader_n_128),
         .D(rdata[4]),
         .Q(\sector_content_reg_n_0_[454][4] ),
         .R(1'b0));
@@ -22052,7 +21908,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[454][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_199),
+        .CE(u_sd_reader_n_128),
         .D(rdata[5]),
         .Q(\sector_content_reg_n_0_[454][5] ),
         .R(1'b0));
@@ -22060,7 +21916,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[454][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_199),
+        .CE(u_sd_reader_n_128),
         .D(rdata[6]),
         .Q(\sector_content_reg_n_0_[454][6] ),
         .R(1'b0));
@@ -22068,7 +21924,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[454][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_199),
+        .CE(u_sd_reader_n_128),
         .D(rdata[7]),
         .Q(\sector_content_reg_n_0_[454][7] ),
         .R(1'b0));
@@ -22076,7 +21932,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[455][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_200),
+        .CE(u_sd_reader_n_146),
         .D(rdata[0]),
         .Q(\sector_content_reg_n_0_[455][0] ),
         .R(1'b0));
@@ -22084,7 +21940,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[455][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_200),
+        .CE(u_sd_reader_n_146),
         .D(rdata[1]),
         .Q(\sector_content_reg_n_0_[455][1] ),
         .R(1'b0));
@@ -22092,7 +21948,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[455][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_200),
+        .CE(u_sd_reader_n_146),
         .D(rdata[2]),
         .Q(\sector_content_reg_n_0_[455][2] ),
         .R(1'b0));
@@ -22100,7 +21956,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[455][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_200),
+        .CE(u_sd_reader_n_146),
         .D(rdata[3]),
         .Q(\sector_content_reg_n_0_[455][3] ),
         .R(1'b0));
@@ -22108,7 +21964,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[455][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_200),
+        .CE(u_sd_reader_n_146),
         .D(rdata[4]),
         .Q(\sector_content_reg_n_0_[455][4] ),
         .R(1'b0));
@@ -22116,7 +21972,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[455][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_200),
+        .CE(u_sd_reader_n_146),
         .D(rdata[5]),
         .Q(\sector_content_reg_n_0_[455][5] ),
         .R(1'b0));
@@ -22124,7 +21980,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[455][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_200),
+        .CE(u_sd_reader_n_146),
         .D(rdata[6]),
         .Q(\sector_content_reg_n_0_[455][6] ),
         .R(1'b0));
@@ -22132,7 +21988,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[455][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_200),
+        .CE(u_sd_reader_n_146),
         .D(rdata[7]),
         .Q(\sector_content_reg_n_0_[455][7] ),
         .R(1'b0));
@@ -22140,7 +21996,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[456][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_385),
+        .CE(u_sd_reader_n_251),
         .D(rdata[0]),
         .Q(\sector_content_reg_n_0_[456][0] ),
         .R(1'b0));
@@ -22148,7 +22004,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[456][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_385),
+        .CE(u_sd_reader_n_251),
         .D(rdata[1]),
         .Q(\sector_content_reg_n_0_[456][1] ),
         .R(1'b0));
@@ -22156,7 +22012,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[456][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_385),
+        .CE(u_sd_reader_n_251),
         .D(rdata[2]),
         .Q(\sector_content_reg_n_0_[456][2] ),
         .R(1'b0));
@@ -22164,7 +22020,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[456][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_385),
+        .CE(u_sd_reader_n_251),
         .D(rdata[3]),
         .Q(\sector_content_reg_n_0_[456][3] ),
         .R(1'b0));
@@ -22172,7 +22028,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[456][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_385),
+        .CE(u_sd_reader_n_251),
         .D(rdata[4]),
         .Q(\sector_content_reg_n_0_[456][4] ),
         .R(1'b0));
@@ -22180,7 +22036,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[456][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_385),
+        .CE(u_sd_reader_n_251),
         .D(rdata[5]),
         .Q(\sector_content_reg_n_0_[456][5] ),
         .R(1'b0));
@@ -22188,7 +22044,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[456][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_385),
+        .CE(u_sd_reader_n_251),
         .D(rdata[6]),
         .Q(\sector_content_reg_n_0_[456][6] ),
         .R(1'b0));
@@ -22196,7 +22052,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[456][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_385),
+        .CE(u_sd_reader_n_251),
         .D(rdata[7]),
         .Q(\sector_content_reg_n_0_[456][7] ),
         .R(1'b0));
@@ -22204,7 +22060,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[457][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_386),
+        .CE(u_sd_reader_n_385),
         .D(rdata[0]),
         .Q(\sector_content_reg_n_0_[457][0] ),
         .R(1'b0));
@@ -22212,7 +22068,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[457][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_386),
+        .CE(u_sd_reader_n_385),
         .D(rdata[1]),
         .Q(\sector_content_reg_n_0_[457][1] ),
         .R(1'b0));
@@ -22220,7 +22076,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[457][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_386),
+        .CE(u_sd_reader_n_385),
         .D(rdata[2]),
         .Q(\sector_content_reg_n_0_[457][2] ),
         .R(1'b0));
@@ -22228,7 +22084,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[457][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_386),
+        .CE(u_sd_reader_n_385),
         .D(rdata[3]),
         .Q(\sector_content_reg_n_0_[457][3] ),
         .R(1'b0));
@@ -22236,7 +22092,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[457][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_386),
+        .CE(u_sd_reader_n_385),
         .D(rdata[4]),
         .Q(\sector_content_reg_n_0_[457][4] ),
         .R(1'b0));
@@ -22244,7 +22100,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[457][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_386),
+        .CE(u_sd_reader_n_385),
         .D(rdata[5]),
         .Q(\sector_content_reg_n_0_[457][5] ),
         .R(1'b0));
@@ -22252,7 +22108,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[457][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_386),
+        .CE(u_sd_reader_n_385),
         .D(rdata[6]),
         .Q(\sector_content_reg_n_0_[457][6] ),
         .R(1'b0));
@@ -22260,7 +22116,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[457][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_386),
+        .CE(u_sd_reader_n_385),
         .D(rdata[7]),
         .Q(\sector_content_reg_n_0_[457][7] ),
         .R(1'b0));
@@ -22268,7 +22124,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[45][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_144),
+        .CE(u_sd_reader_n_134),
         .D(rdata[0]),
         .Q(\sector_content_reg_n_0_[45][0] ),
         .R(1'b0));
@@ -22276,7 +22132,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[45][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_144),
+        .CE(u_sd_reader_n_134),
         .D(rdata[1]),
         .Q(\sector_content_reg_n_0_[45][1] ),
         .R(1'b0));
@@ -22284,7 +22140,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[45][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_144),
+        .CE(u_sd_reader_n_134),
         .D(rdata[2]),
         .Q(\sector_content_reg_n_0_[45][2] ),
         .R(1'b0));
@@ -22292,7 +22148,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[45][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_144),
+        .CE(u_sd_reader_n_134),
         .D(rdata[3]),
         .Q(\sector_content_reg_n_0_[45][3] ),
         .R(1'b0));
@@ -22300,7 +22156,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[45][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_144),
+        .CE(u_sd_reader_n_134),
         .D(rdata[4]),
         .Q(\sector_content_reg_n_0_[45][4] ),
         .R(1'b0));
@@ -22308,7 +22164,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[45][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_144),
+        .CE(u_sd_reader_n_134),
         .D(rdata[5]),
         .Q(\sector_content_reg_n_0_[45][5] ),
         .R(1'b0));
@@ -22316,7 +22172,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[45][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_144),
+        .CE(u_sd_reader_n_134),
         .D(rdata[6]),
         .Q(\sector_content_reg_n_0_[45][6] ),
         .R(1'b0));
@@ -22324,7 +22180,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[45][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_144),
+        .CE(u_sd_reader_n_134),
         .D(rdata[7]),
         .Q(\sector_content_reg_n_0_[45][7] ),
         .R(1'b0));
@@ -22332,7 +22188,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[46][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_142),
+        .CE(u_sd_reader_n_143),
         .D(rdata[0]),
         .Q(\sector_content_reg_n_0_[46][0] ),
         .R(1'b0));
@@ -22340,7 +22196,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[46][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_142),
+        .CE(u_sd_reader_n_143),
         .D(rdata[1]),
         .Q(\sector_content_reg_n_0_[46][1] ),
         .R(1'b0));
@@ -22348,7 +22204,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[46][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_142),
+        .CE(u_sd_reader_n_143),
         .D(rdata[2]),
         .Q(\sector_content_reg_n_0_[46][2] ),
         .R(1'b0));
@@ -22356,7 +22212,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[46][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_142),
+        .CE(u_sd_reader_n_143),
         .D(rdata[3]),
         .Q(\sector_content_reg_n_0_[46][3] ),
         .R(1'b0));
@@ -22364,7 +22220,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[46][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_142),
+        .CE(u_sd_reader_n_143),
         .D(rdata[4]),
         .Q(\sector_content_reg_n_0_[46][4] ),
         .R(1'b0));
@@ -22372,7 +22228,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[46][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_142),
+        .CE(u_sd_reader_n_143),
         .D(rdata[5]),
         .Q(\sector_content_reg_n_0_[46][5] ),
         .R(1'b0));
@@ -22380,7 +22236,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[46][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_142),
+        .CE(u_sd_reader_n_143),
         .D(rdata[6]),
         .Q(\sector_content_reg_n_0_[46][6] ),
         .R(1'b0));
@@ -22388,7 +22244,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[46][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_142),
+        .CE(u_sd_reader_n_143),
         .D(rdata[7]),
         .Q(\sector_content_reg_n_0_[46][7] ),
         .R(1'b0));
@@ -22396,7 +22252,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[47][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_140),
+        .CE(u_sd_reader_n_131),
         .D(rdata[0]),
         .Q(\sector_content_reg_n_0_[47][0] ),
         .R(1'b0));
@@ -22404,7 +22260,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[47][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_140),
+        .CE(u_sd_reader_n_131),
         .D(rdata[1]),
         .Q(\sector_content_reg_n_0_[47][1] ),
         .R(1'b0));
@@ -22412,7 +22268,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[47][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_140),
+        .CE(u_sd_reader_n_131),
         .D(rdata[2]),
         .Q(\sector_content_reg_n_0_[47][2] ),
         .R(1'b0));
@@ -22420,7 +22276,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[47][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_140),
+        .CE(u_sd_reader_n_131),
         .D(rdata[3]),
         .Q(\sector_content_reg_n_0_[47][3] ),
         .R(1'b0));
@@ -22428,7 +22284,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[47][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_140),
+        .CE(u_sd_reader_n_131),
         .D(rdata[4]),
         .Q(\sector_content_reg_n_0_[47][4] ),
         .R(1'b0));
@@ -22436,7 +22292,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[47][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_140),
+        .CE(u_sd_reader_n_131),
         .D(rdata[5]),
         .Q(\sector_content_reg_n_0_[47][5] ),
         .R(1'b0));
@@ -22444,7 +22300,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[47][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_140),
+        .CE(u_sd_reader_n_131),
         .D(rdata[6]),
         .Q(\sector_content_reg_n_0_[47][6] ),
         .R(1'b0));
@@ -22452,7 +22308,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[47][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_140),
+        .CE(u_sd_reader_n_131),
         .D(rdata[7]),
         .Q(\sector_content_reg_n_0_[47][7] ),
         .R(1'b0));
@@ -22460,7 +22316,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[510][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_203),
+        .CE(u_sd_reader_n_149),
         .D(rdata[0]),
         .Q(\sector_content_reg_n_0_[510][0] ),
         .R(1'b0));
@@ -22468,7 +22324,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[510][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_203),
+        .CE(u_sd_reader_n_149),
         .D(rdata[1]),
         .Q(\sector_content_reg_n_0_[510][1] ),
         .R(1'b0));
@@ -22476,7 +22332,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[510][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_203),
+        .CE(u_sd_reader_n_149),
         .D(rdata[2]),
         .Q(\sector_content_reg_n_0_[510][2] ),
         .R(1'b0));
@@ -22484,7 +22340,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[510][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_203),
+        .CE(u_sd_reader_n_149),
         .D(rdata[3]),
         .Q(\sector_content_reg_n_0_[510][3] ),
         .R(1'b0));
@@ -22492,7 +22348,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[510][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_203),
+        .CE(u_sd_reader_n_149),
         .D(rdata[4]),
         .Q(\sector_content_reg_n_0_[510][4] ),
         .R(1'b0));
@@ -22500,7 +22356,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[510][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_203),
+        .CE(u_sd_reader_n_149),
         .D(rdata[5]),
         .Q(\sector_content_reg_n_0_[510][5] ),
         .R(1'b0));
@@ -22508,7 +22364,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[510][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_203),
+        .CE(u_sd_reader_n_149),
         .D(rdata[6]),
         .Q(\sector_content_reg_n_0_[510][6] ),
         .R(1'b0));
@@ -22516,7 +22372,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[510][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_203),
+        .CE(u_sd_reader_n_149),
         .D(rdata[7]),
         .Q(\sector_content_reg_n_0_[510][7] ),
         .R(1'b0));
@@ -22524,7 +22380,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[511][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_213),
+        .CE(u_sd_reader_n_268),
         .D(rdata[0]),
         .Q(\sector_content_reg_n_0_[511][0] ),
         .R(1'b0));
@@ -22532,7 +22388,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[511][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_213),
+        .CE(u_sd_reader_n_268),
         .D(rdata[1]),
         .Q(\sector_content_reg_n_0_[511][1] ),
         .R(1'b0));
@@ -22540,7 +22396,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[511][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_213),
+        .CE(u_sd_reader_n_268),
         .D(rdata[2]),
         .Q(\sector_content_reg_n_0_[511][2] ),
         .R(1'b0));
@@ -22548,7 +22404,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[511][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_213),
+        .CE(u_sd_reader_n_268),
         .D(rdata[3]),
         .Q(\sector_content_reg_n_0_[511][3] ),
         .R(1'b0));
@@ -22556,7 +22412,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[511][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_213),
+        .CE(u_sd_reader_n_268),
         .D(rdata[4]),
         .Q(\sector_content_reg_n_0_[511][4] ),
         .R(1'b0));
@@ -22564,7 +22420,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[511][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_213),
+        .CE(u_sd_reader_n_268),
         .D(rdata[5]),
         .Q(\sector_content_reg_n_0_[511][5] ),
         .R(1'b0));
@@ -22572,7 +22428,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[511][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_213),
+        .CE(u_sd_reader_n_268),
         .D(rdata[6]),
         .Q(\sector_content_reg_n_0_[511][6] ),
         .R(1'b0));
@@ -22580,7 +22436,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[511][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_213),
+        .CE(u_sd_reader_n_268),
         .D(rdata[7]),
         .Q(\sector_content_reg_n_0_[511][7] ),
         .R(1'b0));
@@ -22588,7 +22444,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[86][0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_139),
+        .CE(u_sd_reader_n_127),
         .D(rdata[0]),
         .Q(\sector_content_reg_n_0_[86][0] ),
         .R(1'b0));
@@ -22596,7 +22452,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[86][1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_139),
+        .CE(u_sd_reader_n_127),
         .D(rdata[1]),
         .Q(\sector_content_reg_n_0_[86][1] ),
         .R(1'b0));
@@ -22604,7 +22460,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[86][2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_139),
+        .CE(u_sd_reader_n_127),
         .D(rdata[2]),
         .Q(\sector_content_reg_n_0_[86][2] ),
         .R(1'b0));
@@ -22612,7 +22468,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[86][3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_139),
+        .CE(u_sd_reader_n_127),
         .D(rdata[3]),
         .Q(\sector_content_reg_n_0_[86][3] ),
         .R(1'b0));
@@ -22620,7 +22476,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[86][4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_139),
+        .CE(u_sd_reader_n_127),
         .D(rdata[4]),
         .Q(\sector_content_reg_n_0_[86][4] ),
         .R(1'b0));
@@ -22628,7 +22484,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[86][5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_139),
+        .CE(u_sd_reader_n_127),
         .D(rdata[5]),
         .Q(\sector_content_reg_n_0_[86][5] ),
         .R(1'b0));
@@ -22636,7 +22492,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[86][6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_139),
+        .CE(u_sd_reader_n_127),
         .D(rdata[6]),
         .Q(\sector_content_reg_n_0_[86][6] ),
         .R(1'b0));
@@ -22644,7 +22500,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \sector_content_reg[86][7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_139),
+        .CE(u_sd_reader_n_127),
         .D(rdata[7]),
         .Q(\sector_content_reg_n_0_[86][7] ),
         .R(1'b0));
@@ -22652,7 +22508,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_fat16_reg[0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_202),
+        .CE(u_sd_reader_n_148),
         .CLR(reset_n_0),
         .D(rdata[0]),
         .Q(target_cluster_fat16[0]));
@@ -22660,7 +22516,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_fat16_reg[10] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_201),
+        .CE(u_sd_reader_n_147),
         .CLR(reset_n_0),
         .D(rdata[2]),
         .Q(target_cluster_fat16[10]));
@@ -22668,7 +22524,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_fat16_reg[11] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_201),
+        .CE(u_sd_reader_n_147),
         .CLR(reset_n_0),
         .D(rdata[3]),
         .Q(target_cluster_fat16[11]));
@@ -22676,7 +22532,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_fat16_reg[12] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_201),
+        .CE(u_sd_reader_n_147),
         .CLR(reset_n_0),
         .D(rdata[4]),
         .Q(target_cluster_fat16[12]));
@@ -22684,7 +22540,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_fat16_reg[13] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_201),
+        .CE(u_sd_reader_n_147),
         .CLR(reset_n_0),
         .D(rdata[5]),
         .Q(target_cluster_fat16[13]));
@@ -22692,7 +22548,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_fat16_reg[14] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_201),
+        .CE(u_sd_reader_n_147),
         .CLR(reset_n_0),
         .D(rdata[6]),
         .Q(target_cluster_fat16[14]));
@@ -22700,7 +22556,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_fat16_reg[15] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_201),
+        .CE(u_sd_reader_n_147),
         .CLR(reset_n_0),
         .D(rdata[7]),
         .Q(target_cluster_fat16[15]));
@@ -22708,7 +22564,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_fat16_reg[1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_202),
+        .CE(u_sd_reader_n_148),
         .CLR(reset_n_0),
         .D(rdata[1]),
         .Q(target_cluster_fat16[1]));
@@ -22716,7 +22572,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_fat16_reg[2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_202),
+        .CE(u_sd_reader_n_148),
         .CLR(reset_n_0),
         .D(rdata[2]),
         .Q(target_cluster_fat16[2]));
@@ -22724,7 +22580,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_fat16_reg[3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_202),
+        .CE(u_sd_reader_n_148),
         .CLR(reset_n_0),
         .D(rdata[3]),
         .Q(target_cluster_fat16[3]));
@@ -22732,7 +22588,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_fat16_reg[4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_202),
+        .CE(u_sd_reader_n_148),
         .CLR(reset_n_0),
         .D(rdata[4]),
         .Q(target_cluster_fat16[4]));
@@ -22740,7 +22596,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_fat16_reg[5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_202),
+        .CE(u_sd_reader_n_148),
         .CLR(reset_n_0),
         .D(rdata[5]),
         .Q(target_cluster_fat16[5]));
@@ -22748,7 +22604,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_fat16_reg[6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_202),
+        .CE(u_sd_reader_n_148),
         .CLR(reset_n_0),
         .D(rdata[6]),
         .Q(target_cluster_fat16[6]));
@@ -22756,7 +22612,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_fat16_reg[7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_202),
+        .CE(u_sd_reader_n_148),
         .CLR(reset_n_0),
         .D(rdata[7]),
         .Q(target_cluster_fat16[7]));
@@ -22764,7 +22620,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_fat16_reg[8] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_201),
+        .CE(u_sd_reader_n_147),
         .CLR(reset_n_0),
         .D(rdata[0]),
         .Q(target_cluster_fat16[8]));
@@ -22772,7 +22628,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_fat16_reg[9] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_201),
+        .CE(u_sd_reader_n_147),
         .CLR(reset_n_0),
         .D(rdata[1]),
         .Q(target_cluster_fat16[9]));
@@ -22780,15 +22636,15 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_reg[0] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_158),
+        .CE(u_sd_reader_n_360),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_39),
+        .D(u_sd_reader_n_53),
         .Q(target_cluster[0]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[10] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_157),
+        .CE(u_sd_reader_n_359),
         .CLR(reset_n_0),
         .D(target_cluster0[10]),
         .Q(target_cluster[10]));
@@ -22796,7 +22652,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_reg[11] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_157),
+        .CE(u_sd_reader_n_359),
         .CLR(reset_n_0),
         .D(target_cluster0[11]),
         .Q(target_cluster[11]));
@@ -22804,7 +22660,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_reg[12] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_157),
+        .CE(u_sd_reader_n_359),
         .CLR(reset_n_0),
         .D(target_cluster0[12]),
         .Q(target_cluster[12]));
@@ -22812,7 +22668,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_reg[13] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_157),
+        .CE(u_sd_reader_n_359),
         .CLR(reset_n_0),
         .D(target_cluster0[13]),
         .Q(target_cluster[13]));
@@ -22820,7 +22676,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_reg[14] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_157),
+        .CE(u_sd_reader_n_359),
         .CLR(reset_n_0),
         .D(target_cluster0[14]),
         .Q(target_cluster[14]));
@@ -22828,7 +22684,7 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_reg[15] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_157),
+        .CE(u_sd_reader_n_359),
         .CLR(reset_n_0),
         .D(target_cluster0[15]),
         .Q(target_cluster[15]));
@@ -22836,191 +22692,191 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_reg[16] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_156),
+        .CE(u_sd_reader_n_358),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_23),
+        .D(u_sd_reader_n_37),
         .Q(target_cluster[16]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[17] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_156),
+        .CE(u_sd_reader_n_358),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_22),
+        .D(u_sd_reader_n_36),
         .Q(target_cluster[17]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[18] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_156),
+        .CE(u_sd_reader_n_358),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_21),
+        .D(u_sd_reader_n_35),
         .Q(target_cluster[18]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[19] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_156),
+        .CE(u_sd_reader_n_358),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_20),
+        .D(u_sd_reader_n_34),
         .Q(target_cluster[19]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[1] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_158),
+        .CE(u_sd_reader_n_360),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_38),
+        .D(u_sd_reader_n_52),
         .Q(target_cluster[1]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[20] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_156),
+        .CE(u_sd_reader_n_358),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_19),
+        .D(u_sd_reader_n_33),
         .Q(target_cluster[20]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[21] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_156),
+        .CE(u_sd_reader_n_358),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_18),
+        .D(u_sd_reader_n_32),
         .Q(target_cluster[21]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[22] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_156),
+        .CE(u_sd_reader_n_358),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_17),
+        .D(u_sd_reader_n_31),
         .Q(target_cluster[22]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[23] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_156),
+        .CE(u_sd_reader_n_358),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_16),
+        .D(u_sd_reader_n_30),
         .Q(target_cluster[23]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[24] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_155),
+        .CE(u_sd_reader_n_357),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_15),
+        .D(u_sd_reader_n_29),
         .Q(target_cluster[24]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[25] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_155),
+        .CE(u_sd_reader_n_357),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_14),
+        .D(u_sd_reader_n_28),
         .Q(target_cluster[25]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[26] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_155),
+        .CE(u_sd_reader_n_357),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_13),
+        .D(u_sd_reader_n_27),
         .Q(target_cluster[26]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[27] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_155),
+        .CE(u_sd_reader_n_357),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_12),
+        .D(u_sd_reader_n_26),
         .Q(target_cluster[27]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[28] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_155),
+        .CE(u_sd_reader_n_357),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_11),
+        .D(u_sd_reader_n_25),
         .Q(target_cluster[28]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[29] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_155),
+        .CE(u_sd_reader_n_357),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_10),
+        .D(u_sd_reader_n_24),
         .Q(target_cluster[29]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[2] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_158),
+        .CE(u_sd_reader_n_360),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_37),
+        .D(u_sd_reader_n_51),
         .Q(target_cluster[2]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[30] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_155),
+        .CE(u_sd_reader_n_357),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_9),
+        .D(u_sd_reader_n_23),
         .Q(target_cluster[30]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[31] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_155),
+        .CE(u_sd_reader_n_357),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_8),
+        .D(u_sd_reader_n_22),
         .Q(target_cluster[31]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[3] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_158),
+        .CE(u_sd_reader_n_360),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_36),
+        .D(u_sd_reader_n_50),
         .Q(target_cluster[3]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[4] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_158),
+        .CE(u_sd_reader_n_360),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_35),
+        .D(u_sd_reader_n_49),
         .Q(target_cluster[4]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[5] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_158),
+        .CE(u_sd_reader_n_360),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_34),
+        .D(u_sd_reader_n_48),
         .Q(target_cluster[5]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[6] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_158),
+        .CE(u_sd_reader_n_360),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_33),
+        .D(u_sd_reader_n_47),
         .Q(target_cluster[6]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[7] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_158),
+        .CE(u_sd_reader_n_360),
         .CLR(reset_n_0),
-        .D(u_sd_reader_n_32),
+        .D(u_sd_reader_n_46),
         .Q(target_cluster[7]));
   FDCE #(
     .INIT(1'b0)) 
     \target_cluster_reg[8] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_157),
+        .CE(u_sd_reader_n_359),
         .CLR(reset_n_0),
         .D(target_cluster0[8]),
         .Q(target_cluster[8]));
@@ -23028,69 +22884,65 @@ module design_1_top_system_0_1_sd_file_reader
     .INIT(1'b0)) 
     \target_cluster_reg[9] 
        (.C(clk_sd),
-        .CE(u_sd_reader_n_157),
+        .CE(u_sd_reader_n_359),
         .CLR(reset_n_0),
         .D(target_cluster0[9]),
         .Q(target_cluster[9]));
   design_1_top_system_0_1_sd_reader u_sd_reader
        (.CO(search_fat_reg_i_2_n_0),
-        .D({u_sd_reader_n_8,u_sd_reader_n_9,u_sd_reader_n_10,u_sd_reader_n_11,u_sd_reader_n_12,u_sd_reader_n_13,u_sd_reader_n_14,u_sd_reader_n_15,u_sd_reader_n_16,u_sd_reader_n_17,u_sd_reader_n_18,u_sd_reader_n_19,u_sd_reader_n_20,u_sd_reader_n_21,u_sd_reader_n_22,u_sd_reader_n_23,target_cluster0,u_sd_reader_n_32,u_sd_reader_n_33,u_sd_reader_n_34,u_sd_reader_n_35,u_sd_reader_n_36,u_sd_reader_n_37,u_sd_reader_n_38,u_sd_reader_n_39}),
-        .E(u_sd_reader_n_7),
+        .D({fdtnamelen_t[7],u_sd_reader_n_7,u_sd_reader_n_8,u_sd_reader_n_9,u_sd_reader_n_10,u_sd_reader_n_11,fdtnamelen_t[1:0]}),
+        .E(u_sd_reader_n_120),
+        .\FSM_sequential_filesystem_state_reg[0] (u_sd_reader_n_112),
+        .\FSM_sequential_filesystem_state_reg[0]_0 (\FSM_sequential_filesystem_state[0]_i_2_n_0 ),
+        .\FSM_sequential_filesystem_state_reg[0]_1 (\FSM_sequential_filesystem_state[1]_i_4_n_0 ),
+        .\FSM_sequential_filesystem_state_reg[1] (u_sd_reader_n_5),
+        .\FSM_sequential_filesystem_state_reg[1]_0 (u_sd_reader_n_113),
+        .\FSM_sequential_filesystem_state_reg[1]_1 (u_sd_reader_n_121),
+        .\FSM_sequential_filesystem_state_reg[1]_2 (u_sd_reader_n_122),
+        .\FSM_sequential_filesystem_state_reg[1]_3 (u_sd_reader_n_123),
+        .\FSM_sequential_filesystem_state_reg[1]_4 (u_sd_reader_n_124),
+        .\FSM_sequential_filesystem_state_reg[1]_5 (\FSM_sequential_filesystem_state[1]_i_2_n_0 ),
+        .\FSM_sequential_filesystem_state_reg[2] (u_sd_reader_n_111),
+        .\FSM_sequential_filesystem_state_reg[2]_0 (\FSM_sequential_filesystem_state[2]_i_3_n_0 ),
         .I(I),
         .Q(card_stat),
         .T(T),
-        .card_type(card_type),
+        .\arg_reg[31]_0 ({\read_sector_no_reg_n_0_[31] ,\read_sector_no_reg_n_0_[30] ,\read_sector_no_reg_n_0_[29] ,\read_sector_no_reg_n_0_[28] ,\read_sector_no_reg_n_0_[27] ,\read_sector_no_reg_n_0_[26] ,\read_sector_no_reg_n_0_[25] ,\read_sector_no_reg_n_0_[24] ,\read_sector_no_reg_n_0_[23] ,\read_sector_no_reg_n_0_[22] ,\read_sector_no_reg_n_0_[21] ,\read_sector_no_reg_n_0_[20] ,\read_sector_no_reg_n_0_[19] ,\read_sector_no_reg_n_0_[18] ,\read_sector_no_reg_n_0_[17] ,\read_sector_no_reg_n_0_[16] ,\read_sector_no_reg_n_0_[15] ,\read_sector_no_reg_n_0_[14] ,\read_sector_no_reg_n_0_[13] ,\read_sector_no_reg_n_0_[12] ,\read_sector_no_reg_n_0_[11] ,\read_sector_no_reg_n_0_[10] ,\read_sector_no_reg_n_0_[9] ,\read_sector_no_reg_n_0_[8] ,\read_sector_no_reg_n_0_[7] ,\read_sector_no_reg_n_0_[6] ,\read_sector_no_reg_n_0_[5] ,\read_sector_no_reg_n_0_[4] ,\read_sector_no_reg_n_0_[3] ,\read_sector_no_reg_n_0_[2] ,\read_sector_no_reg_n_0_[1] ,\read_sector_no_reg_n_0_[0] }),
+        .\card_type_reg[0]_0 (\card_type_reg[0] ),
+        .\card_type_reg[1]_0 (\card_type_reg[1] ),
         .clk_sd(clk_sd),
-        .\cluster_sector_offset_reg[0] (\filesystem_state[2]_i_5_n_0 ),
+        .\cluster_sector_offset_reg[0] (\FSM_sequential_filesystem_state[2]_i_5_n_0 ),
         .\cluster_sector_offset_reg[0]_0 (\cluster_sector_offset[7]_i_5_n_0 ),
         .\curr_cluster_reg[0] (\curr_cluster[31]_i_3_n_0 ),
         .\curr_cluster_reg[0]_0 (\curr_cluster[31]_i_4_n_0 ),
-        .\fcluster_reg[15] (file_1st_cluster),
-        .\fdtnamelen_reg[3] ({fdtnamelen_t[7],u_sd_reader_n_90,u_sd_reader_n_91,u_sd_reader_n_92,u_sd_reader_n_93,u_sd_reader_n_94,fdtnamelen_t[1:0]}),
+        .\curr_cluster_reg[0]_1 (\curr_cluster[31]_i_5_n_0 ),
         .\fdtnamelen_reg[7] (fdtnamelen),
         .fifo_prog_full(fifo_prog_full),
-        .\file_1st_cluster_reg[15] ({u_sd_reader_n_183,u_sd_reader_n_184,u_sd_reader_n_185,u_sd_reader_n_186,u_sd_reader_n_187,u_sd_reader_n_188,u_sd_reader_n_189,u_sd_reader_n_190,u_sd_reader_n_191,u_sd_reader_n_192,u_sd_reader_n_193,u_sd_reader_n_194,u_sd_reader_n_195,u_sd_reader_n_196,u_sd_reader_n_197,u_sd_reader_n_198}),
-        .\file_1st_cluster_reg[15]_0 ({u_sd_reader_n_286,u_sd_reader_n_287,u_sd_reader_n_288,u_sd_reader_n_289,u_sd_reader_n_290,u_sd_reader_n_291,u_sd_reader_n_292,u_sd_reader_n_293,u_sd_reader_n_294,u_sd_reader_n_295,u_sd_reader_n_296,u_sd_reader_n_297,u_sd_reader_n_298,u_sd_reader_n_299,u_sd_reader_n_300,u_sd_reader_n_301}),
-        .\file_1st_size_reg[23] ({data2[23:16],\file_1st_size_reg_n_0_[15] ,\file_1st_size_reg_n_0_[14] ,\file_1st_size_reg_n_0_[13] ,\file_1st_size_reg_n_0_[12] ,\file_1st_size_reg_n_0_[11] ,\file_1st_size_reg_n_0_[10] ,\file_1st_size_reg_n_0_[9] ,\file_1st_size_reg_n_0_[8] ,data2[7:0]}),
-        .file_found_reg(u_sd_reader_n_125),
-        .\file_name_reg[0][0] (\file_name[0][7]_i_6_n_0 ),
-        .\file_name_reg[0][7] ({u_sd_reader_n_278,u_sd_reader_n_279,u_sd_reader_n_280,u_sd_reader_n_281,u_sd_reader_n_282,u_sd_reader_n_283,u_sd_reader_n_284,u_sd_reader_n_285}),
+        .\file_1st_cluster_reg[15] ({u_sd_reader_n_341,u_sd_reader_n_342,u_sd_reader_n_343,u_sd_reader_n_344,u_sd_reader_n_345,u_sd_reader_n_346,u_sd_reader_n_347,u_sd_reader_n_348,u_sd_reader_n_349,u_sd_reader_n_350,u_sd_reader_n_351,u_sd_reader_n_352,u_sd_reader_n_353,u_sd_reader_n_354,u_sd_reader_n_355,u_sd_reader_n_356}),
+        .\file_1st_cluster_reg[15]_0 (file_1st_cluster),
+        .file_found_reg(u_sd_reader_n_114),
+        .\file_name_reg[0][5] (\file_name[8][5]_i_3_n_0 ),
+        .\file_name_reg[0][7] ({u_sd_reader_n_333,u_sd_reader_n_334,u_sd_reader_n_335,u_sd_reader_n_336,u_sd_reader_n_337,u_sd_reader_n_338,u_sd_reader_n_339,u_sd_reader_n_340}),
         .\file_name_reg[0][7]_0 ({\lastchar_reg_n_0_[7] ,\lastchar_reg_n_0_[6] ,\lastchar_reg_n_0_[5] ,\lastchar_reg_n_0_[4] ,\lastchar_reg_n_0_[3] ,\lastchar_reg_n_0_[2] ,\lastchar_reg_n_0_[1] ,\lastchar_reg_n_0_[0] }),
-        .\file_name_reg[1][7] ({u_sd_reader_n_270,u_sd_reader_n_271,u_sd_reader_n_272,u_sd_reader_n_273,u_sd_reader_n_274,u_sd_reader_n_275,u_sd_reader_n_276,u_sd_reader_n_277}),
-        .\file_name_reg[2][7] ({u_sd_reader_n_262,u_sd_reader_n_263,u_sd_reader_n_264,u_sd_reader_n_265,u_sd_reader_n_266,u_sd_reader_n_267,u_sd_reader_n_268,u_sd_reader_n_269}),
-        .\file_name_reg[3][7] ({u_sd_reader_n_254,u_sd_reader_n_255,u_sd_reader_n_256,u_sd_reader_n_257,u_sd_reader_n_258,u_sd_reader_n_259,u_sd_reader_n_260,u_sd_reader_n_261}),
-        .\file_name_reg[5][7] ({u_sd_reader_n_238,u_sd_reader_n_239,u_sd_reader_n_240,u_sd_reader_n_241,u_sd_reader_n_242,u_sd_reader_n_243,u_sd_reader_n_244,u_sd_reader_n_245}),
-        .\file_name_reg[7][7] ({u_sd_reader_n_222,u_sd_reader_n_223,u_sd_reader_n_224,u_sd_reader_n_225,u_sd_reader_n_226,u_sd_reader_n_227,u_sd_reader_n_228,u_sd_reader_n_229}),
-        .\file_name_reg[8][5] (\file_name[8][5]_i_3_n_0 ),
-        .\file_name_reg[8][7] ({u_sd_reader_n_214,u_sd_reader_n_215,u_sd_reader_n_216,u_sd_reader_n_217,u_sd_reader_n_218,u_sd_reader_n_219,u_sd_reader_n_220,u_sd_reader_n_221}),
-        .\file_namelen_reg[0] (\file_namelen[7]_i_7_n_0 ),
-        .\file_namelen_reg[1] ({u_sd_reader_n_230,u_sd_reader_n_231,u_sd_reader_n_232,u_sd_reader_n_233,u_sd_reader_n_234,u_sd_reader_n_235,u_sd_reader_n_236,u_sd_reader_n_237}),
-        .\file_namelen_reg[1]_0 ({u_sd_reader_n_246,u_sd_reader_n_247,u_sd_reader_n_248,u_sd_reader_n_249,u_sd_reader_n_250,u_sd_reader_n_251,u_sd_reader_n_252,u_sd_reader_n_253}),
-        .\file_namelen_reg[7] ({u_sd_reader_n_81,u_sd_reader_n_82,u_sd_reader_n_83,u_sd_reader_n_84,u_sd_reader_n_85,u_sd_reader_n_86,u_sd_reader_n_87,u_sd_reader_n_88}),
-        .\file_namelen_reg[7]_0 (sdtnamelen),
-        .\filesystem_reg[0] (u_sd_reader_n_129),
-        .\filesystem_reg[0]_0 ({u_sd_reader_n_155,u_sd_reader_n_156,u_sd_reader_n_157,u_sd_reader_n_158}),
+        .\file_name_reg[1][7] ({u_sd_reader_n_325,u_sd_reader_n_326,u_sd_reader_n_327,u_sd_reader_n_328,u_sd_reader_n_329,u_sd_reader_n_330,u_sd_reader_n_331,u_sd_reader_n_332}),
+        .\file_name_reg[2][7] ({u_sd_reader_n_317,u_sd_reader_n_318,u_sd_reader_n_319,u_sd_reader_n_320,u_sd_reader_n_321,u_sd_reader_n_322,u_sd_reader_n_323,u_sd_reader_n_324}),
+        .\file_name_reg[3][7] ({u_sd_reader_n_309,u_sd_reader_n_310,u_sd_reader_n_311,u_sd_reader_n_312,u_sd_reader_n_313,u_sd_reader_n_314,u_sd_reader_n_315,u_sd_reader_n_316}),
+        .\file_name_reg[5][7] ({u_sd_reader_n_293,u_sd_reader_n_294,u_sd_reader_n_295,u_sd_reader_n_296,u_sd_reader_n_297,u_sd_reader_n_298,u_sd_reader_n_299,u_sd_reader_n_300}),
+        .\file_name_reg[7][7] ({u_sd_reader_n_277,u_sd_reader_n_278,u_sd_reader_n_279,u_sd_reader_n_280,u_sd_reader_n_281,u_sd_reader_n_282,u_sd_reader_n_283,u_sd_reader_n_284}),
+        .\file_name_reg[8][7] ({u_sd_reader_n_269,u_sd_reader_n_270,u_sd_reader_n_271,u_sd_reader_n_272,u_sd_reader_n_273,u_sd_reader_n_274,u_sd_reader_n_275,u_sd_reader_n_276}),
+        .\file_namelen[3]_i_12_0 (islong_i_11_n_0),
+        .\file_namelen_reg[0] (\file_namelen[7]_i_6_n_0 ),
+        .\file_namelen_reg[1] ({u_sd_reader_n_285,u_sd_reader_n_286,u_sd_reader_n_287,u_sd_reader_n_288,u_sd_reader_n_289,u_sd_reader_n_290,u_sd_reader_n_291,u_sd_reader_n_292}),
+        .\file_namelen_reg[1]_0 ({u_sd_reader_n_301,u_sd_reader_n_302,u_sd_reader_n_303,u_sd_reader_n_304,u_sd_reader_n_305,u_sd_reader_n_306,u_sd_reader_n_307,u_sd_reader_n_308}),
+        .\file_namelen_reg[7] ({u_sd_reader_n_87,u_sd_reader_n_88,u_sd_reader_n_89,u_sd_reader_n_90,u_sd_reader_n_91,u_sd_reader_n_92,u_sd_reader_n_93,u_sd_reader_n_94}),
+        .\filesystem_reg[0] (u_sd_reader_n_118),
+        .\filesystem_reg[0]_0 ({u_sd_reader_n_357,u_sd_reader_n_358,u_sd_reader_n_359,u_sd_reader_n_360}),
         .\filesystem_reg[0]_1 (\rootdir_sectorcount[11]_i_3_n_0 ),
         .\filesystem_reg[0]_2 (\filesystem_reg_n_0_[0] ),
-        .\filesystem_reg[1] (u_sd_reader_n_130),
+        .\filesystem_reg[1] (u_sd_reader_n_119),
         .\filesystem_reg[1]_0 (\cluster_size[7]_i_2_n_0 ),
         .\filesystem_reg[1]_1 (\filesystem_reg_n_0_[1] ),
         .filesystem_state(filesystem_state),
-        .\filesystem_state_reg[0] (u_sd_reader_n_122),
-        .\filesystem_state_reg[0]_0 (u_sd_reader_n_131),
-        .\filesystem_state_reg[0]_1 (\filesystem_state[2]_i_2_n_0 ),
-        .\filesystem_state_reg[0]_2 (\filesystem_state[2]_i_3_n_0 ),
-        .\filesystem_state_reg[0]_3 (\filesystem_state[0]_i_2_n_0 ),
-        .\filesystem_state_reg[1] (u_sd_reader_n_6),
-        .\filesystem_state_reg[1]_0 (u_sd_reader_n_123),
-        .\filesystem_state_reg[1]_1 (u_sd_reader_n_124),
-        .\filesystem_state_reg[1]_2 (u_sd_reader_n_132),
-        .\filesystem_state_reg[1]_3 (u_sd_reader_n_133),
-        .\filesystem_state_reg[1]_4 (u_sd_reader_n_134),
-        .\filesystem_state_reg[1]_5 (lastchar),
-        .\filesystem_state_reg[1]_6 (\filesystem_state[1]_i_2_n_0 ),
-        .\filesystem_state_reg[1]_7 (\filesystem_state[1]_i_4_n_0 ),
-        .\filesystem_state_reg[2] (u_sd_reader_n_135),
         .\fname_reg[0][7] ({\file_name_reg_n_0_[0][7] ,\file_name_reg_n_0_[0][6] ,\file_name_reg_n_0_[0][5] ,\file_name_reg_n_0_[0][4] ,\file_name_reg_n_0_[0][3] ,\file_name_reg_n_0_[0][2] ,\file_name_reg_n_0_[0][1] ,\file_name_reg_n_0_[0][0] }),
         .\fname_reg[1][7] ({\file_name_reg_n_0_[1][7] ,\file_name_reg_n_0_[1][6] ,\file_name_reg_n_0_[1][5] ,\file_name_reg_n_0_[1][4] ,\file_name_reg_n_0_[1][3] ,\file_name_reg_n_0_[1][2] ,\file_name_reg_n_0_[1][1] ,\file_name_reg_n_0_[1][0] }),
         .\fname_reg[2][7] ({\file_name_reg_n_0_[2][7] ,\file_name_reg_n_0_[2][6] ,\file_name_reg_n_0_[2][5] ,\file_name_reg_n_0_[2][4] ,\file_name_reg_n_0_[2][3] ,\file_name_reg_n_0_[2][2] ,\file_name_reg_n_0_[2][1] ,\file_name_reg_n_0_[2][0] }),
@@ -23107,84 +22959,87 @@ module design_1_top_system_0_1_sd_file_reader
         .\fptr_reg[0] (fptr1),
         .fready(fready),
         .fready152_out(fready152_out),
-        .islong_reg(u_sd_reader_n_302),
+        .\fsize_reg[23] ({data2[23:16],\file_1st_size_reg_n_0_[15] ,\file_1st_size_reg_n_0_[14] ,\file_1st_size_reg_n_0_[13] ,\file_1st_size_reg_n_0_[12] ,\file_1st_size_reg_n_0_[11] ,\file_1st_size_reg_n_0_[10] ,\file_1st_size_reg_n_0_[9] ,\file_1st_size_reg_n_0_[8] ,data2[7:0]}),
+        .islong_reg(u_sd_reader_n_150),
         .islongok(islongok),
-        .isshort_reg(isshort_i_4_n_0),
-        .\lastchar_reg[7] ({u_sd_reader_n_112,u_sd_reader_n_113,u_sd_reader_n_114,u_sd_reader_n_115,u_sd_reader_n_116,u_sd_reader_n_117,u_sd_reader_n_118,u_sd_reader_n_119}),
-        .\longno_reg[2] (\longno[5]_i_5_n_0 ),
+        .isshort_i_2_0(u_sd_reader_n_242),
+        .\lastchar_reg[7] ({u_sd_reader_n_162,u_sd_reader_n_163,u_sd_reader_n_164,u_sd_reader_n_165,u_sd_reader_n_166,u_sd_reader_n_167,u_sd_reader_n_168,u_sd_reader_n_169}),
+        .\lastchar_reg[7]_0 ({u_sd_reader_n_178,u_sd_reader_n_179,u_sd_reader_n_180,u_sd_reader_n_181,u_sd_reader_n_182,u_sd_reader_n_183,u_sd_reader_n_184,u_sd_reader_n_185}),
+        .\lastchar_reg[7]_1 ({u_sd_reader_n_186,u_sd_reader_n_187,u_sd_reader_n_188,u_sd_reader_n_189,u_sd_reader_n_190,u_sd_reader_n_191,u_sd_reader_n_192,u_sd_reader_n_193}),
+        .\lastchar_reg[7]_2 ({u_sd_reader_n_202,u_sd_reader_n_203,u_sd_reader_n_204,u_sd_reader_n_205,u_sd_reader_n_206,u_sd_reader_n_207,u_sd_reader_n_208,u_sd_reader_n_209}),
+        .\lastchar_reg[7]_3 ({u_sd_reader_n_218,u_sd_reader_n_219,u_sd_reader_n_220,u_sd_reader_n_221,u_sd_reader_n_222,u_sd_reader_n_223,u_sd_reader_n_224,u_sd_reader_n_225}),
+        .\longno_reg[2] (\longno[5]_i_7_n_0 ),
         .\longno_reg[5] (longno),
         .longno_t(longno_t),
         .longvalid(longvalid),
-        .\outaddr_reg[0]_0 (u_sd_reader_n_120),
-        .\outaddr_reg[0]_1 (u_sd_reader_n_137),
-        .\outaddr_reg[0]_2 (u_sd_reader_n_138),
-        .\outaddr_reg[0]_3 (u_sd_reader_n_147),
-        .\outaddr_reg[0]_4 (u_sd_reader_n_200),
-        .\outaddr_reg[1]_0 (u_sd_reader_n_136),
-        .\outaddr_reg[1]_1 (u_sd_reader_n_139),
-        .\outaddr_reg[1]_2 (u_sd_reader_n_143),
-        .\outaddr_reg[1]_3 (u_sd_reader_n_144),
-        .\outaddr_reg[1]_4 (u_sd_reader_n_153),
-        .\outaddr_reg[2]_0 (u_sd_reader_n_145),
-        .\outaddr_reg[2]_1 (u_sd_reader_n_146),
-        .\outaddr_reg[2]_2 (u_sd_reader_n_154),
-        .\outaddr_reg[3]_0 (u_sd_reader_n_128),
-        .\outaddr_reg[4]_0 (u_sd_reader_n_148),
-        .\outaddr_reg[4]_1 (u_sd_reader_n_149),
-        .\outaddr_reg[4]_2 (u_sd_reader_n_152),
-        .\outaddr_reg[4]_3 ({u_sd_reader_n_313,u_sd_reader_n_314,u_sd_reader_n_315,u_sd_reader_n_316,u_sd_reader_n_317,u_sd_reader_n_318,u_sd_reader_n_319,u_sd_reader_n_320}),
-        .\outaddr_reg[5]_0 (u_sd_reader_n_140),
-        .\outaddr_reg[5]_1 (u_sd_reader_n_151),
-        .\outaddr_reg[5]_2 (u_sd_reader_n_199),
-        .\outaddr_reg[8]_0 (u_sd_reader_n_203),
-        .\outaddr_reg[8]_1 (u_sd_reader_n_386),
-        .\outbyte_reg[6]_0 (u_sd_reader_n_126),
+        .\outaddr_reg[0]_0 (u_sd_reader_n_125),
+        .\outaddr_reg[0]_1 (u_sd_reader_n_127),
+        .\outaddr_reg[0]_2 (u_sd_reader_n_131),
+        .\outaddr_reg[0]_3 (u_sd_reader_n_136),
+        .\outaddr_reg[0]_4 (u_sd_reader_n_139),
+        .\outaddr_reg[0]_5 (u_sd_reader_n_146),
+        .\outaddr_reg[0]_6 (lastchar),
+        .\outaddr_reg[0]_7 (u_sd_reader_n_161),
+        .\outaddr_reg[1]_0 ({u_sd_reader_n_22,u_sd_reader_n_23,u_sd_reader_n_24,u_sd_reader_n_25,u_sd_reader_n_26,u_sd_reader_n_27,u_sd_reader_n_28,u_sd_reader_n_29,u_sd_reader_n_30,u_sd_reader_n_31,u_sd_reader_n_32,u_sd_reader_n_33,u_sd_reader_n_34,u_sd_reader_n_35,u_sd_reader_n_36,u_sd_reader_n_37,target_cluster0,u_sd_reader_n_46,u_sd_reader_n_47,u_sd_reader_n_48,u_sd_reader_n_49,u_sd_reader_n_50,u_sd_reader_n_51,u_sd_reader_n_52,u_sd_reader_n_53}),
+        .\outaddr_reg[1]_1 (u_sd_reader_n_135),
+        .\outaddr_reg[1]_2 (u_sd_reader_n_137),
+        .\outaddr_reg[1]_3 (sector_content),
+        .\outaddr_reg[2]_0 (u_sd_reader_n_126),
+        .\outaddr_reg[2]_1 (u_sd_reader_n_130),
+        .\outaddr_reg[2]_2 (u_sd_reader_n_141),
+        .\outaddr_reg[3]_0 (u_sd_reader_n_117),
+        .\outaddr_reg[3]_1 (u_sd_reader_n_128),
+        .\outaddr_reg[3]_2 (u_sd_reader_n_129),
+        .\outaddr_reg[3]_3 (u_sd_reader_n_132),
+        .\outaddr_reg[4]_0 (u_sd_reader_n_133),
+        .\outaddr_reg[4]_1 (u_sd_reader_n_134),
+        .\outaddr_reg[4]_2 (u_sd_reader_n_140),
+        .\outaddr_reg[4]_3 (u_sd_reader_n_144),
+        .\outaddr_reg[4]_4 (u_sd_reader_n_145),
+        .\outaddr_reg[6]_0 (u_sd_reader_n_143),
+        .\outaddr_reg[8]_0 (u_sd_reader_n_149),
+        .\outaddr_reg[8]_1 (u_sd_reader_n_385),
+        .\outbyte_reg[6]_0 (u_sd_reader_n_115),
         .\outbyte_reg[7]_0 (rdata),
-        .\outbyte_reg[7]_1 ({u_sd_reader_n_48,u_sd_reader_n_49,u_sd_reader_n_50,u_sd_reader_n_51,u_sd_reader_n_52,u_sd_reader_n_53,u_sd_reader_n_54,u_sd_reader_n_55,u_sd_reader_n_56,u_sd_reader_n_57,u_sd_reader_n_58,u_sd_reader_n_59,u_sd_reader_n_60,u_sd_reader_n_61,u_sd_reader_n_62,u_sd_reader_n_63,u_sd_reader_n_64,u_sd_reader_n_65,u_sd_reader_n_66,u_sd_reader_n_67,u_sd_reader_n_68,u_sd_reader_n_69,u_sd_reader_n_70,u_sd_reader_n_71,u_sd_reader_n_72,u_sd_reader_n_73,u_sd_reader_n_74,u_sd_reader_n_75,u_sd_reader_n_76,u_sd_reader_n_77,u_sd_reader_n_78,u_sd_reader_n_79}),
-        .\outbyte_reg[7]_10 ({u_sd_reader_n_369,u_sd_reader_n_370,u_sd_reader_n_371,u_sd_reader_n_372,u_sd_reader_n_373,u_sd_reader_n_374,u_sd_reader_n_375,u_sd_reader_n_376}),
-        .\outbyte_reg[7]_11 ({u_sd_reader_n_377,u_sd_reader_n_378,u_sd_reader_n_379,u_sd_reader_n_380,u_sd_reader_n_381,u_sd_reader_n_382,u_sd_reader_n_383,u_sd_reader_n_384}),
-        .\outbyte_reg[7]_2 ({u_sd_reader_n_103,u_sd_reader_n_104,u_sd_reader_n_105,u_sd_reader_n_106,u_sd_reader_n_107,u_sd_reader_n_108,u_sd_reader_n_109,u_sd_reader_n_110}),
-        .\outbyte_reg[7]_3 ({u_sd_reader_n_159,u_sd_reader_n_160,u_sd_reader_n_161,u_sd_reader_n_162,u_sd_reader_n_163,u_sd_reader_n_164,u_sd_reader_n_165,u_sd_reader_n_166,u_sd_reader_n_167,u_sd_reader_n_168,u_sd_reader_n_169,u_sd_reader_n_170,u_sd_reader_n_171,u_sd_reader_n_172,u_sd_reader_n_173,u_sd_reader_n_174,u_sd_reader_n_175,u_sd_reader_n_176,u_sd_reader_n_177,u_sd_reader_n_178,u_sd_reader_n_179,u_sd_reader_n_180,u_sd_reader_n_181,u_sd_reader_n_182}),
-        .\outbyte_reg[7]_4 ({u_sd_reader_n_321,u_sd_reader_n_322,u_sd_reader_n_323,u_sd_reader_n_324,u_sd_reader_n_325,u_sd_reader_n_326,u_sd_reader_n_327,u_sd_reader_n_328}),
-        .\outbyte_reg[7]_5 ({u_sd_reader_n_329,u_sd_reader_n_330,u_sd_reader_n_331,u_sd_reader_n_332,u_sd_reader_n_333,u_sd_reader_n_334,u_sd_reader_n_335,u_sd_reader_n_336}),
-        .\outbyte_reg[7]_6 ({u_sd_reader_n_337,u_sd_reader_n_338,u_sd_reader_n_339,u_sd_reader_n_340,u_sd_reader_n_341,u_sd_reader_n_342,u_sd_reader_n_343,u_sd_reader_n_344}),
-        .\outbyte_reg[7]_7 ({u_sd_reader_n_345,u_sd_reader_n_346,u_sd_reader_n_347,u_sd_reader_n_348,u_sd_reader_n_349,u_sd_reader_n_350,u_sd_reader_n_351,u_sd_reader_n_352}),
-        .\outbyte_reg[7]_8 ({u_sd_reader_n_353,u_sd_reader_n_354,u_sd_reader_n_355,u_sd_reader_n_356,u_sd_reader_n_357,u_sd_reader_n_358,u_sd_reader_n_359,u_sd_reader_n_360}),
-        .\outbyte_reg[7]_9 ({u_sd_reader_n_361,u_sd_reader_n_362,u_sd_reader_n_363,u_sd_reader_n_364,u_sd_reader_n_365,u_sd_reader_n_366,u_sd_reader_n_367,u_sd_reader_n_368}),
-        .outen_reg_0(u_sd_reader_n_141),
-        .outen_reg_1(u_sd_reader_n_142),
-        .outen_reg_10(u_sd_reader_n_308),
-        .outen_reg_11(u_sd_reader_n_309),
-        .outen_reg_12(u_sd_reader_n_310),
-        .outen_reg_13(u_sd_reader_n_311),
-        .outen_reg_14(u_sd_reader_n_385),
-        .outen_reg_2(sector_content),
-        .outen_reg_3(u_sd_reader_n_212),
-        .outen_reg_4(u_sd_reader_n_213),
-        .outen_reg_5(u_sd_reader_n_303),
-        .outen_reg_6(u_sd_reader_n_304),
-        .outen_reg_7(u_sd_reader_n_305),
-        .outen_reg_8(u_sd_reader_n_306),
-        .outen_reg_9(u_sd_reader_n_307),
+        .\outbyte_reg[7]_1 ({u_sd_reader_n_54,u_sd_reader_n_55,u_sd_reader_n_56,u_sd_reader_n_57,u_sd_reader_n_58,u_sd_reader_n_59,u_sd_reader_n_60,u_sd_reader_n_61,u_sd_reader_n_62,u_sd_reader_n_63,u_sd_reader_n_64,u_sd_reader_n_65,u_sd_reader_n_66,u_sd_reader_n_67,u_sd_reader_n_68,u_sd_reader_n_69,u_sd_reader_n_70,u_sd_reader_n_71,u_sd_reader_n_72,u_sd_reader_n_73,u_sd_reader_n_74,u_sd_reader_n_75,u_sd_reader_n_76,u_sd_reader_n_77,u_sd_reader_n_78,u_sd_reader_n_79,u_sd_reader_n_80,u_sd_reader_n_81,u_sd_reader_n_82,u_sd_reader_n_83,u_sd_reader_n_84,u_sd_reader_n_85}),
+        .\outbyte_reg[7]_2 ({u_sd_reader_n_101,u_sd_reader_n_102,u_sd_reader_n_103,u_sd_reader_n_104,u_sd_reader_n_105,u_sd_reader_n_106,u_sd_reader_n_107,u_sd_reader_n_108}),
+        .\outbyte_reg[7]_3 ({u_sd_reader_n_194,u_sd_reader_n_195,u_sd_reader_n_196,u_sd_reader_n_197,u_sd_reader_n_198,u_sd_reader_n_199,u_sd_reader_n_200,u_sd_reader_n_201}),
+        .\outbyte_reg[7]_4 ({u_sd_reader_n_210,u_sd_reader_n_211,u_sd_reader_n_212,u_sd_reader_n_213,u_sd_reader_n_214,u_sd_reader_n_215,u_sd_reader_n_216,u_sd_reader_n_217}),
+        .\outbyte_reg[7]_5 ({u_sd_reader_n_226,u_sd_reader_n_227,u_sd_reader_n_228,u_sd_reader_n_229,u_sd_reader_n_230,u_sd_reader_n_231,u_sd_reader_n_232,u_sd_reader_n_233}),
+        .\outbyte_reg[7]_6 ({u_sd_reader_n_234,u_sd_reader_n_235,u_sd_reader_n_236,u_sd_reader_n_237,u_sd_reader_n_238,u_sd_reader_n_239,u_sd_reader_n_240,u_sd_reader_n_241}),
+        .\outbyte_reg[7]_7 ({u_sd_reader_n_252,u_sd_reader_n_253,u_sd_reader_n_254,u_sd_reader_n_255,u_sd_reader_n_256,u_sd_reader_n_257,u_sd_reader_n_258,u_sd_reader_n_259,u_sd_reader_n_260,u_sd_reader_n_261,u_sd_reader_n_262,u_sd_reader_n_263,u_sd_reader_n_264,u_sd_reader_n_265,u_sd_reader_n_266,u_sd_reader_n_267}),
+        .\outbyte_reg[7]_8 ({u_sd_reader_n_361,u_sd_reader_n_362,u_sd_reader_n_363,u_sd_reader_n_364,u_sd_reader_n_365,u_sd_reader_n_366,u_sd_reader_n_367,u_sd_reader_n_368,u_sd_reader_n_369,u_sd_reader_n_370,u_sd_reader_n_371,u_sd_reader_n_372,u_sd_reader_n_373,u_sd_reader_n_374,u_sd_reader_n_375,u_sd_reader_n_376,u_sd_reader_n_377,u_sd_reader_n_378,u_sd_reader_n_379,u_sd_reader_n_380,u_sd_reader_n_381,u_sd_reader_n_382,u_sd_reader_n_383,u_sd_reader_n_384}),
+        .outen_reg_0(u_sd_reader_n_142),
+        .outen_reg_1({u_sd_reader_n_147,u_sd_reader_n_148}),
+        .outen_reg_10(u_sd_reader_n_160),
+        .outen_reg_11(u_sd_reader_n_251),
+        .outen_reg_12(u_sd_reader_n_268),
+        .outen_reg_2(u_sd_reader_n_152),
+        .outen_reg_3(u_sd_reader_n_153),
+        .outen_reg_4(u_sd_reader_n_154),
+        .outen_reg_5(u_sd_reader_n_155),
+        .outen_reg_6(u_sd_reader_n_156),
+        .outen_reg_7(u_sd_reader_n_157),
+        .outen_reg_8(u_sd_reader_n_158),
+        .outen_reg_9(u_sd_reader_n_159),
         .p_0_in23_in(p_0_in23_in),
         .p_2_in(p_2_in),
         .pll_locked(pll_locked),
-        .\read_sector_no_reg[0] (\curr_cluster[31]_i_5_n_0 ),
-        .\read_sector_no_reg[0]_0 (\filesystem_state[2]_i_6_n_0 ),
-        .\read_sector_no_reg[0]_1 (\filesystem_state[2]_i_7_n_0 ),
+        .\read_sector_no_reg[0] (\read_sector_no[31]_i_3_n_0 ),
+        .\read_sector_no_reg[0]_0 (\FSM_sequential_filesystem_state[2]_i_6_n_0 ),
+        .\read_sector_no_reg[0]_1 (\FSM_sequential_filesystem_state[2]_i_7_n_0 ),
         .reset_n(reset_n),
         .reset_n_0(reset_n_0),
         .\rsectoraddr_reg[31]_0 (read_start_reg_n_0),
-        .\rsectoraddr_reg[31]_1 ({\read_sector_no_reg_n_0_[31] ,\read_sector_no_reg_n_0_[30] ,\read_sector_no_reg_n_0_[29] ,\read_sector_no_reg_n_0_[28] ,\read_sector_no_reg_n_0_[27] ,\read_sector_no_reg_n_0_[26] ,\read_sector_no_reg_n_0_[25] ,\read_sector_no_reg_n_0_[24] ,\read_sector_no_reg_n_0_[23] ,\read_sector_no_reg_n_0_[22] ,\read_sector_no_reg_n_0_[21] ,\read_sector_no_reg_n_0_[20] ,\read_sector_no_reg_n_0_[19] ,\read_sector_no_reg_n_0_[18] ,\read_sector_no_reg_n_0_[17] ,\read_sector_no_reg_n_0_[16] ,\read_sector_no_reg_n_0_[15] ,\read_sector_no_reg_n_0_[14] ,\read_sector_no_reg_n_0_[13] ,\read_sector_no_reg_n_0_[12] ,\read_sector_no_reg_n_0_[11] ,\read_sector_no_reg_n_0_[10] ,\read_sector_no_reg_n_0_[9] ,\read_sector_no_reg_n_0_[8] ,\read_sector_no_reg_n_0_[7] ,\read_sector_no_reg_n_0_[6] ,\read_sector_no_reg_n_0_[5] ,\read_sector_no_reg_n_0_[4] ,\read_sector_no_reg_n_0_[3] ,\read_sector_no_reg_n_0_[2] ,\read_sector_no_reg_n_0_[1] ,\read_sector_no_reg_n_0_[0] }),
         .sd_cmd_in(sd_cmd_in),
         .sd_dat0(sd_dat0),
         .sdclk_reg(sdclk_reg),
-        .\sdtnamelen_reg[7] ({u_sd_reader_n_204,u_sd_reader_n_205,u_sd_reader_n_206,u_sd_reader_n_207,u_sd_reader_n_208,u_sd_reader_n_209,u_sd_reader_n_210,u_sd_reader_n_211}),
-        .sdv1_maybe_reg_0(sdv1_maybe_reg),
-        .search_fat_reg({u_sd_reader_n_201,u_sd_reader_n_202}),
-        .search_fat_reg_0(file_found),
-        .search_fat_reg_1(search_fat_i_3_n_0),
-        .search_fat_reg_2(search_fat_reg_n_0),
+        .\sdtnamelen_reg[7] ({u_sd_reader_n_170,u_sd_reader_n_171,u_sd_reader_n_172,u_sd_reader_n_173,u_sd_reader_n_174,u_sd_reader_n_175,u_sd_reader_n_176,u_sd_reader_n_177}),
+        .\sdtnamelen_reg[7]_0 ({u_sd_reader_n_243,u_sd_reader_n_244,u_sd_reader_n_245,u_sd_reader_n_246,u_sd_reader_n_247,u_sd_reader_n_248,u_sd_reader_n_249,u_sd_reader_n_250}),
+        .\sdtnamelen_reg[7]_1 (sdtnamelen),
+        .search_fat_reg(file_found),
+        .search_fat_reg_0(search_fat_i_3_n_0),
+        .search_fat_reg_1(search_fat_reg_n_0),
         .\target_cluster_fat16_reg[15] ({curr_cluster_fat_no[0],\curr_cluster_reg_n_0_[6] ,\curr_cluster_reg_n_0_[5] ,\curr_cluster_reg_n_0_[4] ,\curr_cluster_reg_n_0_[3] ,\curr_cluster_reg_n_0_[2] ,\curr_cluster_reg_n_0_[1] ,\curr_cluster_reg_n_0_[0] }));
 endmodule
 
@@ -23192,64 +23047,82 @@ endmodule
 module design_1_top_system_0_1_sd_reader
    (sdclk_reg,
     Q,
-    card_type,
-    \filesystem_state_reg[1] ,
-    E,
+    \FSM_sequential_filesystem_state_reg[1] ,
     D,
     \outbyte_reg[7]_0 ,
+    \outaddr_reg[1]_0 ,
     \outbyte_reg[7]_1 ,
     fready,
     \file_namelen_reg[7] ,
-    \fdtnamelen_reg[3] ,
     longno_t,
     \outbyte_reg[7]_2 ,
     fptr0,
-    \lastchar_reg[7] ,
-    \outaddr_reg[0]_0 ,
     T,
-    \filesystem_state_reg[0] ,
-    \filesystem_state_reg[1]_0 ,
-    \filesystem_state_reg[1]_1 ,
+    \FSM_sequential_filesystem_state_reg[2] ,
+    \FSM_sequential_filesystem_state_reg[0] ,
+    \FSM_sequential_filesystem_state_reg[1]_0 ,
     file_found_reg,
     \outbyte_reg[6]_0 ,
     fready152_out,
     \outaddr_reg[3]_0 ,
     \filesystem_reg[0] ,
     \filesystem_reg[1] ,
-    \filesystem_state_reg[0]_0 ,
-    \filesystem_state_reg[1]_2 ,
-    \filesystem_state_reg[1]_3 ,
-    \filesystem_state_reg[1]_4 ,
-    \filesystem_state_reg[2] ,
-    \outaddr_reg[1]_0 ,
-    \outaddr_reg[0]_1 ,
-    \outaddr_reg[0]_2 ,
-    \outaddr_reg[1]_1 ,
-    \outaddr_reg[5]_0 ,
-    outen_reg_0,
-    outen_reg_1,
-    \outaddr_reg[1]_2 ,
-    \outaddr_reg[1]_3 ,
+    E,
+    \FSM_sequential_filesystem_state_reg[1]_1 ,
+    \FSM_sequential_filesystem_state_reg[1]_2 ,
+    \FSM_sequential_filesystem_state_reg[1]_3 ,
+    \FSM_sequential_filesystem_state_reg[1]_4 ,
+    \outaddr_reg[0]_0 ,
     \outaddr_reg[2]_0 ,
+    \outaddr_reg[0]_1 ,
+    \outaddr_reg[3]_1 ,
+    \outaddr_reg[3]_2 ,
     \outaddr_reg[2]_1 ,
-    \outaddr_reg[0]_3 ,
+    \outaddr_reg[0]_2 ,
+    \outaddr_reg[3]_3 ,
     \outaddr_reg[4]_0 ,
     \outaddr_reg[4]_1 ,
-    outen_reg_2,
-    \outaddr_reg[5]_1 ,
-    \outaddr_reg[4]_2 ,
-    \outaddr_reg[1]_4 ,
-    \outaddr_reg[2]_2 ,
-    \filesystem_reg[0]_0 ,
-    \outbyte_reg[7]_3 ,
-    \file_1st_cluster_reg[15] ,
-    \outaddr_reg[5]_2 ,
+    \outaddr_reg[1]_1 ,
+    \outaddr_reg[0]_3 ,
+    \outaddr_reg[1]_2 ,
+    \outaddr_reg[1]_3 ,
     \outaddr_reg[0]_4 ,
-    search_fat_reg,
+    \outaddr_reg[4]_2 ,
+    \outaddr_reg[2]_2 ,
+    outen_reg_0,
+    \outaddr_reg[6]_0 ,
+    \outaddr_reg[4]_3 ,
+    \outaddr_reg[4]_4 ,
+    \outaddr_reg[0]_5 ,
+    outen_reg_1,
     \outaddr_reg[8]_0 ,
-    \sdtnamelen_reg[7] ,
+    islong_reg,
+    \outaddr_reg[0]_6 ,
+    outen_reg_2,
     outen_reg_3,
     outen_reg_4,
+    outen_reg_5,
+    outen_reg_6,
+    outen_reg_7,
+    outen_reg_8,
+    outen_reg_9,
+    outen_reg_10,
+    \outaddr_reg[0]_7 ,
+    \lastchar_reg[7] ,
+    \sdtnamelen_reg[7] ,
+    \lastchar_reg[7]_0 ,
+    \lastchar_reg[7]_1 ,
+    \outbyte_reg[7]_3 ,
+    \lastchar_reg[7]_2 ,
+    \outbyte_reg[7]_4 ,
+    \lastchar_reg[7]_3 ,
+    \outbyte_reg[7]_5 ,
+    \outbyte_reg[7]_6 ,
+    isshort_i_2_0,
+    \sdtnamelen_reg[7]_0 ,
+    outen_reg_11,
+    \outbyte_reg[7]_7 ,
+    outen_reg_12,
     \file_name_reg[8][7] ,
     \file_name_reg[7][7] ,
     \file_namelen_reg[1] ,
@@ -23259,59 +23132,38 @@ module design_1_top_system_0_1_sd_reader
     \file_name_reg[2][7] ,
     \file_name_reg[1][7] ,
     \file_name_reg[0][7] ,
-    \file_1st_cluster_reg[15]_0 ,
-    islong_reg,
-    outen_reg_5,
-    outen_reg_6,
-    outen_reg_7,
-    outen_reg_8,
-    outen_reg_9,
-    outen_reg_10,
-    outen_reg_11,
-    outen_reg_12,
-    outen_reg_13,
-    \filesystem_state_reg[1]_5 ,
-    \outaddr_reg[4]_3 ,
-    \outbyte_reg[7]_4 ,
-    \outbyte_reg[7]_5 ,
-    \outbyte_reg[7]_6 ,
-    \outbyte_reg[7]_7 ,
+    \file_1st_cluster_reg[15] ,
+    \filesystem_reg[0]_0 ,
     \outbyte_reg[7]_8 ,
-    \outbyte_reg[7]_9 ,
-    \outbyte_reg[7]_10 ,
-    \outbyte_reg[7]_11 ,
-    outen_reg_14,
     \outaddr_reg[8]_1 ,
     reset_n_0,
-    sdv1_maybe_reg_0,
+    \card_type_reg[0]_0 ,
+    \card_type_reg[1]_0 ,
     I,
     sd_cmd_in,
     sd_dat0,
     \rsectoraddr_reg[31]_0 ,
     filesystem_state,
     fifo_prog_full,
-    \fnamelen_reg[7] ,
     \fdtnamelen_reg[7] ,
-    \file_namelen_reg[7]_0 ,
-    \longno_reg[5] ,
     p_0_in23_in,
+    \sdtnamelen_reg[7]_1 ,
+    \fnamelen_reg[7] ,
+    \longno_reg[5] ,
     \longno_reg[2] ,
-    \file_name_reg[0][7]_0 ,
-    \file_name_reg[8][5] ,
     \cluster_sector_offset_reg[0] ,
     \read_sector_no_reg[0] ,
-    \filesystem_state_reg[0]_1 ,
-    \filesystem_state_reg[0]_2 ,
-    \filesystem_state_reg[0]_3 ,
-    \filesystem_state_reg[1]_6 ,
-    \filesystem_state_reg[1]_7 ,
+    \filesystem_reg[0]_1 ,
+    \FSM_sequential_filesystem_state_reg[2]_0 ,
+    \FSM_sequential_filesystem_state_reg[0]_0 ,
+    \FSM_sequential_filesystem_state_reg[0]_1 ,
+    \FSM_sequential_filesystem_state_reg[1]_5 ,
     CO,
+    search_fat_reg,
     search_fat_reg_0,
     search_fat_reg_1,
-    search_fat_reg_2,
     longvalid,
     islongok,
-    \filesystem_reg[0]_1 ,
     \filesystem_reg[0]_2 ,
     \filesystem_reg[1]_0 ,
     \filesystem_reg[1]_1 ,
@@ -23320,8 +23172,10 @@ module design_1_top_system_0_1_sd_reader
     \cluster_sector_offset_reg[0]_0 ,
     \curr_cluster_reg[0] ,
     \curr_cluster_reg[0]_0 ,
-    \file_1st_size_reg[23] ,
-    \fcluster_reg[15] ,
+    \curr_cluster_reg[0]_1 ,
+    \file_name_reg[0][7]_0 ,
+    \file_name_reg[0][5] ,
+    \file_1st_cluster_reg[15]_0 ,
     \fname_reg[8][7] ,
     \fname_reg[8][7]_0 ,
     \fname_reg[7][7] ,
@@ -23333,76 +23187,94 @@ module design_1_top_system_0_1_sd_reader
     \fname_reg[2][7] ,
     \fname_reg[1][7] ,
     \fname_reg[0][7] ,
+    \fsize_reg[23] ,
     p_2_in,
-    isshort_reg,
+    \file_namelen[3]_i_12_0 ,
     \fptr_reg[0] ,
-    \file_name_reg[0][0] ,
     \file_namelen_reg[0] ,
     \target_cluster_fat16_reg[15] ,
     clk_sd,
-    \rsectoraddr_reg[31]_1 ,
+    \arg_reg[31]_0 ,
     reset_n,
     pll_locked);
   output sdclk_reg;
   output [3:0]Q;
-  output [0:0]card_type;
-  output \filesystem_state_reg[1] ;
-  output [0:0]E;
-  output [31:0]D;
+  output \FSM_sequential_filesystem_state_reg[1] ;
+  output [7:0]D;
   output [7:0]\outbyte_reg[7]_0 ;
+  output [31:0]\outaddr_reg[1]_0 ;
   output [31:0]\outbyte_reg[7]_1 ;
   output fready;
   output [7:0]\file_namelen_reg[7] ;
-  output [7:0]\fdtnamelen_reg[3] ;
   output [5:0]longno_t;
   output [7:0]\outbyte_reg[7]_2 ;
   output fptr0;
-  output [7:0]\lastchar_reg[7] ;
-  output \outaddr_reg[0]_0 ;
   output T;
-  output \filesystem_state_reg[0] ;
-  output \filesystem_state_reg[1]_0 ;
-  output \filesystem_state_reg[1]_1 ;
+  output \FSM_sequential_filesystem_state_reg[2] ;
+  output \FSM_sequential_filesystem_state_reg[0] ;
+  output \FSM_sequential_filesystem_state_reg[1]_0 ;
   output file_found_reg;
   output \outbyte_reg[6]_0 ;
   output fready152_out;
   output \outaddr_reg[3]_0 ;
   output \filesystem_reg[0] ;
   output \filesystem_reg[1] ;
-  output [0:0]\filesystem_state_reg[0]_0 ;
-  output [0:0]\filesystem_state_reg[1]_2 ;
-  output [0:0]\filesystem_state_reg[1]_3 ;
-  output [0:0]\filesystem_state_reg[1]_4 ;
-  output [0:0]\filesystem_state_reg[2] ;
-  output [0:0]\outaddr_reg[1]_0 ;
+  output [0:0]E;
+  output [0:0]\FSM_sequential_filesystem_state_reg[1]_1 ;
+  output [0:0]\FSM_sequential_filesystem_state_reg[1]_2 ;
+  output [0:0]\FSM_sequential_filesystem_state_reg[1]_3 ;
+  output [0:0]\FSM_sequential_filesystem_state_reg[1]_4 ;
+  output [0:0]\outaddr_reg[0]_0 ;
+  output [0:0]\outaddr_reg[2]_0 ;
   output [0:0]\outaddr_reg[0]_1 ;
+  output [0:0]\outaddr_reg[3]_1 ;
+  output [0:0]\outaddr_reg[3]_2 ;
+  output [0:0]\outaddr_reg[2]_1 ;
   output [0:0]\outaddr_reg[0]_2 ;
+  output [0:0]\outaddr_reg[3]_3 ;
+  output [0:0]\outaddr_reg[4]_0 ;
+  output [0:0]\outaddr_reg[4]_1 ;
   output [0:0]\outaddr_reg[1]_1 ;
-  output [0:0]\outaddr_reg[5]_0 ;
-  output [0:0]outen_reg_0;
-  output [0:0]outen_reg_1;
+  output [0:0]\outaddr_reg[0]_3 ;
   output [0:0]\outaddr_reg[1]_2 ;
   output [0:0]\outaddr_reg[1]_3 ;
-  output [0:0]\outaddr_reg[2]_0 ;
-  output [0:0]\outaddr_reg[2]_1 ;
-  output [0:0]\outaddr_reg[0]_3 ;
-  output \outaddr_reg[4]_0 ;
-  output [0:0]\outaddr_reg[4]_1 ;
-  output [0:0]outen_reg_2;
-  output [0:0]\outaddr_reg[5]_1 ;
-  output [0:0]\outaddr_reg[4]_2 ;
-  output [0:0]\outaddr_reg[1]_4 ;
-  output [0:0]\outaddr_reg[2]_2 ;
-  output [3:0]\filesystem_reg[0]_0 ;
-  output [23:0]\outbyte_reg[7]_3 ;
-  output [15:0]\file_1st_cluster_reg[15] ;
-  output [0:0]\outaddr_reg[5]_2 ;
   output [0:0]\outaddr_reg[0]_4 ;
-  output [1:0]search_fat_reg;
+  output [0:0]\outaddr_reg[4]_2 ;
+  output [0:0]\outaddr_reg[2]_2 ;
+  output [0:0]outen_reg_0;
+  output [0:0]\outaddr_reg[6]_0 ;
+  output \outaddr_reg[4]_3 ;
+  output [0:0]\outaddr_reg[4]_4 ;
+  output [0:0]\outaddr_reg[0]_5 ;
+  output [1:0]outen_reg_1;
   output [0:0]\outaddr_reg[8]_0 ;
-  output [7:0]\sdtnamelen_reg[7] ;
+  output islong_reg;
+  output [0:0]\outaddr_reg[0]_6 ;
+  output [0:0]outen_reg_2;
   output [0:0]outen_reg_3;
   output [0:0]outen_reg_4;
+  output [0:0]outen_reg_5;
+  output [0:0]outen_reg_6;
+  output [0:0]outen_reg_7;
+  output [0:0]outen_reg_8;
+  output [0:0]outen_reg_9;
+  output [0:0]outen_reg_10;
+  output [0:0]\outaddr_reg[0]_7 ;
+  output [7:0]\lastchar_reg[7] ;
+  output [7:0]\sdtnamelen_reg[7] ;
+  output [7:0]\lastchar_reg[7]_0 ;
+  output [7:0]\lastchar_reg[7]_1 ;
+  output [7:0]\outbyte_reg[7]_3 ;
+  output [7:0]\lastchar_reg[7]_2 ;
+  output [7:0]\outbyte_reg[7]_4 ;
+  output [7:0]\lastchar_reg[7]_3 ;
+  output [7:0]\outbyte_reg[7]_5 ;
+  output [7:0]\outbyte_reg[7]_6 ;
+  output isshort_i_2_0;
+  output [7:0]\sdtnamelen_reg[7]_0 ;
+  output [0:0]outen_reg_11;
+  output [15:0]\outbyte_reg[7]_7 ;
+  output [0:0]outen_reg_12;
   output [7:0]\file_name_reg[8][7] ;
   output [7:0]\file_name_reg[7][7] ;
   output [7:0]\file_namelen_reg[1] ;
@@ -23412,59 +23284,38 @@ module design_1_top_system_0_1_sd_reader
   output [7:0]\file_name_reg[2][7] ;
   output [7:0]\file_name_reg[1][7] ;
   output [7:0]\file_name_reg[0][7] ;
-  output [15:0]\file_1st_cluster_reg[15]_0 ;
-  output islong_reg;
-  output [0:0]outen_reg_5;
-  output [0:0]outen_reg_6;
-  output [0:0]outen_reg_7;
-  output [0:0]outen_reg_8;
-  output [0:0]outen_reg_9;
-  output [0:0]outen_reg_10;
-  output [0:0]outen_reg_11;
-  output [0:0]outen_reg_12;
-  output [0:0]outen_reg_13;
-  output [0:0]\filesystem_state_reg[1]_5 ;
-  output [7:0]\outaddr_reg[4]_3 ;
-  output [7:0]\outbyte_reg[7]_4 ;
-  output [7:0]\outbyte_reg[7]_5 ;
-  output [7:0]\outbyte_reg[7]_6 ;
-  output [7:0]\outbyte_reg[7]_7 ;
-  output [7:0]\outbyte_reg[7]_8 ;
-  output [7:0]\outbyte_reg[7]_9 ;
-  output [7:0]\outbyte_reg[7]_10 ;
-  output [7:0]\outbyte_reg[7]_11 ;
-  output [0:0]outen_reg_14;
+  output [15:0]\file_1st_cluster_reg[15] ;
+  output [3:0]\filesystem_reg[0]_0 ;
+  output [23:0]\outbyte_reg[7]_8 ;
   output [0:0]\outaddr_reg[8]_1 ;
   output reset_n_0;
-  output sdv1_maybe_reg_0;
+  output \card_type_reg[0]_0 ;
+  output \card_type_reg[1]_0 ;
   output I;
   input sd_cmd_in;
   input sd_dat0;
   input \rsectoraddr_reg[31]_0 ;
   input [2:0]filesystem_state;
   input fifo_prog_full;
-  input [7:0]\fnamelen_reg[7] ;
   input [7:0]\fdtnamelen_reg[7] ;
-  input [7:0]\file_namelen_reg[7]_0 ;
-  input [5:0]\longno_reg[5] ;
   input p_0_in23_in;
+  input [7:0]\sdtnamelen_reg[7]_1 ;
+  input [7:0]\fnamelen_reg[7] ;
+  input [5:0]\longno_reg[5] ;
   input \longno_reg[2] ;
-  input [7:0]\file_name_reg[0][7]_0 ;
-  input \file_name_reg[8][5] ;
   input \cluster_sector_offset_reg[0] ;
   input \read_sector_no_reg[0] ;
-  input \filesystem_state_reg[0]_1 ;
-  input \filesystem_state_reg[0]_2 ;
-  input \filesystem_state_reg[0]_3 ;
-  input \filesystem_state_reg[1]_6 ;
-  input \filesystem_state_reg[1]_7 ;
+  input \filesystem_reg[0]_1 ;
+  input \FSM_sequential_filesystem_state_reg[2]_0 ;
+  input \FSM_sequential_filesystem_state_reg[0]_0 ;
+  input \FSM_sequential_filesystem_state_reg[0]_1 ;
+  input \FSM_sequential_filesystem_state_reg[1]_5 ;
   input [0:0]CO;
+  input search_fat_reg;
   input search_fat_reg_0;
   input search_fat_reg_1;
-  input search_fat_reg_2;
   input longvalid;
   input islongok;
-  input \filesystem_reg[0]_1 ;
   input \filesystem_reg[0]_2 ;
   input \filesystem_reg[1]_0 ;
   input \filesystem_reg[1]_1 ;
@@ -23473,8 +23324,10 @@ module design_1_top_system_0_1_sd_reader
   input \cluster_sector_offset_reg[0]_0 ;
   input \curr_cluster_reg[0] ;
   input \curr_cluster_reg[0]_0 ;
-  input [23:0]\file_1st_size_reg[23] ;
-  input [15:0]\fcluster_reg[15] ;
+  input \curr_cluster_reg[0]_1 ;
+  input [7:0]\file_name_reg[0][7]_0 ;
+  input \file_name_reg[0][5] ;
+  input [15:0]\file_1st_cluster_reg[15]_0 ;
   input [7:0]\fname_reg[8][7] ;
   input \fname_reg[8][7]_0 ;
   input [7:0]\fname_reg[7][7] ;
@@ -23486,20 +23339,20 @@ module design_1_top_system_0_1_sd_reader
   input [7:0]\fname_reg[2][7] ;
   input [7:0]\fname_reg[1][7] ;
   input [7:0]\fname_reg[0][7] ;
+  input [23:0]\fsize_reg[23] ;
   input p_2_in;
-  input isshort_reg;
+  input \file_namelen[3]_i_12_0 ;
   input [0:0]\fptr_reg[0] ;
-  input \file_name_reg[0][0] ;
   input \file_namelen_reg[0] ;
   input [7:0]\target_cluster_fat16_reg[15] ;
   input clk_sd;
-  input [31:0]\rsectoraddr_reg[31]_1 ;
+  input [31:0]\arg_reg[31]_0 ;
   input reset_n;
   input pll_locked;
 
   wire [0:0]B;
   wire [0:0]CO;
-  wire [31:0]D;
+  wire [7:0]D;
   wire [0:0]E;
   wire \FSM_onehot_sddat_stat[1]_i_1_n_0 ;
   wire \FSM_onehot_sddat_stat[2]_i_1_n_0 ;
@@ -23515,6 +23368,7 @@ module design_1_top_system_0_1_sd_reader
   wire \FSM_onehot_sddat_stat[4]_i_18_n_0 ;
   wire \FSM_onehot_sddat_stat[4]_i_19_n_0 ;
   wire \FSM_onehot_sddat_stat[4]_i_20_n_0 ;
+  wire \FSM_onehot_sddat_stat[4]_i_21_n_0 ;
   wire \FSM_onehot_sddat_stat[4]_i_2_n_0 ;
   wire \FSM_onehot_sddat_stat[4]_i_3_n_0 ;
   wire \FSM_onehot_sddat_stat[4]_i_4_n_0 ;
@@ -23527,15 +23381,31 @@ module design_1_top_system_0_1_sd_reader
   wire \FSM_onehot_sddat_stat_reg_n_0_[1] ;
   wire \FSM_onehot_sddat_stat_reg_n_0_[2] ;
   wire \FSM_onehot_sddat_stat_reg_n_0_[3] ;
+  wire \FSM_sequential_filesystem_state[1]_i_3_n_0 ;
+  wire \FSM_sequential_filesystem_state[2]_i_2_n_0 ;
+  wire \FSM_sequential_filesystem_state_reg[0] ;
+  wire \FSM_sequential_filesystem_state_reg[0]_0 ;
+  wire \FSM_sequential_filesystem_state_reg[0]_1 ;
+  wire \FSM_sequential_filesystem_state_reg[1] ;
+  wire \FSM_sequential_filesystem_state_reg[1]_0 ;
+  wire [0:0]\FSM_sequential_filesystem_state_reg[1]_1 ;
+  wire [0:0]\FSM_sequential_filesystem_state_reg[1]_2 ;
+  wire [0:0]\FSM_sequential_filesystem_state_reg[1]_3 ;
+  wire [0:0]\FSM_sequential_filesystem_state_reg[1]_4 ;
+  wire \FSM_sequential_filesystem_state_reg[1]_5 ;
+  wire \FSM_sequential_filesystem_state_reg[2] ;
+  wire \FSM_sequential_filesystem_state_reg[2]_0 ;
   wire I;
   wire [7:2]PCOUT;
   wire [3:0]Q;
   wire T;
   wire [31:0]_arg;
-  wire \arg[30]_i_4_n_0 ;
+  wire \arg[15]_i_2_n_0 ;
   wire \arg[31]_i_3_n_0 ;
   wire \arg[8]_i_2_n_0 ;
   wire \arg[9]_i_2_n_0 ;
+  wire \arg[9]_i_4_n_0 ;
+  wire [31:0]\arg_reg[31]_0 ;
   wire \arg_reg_n_0_[0] ;
   wire \arg_reg_n_0_[10] ;
   wire \arg_reg_n_0_[11] ;
@@ -23568,7 +23438,8 @@ module design_1_top_system_0_1_sd_reader
   wire \arg_reg_n_0_[7] ;
   wire \arg_reg_n_0_[8] ;
   wire \arg_reg_n_0_[9] ;
-  wire [0:0]card_type;
+  wire \card_type_reg[0]_0 ;
+  wire \card_type_reg[1]_0 ;
   wire clk_sd;
   wire \clkdiv[6]_i_2_n_0 ;
   wire [6:2]clkdiv__0;
@@ -23579,7 +23450,9 @@ module design_1_top_system_0_1_sd_reader
   wire [2:0]cmd8_cnt__0;
   wire \curr_cluster_reg[0] ;
   wire \curr_cluster_reg[0]_0 ;
-  wire [15:0]\fcluster_reg[15] ;
+  wire \curr_cluster_reg[0]_1 ;
+  wire \fdtnamelen[2]_i_2_n_0 ;
+  wire \fdtnamelen[3]_i_2_n_0 ;
   wire \fdtnamelen[4]_i_2_n_0 ;
   wire \fdtnamelen[6]_i_2_n_0 ;
   wire \fdtnamelen[6]_i_3_n_0 ;
@@ -23588,14 +23461,11 @@ module design_1_top_system_0_1_sd_reader
   wire \fdtnamelen[7]_i_4_n_0 ;
   wire \fdtnamelen[7]_i_5_n_0 ;
   wire \fdtnamelen[7]_i_6_n_0 ;
-  wire \fdtnamelen[7]_i_7_n_0 ;
-  wire [7:0]\fdtnamelen_reg[3] ;
   wire [7:0]\fdtnamelen_reg[7] ;
   wire fifo_prog_full;
   wire \file_1st_cluster[7]_i_2_n_0 ;
   wire [15:0]\file_1st_cluster_reg[15] ;
   wire [15:0]\file_1st_cluster_reg[15]_0 ;
-  wire [23:0]\file_1st_size_reg[23] ;
   wire file_found_reg;
   wire \file_name[0][0]_i_2_n_0 ;
   wire \file_name[0][0]_i_3_n_0 ;
@@ -23610,31 +23480,33 @@ module design_1_top_system_0_1_sd_reader
   wire \file_name[0][5]_i_2_n_0 ;
   wire \file_name[0][5]_i_3_n_0 ;
   wire \file_name[0][5]_i_4_n_0 ;
-  wire \file_name[0][5]_i_5_n_0 ;
   wire \file_name[0][6]_i_2_n_0 ;
   wire \file_name[0][6]_i_3_n_0 ;
-  wire \file_name[0][7]_i_10_n_0 ;
-  wire \file_name[0][7]_i_11_n_0 ;
   wire \file_name[0][7]_i_3_n_0 ;
   wire \file_name[0][7]_i_4_n_0 ;
   wire \file_name[0][7]_i_5_n_0 ;
+  wire \file_name[0][7]_i_6_n_0 ;
   wire \file_name[0][7]_i_7_n_0 ;
   wire \file_name[0][7]_i_8_n_0 ;
-  wire \file_name[0][7]_i_9_n_0 ;
   wire \file_name[1][1]_i_2_n_0 ;
   wire \file_name[1][1]_i_3_n_0 ;
   wire \file_name[1][2]_i_2_n_0 ;
   wire \file_name[1][2]_i_3_n_0 ;
   wire \file_name[1][3]_i_2_n_0 ;
   wire \file_name[1][3]_i_3_n_0 ;
+  wire \file_name[1][4]_i_2_n_0 ;
   wire \file_name[1][5]_i_2_n_0 ;
   wire \file_name[1][5]_i_3_n_0 ;
+  wire \file_name[1][5]_i_4_n_0 ;
+  wire \file_name[1][7]_i_10_n_0 ;
+  wire \file_name[1][7]_i_11_n_0 ;
   wire \file_name[1][7]_i_3_n_0 ;
   wire \file_name[1][7]_i_4_n_0 ;
   wire \file_name[1][7]_i_5_n_0 ;
   wire \file_name[1][7]_i_6_n_0 ;
   wire \file_name[1][7]_i_7_n_0 ;
   wire \file_name[1][7]_i_8_n_0 ;
+  wire \file_name[1][7]_i_9_n_0 ;
   wire \file_name[2][1]_i_2_n_0 ;
   wire \file_name[2][1]_i_3_n_0 ;
   wire \file_name[2][2]_i_2_n_0 ;
@@ -23649,22 +23521,13 @@ module design_1_top_system_0_1_sd_reader
   wire \file_name[2][7]_i_6_n_0 ;
   wire \file_name[2][7]_i_7_n_0 ;
   wire \file_name[2][7]_i_8_n_0 ;
-  wire \file_name[2][7]_i_9_n_0 ;
-  wire \file_name[3][1]_i_2_n_0 ;
-  wire \file_name[3][2]_i_2_n_0 ;
-  wire \file_name[3][3]_i_2_n_0 ;
-  wire \file_name[3][4]_i_2_n_0 ;
-  wire \file_name[3][4]_i_3_n_0 ;
-  wire \file_name[3][4]_i_4_n_0 ;
-  wire \file_name[3][4]_i_5_n_0 ;
-  wire \file_name[3][5]_i_2_n_0 ;
-  wire \file_name[3][5]_i_3_n_0 ;
   wire \file_name[3][7]_i_3_n_0 ;
   wire \file_name[3][7]_i_4_n_0 ;
   wire \file_name[3][7]_i_5_n_0 ;
   wire \file_name[3][7]_i_6_n_0 ;
   wire \file_name[3][7]_i_7_n_0 ;
   wire \file_name[3][7]_i_8_n_0 ;
+  wire \file_name[3][7]_i_9_n_0 ;
   wire \file_name[4][1]_i_2_n_0 ;
   wire \file_name[4][1]_i_3_n_0 ;
   wire \file_name[4][2]_i_2_n_0 ;
@@ -23681,13 +23544,10 @@ module design_1_top_system_0_1_sd_reader
   wire \file_name[4][7]_i_7_n_0 ;
   wire \file_name[4][7]_i_8_n_0 ;
   wire \file_name[4][7]_i_9_n_0 ;
-  wire \file_name[5][3]_i_2_n_0 ;
-  wire \file_name[5][3]_i_3_n_0 ;
-  wire \file_name[5][3]_i_4_n_0 ;
+  wire \file_name[5][1]_i_2_n_0 ;
+  wire \file_name[5][2]_i_2_n_0 ;
+  wire \file_name[5][2]_i_3_n_0 ;
   wire \file_name[5][5]_i_2_n_0 ;
-  wire \file_name[5][6]_i_2_n_0 ;
-  wire \file_name[5][6]_i_3_n_0 ;
-  wire \file_name[5][6]_i_4_n_0 ;
   wire \file_name[5][7]_i_3_n_0 ;
   wire \file_name[5][7]_i_4_n_0 ;
   wire \file_name[5][7]_i_5_n_0 ;
@@ -23695,13 +23555,15 @@ module design_1_top_system_0_1_sd_reader
   wire \file_name[5][7]_i_7_n_0 ;
   wire \file_name[5][7]_i_8_n_0 ;
   wire \file_name[5][7]_i_9_n_0 ;
-  wire \file_name[6][3]_i_2_n_0 ;
-  wire \file_name[6][3]_i_3_n_0 ;
+  wire \file_name[6][2]_i_2_n_0 ;
+  wire \file_name[6][2]_i_3_n_0 ;
+  wire \file_name[6][2]_i_4_n_0 ;
+  wire \file_name[6][2]_i_5_n_0 ;
+  wire \file_name[6][2]_i_6_n_0 ;
   wire \file_name[6][5]_i_2_n_0 ;
   wire \file_name[6][5]_i_3_n_0 ;
   wire \file_name[6][5]_i_4_n_0 ;
   wire \file_name[6][7]_i_10_n_0 ;
-  wire \file_name[6][7]_i_11_n_0 ;
   wire \file_name[6][7]_i_3_n_0 ;
   wire \file_name[6][7]_i_4_n_0 ;
   wire \file_name[6][7]_i_5_n_0 ;
@@ -23710,12 +23572,14 @@ module design_1_top_system_0_1_sd_reader
   wire \file_name[6][7]_i_8_n_0 ;
   wire \file_name[6][7]_i_9_n_0 ;
   wire \file_name[7][1]_i_2_n_0 ;
+  wire \file_name[7][1]_i_3_n_0 ;
   wire \file_name[7][3]_i_2_n_0 ;
-  wire \file_name[7][3]_i_3_n_0 ;
   wire \file_name[7][5]_i_2_n_0 ;
   wire \file_name[7][5]_i_3_n_0 ;
+  wire \file_name[7][6]_i_2_n_0 ;
   wire \file_name[7][7]_i_10_n_0 ;
   wire \file_name[7][7]_i_11_n_0 ;
+  wire \file_name[7][7]_i_12_n_0 ;
   wire \file_name[7][7]_i_3_n_0 ;
   wire \file_name[7][7]_i_4_n_0 ;
   wire \file_name[7][7]_i_5_n_0 ;
@@ -23739,7 +23603,6 @@ module design_1_top_system_0_1_sd_reader
   wire \file_name[8][7]_i_13_n_0 ;
   wire \file_name[8][7]_i_14_n_0 ;
   wire \file_name[8][7]_i_15_n_0 ;
-  wire \file_name[8][7]_i_16_n_0 ;
   wire \file_name[8][7]_i_3_n_0 ;
   wire \file_name[8][7]_i_4_n_0 ;
   wire \file_name[8][7]_i_5_n_0 ;
@@ -23747,7 +23610,7 @@ module design_1_top_system_0_1_sd_reader
   wire \file_name[8][7]_i_7_n_0 ;
   wire \file_name[8][7]_i_8_n_0 ;
   wire \file_name[8][7]_i_9_n_0 ;
-  wire \file_name_reg[0][0] ;
+  wire \file_name_reg[0][5] ;
   wire [7:0]\file_name_reg[0][7] ;
   wire [7:0]\file_name_reg[0][7]_0 ;
   wire [7:0]\file_name_reg[1][7] ;
@@ -23755,11 +23618,11 @@ module design_1_top_system_0_1_sd_reader
   wire [7:0]\file_name_reg[3][7] ;
   wire [7:0]\file_name_reg[5][7] ;
   wire [7:0]\file_name_reg[7][7] ;
-  wire \file_name_reg[8][5] ;
   wire [7:0]\file_name_reg[8][7] ;
   wire [0:0]file_namelen2;
   wire \file_namelen[3]_i_10_n_0 ;
   wire \file_namelen[3]_i_11_n_0 ;
+  wire \file_namelen[3]_i_12_0 ;
   wire \file_namelen[3]_i_12_n_0 ;
   wire \file_namelen[3]_i_3_n_0 ;
   wire \file_namelen[3]_i_4_n_0 ;
@@ -23772,7 +23635,7 @@ module design_1_top_system_0_1_sd_reader
   wire \file_namelen[7]_i_11_n_0 ;
   wire \file_namelen[7]_i_12_n_0 ;
   wire \file_namelen[7]_i_13_n_0 ;
-  wire \file_namelen[7]_i_14_n_0 ;
+  wire \file_namelen[7]_i_16_n_0 ;
   wire \file_namelen[7]_i_17_n_0 ;
   wire \file_namelen[7]_i_18_n_0 ;
   wire \file_namelen[7]_i_19_n_0 ;
@@ -23786,10 +23649,9 @@ module design_1_top_system_0_1_sd_reader
   wire \file_namelen[7]_i_27_n_0 ;
   wire \file_namelen[7]_i_28_n_0 ;
   wire \file_namelen[7]_i_29_n_0 ;
-  wire \file_namelen[7]_i_30_n_0 ;
   wire \file_namelen[7]_i_3_n_0 ;
   wire \file_namelen[7]_i_4_n_0 ;
-  wire \file_namelen[7]_i_5_n_0 ;
+  wire \file_namelen[7]_i_7_n_0 ;
   wire \file_namelen[7]_i_8_n_0 ;
   wire \file_namelen[7]_i_9_n_0 ;
   wire \file_namelen_reg[0] ;
@@ -23804,19 +23666,18 @@ module design_1_top_system_0_1_sd_reader
   wire \file_namelen_reg[3]_i_2_n_6 ;
   wire \file_namelen_reg[3]_i_2_n_7 ;
   wire [7:0]\file_namelen_reg[7] ;
-  wire [7:0]\file_namelen_reg[7]_0 ;
-  wire \file_namelen_reg[7]_i_15_n_0 ;
-  wire \file_namelen_reg[7]_i_15_n_1 ;
-  wire \file_namelen_reg[7]_i_15_n_2 ;
+  wire \file_namelen_reg[7]_i_14_n_0 ;
+  wire \file_namelen_reg[7]_i_14_n_1 ;
+  wire \file_namelen_reg[7]_i_14_n_2 ;
+  wire \file_namelen_reg[7]_i_14_n_3 ;
   wire \file_namelen_reg[7]_i_15_n_3 ;
-  wire \file_namelen_reg[7]_i_16_n_3 ;
-  wire \file_namelen_reg[7]_i_6_n_1 ;
-  wire \file_namelen_reg[7]_i_6_n_2 ;
-  wire \file_namelen_reg[7]_i_6_n_3 ;
-  wire \file_namelen_reg[7]_i_6_n_4 ;
-  wire \file_namelen_reg[7]_i_6_n_5 ;
-  wire \file_namelen_reg[7]_i_6_n_6 ;
-  wire \file_namelen_reg[7]_i_6_n_7 ;
+  wire \file_namelen_reg[7]_i_5_n_1 ;
+  wire \file_namelen_reg[7]_i_5_n_2 ;
+  wire \file_namelen_reg[7]_i_5_n_3 ;
+  wire \file_namelen_reg[7]_i_5_n_4 ;
+  wire \file_namelen_reg[7]_i_5_n_5 ;
+  wire \file_namelen_reg[7]_i_5_n_6 ;
+  wire \file_namelen_reg[7]_i_5_n_7 ;
   wire \filesystem_reg[0] ;
   wire [3:0]\filesystem_reg[0]_0 ;
   wire \filesystem_reg[0]_1 ;
@@ -23825,22 +23686,6 @@ module design_1_top_system_0_1_sd_reader
   wire \filesystem_reg[1]_0 ;
   wire \filesystem_reg[1]_1 ;
   wire [2:0]filesystem_state;
-  wire \filesystem_state[1]_i_3_n_0 ;
-  wire \filesystem_state_reg[0] ;
-  wire [0:0]\filesystem_state_reg[0]_0 ;
-  wire \filesystem_state_reg[0]_1 ;
-  wire \filesystem_state_reg[0]_2 ;
-  wire \filesystem_state_reg[0]_3 ;
-  wire \filesystem_state_reg[1] ;
-  wire \filesystem_state_reg[1]_0 ;
-  wire \filesystem_state_reg[1]_1 ;
-  wire [0:0]\filesystem_state_reg[1]_2 ;
-  wire [0:0]\filesystem_state_reg[1]_3 ;
-  wire [0:0]\filesystem_state_reg[1]_4 ;
-  wire [0:0]\filesystem_state_reg[1]_5 ;
-  wire \filesystem_state_reg[1]_6 ;
-  wire \filesystem_state_reg[1]_7 ;
-  wire [0:0]\filesystem_state_reg[2] ;
   wire [7:0]\fname_reg[0][7] ;
   wire [7:0]\fname_reg[1][7] ;
   wire [7:0]\fname_reg[2][7] ;
@@ -23858,38 +23703,41 @@ module design_1_top_system_0_1_sd_reader
   wire fready;
   wire fready152_out;
   wire fready_i_2_n_0;
+  wire [23:0]\fsize_reg[23] ;
   wire [31:1]in7;
+  wire islong_i_10_n_0;
   wire islong_i_3_n_0;
   wire islong_i_4_n_0;
   wire islong_i_5_n_0;
   wire islong_i_6_n_0;
   wire islong_i_7_n_0;
   wire islong_i_8_n_0;
+  wire islong_i_9_n_0;
   wire islong_reg;
   wire islongok;
   wire islongok_i_2_n_0;
   wire islongok_i_3_n_0;
   wire islongok_i_4_n_0;
-  wire islongok_i_5_n_0;
-  wire isshort_i_10_n_0;
+  wire isshort_i_2_0;
   wire isshort_i_2_n_0;
   wire isshort_i_3_n_0;
+  wire isshort_i_4_n_0;
   wire isshort_i_5_n_0;
   wire isshort_i_6_n_0;
   wire isshort_i_7_n_0;
-  wire isshort_i_8_n_0;
-  wire isshort_i_9_n_0;
-  wire isshort_reg;
   wire \lastchar[7]_i_2_n_0 ;
+  wire \lastchar[7]_i_3_n_0 ;
   wire [7:0]\lastchar_reg[7] ;
-  wire \longno[5]_i_10_n_0 ;
+  wire [7:0]\lastchar_reg[7]_0 ;
+  wire [7:0]\lastchar_reg[7]_1 ;
+  wire [7:0]\lastchar_reg[7]_2 ;
+  wire [7:0]\lastchar_reg[7]_3 ;
   wire \longno[5]_i_2_n_0 ;
   wire \longno[5]_i_3_n_0 ;
   wire \longno[5]_i_4_n_0 ;
+  wire \longno[5]_i_5_n_0 ;
   wire \longno[5]_i_6_n_0 ;
-  wire \longno[5]_i_7_n_0 ;
   wire \longno[5]_i_8_n_0 ;
-  wire \longno[5]_i_9_n_0 ;
   wire \longno_reg[2] ;
   wire [5:0]\longno_reg[5] ;
   wire [5:0]longno_t;
@@ -23899,6 +23747,8 @@ module design_1_top_system_0_1_sd_reader
   wire longvalid_i_12_n_0;
   wire longvalid_i_13_n_0;
   wire longvalid_i_14_n_0;
+  wire longvalid_i_15_n_0;
+  wire longvalid_i_16_n_0;
   wire longvalid_i_2_n_0;
   wire longvalid_i_3_n_0;
   wire longvalid_i_4_n_0;
@@ -23907,51 +23757,50 @@ module design_1_top_system_0_1_sd_reader
   wire longvalid_i_7_n_0;
   wire longvalid_i_8_n_0;
   wire longvalid_i_9_n_0;
-  wire \outaddr_reg[0]_0 ;
+  wire [0:0]\outaddr_reg[0]_0 ;
   wire [0:0]\outaddr_reg[0]_1 ;
   wire [0:0]\outaddr_reg[0]_2 ;
   wire [0:0]\outaddr_reg[0]_3 ;
   wire [0:0]\outaddr_reg[0]_4 ;
-  wire [0:0]\outaddr_reg[1]_0 ;
+  wire [0:0]\outaddr_reg[0]_5 ;
+  wire [0:0]\outaddr_reg[0]_6 ;
+  wire [0:0]\outaddr_reg[0]_7 ;
+  wire [31:0]\outaddr_reg[1]_0 ;
   wire [0:0]\outaddr_reg[1]_1 ;
   wire [0:0]\outaddr_reg[1]_2 ;
   wire [0:0]\outaddr_reg[1]_3 ;
-  wire [0:0]\outaddr_reg[1]_4 ;
   wire [0:0]\outaddr_reg[2]_0 ;
   wire [0:0]\outaddr_reg[2]_1 ;
   wire [0:0]\outaddr_reg[2]_2 ;
   wire \outaddr_reg[3]_0 ;
-  wire \outaddr_reg[4]_0 ;
+  wire [0:0]\outaddr_reg[3]_1 ;
+  wire [0:0]\outaddr_reg[3]_2 ;
+  wire [0:0]\outaddr_reg[3]_3 ;
+  wire [0:0]\outaddr_reg[4]_0 ;
   wire [0:0]\outaddr_reg[4]_1 ;
   wire [0:0]\outaddr_reg[4]_2 ;
-  wire [7:0]\outaddr_reg[4]_3 ;
-  wire [0:0]\outaddr_reg[5]_0 ;
-  wire [0:0]\outaddr_reg[5]_1 ;
-  wire [0:0]\outaddr_reg[5]_2 ;
+  wire \outaddr_reg[4]_3 ;
+  wire [0:0]\outaddr_reg[4]_4 ;
+  wire [0:0]\outaddr_reg[6]_0 ;
   wire [0:0]\outaddr_reg[8]_0 ;
   wire [0:0]\outaddr_reg[8]_1 ;
   wire \outbyte_reg[6]_0 ;
   wire [7:0]\outbyte_reg[7]_0 ;
   wire [31:0]\outbyte_reg[7]_1 ;
-  wire [7:0]\outbyte_reg[7]_10 ;
-  wire [7:0]\outbyte_reg[7]_11 ;
   wire [7:0]\outbyte_reg[7]_2 ;
-  wire [23:0]\outbyte_reg[7]_3 ;
+  wire [7:0]\outbyte_reg[7]_3 ;
   wire [7:0]\outbyte_reg[7]_4 ;
   wire [7:0]\outbyte_reg[7]_5 ;
   wire [7:0]\outbyte_reg[7]_6 ;
-  wire [7:0]\outbyte_reg[7]_7 ;
-  wire [7:0]\outbyte_reg[7]_8 ;
-  wire [7:0]\outbyte_reg[7]_9 ;
+  wire [15:0]\outbyte_reg[7]_7 ;
+  wire [23:0]\outbyte_reg[7]_8 ;
   wire outen19_out;
   wire outen2_out;
   wire [0:0]outen_reg_0;
-  wire [0:0]outen_reg_1;
+  wire [1:0]outen_reg_1;
   wire [0:0]outen_reg_10;
   wire [0:0]outen_reg_11;
   wire [0:0]outen_reg_12;
-  wire [0:0]outen_reg_13;
-  wire [0:0]outen_reg_14;
   wire [0:0]outen_reg_2;
   wire [0:0]outen_reg_3;
   wire [0:0]outen_reg_4;
@@ -23960,17 +23809,19 @@ module design_1_top_system_0_1_sd_reader
   wire [0:0]outen_reg_7;
   wire [0:0]outen_reg_8;
   wire [0:0]outen_reg_9;
+  wire p_0_in;
   wire p_0_in10_in;
   wire p_0_in23_in;
-  wire [14:0]p_1_in;
+  wire [13:0]p_1_in;
   wire p_2_in;
   wire pll_locked;
   wire [11:4]precnt;
   wire [11:5]precnt1_out;
+  wire \precnt[7]_i_2_n_0 ;
   wire [8:0]raddr;
   wire [15:0]rca__0;
   wire read_done;
-  wire \read_sector_no[31]_i_3_n_0 ;
+  wire \read_sector_no[31]_i_4_n_0 ;
   wire \read_sector_no_reg[0] ;
   wire \read_sector_no_reg[0]_0 ;
   wire \read_sector_no_reg[0]_1 ;
@@ -24074,67 +23925,60 @@ module design_1_top_system_0_1_sd_reader
   wire \rootdir_sectorcount[11]_i_2_n_0 ;
   wire [31:0]rsectoraddr__0;
   wire \rsectoraddr_reg[31]_0 ;
-  wire [31:0]\rsectoraddr_reg[31]_1 ;
   wire rvalid;
   wire sd_cmd_in;
   wire sd_dat0;
   wire sdclk_reg;
   wire sdclkl;
-  wire \sdcmd_stat[2]_i_3_n_0 ;
+  wire \sdcmd_stat[2]_i_2_n_0 ;
   wire \sdcmd_stat[3]_i_4_n_0 ;
   wire \sdcmd_stat[3]_i_5_n_0 ;
   wire \sdtnamelen[0]_i_2_n_0 ;
   wire \sdtnamelen[0]_i_3_n_0 ;
   wire \sdtnamelen[1]_i_2_n_0 ;
   wire \sdtnamelen[1]_i_3_n_0 ;
+  wire \sdtnamelen[1]_i_4_n_0 ;
   wire \sdtnamelen[2]_i_2_n_0 ;
   wire \sdtnamelen[2]_i_3_n_0 ;
   wire \sdtnamelen[2]_i_4_n_0 ;
   wire \sdtnamelen[3]_i_2_n_0 ;
   wire \sdtnamelen[3]_i_3_n_0 ;
-  wire \sdtnamelen[3]_i_4_n_0 ;
-  wire \sdtnamelen[3]_i_5_n_0 ;
   wire \sdtnamelen[4]_i_2_n_0 ;
   wire \sdtnamelen[4]_i_3_n_0 ;
   wire \sdtnamelen[4]_i_4_n_0 ;
   wire \sdtnamelen[4]_i_5_n_0 ;
   wire \sdtnamelen[4]_i_6_n_0 ;
   wire \sdtnamelen[4]_i_7_n_0 ;
-  wire \sdtnamelen[4]_i_8_n_0 ;
   wire \sdtnamelen[5]_i_2_n_0 ;
   wire \sdtnamelen[5]_i_3_n_0 ;
   wire \sdtnamelen[5]_i_4_n_0 ;
   wire \sdtnamelen[5]_i_5_n_0 ;
   wire \sdtnamelen[5]_i_6_n_0 ;
+  wire \sdtnamelen[6]_i_10_n_0 ;
+  wire \sdtnamelen[6]_i_11_n_0 ;
   wire \sdtnamelen[6]_i_2_n_0 ;
   wire \sdtnamelen[6]_i_3_n_0 ;
   wire \sdtnamelen[6]_i_4_n_0 ;
-  wire \sdtnamelen[7]_i_10_n_0 ;
-  wire \sdtnamelen[7]_i_11_n_0 ;
-  wire \sdtnamelen[7]_i_12_n_0 ;
+  wire \sdtnamelen[6]_i_5_n_0 ;
+  wire \sdtnamelen[6]_i_6_n_0 ;
+  wire \sdtnamelen[6]_i_7_n_0 ;
+  wire \sdtnamelen[6]_i_8_n_0 ;
+  wire \sdtnamelen[6]_i_9_n_0 ;
   wire \sdtnamelen[7]_i_2_n_0 ;
   wire \sdtnamelen[7]_i_3_n_0 ;
   wire \sdtnamelen[7]_i_4_n_0 ;
-  wire \sdtnamelen[7]_i_5_n_0 ;
-  wire \sdtnamelen[7]_i_6_n_0 ;
-  wire \sdtnamelen[7]_i_7_n_0 ;
-  wire \sdtnamelen[7]_i_8_n_0 ;
-  wire \sdtnamelen[7]_i_9_n_0 ;
   wire [7:0]\sdtnamelen_reg[7] ;
-  wire sdv1_maybe_reg_0;
-  wire [1:0]search_fat_reg;
+  wire [7:0]\sdtnamelen_reg[7]_0 ;
+  wire [7:0]\sdtnamelen_reg[7]_1 ;
+  wire sdv1_maybe;
+  wire search_fat_reg;
   wire search_fat_reg_0;
   wire search_fat_reg_1;
-  wire search_fat_reg_2;
   wire \sector_content[0][7]_i_2_n_0 ;
-  wire \sector_content[11][7]_i_2_n_0 ;
-  wire \sector_content[13][7]_i_2_n_0 ;
-  wire \sector_content[18][7]_i_2_n_0 ;
-  wire \sector_content[18][7]_i_3_n_0 ;
+  wire \sector_content[0][7]_i_3_n_0 ;
   wire \sector_content[22][7]_i_2_n_0 ;
-  wire \sector_content[22][7]_i_3_n_0 ;
   wire \sector_content[23][7]_i_2_n_0 ;
-  wire \sector_content[38][7]_i_2_n_0 ;
+  wire \sector_content[39][7]_i_2_n_0 ;
   wire \sector_content[44][7]_i_2_n_0 ;
   wire \sector_content[454][7]_i_2_n_0 ;
   wire \sector_content[455][7]_i_2_n_0 ;
@@ -24142,15 +23986,17 @@ module design_1_top_system_0_1_sd_reader
   wire \sector_content[457][7]_i_2_n_0 ;
   wire \sector_content[457][7]_i_3_n_0 ;
   wire \sector_content[457][7]_i_4_n_0 ;
-  wire \sector_content[46][7]_i_2_n_0 ;
+  wire \sector_content[45][7]_i_2_n_0 ;
   wire \sector_content[47][7]_i_2_n_0 ;
   wire \sector_content[510][7]_i_2_n_0 ;
   wire \sector_content[510][7]_i_3_n_0 ;
   wire \sector_content[511][7]_i_2_n_0 ;
   wire \sector_content[86][7]_i_2_n_0 ;
+  wire \sector_content[86][7]_i_3_n_0 ;
   wire start;
   wire start_i_2_n_0;
   wire start_reg_n_0;
+  wire \target_cluster[15]_i_3_n_0 ;
   wire \target_cluster[31]_i_3_n_0 ;
   wire \target_cluster[31]_i_4_n_0 ;
   wire \target_cluster[31]_i_5_n_0 ;
@@ -24159,39 +24005,10 @@ module design_1_top_system_0_1_sd_reader
   wire \target_cluster_fat16[15]_i_4_n_0 ;
   wire [7:0]\target_cluster_fat16_reg[15] ;
   wire u_sdcmd_ctrl_n_10;
-  wire u_sdcmd_ctrl_n_100;
-  wire u_sdcmd_ctrl_n_101;
-  wire u_sdcmd_ctrl_n_102;
-  wire u_sdcmd_ctrl_n_103;
-  wire u_sdcmd_ctrl_n_104;
-  wire u_sdcmd_ctrl_n_105;
-  wire u_sdcmd_ctrl_n_106;
-  wire u_sdcmd_ctrl_n_107;
-  wire u_sdcmd_ctrl_n_108;
-  wire u_sdcmd_ctrl_n_109;
-  wire u_sdcmd_ctrl_n_11;
-  wire u_sdcmd_ctrl_n_110;
-  wire u_sdcmd_ctrl_n_111;
-  wire u_sdcmd_ctrl_n_112;
-  wire u_sdcmd_ctrl_n_113;
+  wire u_sdcmd_ctrl_n_12;
   wire u_sdcmd_ctrl_n_13;
   wire u_sdcmd_ctrl_n_14;
-  wire u_sdcmd_ctrl_n_15;
-  wire u_sdcmd_ctrl_n_16;
-  wire u_sdcmd_ctrl_n_17;
-  wire u_sdcmd_ctrl_n_18;
-  wire u_sdcmd_ctrl_n_19;
-  wire u_sdcmd_ctrl_n_20;
-  wire u_sdcmd_ctrl_n_21;
-  wire u_sdcmd_ctrl_n_22;
-  wire u_sdcmd_ctrl_n_23;
-  wire u_sdcmd_ctrl_n_24;
-  wire u_sdcmd_ctrl_n_25;
-  wire u_sdcmd_ctrl_n_26;
-  wire u_sdcmd_ctrl_n_28;
-  wire u_sdcmd_ctrl_n_29;
-  wire u_sdcmd_ctrl_n_3;
-  wire u_sdcmd_ctrl_n_30;
+  wire u_sdcmd_ctrl_n_2;
   wire u_sdcmd_ctrl_n_31;
   wire u_sdcmd_ctrl_n_32;
   wire u_sdcmd_ctrl_n_33;
@@ -24201,11 +24018,11 @@ module design_1_top_system_0_1_sd_reader
   wire u_sdcmd_ctrl_n_37;
   wire u_sdcmd_ctrl_n_38;
   wire u_sdcmd_ctrl_n_39;
+  wire u_sdcmd_ctrl_n_4;
   wire u_sdcmd_ctrl_n_40;
   wire u_sdcmd_ctrl_n_41;
   wire u_sdcmd_ctrl_n_42;
   wire u_sdcmd_ctrl_n_43;
-  wire u_sdcmd_ctrl_n_44;
   wire u_sdcmd_ctrl_n_45;
   wire u_sdcmd_ctrl_n_46;
   wire u_sdcmd_ctrl_n_47;
@@ -24223,20 +24040,51 @@ module design_1_top_system_0_1_sd_reader
   wire u_sdcmd_ctrl_n_58;
   wire u_sdcmd_ctrl_n_59;
   wire u_sdcmd_ctrl_n_60;
+  wire u_sdcmd_ctrl_n_61;
+  wire u_sdcmd_ctrl_n_62;
+  wire u_sdcmd_ctrl_n_63;
+  wire u_sdcmd_ctrl_n_64;
+  wire u_sdcmd_ctrl_n_65;
+  wire u_sdcmd_ctrl_n_66;
+  wire u_sdcmd_ctrl_n_67;
+  wire u_sdcmd_ctrl_n_68;
+  wire u_sdcmd_ctrl_n_69;
+  wire u_sdcmd_ctrl_n_70;
+  wire u_sdcmd_ctrl_n_71;
+  wire u_sdcmd_ctrl_n_72;
+  wire u_sdcmd_ctrl_n_73;
+  wire u_sdcmd_ctrl_n_74;
+  wire u_sdcmd_ctrl_n_75;
+  wire u_sdcmd_ctrl_n_76;
+  wire u_sdcmd_ctrl_n_77;
+  wire u_sdcmd_ctrl_n_78;
+  wire u_sdcmd_ctrl_n_79;
+  wire u_sdcmd_ctrl_n_80;
+  wire u_sdcmd_ctrl_n_81;
+  wire u_sdcmd_ctrl_n_82;
+  wire u_sdcmd_ctrl_n_83;
+  wire u_sdcmd_ctrl_n_84;
+  wire u_sdcmd_ctrl_n_85;
+  wire u_sdcmd_ctrl_n_86;
+  wire u_sdcmd_ctrl_n_87;
+  wire u_sdcmd_ctrl_n_88;
+  wire u_sdcmd_ctrl_n_89;
+  wire u_sdcmd_ctrl_n_90;
+  wire u_sdcmd_ctrl_n_91;
+  wire u_sdcmd_ctrl_n_92;
   wire u_sdcmd_ctrl_n_93;
   wire u_sdcmd_ctrl_n_94;
   wire u_sdcmd_ctrl_n_95;
   wire u_sdcmd_ctrl_n_96;
   wire u_sdcmd_ctrl_n_97;
   wire u_sdcmd_ctrl_n_98;
-  wire u_sdcmd_ctrl_n_99;
-  wire [3:1]\NLW_file_namelen_reg[7]_i_16_CO_UNCONNECTED ;
-  wire [3:2]\NLW_file_namelen_reg[7]_i_16_O_UNCONNECTED ;
-  wire [3:3]\NLW_file_namelen_reg[7]_i_6_CO_UNCONNECTED ;
+  wire [3:1]\NLW_file_namelen_reg[7]_i_15_CO_UNCONNECTED ;
+  wire [3:2]\NLW_file_namelen_reg[7]_i_15_O_UNCONNECTED ;
+  wire [3:3]\NLW_file_namelen_reg[7]_i_5_CO_UNCONNECTED ;
   wire [3:2]\NLW_ridx_reg[31]_i_3_CO_UNCONNECTED ;
   wire [3:3]\NLW_ridx_reg[31]_i_3_O_UNCONNECTED ;
 
-  (* SOFT_HLUTNM = "soft_lutpair112" *) 
+  (* SOFT_HLUTNM = "soft_lutpair91" *) 
   LUT4 #(
     .INIT(16'hFF9F)) 
     \FSM_onehot_sddat_stat[0]_i_1 
@@ -24275,98 +24123,96 @@ module design_1_top_system_0_1_sd_reader
         .I4(Q[0]),
         .I5(\FSM_onehot_sddat_stat_reg_n_0_[0] ),
         .O(\FSM_onehot_sddat_stat[3]_i_1_n_0 ));
-  LUT5 #(
-    .INIT(32'hEFEFFFEF)) 
+  LUT6 #(
+    .INIT(64'h0000000000000002)) 
     \FSM_onehot_sddat_stat[4]_i_10 
-       (.I0(\FSM_onehot_sddat_stat[4]_i_6_n_0 ),
-        .I1(\FSM_onehot_sddat_stat[4]_i_15_n_0 ),
-        .I2(\FSM_onehot_sddat_stat[4]_i_11_n_0 ),
-        .I3(\FSM_onehot_sddat_stat[4]_i_16_n_0 ),
-        .I4(\FSM_onehot_sddat_stat[4]_i_17_n_0 ),
+       (.I0(\FSM_onehot_sddat_stat[4]_i_16_n_0 ),
+        .I1(\FSM_onehot_sddat_stat[4]_i_17_n_0 ),
+        .I2(\ridx_reg_n_0_[21] ),
+        .I3(\ridx_reg_n_0_[22] ),
+        .I4(\ridx_reg_n_0_[23] ),
+        .I5(\ridx_reg_n_0_[24] ),
         .O(\FSM_onehot_sddat_stat[4]_i_10_n_0 ));
-  LUT4 #(
-    .INIT(16'h0001)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFEFFFFFFFF)) 
     \FSM_onehot_sddat_stat[4]_i_11 
-       (.I0(\FSM_onehot_sddat_stat[4]_i_7_n_0 ),
-        .I1(\ridx_reg_n_0_[18] ),
-        .I2(\ridx_reg_n_0_[17] ),
-        .I3(\ridx_reg_n_0_[19] ),
+       (.I0(\FSM_onehot_sddat_stat[4]_i_6_n_0 ),
+        .I1(\ridx_reg_n_0_[6] ),
+        .I2(\ridx_reg_n_0_[9] ),
+        .I3(\ridx_reg_n_0_[10] ),
+        .I4(\ridx_reg_n_0_[11] ),
+        .I5(\FSM_onehot_sddat_stat[4]_i_18_n_0 ),
         .O(\FSM_onehot_sddat_stat[4]_i_11_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
+    .INIT(64'h8000000000000000)) 
     \FSM_onehot_sddat_stat[4]_i_12 
-       (.I0(\FSM_onehot_sddat_stat[4]_i_18_n_0 ),
-        .I1(\ridx_reg_n_0_[7] ),
-        .I2(\ridx_reg_n_0_[8] ),
-        .I3(\FSM_onehot_sddat_stat[4]_i_19_n_0 ),
-        .I4(\FSM_onehot_sddat_stat[4]_i_16_n_0 ),
-        .I5(\FSM_onehot_sddat_stat[4]_i_6_n_0 ),
-        .O(\FSM_onehot_sddat_stat[4]_i_12_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \FSM_onehot_sddat_stat[4]_i_13 
-       (.I0(\ridx_reg_n_0_[1] ),
-        .I1(\ridx_reg_n_0_[0] ),
+       (.I0(\ridx_reg_n_0_[3] ),
+        .I1(\ridx_reg_n_0_[2] ),
         .I2(\ridx_reg_n_0_[4] ),
         .I3(\ridx_reg_n_0_[5] ),
-        .I4(\ridx_reg_n_0_[3] ),
-        .I5(\ridx_reg_n_0_[2] ),
+        .I4(\ridx_reg_n_0_[1] ),
+        .I5(\ridx_reg_n_0_[0] ),
+        .O(\FSM_onehot_sddat_stat[4]_i_12_n_0 ));
+  LUT4 #(
+    .INIT(16'hFFFE)) 
+    \FSM_onehot_sddat_stat[4]_i_13 
+       (.I0(\ridx_reg_n_0_[28] ),
+        .I1(\ridx_reg_n_0_[29] ),
+        .I2(\ridx_reg_n_0_[27] ),
+        .I3(\ridx_reg_n_0_[30] ),
         .O(\FSM_onehot_sddat_stat[4]_i_13_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair111" *) 
-  LUT5 #(
-    .INIT(32'hFFFFFFFE)) 
+  LUT6 #(
+    .INIT(64'hAAAAAAAAAAAA8088)) 
     \FSM_onehot_sddat_stat[4]_i_14 
-       (.I0(\ridx_reg_n_0_[11] ),
+       (.I0(\ridx_reg_n_0_[15] ),
         .I1(\ridx_reg_n_0_[12] ),
-        .I2(\ridx_reg_n_0_[13] ),
-        .I3(\ridx_reg_n_0_[10] ),
-        .I4(\ridx_reg_n_0_[15] ),
+        .I2(\ridx_reg_n_0_[11] ),
+        .I3(\FSM_onehot_sddat_stat[4]_i_19_n_0 ),
+        .I4(\ridx_reg_n_0_[14] ),
+        .I5(\ridx_reg_n_0_[13] ),
         .O(\FSM_onehot_sddat_stat[4]_i_14_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
+    .INIT(64'h7FFFFFFFFFFFFFFF)) 
     \FSM_onehot_sddat_stat[4]_i_15 
-       (.I0(\ridx_reg_n_0_[16] ),
-        .I1(\ridx_reg_n_0_[13] ),
+       (.I0(\ridx_reg_n_0_[9] ),
+        .I1(\ridx_reg_n_0_[10] ),
+        .I2(\ridx_reg_n_0_[11] ),
+        .I3(\ridx_reg_n_0_[6] ),
+        .I4(\ridx_reg_n_0_[8] ),
+        .I5(\ridx_reg_n_0_[7] ),
+        .O(\FSM_onehot_sddat_stat[4]_i_15_n_0 ));
+  LUT5 #(
+    .INIT(32'h00000001)) 
+    \FSM_onehot_sddat_stat[4]_i_16 
+       (.I0(\ridx_reg_n_0_[12] ),
+        .I1(\ridx_reg_n_0_[16] ),
         .I2(\ridx_reg_n_0_[15] ),
         .I3(\ridx_reg_n_0_[14] ),
-        .I4(\ridx_reg_n_0_[31] ),
-        .I5(\ridx_reg_n_0_[12] ),
-        .O(\FSM_onehot_sddat_stat[4]_i_15_n_0 ));
-  LUT6 #(
-    .INIT(64'h8000000000000000)) 
-    \FSM_onehot_sddat_stat[4]_i_16 
-       (.I0(\ridx_reg_n_0_[1] ),
-        .I1(\ridx_reg_n_0_[0] ),
-        .I2(\ridx_reg_n_0_[2] ),
-        .I3(\ridx_reg_n_0_[5] ),
-        .I4(\ridx_reg_n_0_[4] ),
-        .I5(\ridx_reg_n_0_[3] ),
+        .I4(\ridx_reg_n_0_[13] ),
         .O(\FSM_onehot_sddat_stat[4]_i_16_n_0 ));
-  LUT6 #(
-    .INIT(64'h7FFFFFFFFFFFFFFF)) 
+  LUT4 #(
+    .INIT(16'hFFFE)) 
     \FSM_onehot_sddat_stat[4]_i_17 
-       (.I0(\ridx_reg_n_0_[10] ),
-        .I1(\ridx_reg_n_0_[11] ),
-        .I2(\ridx_reg_n_0_[7] ),
-        .I3(\ridx_reg_n_0_[6] ),
-        .I4(\ridx_reg_n_0_[9] ),
-        .I5(\ridx_reg_n_0_[8] ),
+       (.I0(\ridx_reg_n_0_[17] ),
+        .I1(\ridx_reg_n_0_[18] ),
+        .I2(\ridx_reg_n_0_[19] ),
+        .I3(\ridx_reg_n_0_[20] ),
         .O(\FSM_onehot_sddat_stat[4]_i_17_n_0 ));
-  LUT5 #(
-    .INIT(32'hFFFFFFFE)) 
-    \FSM_onehot_sddat_stat[4]_i_18 
-       (.I0(\FSM_onehot_sddat_stat[4]_i_20_n_0 ),
-        .I1(\ridx_reg_n_0_[10] ),
-        .I2(\ridx_reg_n_0_[6] ),
-        .I3(\ridx_reg_n_0_[9] ),
-        .I4(\ridx_reg_n_0_[31] ),
-        .O(\FSM_onehot_sddat_stat[4]_i_18_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair111" *) 
   LUT2 #(
-    .INIT(4'hE)) 
+    .INIT(4'h1)) 
+    \FSM_onehot_sddat_stat[4]_i_18 
+       (.I0(\ridx_reg_n_0_[8] ),
+        .I1(\ridx_reg_n_0_[7] ),
+        .O(\FSM_onehot_sddat_stat[4]_i_18_n_0 ));
+  LUT6 #(
+    .INIT(64'h1FFF1FFF1FFFFFFF)) 
     \FSM_onehot_sddat_stat[4]_i_19 
-       (.I0(\ridx_reg_n_0_[12] ),
-        .I1(\ridx_reg_n_0_[11] ),
+       (.I0(\ridx_reg_n_0_[8] ),
+        .I1(\ridx_reg_n_0_[7] ),
+        .I2(\ridx_reg_n_0_[10] ),
+        .I3(\ridx_reg_n_0_[9] ),
+        .I4(\FSM_onehot_sddat_stat[4]_i_20_n_0 ),
+        .I5(\FSM_onehot_sddat_stat[4]_i_21_n_0 ),
         .O(\FSM_onehot_sddat_stat[4]_i_19_n_0 ));
   LUT6 #(
     .INIT(64'h0060000000000000)) 
@@ -24378,34 +24224,44 @@ module design_1_top_system_0_1_sd_reader
         .I4(\FSM_onehot_sddat_stat_reg_n_0_[0] ),
         .I5(sd_dat0),
         .O(\FSM_onehot_sddat_stat[4]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair121" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     \FSM_onehot_sddat_stat[4]_i_20 
-       (.I0(\ridx_reg_n_0_[14] ),
-        .I1(\ridx_reg_n_0_[15] ),
-        .I2(\ridx_reg_n_0_[13] ),
-        .I3(\ridx_reg_n_0_[16] ),
+       (.I0(\ridx_reg_n_0_[1] ),
+        .I1(\ridx_reg_n_0_[0] ),
+        .I2(\ridx_reg_n_0_[8] ),
+        .I3(\ridx_reg_n_0_[3] ),
         .O(\FSM_onehot_sddat_stat[4]_i_20_n_0 ));
+  LUT4 #(
+    .INIT(16'hFFFE)) 
+    \FSM_onehot_sddat_stat[4]_i_21 
+       (.I0(\ridx_reg_n_0_[5] ),
+        .I1(\ridx_reg_n_0_[6] ),
+        .I2(\ridx_reg_n_0_[2] ),
+        .I3(\ridx_reg_n_0_[4] ),
+        .O(\FSM_onehot_sddat_stat[4]_i_21_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFBFFFBFFFBFFFF)) 
+    .INIT(64'hFBFFFFFFFBFBFBFB)) 
     \FSM_onehot_sddat_stat[4]_i_3 
-       (.I0(\FSM_onehot_sddat_stat[4]_i_6_n_0 ),
+       (.I0(\ridx_reg_n_0_[24] ),
         .I1(sd_dat0),
-        .I2(\ridx_reg_n_0_[31] ),
+        .I2(\FSM_onehot_sddat_stat[4]_i_6_n_0 ),
         .I3(\FSM_onehot_sddat_stat[4]_i_7_n_0 ),
         .I4(\FSM_onehot_sddat_stat[4]_i_8_n_0 ),
-        .I5(\FSM_onehot_sddat_stat[4]_i_9_n_0 ),
+        .I5(\ridx_reg_n_0_[23] ),
         .O(\FSM_onehot_sddat_stat[4]_i_3_n_0 ));
-  LUT5 #(
-    .INIT(32'hFF8F8888)) 
+  LUT6 #(
+    .INIT(64'hFFFFFF4F44444444)) 
     \FSM_onehot_sddat_stat[4]_i_4 
-       (.I0(\FSM_onehot_sddat_stat_reg_n_0_[1] ),
-        .I1(\FSM_onehot_sddat_stat[4]_i_10_n_0 ),
-        .I2(\FSM_onehot_sddat_stat[4]_i_11_n_0 ),
-        .I3(\FSM_onehot_sddat_stat[4]_i_12_n_0 ),
-        .I4(\FSM_onehot_sddat_stat_reg_n_0_[2] ),
+       (.I0(\FSM_onehot_sddat_stat[4]_i_9_n_0 ),
+        .I1(\FSM_onehot_sddat_stat_reg_n_0_[1] ),
+        .I2(\FSM_onehot_sddat_stat[4]_i_10_n_0 ),
+        .I3(\FSM_onehot_sddat_stat[4]_i_11_n_0 ),
+        .I4(\FSM_onehot_sddat_stat[4]_i_12_n_0 ),
+        .I5(\FSM_onehot_sddat_stat_reg_n_0_[2] ),
         .O(\FSM_onehot_sddat_stat[4]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair137" *) 
+  (* SOFT_HLUTNM = "soft_lutpair120" *) 
   LUT4 #(
     .INIT(16'h0440)) 
     \FSM_onehot_sddat_stat[4]_i_5 
@@ -24414,51 +24270,44 @@ module design_1_top_system_0_1_sd_reader
         .I2(Q[1]),
         .I3(Q[0]),
         .O(\FSM_onehot_sddat_stat[4]_i_5_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
+  LUT4 #(
+    .INIT(16'hFFFE)) 
     \FSM_onehot_sddat_stat[4]_i_6 
-       (.I0(\ridx_reg_n_0_[29] ),
-        .I1(\ridx_reg_n_0_[30] ),
-        .I2(\ridx_reg_n_0_[27] ),
-        .I3(\ridx_reg_n_0_[26] ),
-        .I4(\ridx_reg_n_0_[28] ),
-        .I5(\ridx_reg_n_0_[25] ),
+       (.I0(\ridx_reg_n_0_[26] ),
+        .I1(\ridx_reg_n_0_[25] ),
+        .I2(\ridx_reg_n_0_[31] ),
+        .I3(\FSM_onehot_sddat_stat[4]_i_13_n_0 ),
         .O(\FSM_onehot_sddat_stat[4]_i_6_n_0 ));
-  LUT5 #(
-    .INIT(32'hFFFFFFFE)) 
+  LUT2 #(
+    .INIT(4'h1)) 
     \FSM_onehot_sddat_stat[4]_i_7 
-       (.I0(\ridx_reg_n_0_[20] ),
-        .I1(\ridx_reg_n_0_[22] ),
-        .I2(\ridx_reg_n_0_[21] ),
-        .I3(\ridx_reg_n_0_[24] ),
-        .I4(\ridx_reg_n_0_[23] ),
+       (.I0(\ridx_reg_n_0_[22] ),
+        .I1(\ridx_reg_n_0_[21] ),
         .O(\FSM_onehot_sddat_stat[4]_i_7_n_0 ));
   LUT6 #(
-    .INIT(64'h1FFFFFFFFFFFFFFF)) 
+    .INIT(64'h777777777777777F)) 
     \FSM_onehot_sddat_stat[4]_i_8 
-       (.I0(\ridx_reg_n_0_[14] ),
-        .I1(\ridx_reg_n_0_[15] ),
-        .I2(\ridx_reg_n_0_[19] ),
-        .I3(\ridx_reg_n_0_[18] ),
-        .I4(\ridx_reg_n_0_[17] ),
-        .I5(\ridx_reg_n_0_[16] ),
-        .O(\FSM_onehot_sddat_stat[4]_i_8_n_0 ));
-  LUT6 #(
-    .INIT(64'h000000000111FFFF)) 
-    \FSM_onehot_sddat_stat[4]_i_9 
-       (.I0(\ridx_reg_n_0_[7] ),
-        .I1(\ridx_reg_n_0_[8] ),
-        .I2(\FSM_onehot_sddat_stat[4]_i_13_n_0 ),
-        .I3(\ridx_reg_n_0_[6] ),
-        .I4(\ridx_reg_n_0_[9] ),
+       (.I0(\ridx_reg_n_0_[19] ),
+        .I1(\ridx_reg_n_0_[20] ),
+        .I2(\ridx_reg_n_0_[16] ),
+        .I3(\ridx_reg_n_0_[17] ),
+        .I4(\ridx_reg_n_0_[18] ),
         .I5(\FSM_onehot_sddat_stat[4]_i_14_n_0 ),
+        .O(\FSM_onehot_sddat_stat[4]_i_8_n_0 ));
+  LUT4 #(
+    .INIT(16'h00B0)) 
+    \FSM_onehot_sddat_stat[4]_i_9 
+       (.I0(\FSM_onehot_sddat_stat[4]_i_15_n_0 ),
+        .I1(\FSM_onehot_sddat_stat[4]_i_12_n_0 ),
+        .I2(\FSM_onehot_sddat_stat[4]_i_10_n_0 ),
+        .I3(\FSM_onehot_sddat_stat[4]_i_6_n_0 ),
         .O(\FSM_onehot_sddat_stat[4]_i_9_n_0 ));
   (* FSM_ENCODED_STATES = "iSTATE:01000,RWAIT:00001,RTAIL:00100,iSTATE0:10000,RDURING:00010" *) 
   FDPE #(
     .INIT(1'b1)) 
     \FSM_onehot_sddat_stat_reg[0] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_5),
+        .CE(u_sdcmd_ctrl_n_4),
         .D(outen19_out),
         .PRE(reset_n_0),
         .Q(\FSM_onehot_sddat_stat_reg_n_0_[0] ));
@@ -24467,7 +24316,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \FSM_onehot_sddat_stat_reg[1] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_5),
+        .CE(u_sdcmd_ctrl_n_4),
         .CLR(reset_n_0),
         .D(\FSM_onehot_sddat_stat[1]_i_1_n_0 ),
         .Q(\FSM_onehot_sddat_stat_reg_n_0_[1] ));
@@ -24476,7 +24325,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \FSM_onehot_sddat_stat_reg[2] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_5),
+        .CE(u_sdcmd_ctrl_n_4),
         .CLR(reset_n_0),
         .D(\FSM_onehot_sddat_stat[2]_i_1_n_0 ),
         .Q(\FSM_onehot_sddat_stat_reg_n_0_[2] ));
@@ -24485,7 +24334,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \FSM_onehot_sddat_stat_reg[3] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_5),
+        .CE(u_sdcmd_ctrl_n_4),
         .CLR(reset_n_0),
         .D(\FSM_onehot_sddat_stat[3]_i_1_n_0 ),
         .Q(\FSM_onehot_sddat_stat_reg_n_0_[3] ));
@@ -24494,24 +24343,82 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \FSM_onehot_sddat_stat_reg[4] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_5),
+        .CE(u_sdcmd_ctrl_n_4),
         .CLR(reset_n_0),
         .D(\FSM_onehot_sddat_stat[4]_i_2_n_0 ),
         .Q(start));
-  (* SOFT_HLUTNM = "soft_lutpair139" *) 
-  LUT3 #(
-    .INIT(8'hEF)) 
-    \arg[30]_i_4 
-       (.I0(Q[0]),
-        .I1(Q[2]),
-        .I2(Q[1]),
-        .O(\arg[30]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair232" *) 
+  LUT6 #(
+    .INIT(64'hEFEEEFFFE0EEE000)) 
+    \FSM_sequential_filesystem_state[0]_i_1 
+       (.I0(\FSM_sequential_filesystem_state[2]_i_2_n_0 ),
+        .I1(\FSM_sequential_filesystem_state_reg[0]_0 ),
+        .I2(\FSM_sequential_filesystem_state_reg[2]_0 ),
+        .I3(read_done),
+        .I4(\FSM_sequential_filesystem_state_reg[0]_1 ),
+        .I5(filesystem_state[0]),
+        .O(\FSM_sequential_filesystem_state_reg[0] ));
+  LUT6 #(
+    .INIT(64'h2F222FFF20222000)) 
+    \FSM_sequential_filesystem_state[1]_i_1 
+       (.I0(\FSM_sequential_filesystem_state_reg[1]_5 ),
+        .I1(\FSM_sequential_filesystem_state[1]_i_3_n_0 ),
+        .I2(\FSM_sequential_filesystem_state_reg[2]_0 ),
+        .I3(read_done),
+        .I4(\FSM_sequential_filesystem_state_reg[0]_1 ),
+        .I5(filesystem_state[1]),
+        .O(\FSM_sequential_filesystem_state_reg[1]_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFC0FF05FF05FF)) 
+    \FSM_sequential_filesystem_state[1]_i_3 
+       (.I0(search_fat_reg_1),
+        .I1(search_fat_reg),
+        .I2(filesystem_state[1]),
+        .I3(read_done),
+        .I4(filesystem_state[2]),
+        .I5(filesystem_state[0]),
+        .O(\FSM_sequential_filesystem_state[1]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'h7F407F403F007F45)) 
+    \FSM_sequential_filesystem_state[2]_i_1 
+       (.I0(\FSM_sequential_filesystem_state[2]_i_2_n_0 ),
+        .I1(\FSM_sequential_filesystem_state_reg[2]_0 ),
+        .I2(read_done),
+        .I3(filesystem_state[2]),
+        .I4(filesystem_state[0]),
+        .I5(filesystem_state[1]),
+        .O(\FSM_sequential_filesystem_state_reg[2] ));
+  LUT5 #(
+    .INIT(32'h0004FFFF)) 
+    \FSM_sequential_filesystem_state[2]_i_2 
+       (.I0(\cluster_sector_offset_reg[0] ),
+        .I1(filesystem_state[1]),
+        .I2(filesystem_state[0]),
+        .I3(\filesystem_reg[0]_1 ),
+        .I4(read_done),
+        .O(\FSM_sequential_filesystem_state[2]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair91" *) 
+  LUT5 #(
+    .INIT(32'h02000000)) 
+    \FSM_sequential_filesystem_state[2]_i_4 
+       (.I0(\FSM_onehot_sddat_stat_reg_n_0_[3] ),
+        .I1(Q[0]),
+        .I2(Q[2]),
+        .I3(Q[1]),
+        .I4(Q[3]),
+        .O(read_done));
+  (* SOFT_HLUTNM = "soft_lutpair137" *) 
   LUT2 #(
-    .INIT(4'h2)) 
+    .INIT(4'h7)) 
+    \arg[15]_i_2 
+       (.I0(\card_type_reg[0]_0 ),
+        .I1(\card_type_reg[1]_0 ),
+        .O(\arg[15]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair220" *) 
+  LUT2 #(
+    .INIT(4'hB)) 
     \arg[31]_i_3 
-       (.I0(Q[2]),
-        .I1(Q[3]),
+       (.I0(Q[3]),
+        .I1(Q[2]),
         .O(\arg[31]_i_3_n_0 ));
   LUT2 #(
     .INIT(4'h8)) 
@@ -24519,7 +24426,7 @@ module design_1_top_system_0_1_sd_reader
        (.I0(Q[3]),
         .I1(\rsectoraddr_reg[31]_0 ),
         .O(\arg[8]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair139" *) 
+  (* SOFT_HLUTNM = "soft_lutpair138" *) 
   LUT3 #(
     .INIT(8'h7E)) 
     \arg[9]_i_2 
@@ -24527,13 +24434,23 @@ module design_1_top_system_0_1_sd_reader
         .I1(Q[1]),
         .I2(Q[2]),
         .O(\arg[9]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'h00008A80FFFF0000)) 
+    \arg[9]_i_4 
+       (.I0(\rsectoraddr_reg[31]_0 ),
+        .I1(\arg_reg[31]_0 [0]),
+        .I2(\arg[15]_i_2_n_0 ),
+        .I3(\arg_reg[31]_0 [9]),
+        .I4(Q[2]),
+        .I5(Q[3]),
+        .O(\arg[9]_i_4_n_0 ));
   FDCE #(
     .INIT(1'b0)) 
     \arg_reg[0] 
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_60),
+        .D(u_sdcmd_ctrl_n_76),
         .Q(\arg_reg_n_0_[0] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24541,7 +24458,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_50),
+        .D(u_sdcmd_ctrl_n_66),
         .Q(\arg_reg_n_0_[10] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24549,7 +24466,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_49),
+        .D(u_sdcmd_ctrl_n_65),
         .Q(\arg_reg_n_0_[11] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24557,7 +24474,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_48),
+        .D(u_sdcmd_ctrl_n_64),
         .Q(\arg_reg_n_0_[12] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24565,7 +24482,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_47),
+        .D(u_sdcmd_ctrl_n_63),
         .Q(\arg_reg_n_0_[13] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24573,7 +24490,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_46),
+        .D(u_sdcmd_ctrl_n_62),
         .Q(\arg_reg_n_0_[14] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24581,7 +24498,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_45),
+        .D(u_sdcmd_ctrl_n_61),
         .Q(\arg_reg_n_0_[15] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24589,7 +24506,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_44),
+        .D(u_sdcmd_ctrl_n_60),
         .Q(\arg_reg_n_0_[16] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24597,7 +24514,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_43),
+        .D(u_sdcmd_ctrl_n_59),
         .Q(\arg_reg_n_0_[17] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24605,7 +24522,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_42),
+        .D(u_sdcmd_ctrl_n_58),
         .Q(\arg_reg_n_0_[18] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24613,7 +24530,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_41),
+        .D(u_sdcmd_ctrl_n_57),
         .Q(\arg_reg_n_0_[19] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24621,7 +24538,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_59),
+        .D(u_sdcmd_ctrl_n_75),
         .Q(\arg_reg_n_0_[1] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24629,7 +24546,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_40),
+        .D(u_sdcmd_ctrl_n_56),
         .Q(\arg_reg_n_0_[20] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24637,7 +24554,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_39),
+        .D(u_sdcmd_ctrl_n_55),
         .Q(\arg_reg_n_0_[21] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24645,7 +24562,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_38),
+        .D(u_sdcmd_ctrl_n_54),
         .Q(\arg_reg_n_0_[22] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24653,7 +24570,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_37),
+        .D(u_sdcmd_ctrl_n_53),
         .Q(\arg_reg_n_0_[23] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24661,7 +24578,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_36),
+        .D(u_sdcmd_ctrl_n_52),
         .Q(\arg_reg_n_0_[24] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24669,7 +24586,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_35),
+        .D(u_sdcmd_ctrl_n_51),
         .Q(\arg_reg_n_0_[25] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24677,7 +24594,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_34),
+        .D(u_sdcmd_ctrl_n_50),
         .Q(\arg_reg_n_0_[26] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24685,7 +24602,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_33),
+        .D(u_sdcmd_ctrl_n_49),
         .Q(\arg_reg_n_0_[27] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24693,7 +24610,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_32),
+        .D(u_sdcmd_ctrl_n_48),
         .Q(\arg_reg_n_0_[28] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24701,7 +24618,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_31),
+        .D(u_sdcmd_ctrl_n_47),
         .Q(\arg_reg_n_0_[29] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24709,7 +24626,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_58),
+        .D(u_sdcmd_ctrl_n_74),
         .Q(\arg_reg_n_0_[2] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24717,7 +24634,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_30),
+        .D(u_sdcmd_ctrl_n_46),
         .Q(\arg_reg_n_0_[30] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24725,7 +24642,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_29),
+        .D(u_sdcmd_ctrl_n_45),
         .Q(\arg_reg_n_0_[31] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24733,7 +24650,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_57),
+        .D(u_sdcmd_ctrl_n_73),
         .Q(\arg_reg_n_0_[3] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24741,7 +24658,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_56),
+        .D(u_sdcmd_ctrl_n_72),
         .Q(\arg_reg_n_0_[4] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24749,7 +24666,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_55),
+        .D(u_sdcmd_ctrl_n_71),
         .Q(\arg_reg_n_0_[5] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24757,7 +24674,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_54),
+        .D(u_sdcmd_ctrl_n_70),
         .Q(\arg_reg_n_0_[6] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24765,7 +24682,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_53),
+        .D(u_sdcmd_ctrl_n_69),
         .Q(\arg_reg_n_0_[7] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24773,7 +24690,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_52),
+        .D(u_sdcmd_ctrl_n_68),
         .Q(\arg_reg_n_0_[8] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24781,16 +24698,28 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_51),
+        .D(u_sdcmd_ctrl_n_67),
         .Q(\arg_reg_n_0_[9] ));
-  (* SOFT_HLUTNM = "soft_lutpair138" *) 
+  FDCE \card_type_reg[0] 
+       (.C(clk_sd),
+        .CE(1'b1),
+        .CLR(reset_n_0),
+        .D(u_sdcmd_ctrl_n_14),
+        .Q(\card_type_reg[0]_0 ));
+  FDCE \card_type_reg[1] 
+       (.C(clk_sd),
+        .CE(1'b1),
+        .CLR(reset_n_0),
+        .D(u_sdcmd_ctrl_n_31),
+        .Q(\card_type_reg[1]_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair122" *) 
   LUT4 #(
-    .INIT(16'hFBFF)) 
+    .INIT(16'hFDFF)) 
     \clkdiv[6]_i_2 
-       (.I0(Q[0]),
-        .I1(Q[1]),
-        .I2(Q[3]),
-        .I3(Q[2]),
+       (.I0(Q[2]),
+        .I1(Q[3]),
+        .I2(Q[0]),
+        .I3(Q[1]),
         .O(\clkdiv[6]_i_2_n_0 ));
   FDCE #(
     .INIT(1'b0)) 
@@ -24798,14 +24727,14 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_14),
+        .D(u_sdcmd_ctrl_n_13),
         .Q(clkdiv__0[2]));
   FDPE #(
     .INIT(1'b1)) 
     \clkdiv_reg[6] 
        (.C(clk_sd),
         .CE(1'b1),
-        .D(u_sdcmd_ctrl_n_13),
+        .D(u_sdcmd_ctrl_n_12),
         .PRE(reset_n_0),
         .Q(clkdiv__0[6]));
   LUT3 #(
@@ -24814,31 +24743,31 @@ module design_1_top_system_0_1_sd_reader
        (.I0(filesystem_state[1]),
         .I1(filesystem_state[2]),
         .I2(\cluster_sector_offset[7]_i_3_n_0 ),
-        .O(\filesystem_state_reg[1]_4 ));
+        .O(\FSM_sequential_filesystem_state_reg[1]_3 ));
   LUT6 #(
-    .INIT(64'h00000002AAAAAAAA)) 
+    .INIT(64'h888888888888888A)) 
     \cluster_sector_offset[7]_i_3 
        (.I0(read_done),
-        .I1(\filesystem_reg[1]_0 ),
-        .I2(\cluster_sector_offset_reg[0] ),
-        .I3(\read_sector_no_reg[0] ),
-        .I4(filesystem_state[0]),
-        .I5(\cluster_sector_offset_reg[0]_0 ),
+        .I1(\cluster_sector_offset_reg[0]_0 ),
+        .I2(\read_sector_no_reg[0] ),
+        .I3(filesystem_state[0]),
+        .I4(\filesystem_reg[1]_0 ),
+        .I5(\cluster_sector_offset_reg[0] ),
         .O(\cluster_sector_offset[7]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair158" *) 
+  (* SOFT_HLUTNM = "soft_lutpair157" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \cluster_size[7]_i_1 
        (.I0(\rootdir_sectorcount[11]_i_2_n_0 ),
         .I1(\filesystem_reg[1]_0 ),
-        .O(\filesystem_state_reg[1]_3 ));
+        .O(\FSM_sequential_filesystem_state_reg[1]_2 ));
   FDCE #(
     .INIT(1'b0)) 
     \cmd8_cnt_reg[0] 
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_18),
+        .D(u_sdcmd_ctrl_n_34),
         .Q(cmd8_cnt__0[0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -24846,7 +24775,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_17),
+        .D(u_sdcmd_ctrl_n_33),
         .Q(cmd8_cnt__0[1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -24854,7 +24783,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_16),
+        .D(u_sdcmd_ctrl_n_32),
         .Q(cmd8_cnt__0[2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -24862,7 +24791,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_98),
+        .D(u_sdcmd_ctrl_n_82),
         .Q(cmd[0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -24870,7 +24799,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_97),
+        .D(u_sdcmd_ctrl_n_81),
         .Q(cmd[1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -24878,7 +24807,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_96),
+        .D(u_sdcmd_ctrl_n_80),
         .Q(cmd[2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -24886,7 +24815,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_95),
+        .D(u_sdcmd_ctrl_n_79),
         .Q(cmd[3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -24894,7 +24823,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_94),
+        .D(u_sdcmd_ctrl_n_78),
         .Q(cmd[4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -24902,156 +24831,169 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_93),
+        .D(u_sdcmd_ctrl_n_77),
         .Q(cmd[5]));
   LUT6 #(
-    .INIT(64'h8A888A888A888A8A)) 
+    .INIT(64'h082800200A2A0A2A)) 
     \curr_cluster[31]_i_1 
        (.I0(read_done),
-        .I1(\curr_cluster_reg[0] ),
+        .I1(filesystem_state[1]),
         .I2(filesystem_state[2]),
-        .I3(\curr_cluster_reg[0]_0 ),
-        .I4(\read_sector_no_reg[0] ),
-        .I5(\filesystem_state_reg[1]_6 ),
-        .O(\filesystem_state_reg[2] ));
-  (* SOFT_HLUTNM = "soft_lutpair201" *) 
+        .I3(\curr_cluster_reg[0] ),
+        .I4(\curr_cluster_reg[0]_0 ),
+        .I5(\curr_cluster_reg[0]_1 ),
+        .O(\FSM_sequential_filesystem_state_reg[1]_4 ));
+  (* SOFT_HLUTNM = "soft_lutpair192" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fcluster[0]_i_1 
-       (.I0(\fcluster_reg[15] [0]),
+       (.I0(\file_1st_cluster_reg[15]_0 [0]),
         .I1(fready),
-        .O(\file_1st_cluster_reg[15]_0 [0]));
-  (* SOFT_HLUTNM = "soft_lutpair196" *) 
+        .O(\file_1st_cluster_reg[15] [0]));
+  (* SOFT_HLUTNM = "soft_lutpair187" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fcluster[10]_i_1 
-       (.I0(\fcluster_reg[15] [10]),
+       (.I0(\file_1st_cluster_reg[15]_0 [10]),
         .I1(fready),
-        .O(\file_1st_cluster_reg[15]_0 [10]));
-  (* SOFT_HLUTNM = "soft_lutpair195" *) 
+        .O(\file_1st_cluster_reg[15] [10]));
+  (* SOFT_HLUTNM = "soft_lutpair186" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fcluster[11]_i_1 
-       (.I0(\fcluster_reg[15] [11]),
+       (.I0(\file_1st_cluster_reg[15]_0 [11]),
         .I1(fready),
-        .O(\file_1st_cluster_reg[15]_0 [11]));
-  (* SOFT_HLUTNM = "soft_lutpair195" *) 
+        .O(\file_1st_cluster_reg[15] [11]));
+  (* SOFT_HLUTNM = "soft_lutpair186" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fcluster[12]_i_1 
-       (.I0(\fcluster_reg[15] [12]),
+       (.I0(\file_1st_cluster_reg[15]_0 [12]),
         .I1(fready),
-        .O(\file_1st_cluster_reg[15]_0 [12]));
-  (* SOFT_HLUTNM = "soft_lutpair194" *) 
+        .O(\file_1st_cluster_reg[15] [12]));
+  (* SOFT_HLUTNM = "soft_lutpair185" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fcluster[13]_i_1 
-       (.I0(\fcluster_reg[15] [13]),
+       (.I0(\file_1st_cluster_reg[15]_0 [13]),
         .I1(fready),
-        .O(\file_1st_cluster_reg[15]_0 [13]));
-  (* SOFT_HLUTNM = "soft_lutpair194" *) 
+        .O(\file_1st_cluster_reg[15] [13]));
+  (* SOFT_HLUTNM = "soft_lutpair185" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fcluster[14]_i_1 
-       (.I0(\fcluster_reg[15] [14]),
+       (.I0(\file_1st_cluster_reg[15]_0 [14]),
         .I1(fready),
-        .O(\file_1st_cluster_reg[15]_0 [14]));
-  (* SOFT_HLUTNM = "soft_lutpair193" *) 
+        .O(\file_1st_cluster_reg[15] [14]));
+  (* SOFT_HLUTNM = "soft_lutpair184" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fcluster[15]_i_1 
-       (.I0(\fcluster_reg[15] [15]),
+       (.I0(\file_1st_cluster_reg[15]_0 [15]),
         .I1(fready),
-        .O(\file_1st_cluster_reg[15]_0 [15]));
-  (* SOFT_HLUTNM = "soft_lutpair200" *) 
+        .O(\file_1st_cluster_reg[15] [15]));
+  (* SOFT_HLUTNM = "soft_lutpair191" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fcluster[1]_i_1 
-       (.I0(\fcluster_reg[15] [1]),
+       (.I0(\file_1st_cluster_reg[15]_0 [1]),
         .I1(fready),
-        .O(\file_1st_cluster_reg[15]_0 [1]));
-  (* SOFT_HLUTNM = "soft_lutpair200" *) 
+        .O(\file_1st_cluster_reg[15] [1]));
+  (* SOFT_HLUTNM = "soft_lutpair191" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fcluster[2]_i_1 
-       (.I0(\fcluster_reg[15] [2]),
+       (.I0(\file_1st_cluster_reg[15]_0 [2]),
         .I1(fready),
-        .O(\file_1st_cluster_reg[15]_0 [2]));
-  (* SOFT_HLUTNM = "soft_lutpair199" *) 
+        .O(\file_1st_cluster_reg[15] [2]));
+  (* SOFT_HLUTNM = "soft_lutpair190" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fcluster[3]_i_1 
-       (.I0(\fcluster_reg[15] [3]),
+       (.I0(\file_1st_cluster_reg[15]_0 [3]),
         .I1(fready),
-        .O(\file_1st_cluster_reg[15]_0 [3]));
-  (* SOFT_HLUTNM = "soft_lutpair199" *) 
+        .O(\file_1st_cluster_reg[15] [3]));
+  (* SOFT_HLUTNM = "soft_lutpair190" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fcluster[4]_i_1 
-       (.I0(\fcluster_reg[15] [4]),
+       (.I0(\file_1st_cluster_reg[15]_0 [4]),
         .I1(fready),
-        .O(\file_1st_cluster_reg[15]_0 [4]));
-  (* SOFT_HLUTNM = "soft_lutpair198" *) 
+        .O(\file_1st_cluster_reg[15] [4]));
+  (* SOFT_HLUTNM = "soft_lutpair189" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fcluster[5]_i_1 
-       (.I0(\fcluster_reg[15] [5]),
+       (.I0(\file_1st_cluster_reg[15]_0 [5]),
         .I1(fready),
-        .O(\file_1st_cluster_reg[15]_0 [5]));
-  (* SOFT_HLUTNM = "soft_lutpair198" *) 
+        .O(\file_1st_cluster_reg[15] [5]));
+  (* SOFT_HLUTNM = "soft_lutpair189" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fcluster[6]_i_1 
-       (.I0(\fcluster_reg[15] [6]),
+       (.I0(\file_1st_cluster_reg[15]_0 [6]),
         .I1(fready),
-        .O(\file_1st_cluster_reg[15]_0 [6]));
-  (* SOFT_HLUTNM = "soft_lutpair197" *) 
+        .O(\file_1st_cluster_reg[15] [6]));
+  (* SOFT_HLUTNM = "soft_lutpair188" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fcluster[7]_i_1 
-       (.I0(\fcluster_reg[15] [7]),
+       (.I0(\file_1st_cluster_reg[15]_0 [7]),
         .I1(fready),
-        .O(\file_1st_cluster_reg[15]_0 [7]));
-  (* SOFT_HLUTNM = "soft_lutpair197" *) 
+        .O(\file_1st_cluster_reg[15] [7]));
+  (* SOFT_HLUTNM = "soft_lutpair188" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fcluster[8]_i_1 
-       (.I0(\fcluster_reg[15] [8]),
+       (.I0(\file_1st_cluster_reg[15]_0 [8]),
         .I1(fready),
-        .O(\file_1st_cluster_reg[15]_0 [8]));
-  (* SOFT_HLUTNM = "soft_lutpair196" *) 
+        .O(\file_1st_cluster_reg[15] [8]));
+  (* SOFT_HLUTNM = "soft_lutpair187" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fcluster[9]_i_1 
-       (.I0(\fcluster_reg[15] [9]),
+       (.I0(\file_1st_cluster_reg[15]_0 [9]),
         .I1(fready),
-        .O(\file_1st_cluster_reg[15]_0 [9]));
-  LUT3 #(
-    .INIT(8'h2D)) 
+        .O(\file_1st_cluster_reg[15] [9]));
+  LUT5 #(
+    .INIT(32'h2D22222D)) 
     \fdtnamelen[0]_i_1 
        (.I0(\fdtnamelen_reg[7] [0]),
         .I1(\longno[5]_i_2_n_0 ),
-        .I2(\lastchar[7]_i_2_n_0 ),
-        .O(\fdtnamelen_reg[3] [0]));
-  (* SOFT_HLUTNM = "soft_lutpair84" *) 
-  LUT4 #(
-    .INIT(16'h2122)) 
+        .I2(\lastchar[7]_i_3_n_0 ),
+        .I3(\lastchar[7]_i_2_n_0 ),
+        .I4(raddr[0]),
+        .O(D[0]));
+  LUT6 #(
+    .INIT(64'h2222122122222222)) 
     \fdtnamelen[1]_i_1 
        (.I0(\fdtnamelen_reg[7] [1]),
         .I1(\longno[5]_i_2_n_0 ),
-        .I2(\lastchar[7]_i_2_n_0 ),
-        .I3(\fdtnamelen_reg[7] [0]),
-        .O(\fdtnamelen_reg[3] [1]));
-  (* SOFT_HLUTNM = "soft_lutpair84" *) 
-  LUT5 #(
-    .INIT(32'h00A600AA)) 
+        .I2(raddr[0]),
+        .I3(\lastchar[7]_i_2_n_0 ),
+        .I4(\lastchar[7]_i_3_n_0 ),
+        .I5(\fdtnamelen_reg[7] [0]),
+        .O(D[1]));
+  LUT6 #(
+    .INIT(64'h0000AA6A0000AAAA)) 
     \fdtnamelen[2]_i_1 
        (.I0(\fdtnamelen_reg[7] [2]),
         .I1(\fdtnamelen_reg[7] [1]),
-        .I2(\lastchar[7]_i_2_n_0 ),
-        .I3(\longno[5]_i_2_n_0 ),
-        .I4(\fdtnamelen_reg[7] [0]),
-        .O(\fdtnamelen_reg[3] [2]));
+        .I2(\fdtnamelen[2]_i_2_n_0 ),
+        .I3(\lastchar[7]_i_3_n_0 ),
+        .I4(\longno[5]_i_2_n_0 ),
+        .I5(\fdtnamelen_reg[7] [0]),
+        .O(D[2]));
+  (* SOFT_HLUTNM = "soft_lutpair69" *) 
+  LUT5 #(
+    .INIT(32'h555552AA)) 
+    \fdtnamelen[2]_i_2 
+       (.I0(raddr[0]),
+        .I1(raddr[1]),
+        .I2(raddr[2]),
+        .I3(raddr[3]),
+        .I4(raddr[4]),
+        .O(\fdtnamelen[2]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'h0A0A060A0A0A0A0A)) 
     \fdtnamelen[3]_i_1 
@@ -25059,9 +25001,19 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fdtnamelen_reg[7] [2]),
         .I2(\longno[5]_i_2_n_0 ),
         .I3(\fdtnamelen_reg[7] [0]),
-        .I4(\lastchar[7]_i_2_n_0 ),
+        .I4(\fdtnamelen[3]_i_2_n_0 ),
         .I5(\fdtnamelen_reg[7] [1]),
-        .O(\fdtnamelen_reg[3] [3]));
+        .O(D[3]));
+  LUT6 #(
+    .INIT(64'hFEFEFEEEABFBBBBB)) 
+    \fdtnamelen[3]_i_2 
+       (.I0(longvalid_i_6_n_0),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(raddr[2]),
+        .I4(raddr[1]),
+        .I5(raddr[0]),
+        .O(\fdtnamelen[3]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'h0000AA6A0000AAAA)) 
     \fdtnamelen[4]_i_1 
@@ -25071,14 +25023,14 @@ module design_1_top_system_0_1_sd_reader
         .I3(\fdtnamelen[4]_i_2_n_0 ),
         .I4(\longno[5]_i_2_n_0 ),
         .I5(\fdtnamelen_reg[7] [2]),
-        .O(\fdtnamelen_reg[3] [4]));
+        .O(D[4]));
   LUT6 #(
     .INIT(64'hFFFFFFF6FFFFFFFF)) 
     \fdtnamelen[4]_i_2 
        (.I0(raddr[0]),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(longvalid_i_5_n_0),
-        .I3(longvalid_i_6_n_0),
+        .I1(\lastchar[7]_i_2_n_0 ),
+        .I2(longvalid_i_6_n_0),
+        .I3(longvalid_i_7_n_0),
         .I4(\longno[5]_i_2_n_0 ),
         .I5(\fdtnamelen_reg[7] [0]),
         .O(\fdtnamelen[4]_i_2_n_0 ));
@@ -25091,7 +25043,7 @@ module design_1_top_system_0_1_sd_reader
         .I3(\fdtnamelen_reg[7] [2]),
         .I4(\fdtnamelen[6]_i_2_n_0 ),
         .I5(\fdtnamelen_reg[7] [3]),
-        .O(\fdtnamelen_reg[3] [5]));
+        .O(D[5]));
   LUT6 #(
     .INIT(64'hAA6AAAAAAAAAAAAA)) 
     \fdtnamelen[6]_i_1 
@@ -25101,14 +25053,14 @@ module design_1_top_system_0_1_sd_reader
         .I3(\fdtnamelen[6]_i_2_n_0 ),
         .I4(\fdtnamelen[6]_i_3_n_0 ),
         .I5(\fdtnamelen[7]_i_4_n_0 ),
-        .O(\fdtnamelen_reg[3] [6]));
+        .O(D[6]));
   LUT6 #(
     .INIT(64'hFDFFFFFDFFFFFFFF)) 
     \fdtnamelen[6]_i_2 
        (.I0(B),
-        .I1(longvalid_i_6_n_0),
-        .I2(longvalid_i_5_n_0),
-        .I3(\sdtnamelen[6]_i_2_n_0 ),
+        .I1(longvalid_i_7_n_0),
+        .I2(longvalid_i_6_n_0),
+        .I3(\lastchar[7]_i_2_n_0 ),
         .I4(raddr[0]),
         .I5(\fdtnamelen_reg[7] [1]),
         .O(\fdtnamelen[6]_i_2_n_0 ));
@@ -25131,7 +25083,7 @@ module design_1_top_system_0_1_sd_reader
         .I3(\fdtnamelen[7]_i_5_n_0 ),
         .I4(\fdtnamelen_reg[7] [3]),
         .I5(\fdtnamelen[7]_i_6_n_0 ),
-        .O(\fdtnamelen_reg[3] [7]));
+        .O(D[7]));
   LUT6 #(
     .INIT(64'h00000001FFFFFFFF)) 
     \fdtnamelen[7]_i_2 
@@ -25166,9 +25118,9 @@ module design_1_top_system_0_1_sd_reader
     .INIT(64'hFFF7FFFFFFFFFFFF)) 
     \fdtnamelen[7]_i_5 
        (.I0(\fdtnamelen_reg[7] [1]),
-        .I1(\fdtnamelen[7]_i_7_n_0 ),
-        .I2(longvalid_i_5_n_0),
-        .I3(longvalid_i_6_n_0),
+        .I1(\fdtnamelen[2]_i_2_n_0 ),
+        .I2(longvalid_i_6_n_0),
+        .I3(longvalid_i_7_n_0),
         .I4(B),
         .I5(\fdtnamelen[6]_i_3_n_0 ),
         .O(\fdtnamelen[7]_i_5_n_0 ));
@@ -25182,19 +25134,9 @@ module design_1_top_system_0_1_sd_reader
         .I4(raddr[2]),
         .I5(raddr[1]),
         .O(\fdtnamelen[7]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair83" *) 
-  LUT5 #(
-    .INIT(32'h3333664C)) 
-    \fdtnamelen[7]_i_7 
-       (.I0(raddr[3]),
-        .I1(raddr[0]),
-        .I2(raddr[1]),
-        .I3(raddr[2]),
-        .I4(raddr[4]),
-        .O(\fdtnamelen[7]_i_7_n_0 ));
   LUT6 #(
     .INIT(64'hAAAAAAAAAAAAAAA8)) 
-    \fdtnamelen[7]_i_8 
+    \fdtnamelen[7]_i_7 
        (.I0(\fdtnamelen_reg[7] [0]),
         .I1(raddr[4]),
         .I2(raddr[0]),
@@ -25203,146 +25145,146 @@ module design_1_top_system_0_1_sd_reader
         .I5(raddr[1]),
         .O(B));
   LUT6 #(
-    .INIT(64'hAAAAAAAACAAAAAAA)) 
+    .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_cluster[0]_i_1 
-       (.I0(\fcluster_reg[15] [0]),
-        .I1(\outbyte_reg[7]_0 [0]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(\file_1st_cluster[7]_i_2_n_0 ),
-        .I5(raddr[2]),
-        .O(\file_1st_cluster_reg[15] [0]));
+       (.I0(\outbyte_reg[7]_0 [0]),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(\file_1st_cluster[7]_i_2_n_0 ),
+        .I4(raddr[2]),
+        .I5(\file_1st_cluster_reg[15]_0 [0]),
+        .O(\outbyte_reg[7]_7 [0]));
   LUT6 #(
-    .INIT(64'hAAAAAAAACAAAAAAA)) 
+    .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_cluster[10]_i_1 
-       (.I0(\fcluster_reg[15] [10]),
-        .I1(\outbyte_reg[7]_0 [2]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(fready_i_2_n_0),
-        .I5(raddr[2]),
-        .O(\file_1st_cluster_reg[15] [10]));
+       (.I0(\outbyte_reg[7]_0 [2]),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(fready_i_2_n_0),
+        .I4(raddr[2]),
+        .I5(\file_1st_cluster_reg[15]_0 [10]),
+        .O(\outbyte_reg[7]_7 [10]));
   LUT6 #(
-    .INIT(64'hAAAAAAAACAAAAAAA)) 
+    .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_cluster[11]_i_1 
-       (.I0(\fcluster_reg[15] [11]),
-        .I1(\outbyte_reg[7]_0 [3]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(fready_i_2_n_0),
-        .I5(raddr[2]),
-        .O(\file_1st_cluster_reg[15] [11]));
+       (.I0(\outbyte_reg[7]_0 [3]),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(fready_i_2_n_0),
+        .I4(raddr[2]),
+        .I5(\file_1st_cluster_reg[15]_0 [11]),
+        .O(\outbyte_reg[7]_7 [11]));
   LUT6 #(
-    .INIT(64'hAAAAAAAACAAAAAAA)) 
+    .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_cluster[12]_i_1 
-       (.I0(\fcluster_reg[15] [12]),
-        .I1(\outbyte_reg[7]_0 [4]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(fready_i_2_n_0),
-        .I5(raddr[2]),
-        .O(\file_1st_cluster_reg[15] [12]));
+       (.I0(\outbyte_reg[7]_0 [4]),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(fready_i_2_n_0),
+        .I4(raddr[2]),
+        .I5(\file_1st_cluster_reg[15]_0 [12]),
+        .O(\outbyte_reg[7]_7 [12]));
   LUT6 #(
-    .INIT(64'hAAAAAAAACAAAAAAA)) 
+    .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_cluster[13]_i_1 
-       (.I0(\fcluster_reg[15] [13]),
-        .I1(\outbyte_reg[7]_0 [5]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(fready_i_2_n_0),
-        .I5(raddr[2]),
-        .O(\file_1st_cluster_reg[15] [13]));
+       (.I0(\outbyte_reg[7]_0 [5]),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(fready_i_2_n_0),
+        .I4(raddr[2]),
+        .I5(\file_1st_cluster_reg[15]_0 [13]),
+        .O(\outbyte_reg[7]_7 [13]));
   LUT6 #(
-    .INIT(64'hAAAAAAAACAAAAAAA)) 
+    .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_cluster[14]_i_1 
-       (.I0(\fcluster_reg[15] [14]),
-        .I1(\outbyte_reg[7]_0 [6]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(fready_i_2_n_0),
-        .I5(raddr[2]),
-        .O(\file_1st_cluster_reg[15] [14]));
+       (.I0(\outbyte_reg[7]_0 [6]),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(fready_i_2_n_0),
+        .I4(raddr[2]),
+        .I5(\file_1st_cluster_reg[15]_0 [14]),
+        .O(\outbyte_reg[7]_7 [14]));
   LUT6 #(
-    .INIT(64'hAAAAAAAACAAAAAAA)) 
+    .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_cluster[15]_i_1 
-       (.I0(\fcluster_reg[15] [15]),
-        .I1(\outbyte_reg[7]_0 [7]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(fready_i_2_n_0),
-        .I5(raddr[2]),
-        .O(\file_1st_cluster_reg[15] [15]));
+       (.I0(\outbyte_reg[7]_0 [7]),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(fready_i_2_n_0),
+        .I4(raddr[2]),
+        .I5(\file_1st_cluster_reg[15]_0 [15]),
+        .O(\outbyte_reg[7]_7 [15]));
   LUT6 #(
-    .INIT(64'hAAAAAAAACAAAAAAA)) 
+    .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_cluster[1]_i_1 
-       (.I0(\fcluster_reg[15] [1]),
-        .I1(\outbyte_reg[7]_0 [1]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(\file_1st_cluster[7]_i_2_n_0 ),
-        .I5(raddr[2]),
-        .O(\file_1st_cluster_reg[15] [1]));
+       (.I0(\outbyte_reg[7]_0 [1]),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(\file_1st_cluster[7]_i_2_n_0 ),
+        .I4(raddr[2]),
+        .I5(\file_1st_cluster_reg[15]_0 [1]),
+        .O(\outbyte_reg[7]_7 [1]));
   LUT6 #(
-    .INIT(64'hAAAAAAAACAAAAAAA)) 
+    .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_cluster[2]_i_1 
-       (.I0(\fcluster_reg[15] [2]),
-        .I1(\outbyte_reg[7]_0 [2]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(\file_1st_cluster[7]_i_2_n_0 ),
-        .I5(raddr[2]),
-        .O(\file_1st_cluster_reg[15] [2]));
+       (.I0(\outbyte_reg[7]_0 [2]),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(\file_1st_cluster[7]_i_2_n_0 ),
+        .I4(raddr[2]),
+        .I5(\file_1st_cluster_reg[15]_0 [2]),
+        .O(\outbyte_reg[7]_7 [2]));
   LUT6 #(
-    .INIT(64'hAAAAAAAACAAAAAAA)) 
+    .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_cluster[3]_i_1 
-       (.I0(\fcluster_reg[15] [3]),
-        .I1(\outbyte_reg[7]_0 [3]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(\file_1st_cluster[7]_i_2_n_0 ),
-        .I5(raddr[2]),
-        .O(\file_1st_cluster_reg[15] [3]));
+       (.I0(\outbyte_reg[7]_0 [3]),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(\file_1st_cluster[7]_i_2_n_0 ),
+        .I4(raddr[2]),
+        .I5(\file_1st_cluster_reg[15]_0 [3]),
+        .O(\outbyte_reg[7]_7 [3]));
   LUT6 #(
-    .INIT(64'hAAAAAAAACAAAAAAA)) 
+    .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_cluster[4]_i_1 
-       (.I0(\fcluster_reg[15] [4]),
-        .I1(\outbyte_reg[7]_0 [4]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(\file_1st_cluster[7]_i_2_n_0 ),
-        .I5(raddr[2]),
-        .O(\file_1st_cluster_reg[15] [4]));
+       (.I0(\outbyte_reg[7]_0 [4]),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(\file_1st_cluster[7]_i_2_n_0 ),
+        .I4(raddr[2]),
+        .I5(\file_1st_cluster_reg[15]_0 [4]),
+        .O(\outbyte_reg[7]_7 [4]));
   LUT6 #(
-    .INIT(64'hAAAAAAAACAAAAAAA)) 
+    .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_cluster[5]_i_1 
-       (.I0(\fcluster_reg[15] [5]),
-        .I1(\outbyte_reg[7]_0 [5]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(\file_1st_cluster[7]_i_2_n_0 ),
-        .I5(raddr[2]),
-        .O(\file_1st_cluster_reg[15] [5]));
+       (.I0(\outbyte_reg[7]_0 [5]),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(\file_1st_cluster[7]_i_2_n_0 ),
+        .I4(raddr[2]),
+        .I5(\file_1st_cluster_reg[15]_0 [5]),
+        .O(\outbyte_reg[7]_7 [5]));
   LUT6 #(
-    .INIT(64'hAAAAAAAACAAAAAAA)) 
+    .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_cluster[6]_i_1 
-       (.I0(\fcluster_reg[15] [6]),
-        .I1(\outbyte_reg[7]_0 [6]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(\file_1st_cluster[7]_i_2_n_0 ),
-        .I5(raddr[2]),
-        .O(\file_1st_cluster_reg[15] [6]));
+       (.I0(\outbyte_reg[7]_0 [6]),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(\file_1st_cluster[7]_i_2_n_0 ),
+        .I4(raddr[2]),
+        .I5(\file_1st_cluster_reg[15]_0 [6]),
+        .O(\outbyte_reg[7]_7 [6]));
   LUT6 #(
-    .INIT(64'hAAAAAAAACAAAAAAA)) 
+    .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_cluster[7]_i_1 
-       (.I0(\fcluster_reg[15] [7]),
-        .I1(\outbyte_reg[7]_0 [7]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(\file_1st_cluster[7]_i_2_n_0 ),
-        .I5(raddr[2]),
-        .O(\file_1st_cluster_reg[15] [7]));
-  (* SOFT_HLUTNM = "soft_lutpair182" *) 
+       (.I0(\outbyte_reg[7]_0 [7]),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(\file_1st_cluster[7]_i_2_n_0 ),
+        .I4(raddr[2]),
+        .I5(\file_1st_cluster_reg[15]_0 [7]),
+        .O(\outbyte_reg[7]_7 [7]));
+  (* SOFT_HLUTNM = "soft_lutpair204" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \file_1st_cluster[7]_i_2 
@@ -25350,25 +25292,25 @@ module design_1_top_system_0_1_sd_reader
         .I1(raddr[0]),
         .O(\file_1st_cluster[7]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'hAAAAAAAACAAAAAAA)) 
+    .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_cluster[8]_i_1 
-       (.I0(\fcluster_reg[15] [8]),
-        .I1(\outbyte_reg[7]_0 [0]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(fready_i_2_n_0),
-        .I5(raddr[2]),
-        .O(\file_1st_cluster_reg[15] [8]));
+       (.I0(\outbyte_reg[7]_0 [0]),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(fready_i_2_n_0),
+        .I4(raddr[2]),
+        .I5(\file_1st_cluster_reg[15]_0 [8]),
+        .O(\outbyte_reg[7]_7 [8]));
   LUT6 #(
-    .INIT(64'hAAAAAAAACAAAAAAA)) 
+    .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_cluster[9]_i_1 
-       (.I0(\fcluster_reg[15] [9]),
-        .I1(\outbyte_reg[7]_0 [1]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(fready_i_2_n_0),
-        .I5(raddr[2]),
-        .O(\file_1st_cluster_reg[15] [9]));
+       (.I0(\outbyte_reg[7]_0 [1]),
+        .I1(raddr[4]),
+        .I2(raddr[3]),
+        .I3(fready_i_2_n_0),
+        .I4(raddr[2]),
+        .I5(\file_1st_cluster_reg[15]_0 [9]),
+        .O(\outbyte_reg[7]_7 [9]));
   LUT6 #(
     .INIT(64'hBFFFFFFF80000000)) 
     \file_1st_size[0]_i_1 
@@ -25377,8 +25319,8 @@ module design_1_top_system_0_1_sd_reader
         .I2(raddr[2]),
         .I3(raddr[4]),
         .I4(islong_i_4_n_0),
-        .I5(\file_1st_size_reg[23] [0]),
-        .O(\outbyte_reg[7]_3 [0]));
+        .I5(\fsize_reg[23] [0]),
+        .O(\outbyte_reg[7]_8 [0]));
   LUT6 #(
     .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_size[10]_i_1 
@@ -25386,9 +25328,9 @@ module design_1_top_system_0_1_sd_reader
         .I1(raddr[3]),
         .I2(raddr[2]),
         .I3(raddr[4]),
-        .I4(\sector_content[13][7]_i_2_n_0 ),
-        .I5(\file_1st_size_reg[23] [10]),
-        .O(\outbyte_reg[7]_3 [10]));
+        .I4(\target_cluster[15]_i_3_n_0 ),
+        .I5(\fsize_reg[23] [10]),
+        .O(\outbyte_reg[7]_8 [10]));
   LUT6 #(
     .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_size[11]_i_1 
@@ -25396,9 +25338,9 @@ module design_1_top_system_0_1_sd_reader
         .I1(raddr[3]),
         .I2(raddr[2]),
         .I3(raddr[4]),
-        .I4(\sector_content[13][7]_i_2_n_0 ),
-        .I5(\file_1st_size_reg[23] [11]),
-        .O(\outbyte_reg[7]_3 [11]));
+        .I4(\target_cluster[15]_i_3_n_0 ),
+        .I5(\fsize_reg[23] [11]),
+        .O(\outbyte_reg[7]_8 [11]));
   LUT6 #(
     .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_size[12]_i_1 
@@ -25406,9 +25348,9 @@ module design_1_top_system_0_1_sd_reader
         .I1(raddr[3]),
         .I2(raddr[2]),
         .I3(raddr[4]),
-        .I4(\sector_content[13][7]_i_2_n_0 ),
-        .I5(\file_1st_size_reg[23] [12]),
-        .O(\outbyte_reg[7]_3 [12]));
+        .I4(\target_cluster[15]_i_3_n_0 ),
+        .I5(\fsize_reg[23] [12]),
+        .O(\outbyte_reg[7]_8 [12]));
   LUT6 #(
     .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_size[13]_i_1 
@@ -25416,9 +25358,9 @@ module design_1_top_system_0_1_sd_reader
         .I1(raddr[3]),
         .I2(raddr[2]),
         .I3(raddr[4]),
-        .I4(\sector_content[13][7]_i_2_n_0 ),
-        .I5(\file_1st_size_reg[23] [13]),
-        .O(\outbyte_reg[7]_3 [13]));
+        .I4(\target_cluster[15]_i_3_n_0 ),
+        .I5(\fsize_reg[23] [13]),
+        .O(\outbyte_reg[7]_8 [13]));
   LUT6 #(
     .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_size[14]_i_1 
@@ -25426,9 +25368,9 @@ module design_1_top_system_0_1_sd_reader
         .I1(raddr[3]),
         .I2(raddr[2]),
         .I3(raddr[4]),
-        .I4(\sector_content[13][7]_i_2_n_0 ),
-        .I5(\file_1st_size_reg[23] [14]),
-        .O(\outbyte_reg[7]_3 [14]));
+        .I4(\target_cluster[15]_i_3_n_0 ),
+        .I5(\fsize_reg[23] [14]),
+        .O(\outbyte_reg[7]_8 [14]));
   LUT6 #(
     .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_size[15]_i_1 
@@ -25436,9 +25378,9 @@ module design_1_top_system_0_1_sd_reader
         .I1(raddr[3]),
         .I2(raddr[2]),
         .I3(raddr[4]),
-        .I4(\sector_content[13][7]_i_2_n_0 ),
-        .I5(\file_1st_size_reg[23] [15]),
-        .O(\outbyte_reg[7]_3 [15]));
+        .I4(\target_cluster[15]_i_3_n_0 ),
+        .I5(\fsize_reg[23] [15]),
+        .O(\outbyte_reg[7]_8 [15]));
   LUT6 #(
     .INIT(64'hBFFFFFFF80000000)) 
     \file_1st_size[16]_i_1 
@@ -25447,8 +25389,8 @@ module design_1_top_system_0_1_sd_reader
         .I2(raddr[2]),
         .I3(raddr[4]),
         .I4(\file_1st_cluster[7]_i_2_n_0 ),
-        .I5(\file_1st_size_reg[23] [16]),
-        .O(\outbyte_reg[7]_3 [16]));
+        .I5(\fsize_reg[23] [16]),
+        .O(\outbyte_reg[7]_8 [16]));
   LUT6 #(
     .INIT(64'hBFFFFFFF80000000)) 
     \file_1st_size[17]_i_1 
@@ -25457,8 +25399,8 @@ module design_1_top_system_0_1_sd_reader
         .I2(raddr[2]),
         .I3(raddr[4]),
         .I4(\file_1st_cluster[7]_i_2_n_0 ),
-        .I5(\file_1st_size_reg[23] [17]),
-        .O(\outbyte_reg[7]_3 [17]));
+        .I5(\fsize_reg[23] [17]),
+        .O(\outbyte_reg[7]_8 [17]));
   LUT6 #(
     .INIT(64'hBFFFFFFF80000000)) 
     \file_1st_size[18]_i_1 
@@ -25467,8 +25409,8 @@ module design_1_top_system_0_1_sd_reader
         .I2(raddr[2]),
         .I3(raddr[4]),
         .I4(\file_1st_cluster[7]_i_2_n_0 ),
-        .I5(\file_1st_size_reg[23] [18]),
-        .O(\outbyte_reg[7]_3 [18]));
+        .I5(\fsize_reg[23] [18]),
+        .O(\outbyte_reg[7]_8 [18]));
   LUT6 #(
     .INIT(64'hBFFFFFFF80000000)) 
     \file_1st_size[19]_i_1 
@@ -25477,8 +25419,8 @@ module design_1_top_system_0_1_sd_reader
         .I2(raddr[2]),
         .I3(raddr[4]),
         .I4(\file_1st_cluster[7]_i_2_n_0 ),
-        .I5(\file_1st_size_reg[23] [19]),
-        .O(\outbyte_reg[7]_3 [19]));
+        .I5(\fsize_reg[23] [19]),
+        .O(\outbyte_reg[7]_8 [19]));
   LUT6 #(
     .INIT(64'hBFFFFFFF80000000)) 
     \file_1st_size[1]_i_1 
@@ -25487,8 +25429,8 @@ module design_1_top_system_0_1_sd_reader
         .I2(raddr[2]),
         .I3(raddr[4]),
         .I4(islong_i_4_n_0),
-        .I5(\file_1st_size_reg[23] [1]),
-        .O(\outbyte_reg[7]_3 [1]));
+        .I5(\fsize_reg[23] [1]),
+        .O(\outbyte_reg[7]_8 [1]));
   LUT6 #(
     .INIT(64'hBFFFFFFF80000000)) 
     \file_1st_size[20]_i_1 
@@ -25497,8 +25439,8 @@ module design_1_top_system_0_1_sd_reader
         .I2(raddr[2]),
         .I3(raddr[4]),
         .I4(\file_1st_cluster[7]_i_2_n_0 ),
-        .I5(\file_1st_size_reg[23] [20]),
-        .O(\outbyte_reg[7]_3 [20]));
+        .I5(\fsize_reg[23] [20]),
+        .O(\outbyte_reg[7]_8 [20]));
   LUT6 #(
     .INIT(64'hBFFFFFFF80000000)) 
     \file_1st_size[21]_i_1 
@@ -25507,8 +25449,8 @@ module design_1_top_system_0_1_sd_reader
         .I2(raddr[2]),
         .I3(raddr[4]),
         .I4(\file_1st_cluster[7]_i_2_n_0 ),
-        .I5(\file_1st_size_reg[23] [21]),
-        .O(\outbyte_reg[7]_3 [21]));
+        .I5(\fsize_reg[23] [21]),
+        .O(\outbyte_reg[7]_8 [21]));
   LUT6 #(
     .INIT(64'hBFFFFFFF80000000)) 
     \file_1st_size[22]_i_1 
@@ -25517,8 +25459,8 @@ module design_1_top_system_0_1_sd_reader
         .I2(raddr[2]),
         .I3(raddr[4]),
         .I4(\file_1st_cluster[7]_i_2_n_0 ),
-        .I5(\file_1st_size_reg[23] [22]),
-        .O(\outbyte_reg[7]_3 [22]));
+        .I5(\fsize_reg[23] [22]),
+        .O(\outbyte_reg[7]_8 [22]));
   LUT6 #(
     .INIT(64'hBFFFFFFF80000000)) 
     \file_1st_size[23]_i_1 
@@ -25527,8 +25469,8 @@ module design_1_top_system_0_1_sd_reader
         .I2(raddr[2]),
         .I3(raddr[4]),
         .I4(\file_1st_cluster[7]_i_2_n_0 ),
-        .I5(\file_1st_size_reg[23] [23]),
-        .O(\outbyte_reg[7]_3 [23]));
+        .I5(\fsize_reg[23] [23]),
+        .O(\outbyte_reg[7]_8 [23]));
   LUT6 #(
     .INIT(64'hBFFFFFFF80000000)) 
     \file_1st_size[2]_i_1 
@@ -25537,8 +25479,8 @@ module design_1_top_system_0_1_sd_reader
         .I2(raddr[2]),
         .I3(raddr[4]),
         .I4(islong_i_4_n_0),
-        .I5(\file_1st_size_reg[23] [2]),
-        .O(\outbyte_reg[7]_3 [2]));
+        .I5(\fsize_reg[23] [2]),
+        .O(\outbyte_reg[7]_8 [2]));
   LUT6 #(
     .INIT(64'hBFFFFFFF80000000)) 
     \file_1st_size[3]_i_1 
@@ -25547,8 +25489,8 @@ module design_1_top_system_0_1_sd_reader
         .I2(raddr[2]),
         .I3(raddr[4]),
         .I4(islong_i_4_n_0),
-        .I5(\file_1st_size_reg[23] [3]),
-        .O(\outbyte_reg[7]_3 [3]));
+        .I5(\fsize_reg[23] [3]),
+        .O(\outbyte_reg[7]_8 [3]));
   LUT6 #(
     .INIT(64'hBFFFFFFF80000000)) 
     \file_1st_size[4]_i_1 
@@ -25557,8 +25499,8 @@ module design_1_top_system_0_1_sd_reader
         .I2(raddr[2]),
         .I3(raddr[4]),
         .I4(islong_i_4_n_0),
-        .I5(\file_1st_size_reg[23] [4]),
-        .O(\outbyte_reg[7]_3 [4]));
+        .I5(\fsize_reg[23] [4]),
+        .O(\outbyte_reg[7]_8 [4]));
   LUT6 #(
     .INIT(64'hBFFFFFFF80000000)) 
     \file_1st_size[5]_i_1 
@@ -25567,8 +25509,8 @@ module design_1_top_system_0_1_sd_reader
         .I2(raddr[2]),
         .I3(raddr[4]),
         .I4(islong_i_4_n_0),
-        .I5(\file_1st_size_reg[23] [5]),
-        .O(\outbyte_reg[7]_3 [5]));
+        .I5(\fsize_reg[23] [5]),
+        .O(\outbyte_reg[7]_8 [5]));
   LUT6 #(
     .INIT(64'hBFFFFFFF80000000)) 
     \file_1st_size[6]_i_1 
@@ -25577,8 +25519,8 @@ module design_1_top_system_0_1_sd_reader
         .I2(raddr[2]),
         .I3(raddr[4]),
         .I4(islong_i_4_n_0),
-        .I5(\file_1st_size_reg[23] [6]),
-        .O(\outbyte_reg[7]_3 [6]));
+        .I5(\fsize_reg[23] [6]),
+        .O(\outbyte_reg[7]_8 [6]));
   LUT6 #(
     .INIT(64'hBFFFFFFF80000000)) 
     \file_1st_size[7]_i_1 
@@ -25587,8 +25529,8 @@ module design_1_top_system_0_1_sd_reader
         .I2(raddr[2]),
         .I3(raddr[4]),
         .I4(islong_i_4_n_0),
-        .I5(\file_1st_size_reg[23] [7]),
-        .O(\outbyte_reg[7]_3 [7]));
+        .I5(\fsize_reg[23] [7]),
+        .O(\outbyte_reg[7]_8 [7]));
   LUT6 #(
     .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_size[8]_i_1 
@@ -25596,9 +25538,9 @@ module design_1_top_system_0_1_sd_reader
         .I1(raddr[3]),
         .I2(raddr[2]),
         .I3(raddr[4]),
-        .I4(\sector_content[13][7]_i_2_n_0 ),
-        .I5(\file_1st_size_reg[23] [8]),
-        .O(\outbyte_reg[7]_3 [8]));
+        .I4(\target_cluster[15]_i_3_n_0 ),
+        .I5(\fsize_reg[23] [8]),
+        .O(\outbyte_reg[7]_8 [8]));
   LUT6 #(
     .INIT(64'hFFFFBFFF00008000)) 
     \file_1st_size[9]_i_1 
@@ -25606,2232 +25548,2177 @@ module design_1_top_system_0_1_sd_reader
         .I1(raddr[3]),
         .I2(raddr[2]),
         .I3(raddr[4]),
-        .I4(\sector_content[13][7]_i_2_n_0 ),
-        .I5(\file_1st_size_reg[23] [9]),
-        .O(\outbyte_reg[7]_3 [9]));
-  LUT4 #(
-    .INIT(16'h7F44)) 
-    \file_name[0][0]_i_1 
-       (.I0(\file_name[0][0]_i_2_n_0 ),
-        .I1(\outaddr_reg[0]_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\file_name_reg[0][7]_0 [0]),
-        .O(\lastchar_reg[7] [0]));
-  LUT6 #(
-    .INIT(64'h2022AAAAA8AAAAAA)) 
-    \file_name[0][0]_i_2 
-       (.I0(\file_name[0][0]_i_3_n_0 ),
-        .I1(\file_name[0][5]_i_3_n_0 ),
-        .I2(\file_name[0][5]_i_2_n_0 ),
-        .I3(\file_name_reg[0][7]_0 [0]),
-        .I4(\sdtnamelen[7]_i_8_n_0 ),
-        .I5(\outbyte_reg[7]_0 [0]),
-        .O(\file_name[0][0]_i_2_n_0 ));
-  LUT5 #(
-    .INIT(32'hFDFDFCFF)) 
-    \file_name[0][0]_i_3 
-       (.I0(\outbyte_reg[7]_0 [0]),
-        .I1(raddr[3]),
-        .I2(raddr[4]),
-        .I3(\file_name_reg[0][7]_0 [0]),
-        .I4(\file_name[0][7]_i_9_n_0 ),
-        .O(\file_name[0][0]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'hFF0FFFFFFF0E0000)) 
-    \file_name[0][1]_i_1 
-       (.I0(\file_name[0][5]_i_2_n_0 ),
-        .I1(\file_name[0][5]_i_3_n_0 ),
-        .I2(\file_name[0][1]_i_2_n_0 ),
-        .I3(\file_name[0][1]_i_3_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [1]),
-        .O(\lastchar_reg[7] [1]));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFF4FFFF)) 
-    \file_name[0][1]_i_2 
-       (.I0(\outbyte_reg[7]_0 [1]),
-        .I1(\file_name[0][5]_i_3_n_0 ),
-        .I2(fready_i_2_n_0),
-        .I3(raddr[4]),
-        .I4(raddr[3]),
-        .I5(raddr[2]),
-        .O(\file_name[0][1]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h1101FFFF10001000)) 
-    \file_name[0][1]_i_3 
-       (.I0(raddr[4]),
-        .I1(raddr[3]),
-        .I2(\file_name[0][7]_i_9_n_0 ),
-        .I3(\outbyte_reg[7]_0 [1]),
-        .I4(\sdtnamelen[6]_i_2_n_0 ),
-        .I5(\file_name_reg[0][7]_0 [1]),
-        .O(\file_name[0][1]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'hFF0FFFFFFF0E0000)) 
-    \file_name[0][2]_i_1 
-       (.I0(\file_name[0][5]_i_2_n_0 ),
-        .I1(\file_name[0][5]_i_3_n_0 ),
-        .I2(\file_name[0][2]_i_2_n_0 ),
-        .I3(\file_name[0][2]_i_3_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [2]),
-        .O(\lastchar_reg[7] [2]));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFF4FFFF)) 
-    \file_name[0][2]_i_2 
-       (.I0(\outbyte_reg[7]_0 [2]),
-        .I1(\file_name[0][5]_i_3_n_0 ),
-        .I2(fready_i_2_n_0),
-        .I3(raddr[4]),
-        .I4(raddr[3]),
-        .I5(raddr[2]),
-        .O(\file_name[0][2]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h555555DF000000C0)) 
-    \file_name[0][2]_i_3 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(\outbyte_reg[7]_0 [2]),
-        .I2(\file_name[0][7]_i_9_n_0 ),
-        .I3(raddr[3]),
-        .I4(raddr[4]),
-        .I5(\file_name_reg[0][7]_0 [2]),
-        .O(\file_name[0][2]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'hFF0FFFFFFF0E0000)) 
-    \file_name[0][3]_i_1 
-       (.I0(\file_name[0][5]_i_2_n_0 ),
-        .I1(\file_name[0][5]_i_3_n_0 ),
-        .I2(\file_name[0][3]_i_2_n_0 ),
-        .I3(\file_name[0][3]_i_3_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [3]),
-        .O(\lastchar_reg[7] [3]));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFF4FFFF)) 
-    \file_name[0][3]_i_2 
-       (.I0(\outbyte_reg[7]_0 [3]),
-        .I1(\file_name[0][5]_i_3_n_0 ),
-        .I2(fready_i_2_n_0),
-        .I3(raddr[4]),
-        .I4(raddr[3]),
-        .I5(raddr[2]),
-        .O(\file_name[0][3]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h555555DF000000C0)) 
-    \file_name[0][3]_i_3 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(\outbyte_reg[7]_0 [3]),
-        .I2(\file_name[0][7]_i_9_n_0 ),
-        .I3(raddr[3]),
-        .I4(raddr[4]),
-        .I5(\file_name_reg[0][7]_0 [3]),
-        .O(\file_name[0][3]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair172" *) 
+        .I4(\target_cluster[15]_i_3_n_0 ),
+        .I5(\fsize_reg[23] [9]),
+        .O(\outbyte_reg[7]_8 [9]));
   LUT3 #(
     .INIT(8'hB8)) 
-    \file_name[0][4]_i_1 
-       (.I0(\file_name[0][4]_i_2_n_0 ),
-        .I1(\outaddr_reg[0]_0 ),
-        .I2(\file_name_reg[0][7]_0 [4]),
-        .O(\lastchar_reg[7] [4]));
+    \file_name[0][0]_i_1 
+       (.I0(\file_name_reg[0][7]_0 [0]),
+        .I1(isshort_i_2_n_0),
+        .I2(\file_name[0][0]_i_2_n_0 ),
+        .O(\lastchar_reg[7] [0]));
   LUT6 #(
-    .INIT(64'hFFFFFFFF8B880000)) 
-    \file_name[0][4]_i_2 
-       (.I0(\outbyte_reg[7]_0 [4]),
-        .I1(\file_name[0][5]_i_3_n_0 ),
-        .I2(\file_name[0][5]_i_2_n_0 ),
-        .I3(\file_name_reg[0][7]_0 [4]),
-        .I4(\sdtnamelen[7]_i_8_n_0 ),
-        .I5(\file_name[0][4]_i_3_n_0 ),
-        .O(\file_name[0][4]_i_2_n_0 ));
+    .INIT(64'hFFFFFFFF4F400000)) 
+    \file_name[0][0]_i_2 
+       (.I0(\file_name[0][7]_i_5_n_0 ),
+        .I1(\file_name_reg[0][7]_0 [0]),
+        .I2(\file_name[0][7]_i_6_n_0 ),
+        .I3(\outbyte_reg[7]_0 [0]),
+        .I4(\sdtnamelen[6]_i_3_n_0 ),
+        .I5(\file_name[0][0]_i_3_n_0 ),
+        .O(\file_name[0][0]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h555555DF000000C0)) 
-    \file_name[0][4]_i_3 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(\outbyte_reg[7]_0 [4]),
-        .I2(\file_name[0][7]_i_9_n_0 ),
+    .INIT(64'h505050FC50505070)) 
+    \file_name[0][0]_i_3 
+       (.I0(\lastchar[7]_i_2_n_0 ),
+        .I1(\file_name[0][7]_i_7_n_0 ),
+        .I2(\file_name_reg[0][7]_0 [0]),
         .I3(raddr[4]),
         .I4(raddr[3]),
-        .I5(\file_name_reg[0][7]_0 [4]),
+        .I5(\outbyte_reg[7]_0 [0]),
+        .O(\file_name[0][0]_i_3_n_0 ));
+  LUT5 #(
+    .INIT(32'hF5F5B0B1)) 
+    \file_name[0][1]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[0][1]_i_2_n_0 ),
+        .I2(\file_name_reg[0][7]_0 [1]),
+        .I3(\file_name[0][5]_i_4_n_0 ),
+        .I4(\file_name[0][1]_i_3_n_0 ),
+        .O(\lastchar_reg[7] [1]));
+  (* SOFT_HLUTNM = "soft_lutpair140" *) 
+  LUT3 #(
+    .INIT(8'h1F)) 
+    \file_name[0][1]_i_2 
+       (.I0(\file_name[0][7]_i_6_n_0 ),
+        .I1(\outbyte_reg[7]_0 [1]),
+        .I2(\sdtnamelen[6]_i_3_n_0 ),
+        .O(\file_name[0][1]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'h505050FC50505070)) 
+    \file_name[0][1]_i_3 
+       (.I0(\lastchar[7]_i_2_n_0 ),
+        .I1(\file_name[0][7]_i_7_n_0 ),
+        .I2(\file_name_reg[0][7]_0 [1]),
+        .I3(raddr[4]),
+        .I4(raddr[3]),
+        .I5(\outbyte_reg[7]_0 [1]),
+        .O(\file_name[0][1]_i_3_n_0 ));
+  LUT5 #(
+    .INIT(32'hF5F5B0B1)) 
+    \file_name[0][2]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[0][2]_i_2_n_0 ),
+        .I2(\file_name_reg[0][7]_0 [2]),
+        .I3(\file_name[0][5]_i_4_n_0 ),
+        .I4(\file_name[0][2]_i_3_n_0 ),
+        .O(\lastchar_reg[7] [2]));
+  (* SOFT_HLUTNM = "soft_lutpair140" *) 
+  LUT3 #(
+    .INIT(8'h1F)) 
+    \file_name[0][2]_i_2 
+       (.I0(\file_name[0][7]_i_6_n_0 ),
+        .I1(\outbyte_reg[7]_0 [2]),
+        .I2(\sdtnamelen[6]_i_3_n_0 ),
+        .O(\file_name[0][2]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'h505050FC50505070)) 
+    \file_name[0][2]_i_3 
+       (.I0(\lastchar[7]_i_2_n_0 ),
+        .I1(\file_name[0][7]_i_7_n_0 ),
+        .I2(\file_name_reg[0][7]_0 [2]),
+        .I3(raddr[4]),
+        .I4(raddr[3]),
+        .I5(\outbyte_reg[7]_0 [2]),
+        .O(\file_name[0][2]_i_3_n_0 ));
+  LUT5 #(
+    .INIT(32'hF5F5B0B1)) 
+    \file_name[0][3]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[0][3]_i_2_n_0 ),
+        .I2(\file_name_reg[0][7]_0 [3]),
+        .I3(\file_name[0][5]_i_4_n_0 ),
+        .I4(\file_name[0][3]_i_3_n_0 ),
+        .O(\lastchar_reg[7] [3]));
+  (* SOFT_HLUTNM = "soft_lutpair139" *) 
+  LUT3 #(
+    .INIT(8'h1F)) 
+    \file_name[0][3]_i_2 
+       (.I0(\file_name[0][7]_i_6_n_0 ),
+        .I1(\outbyte_reg[7]_0 [3]),
+        .I2(\sdtnamelen[6]_i_3_n_0 ),
+        .O(\file_name[0][3]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'h505050FC50505070)) 
+    \file_name[0][3]_i_3 
+       (.I0(\lastchar[7]_i_2_n_0 ),
+        .I1(\file_name[0][7]_i_7_n_0 ),
+        .I2(\file_name_reg[0][7]_0 [3]),
+        .I3(raddr[4]),
+        .I4(raddr[3]),
+        .I5(\outbyte_reg[7]_0 [3]),
+        .O(\file_name[0][3]_i_3_n_0 ));
+  LUT4 #(
+    .INIT(16'hF705)) 
+    \file_name[0][4]_i_1 
+       (.I0(\file_name[0][4]_i_2_n_0 ),
+        .I1(\lastchar[7]_i_2_n_0 ),
+        .I2(isshort_i_2_n_0),
+        .I3(\file_name_reg[0][7]_0 [4]),
+        .O(\lastchar_reg[7] [4]));
+  LUT6 #(
+    .INIT(64'hA200AAAAA2AAAAAA)) 
+    \file_name[0][4]_i_2 
+       (.I0(\file_name[0][4]_i_3_n_0 ),
+        .I1(\file_name_reg[0][7]_0 [4]),
+        .I2(\file_name[0][7]_i_5_n_0 ),
+        .I3(\file_name[0][7]_i_6_n_0 ),
+        .I4(\sdtnamelen[6]_i_3_n_0 ),
+        .I5(\outbyte_reg[7]_0 [4]),
+        .O(\file_name[0][4]_i_2_n_0 ));
+  LUT5 #(
+    .INIT(32'hFDFDFCFF)) 
+    \file_name[0][4]_i_3 
+       (.I0(\outbyte_reg[7]_0 [4]),
+        .I1(raddr[3]),
+        .I2(raddr[4]),
+        .I3(\file_name_reg[0][7]_0 [4]),
+        .I4(\file_name[0][7]_i_7_n_0 ),
         .O(\file_name[0][4]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hFF0FFFFFFF0E0000)) 
+    .INIT(64'hFFFF77FF00005757)) 
     \file_name[0][5]_i_1 
        (.I0(\file_name[0][5]_i_2_n_0 ),
         .I1(\file_name[0][5]_i_3_n_0 ),
         .I2(\file_name[0][5]_i_4_n_0 ),
-        .I3(\file_name[0][5]_i_5_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[8][5] ),
+        .I3(\lastchar[7]_i_2_n_0 ),
+        .I4(isshort_i_2_n_0),
+        .I5(\file_name_reg[0][5] ),
         .O(\lastchar_reg[7] [5]));
-  LUT6 #(
-    .INIT(64'h8800880800000000)) 
+  LUT5 #(
+    .INIT(32'hFCFDFFFD)) 
     \file_name[0][5]_i_2 
-       (.I0(\sector_content[456][7]_i_2_n_0 ),
-        .I1(\file_name[6][5]_i_4_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [2]),
-        .I3(\longno[5]_i_2_n_0 ),
-        .I4(\file_namelen_reg[7]_0 [1]),
-        .I5(\file_name[6][5]_i_3_n_0 ),
+       (.I0(\file_name_reg[0][5] ),
+        .I1(raddr[3]),
+        .I2(raddr[4]),
+        .I3(\file_name[0][7]_i_7_n_0 ),
+        .I4(\outbyte_reg[7]_0 [5]),
         .O(\file_name[0][5]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000000100000)) 
-    \file_name[0][5]_i_3 
-       (.I0(\file_name[8][7]_i_11_n_0 ),
-        .I1(\file_name[8][7]_i_12_n_0 ),
-        .I2(\sdtnamelen[4]_i_7_n_0 ),
-        .I3(islongok_i_3_n_0),
-        .I4(\file_name[8][7]_i_13_n_0 ),
-        .I5(\file_name[6][7]_i_10_n_0 ),
-        .O(\file_name[0][5]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFF4FFFF)) 
-    \file_name[0][5]_i_4 
-       (.I0(\outbyte_reg[7]_0 [5]),
-        .I1(\file_name[0][5]_i_3_n_0 ),
-        .I2(fready_i_2_n_0),
-        .I3(raddr[4]),
-        .I4(raddr[3]),
-        .I5(raddr[2]),
-        .O(\file_name[0][5]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'h555555DF000000C0)) 
-    \file_name[0][5]_i_5 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(\outbyte_reg[7]_0 [5]),
-        .I2(\file_name[0][7]_i_9_n_0 ),
-        .I3(raddr[4]),
-        .I4(raddr[3]),
-        .I5(\file_name_reg[8][5] ),
-        .O(\file_name[0][5]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair172" *) 
+  (* SOFT_HLUTNM = "soft_lutpair139" *) 
   LUT3 #(
-    .INIT(8'hB8)) 
+    .INIT(8'h1F)) 
+    \file_name[0][5]_i_3 
+       (.I0(\file_name[0][7]_i_6_n_0 ),
+        .I1(\outbyte_reg[7]_0 [5]),
+        .I2(\sdtnamelen[6]_i_3_n_0 ),
+        .O(\file_name[0][5]_i_3_n_0 ));
+  LUT2 #(
+    .INIT(4'h2)) 
+    \file_name[0][5]_i_4 
+       (.I0(\file_name[0][7]_i_6_n_0 ),
+        .I1(\file_name[0][7]_i_5_n_0 ),
+        .O(\file_name[0][5]_i_4_n_0 ));
+  LUT4 #(
+    .INIT(16'hF705)) 
     \file_name[0][6]_i_1 
        (.I0(\file_name[0][6]_i_2_n_0 ),
-        .I1(\outaddr_reg[0]_0 ),
-        .I2(\file_name_reg[0][7]_0 [6]),
+        .I1(\lastchar[7]_i_2_n_0 ),
+        .I2(isshort_i_2_n_0),
+        .I3(\file_name_reg[0][7]_0 [6]),
         .O(\lastchar_reg[7] [6]));
   LUT6 #(
-    .INIT(64'hFFFFFFFF8B880000)) 
+    .INIT(64'hA200AAAAA2AAAAAA)) 
     \file_name[0][6]_i_2 
-       (.I0(\outbyte_reg[7]_0 [6]),
-        .I1(\file_name[0][5]_i_3_n_0 ),
-        .I2(\file_name[0][5]_i_2_n_0 ),
-        .I3(\file_name_reg[0][7]_0 [6]),
-        .I4(\sdtnamelen[7]_i_8_n_0 ),
-        .I5(\file_name[0][6]_i_3_n_0 ),
+       (.I0(\file_name[0][6]_i_3_n_0 ),
+        .I1(\file_name_reg[0][7]_0 [6]),
+        .I2(\file_name[0][7]_i_5_n_0 ),
+        .I3(\file_name[0][7]_i_6_n_0 ),
+        .I4(\sdtnamelen[6]_i_3_n_0 ),
+        .I5(\outbyte_reg[7]_0 [6]),
         .O(\file_name[0][6]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h555555DF000000C0)) 
+  LUT5 #(
+    .INIT(32'hFDFDFCFF)) 
     \file_name[0][6]_i_3 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(\outbyte_reg[7]_0 [6]),
-        .I2(\file_name[0][7]_i_9_n_0 ),
-        .I3(raddr[4]),
-        .I4(raddr[3]),
-        .I5(\file_name_reg[0][7]_0 [6]),
+       (.I0(\outbyte_reg[7]_0 [6]),
+        .I1(raddr[3]),
+        .I2(raddr[4]),
+        .I3(\file_name_reg[0][7]_0 [6]),
+        .I4(\file_name[0][7]_i_7_n_0 ),
         .O(\file_name[0][6]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h00000002AAAAAAAA)) 
+  LUT5 #(
+    .INIT(32'h0002AAAA)) 
     \file_name[0][7]_i_1 
        (.I0(fready152_out),
-        .I1(\file_name[6][7]_i_4_n_0 ),
-        .I2(\file_name[4][7]_i_3_n_0 ),
+        .I1(\file_namelen_reg[3]_i_2_n_6 ),
+        .I2(\file_namelen_reg[3]_i_2_n_7 ),
         .I3(\file_name[3][7]_i_3_n_0 ),
         .I4(\file_name[0][7]_i_3_n_0 ),
-        .I5(\file_name[0][7]_i_4_n_0 ),
-        .O(outen_reg_7));
-  LUT6 #(
-    .INIT(64'h555555DF000000C0)) 
-    \file_name[0][7]_i_10 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(\outbyte_reg[7]_0 [7]),
-        .I2(\file_name[0][7]_i_9_n_0 ),
-        .I3(raddr[4]),
-        .I4(raddr[3]),
-        .I5(\file_name_reg[0][7]_0 [7]),
-        .O(\file_name[0][7]_i_10_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair134" *) 
+        .O(outen_reg_3));
   LUT4 #(
-    .INIT(16'h7FFF)) 
-    \file_name[0][7]_i_11 
-       (.I0(\outbyte_reg[7]_0 [5]),
-        .I1(\outbyte_reg[7]_0 [7]),
-        .I2(\file_name_reg[0][7]_0 [0]),
-        .I3(\file_name_reg[0][7]_0 [1]),
-        .O(\file_name[0][7]_i_11_n_0 ));
-  LUT3 #(
-    .INIT(8'hB8)) 
+    .INIT(16'hF705)) 
     \file_name[0][7]_i_2 
-       (.I0(\file_name[0][7]_i_5_n_0 ),
-        .I1(\outaddr_reg[0]_0 ),
-        .I2(\file_name_reg[0][7]_0 [7]),
+       (.I0(\file_name[0][7]_i_4_n_0 ),
+        .I1(\lastchar[7]_i_2_n_0 ),
+        .I2(isshort_i_2_n_0),
+        .I3(\file_name_reg[0][7]_0 [7]),
         .O(\lastchar_reg[7] [7]));
   LUT6 #(
-    .INIT(64'hFFFF0008FFFFFFFF)) 
+    .INIT(64'hFFFFFFFF0075FF75)) 
     \file_name[0][7]_i_3 
-       (.I0(\outbyte_reg[7]_0 [6]),
-        .I1(\file_name_reg[0][0] ),
-        .I2(\file_name[0][7]_i_7_n_0 ),
-        .I3(\file_name[0][7]_i_8_n_0 ),
-        .I4(\file_namelen[7]_i_4_n_0 ),
-        .I5(longvalid_i_8_n_0),
+       (.I0(\lastchar[7]_i_2_n_0 ),
+        .I1(\file_name[0][7]_i_5_n_0 ),
+        .I2(\file_name[0][7]_i_6_n_0 ),
+        .I3(\sdtnamelen[0]_i_3_n_0 ),
+        .I4(\file_name[0][7]_i_7_n_0 ),
+        .I5(isshort_i_2_n_0),
         .O(\file_name[0][7]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'h00FF57FFFFFF57FF)) 
+    .INIT(64'hA200AAAAA2AAAAAA)) 
     \file_name[0][7]_i_4 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(\file_name[0][5]_i_3_n_0 ),
-        .I2(\file_name[0][5]_i_2_n_0 ),
-        .I3(\outaddr_reg[0]_0 ),
-        .I4(\sdtnamelen[3]_i_3_n_0 ),
-        .I5(\file_name[0][7]_i_9_n_0 ),
+       (.I0(\file_name[0][7]_i_8_n_0 ),
+        .I1(\file_name_reg[0][7]_0 [7]),
+        .I2(\file_name[0][7]_i_5_n_0 ),
+        .I3(\file_name[0][7]_i_6_n_0 ),
+        .I4(\sdtnamelen[6]_i_3_n_0 ),
+        .I5(\outbyte_reg[7]_0 [7]),
         .O(\file_name[0][7]_i_4_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFF8B880000)) 
+    .INIT(64'h2200220200000000)) 
     \file_name[0][7]_i_5 
-       (.I0(\outbyte_reg[7]_0 [7]),
-        .I1(\file_name[0][5]_i_3_n_0 ),
-        .I2(\file_name[0][5]_i_2_n_0 ),
-        .I3(\file_name_reg[0][7]_0 [7]),
-        .I4(\sdtnamelen[7]_i_8_n_0 ),
-        .I5(\file_name[0][7]_i_10_n_0 ),
+       (.I0(\sector_content[456][7]_i_2_n_0 ),
+        .I1(\file_name[6][5]_i_4_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [2]),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [1]),
+        .I5(\file_name[6][5]_i_3_n_0 ),
         .O(\file_name[0][7]_i_5_n_0 ));
-  LUT5 #(
-    .INIT(32'hFFFF7FFF)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFEFFFFFF)) 
+    \file_name[0][7]_i_6 
+       (.I0(\file_name[8][7]_i_12_n_0 ),
+        .I1(\sdtnamelen[7]_i_3_n_0 ),
+        .I2(islongok_i_2_n_0),
+        .I3(\file_name[8][7]_i_13_n_0 ),
+        .I4(\file_name[8][7]_i_14_n_0 ),
+        .I5(\file_name[4][7]_i_9_n_0 ),
+        .O(\file_name[0][7]_i_6_n_0 ));
+  LUT6 #(
+    .INIT(64'h1100110100000000)) 
     \file_name[0][7]_i_7 
-       (.I0(\file_name_reg[0][7]_0 [7]),
-        .I1(\file_name_reg[0][7]_0 [4]),
-        .I2(\file_name_reg[0][7]_0 [5]),
-        .I3(\file_name_reg[0][7]_0 [6]),
-        .I4(\file_name[0][7]_i_11_n_0 ),
+       (.I0(islongok_i_2_n_0),
+        .I1(\file_name[6][5]_i_4_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [2]),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [1]),
+        .I5(\file_name[6][5]_i_3_n_0 ),
         .O(\file_name[0][7]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair91" *) 
   LUT5 #(
-    .INIT(32'h7FFFFFFF)) 
+    .INIT(32'hFDFDFCFF)) 
     \file_name[0][7]_i_8 
-       (.I0(\outbyte_reg[7]_0 [3]),
-        .I1(\outbyte_reg[7]_0 [2]),
-        .I2(\outbyte_reg[7]_0 [0]),
-        .I3(\outbyte_reg[7]_0 [1]),
-        .I4(\outbyte_reg[7]_0 [4]),
+       (.I0(\outbyte_reg[7]_0 [7]),
+        .I1(raddr[3]),
+        .I2(raddr[4]),
+        .I3(\file_name_reg[0][7]_0 [7]),
+        .I4(\file_name[0][7]_i_7_n_0 ),
         .O(\file_name[0][7]_i_8_n_0 ));
   LUT6 #(
-    .INIT(64'h4400440400000000)) 
-    \file_name[0][7]_i_9 
-       (.I0(islongok_i_3_n_0),
-        .I1(\file_name[6][5]_i_4_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [2]),
-        .I3(\longno[5]_i_2_n_0 ),
-        .I4(\file_namelen_reg[7]_0 [1]),
-        .I5(\file_name[6][5]_i_3_n_0 ),
-        .O(\file_name[0][7]_i_9_n_0 ));
-  LUT6 #(
-    .INIT(64'h7F4FFFFF30000000)) 
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
     \file_name[1][0]_i_1 
-       (.I0(\file_name[1][7]_i_4_n_0 ),
-        .I1(\file_name[1][7]_i_5_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [0]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [0]),
-        .O(\outbyte_reg[7]_11 [0]));
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [0]),
+        .I2(\file_name[1][7]_i_5_n_0 ),
+        .I3(\file_name[1][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [0]),
+        .O(\lastchar_reg[7]_0 [0]));
+  (* SOFT_HLUTNM = "soft_lutpair99" *) 
   LUT4 #(
-    .INIT(16'hBF80)) 
+    .INIT(16'hEF40)) 
     \file_name[1][1]_i_1 
-       (.I0(\file_name[1][1]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[1][1]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
         .I3(\file_name_reg[0][7]_0 [1]),
-        .O(\outbyte_reg[7]_11 [1]));
+        .O(\lastchar_reg[7]_0 [1]));
   LUT6 #(
     .INIT(64'hFFFFFFEF00000040)) 
     \file_name[1][1]_i_2 
-       (.I0(islongok_i_3_n_0),
+       (.I0(islongok_i_2_n_0),
         .I1(\outbyte_reg[7]_0 [1]),
         .I2(\file_name[8][5]_i_4_n_0 ),
-        .I3(\file_name[3][4]_i_4_n_0 ),
-        .I4(\file_name[5][6]_i_4_n_0 ),
+        .I3(\file_name[1][7]_i_11_n_0 ),
+        .I4(\file_name[1][5]_i_3_n_0 ),
         .I5(\file_name[1][1]_i_3_n_0 ),
         .O(\file_name[1][1]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair180" *) 
-  LUT3 #(
-    .INIT(8'hF8)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFF00100000)) 
     \file_name[1][1]_i_3 
-       (.I0(\file_name[1][7]_i_6_n_0 ),
-        .I1(\sector_content[456][7]_i_2_n_0 ),
-        .I2(\file_name_reg[0][7]_0 [1]),
+       (.I0(\file_name[3][7]_i_9_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [1]),
+        .I2(\sdtnamelen_reg[7]_1 [0]),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sector_content[456][7]_i_2_n_0 ),
+        .I5(\file_name_reg[0][7]_0 [1]),
         .O(\file_name[1][1]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair127" *) 
+  (* SOFT_HLUTNM = "soft_lutpair100" *) 
   LUT4 #(
-    .INIT(16'hBF80)) 
+    .INIT(16'hEF40)) 
     \file_name[1][2]_i_1 
-       (.I0(\file_name[1][2]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[1][2]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
         .I3(\file_name_reg[0][7]_0 [2]),
-        .O(\outbyte_reg[7]_11 [2]));
+        .O(\lastchar_reg[7]_0 [2]));
   LUT6 #(
     .INIT(64'hFFFFFFEF00000040)) 
     \file_name[1][2]_i_2 
-       (.I0(islongok_i_3_n_0),
+       (.I0(islongok_i_2_n_0),
         .I1(\outbyte_reg[7]_0 [2]),
         .I2(\file_name[8][5]_i_4_n_0 ),
-        .I3(\file_name[3][4]_i_4_n_0 ),
-        .I4(\file_name[5][6]_i_4_n_0 ),
+        .I3(\file_name[1][7]_i_11_n_0 ),
+        .I4(\file_name[1][5]_i_3_n_0 ),
         .I5(\file_name[1][2]_i_3_n_0 ),
         .O(\file_name[1][2]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair180" *) 
-  LUT3 #(
-    .INIT(8'hF8)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFF00100000)) 
     \file_name[1][2]_i_3 
-       (.I0(\file_name[1][7]_i_6_n_0 ),
-        .I1(\sector_content[456][7]_i_2_n_0 ),
-        .I2(\file_name_reg[0][7]_0 [2]),
+       (.I0(\file_name[3][7]_i_9_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [1]),
+        .I2(\sdtnamelen_reg[7]_1 [0]),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sector_content[456][7]_i_2_n_0 ),
+        .I5(\file_name_reg[0][7]_0 [2]),
         .O(\file_name[1][2]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair128" *) 
+  (* SOFT_HLUTNM = "soft_lutpair101" *) 
   LUT4 #(
-    .INIT(16'hBF80)) 
+    .INIT(16'hEF40)) 
     \file_name[1][3]_i_1 
-       (.I0(\file_name[1][3]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[1][3]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
         .I3(\file_name_reg[0][7]_0 [3]),
-        .O(\outbyte_reg[7]_11 [3]));
+        .O(\lastchar_reg[7]_0 [3]));
   LUT6 #(
     .INIT(64'hFFFFFFEF00000040)) 
     \file_name[1][3]_i_2 
-       (.I0(islongok_i_3_n_0),
+       (.I0(islongok_i_2_n_0),
         .I1(\outbyte_reg[7]_0 [3]),
         .I2(\file_name[8][5]_i_4_n_0 ),
-        .I3(\file_name[3][4]_i_4_n_0 ),
-        .I4(\file_name[5][6]_i_4_n_0 ),
+        .I3(\file_name[1][7]_i_11_n_0 ),
+        .I4(\file_name[1][5]_i_3_n_0 ),
         .I5(\file_name[1][3]_i_3_n_0 ),
         .O(\file_name[1][3]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair179" *) 
-  LUT3 #(
-    .INIT(8'hF8)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFF00100000)) 
     \file_name[1][3]_i_3 
-       (.I0(\file_name[1][7]_i_6_n_0 ),
-        .I1(\sector_content[456][7]_i_2_n_0 ),
-        .I2(\file_name_reg[0][7]_0 [3]),
+       (.I0(\file_name[3][7]_i_9_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [1]),
+        .I2(\sdtnamelen_reg[7]_1 [0]),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sector_content[456][7]_i_2_n_0 ),
+        .I5(\file_name_reg[0][7]_0 [3]),
         .O(\file_name[1][3]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'h7F4FFFFF30000000)) 
+    .INIT(64'hBFBAFFFF05000000)) 
     \file_name[1][4]_i_1 
-       (.I0(\file_name[1][7]_i_4_n_0 ),
+       (.I0(isshort_i_2_n_0),
         .I1(\file_name[1][7]_i_5_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [4]),
-        .I4(\outaddr_reg[0]_0 ),
+        .I2(islongok_i_2_n_0),
+        .I3(\file_name[1][4]_i_2_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
         .I5(\file_name_reg[0][7]_0 [4]),
-        .O(\outbyte_reg[7]_11 [4]));
-  (* SOFT_HLUTNM = "soft_lutpair126" *) 
+        .O(\lastchar_reg[7]_0 [4]));
+  LUT6 #(
+    .INIT(64'h00080008FFFB0008)) 
+    \file_name[1][4]_i_2 
+       (.I0(\outbyte_reg[7]_0 [4]),
+        .I1(\file_name[8][5]_i_4_n_0 ),
+        .I2(\file_name[1][7]_i_11_n_0 ),
+        .I3(\file_name[1][5]_i_3_n_0 ),
+        .I4(\file_name_reg[0][7]_0 [4]),
+        .I5(\file_name[1][7]_i_5_n_0 ),
+        .O(\file_name[1][4]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair102" *) 
   LUT4 #(
-    .INIT(16'hBF80)) 
+    .INIT(16'hEF40)) 
     \file_name[1][5]_i_1 
-       (.I0(\file_name[1][5]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
-        .I3(\file_name_reg[8][5] ),
-        .O(\outbyte_reg[7]_11 [5]));
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[1][5]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
+        .I3(\file_name_reg[0][5] ),
+        .O(\lastchar_reg[7]_0 [5]));
   LUT6 #(
     .INIT(64'hFFFFFFEF00000040)) 
     \file_name[1][5]_i_2 
-       (.I0(islongok_i_3_n_0),
+       (.I0(islongok_i_2_n_0),
         .I1(\outbyte_reg[7]_0 [5]),
         .I2(\file_name[8][5]_i_4_n_0 ),
-        .I3(\file_name[3][4]_i_4_n_0 ),
-        .I4(\file_name[5][6]_i_4_n_0 ),
-        .I5(\file_name[1][5]_i_3_n_0 ),
+        .I3(\file_name[1][7]_i_11_n_0 ),
+        .I4(\file_name[1][5]_i_3_n_0 ),
+        .I5(\file_name[1][5]_i_4_n_0 ),
         .O(\file_name[1][5]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair179" *) 
-  LUT3 #(
-    .INIT(8'hF8)) 
+  (* SOFT_HLUTNM = "soft_lutpair82" *) 
+  LUT4 #(
+    .INIT(16'h32EF)) 
     \file_name[1][5]_i_3 
-       (.I0(\file_name[1][7]_i_6_n_0 ),
-        .I1(\sector_content[456][7]_i_2_n_0 ),
-        .I2(\file_name_reg[8][5] ),
+       (.I0(\sdtnamelen_reg[7]_1 [1]),
+        .I1(\longno[5]_i_2_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [0]),
+        .I3(\sector_content[456][7]_i_2_n_0 ),
         .O(\file_name[1][5]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'h7F4FFFFF30000000)) 
-    \file_name[1][6]_i_1 
-       (.I0(\file_name[1][7]_i_4_n_0 ),
-        .I1(\file_name[1][7]_i_5_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [6]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [6]),
-        .O(\outbyte_reg[7]_11 [6]));
+    .INIT(64'hFFFFFFFF00100000)) 
+    \file_name[1][5]_i_4 
+       (.I0(\file_name[3][7]_i_9_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [1]),
+        .I2(\sdtnamelen_reg[7]_1 [0]),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sector_content[456][7]_i_2_n_0 ),
+        .I5(\file_name_reg[0][5] ),
+        .O(\file_name[1][5]_i_4_n_0 ));
   LUT6 #(
-    .INIT(64'h8888888888888A88)) 
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
+    \file_name[1][6]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [6]),
+        .I2(\file_name[1][7]_i_5_n_0 ),
+        .I3(\file_name[1][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [6]),
+        .O(\lastchar_reg[7]_0 [6]));
+  LUT6 #(
+    .INIT(64'h002000200020AAAA)) 
     \file_name[1][7]_i_1 
        (.I0(fready152_out),
-        .I1(\file_name[1][7]_i_3_n_0 ),
-        .I2(\file_namelen_reg[3]_i_2_n_6 ),
-        .I3(\file_name[5][7]_i_5_n_0 ),
-        .I4(\file_name[6][7]_i_4_n_0 ),
-        .I5(\file_name[3][7]_i_3_n_0 ),
-        .O(outen_reg_8));
+        .I1(\file_namelen_reg[3]_i_2_n_6 ),
+        .I2(\file_namelen_reg[3]_i_2_n_7 ),
+        .I3(\file_name[3][7]_i_3_n_0 ),
+        .I4(\file_name[1][7]_i_3_n_0 ),
+        .I5(\file_name[1][7]_i_4_n_0 ),
+        .O(outen_reg_2));
   LUT6 #(
-    .INIT(64'h7F4FFFFF30000000)) 
+    .INIT(64'h00000001FFFFFFFF)) 
+    \file_name[1][7]_i_10 
+       (.I0(raddr[4]),
+        .I1(raddr[0]),
+        .I2(raddr[3]),
+        .I3(raddr[2]),
+        .I4(raddr[1]),
+        .I5(\sdtnamelen_reg[7]_1 [3]),
+        .O(\file_name[1][7]_i_10_n_0 ));
+  LUT6 #(
+    .INIT(64'h007F00FF00EC00CC)) 
+    \file_name[1][7]_i_11 
+       (.I0(\sector_content[456][7]_i_2_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [2]),
+        .I2(\sdtnamelen_reg[7]_1 [1]),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [0]),
+        .I5(\sdtnamelen_reg[7]_1 [3]),
+        .O(\file_name[1][7]_i_11_n_0 ));
+  LUT6 #(
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
     \file_name[1][7]_i_2 
-       (.I0(\file_name[1][7]_i_4_n_0 ),
-        .I1(\file_name[1][7]_i_5_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [7]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [7]),
-        .O(\outbyte_reg[7]_11 [7]));
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [7]),
+        .I2(\file_name[1][7]_i_5_n_0 ),
+        .I3(\file_name[1][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [7]),
+        .O(\lastchar_reg[7]_0 [7]));
   LUT6 #(
-    .INIT(64'h00000000FFFF80AA)) 
+    .INIT(64'h00E0E0E0EEEEEEEE)) 
     \file_name[1][7]_i_3 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(\file_name[1][7]_i_6_n_0 ),
-        .I2(\sector_content[456][7]_i_2_n_0 ),
-        .I3(\file_name[1][7]_i_5_n_0 ),
-        .I4(\sdtnamelen[3]_i_3_n_0 ),
-        .I5(\file_name[1][7]_i_7_n_0 ),
+       (.I0(raddr[4]),
+        .I1(raddr[3]),
+        .I2(\file_name[1][7]_i_6_n_0 ),
+        .I3(\sector_content[456][7]_i_2_n_0 ),
+        .I4(\file_name[1][7]_i_7_n_0 ),
+        .I5(\lastchar[7]_i_2_n_0 ),
         .O(\file_name[1][7]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000002000000000)) 
+  LUT5 #(
+    .INIT(32'hAAAAAAFB)) 
     \file_name[1][7]_i_4 
-       (.I0(\file_name[1][7]_i_8_n_0 ),
-        .I1(\file_namelen_reg[7]_0 [6]),
-        .I2(\sdtnamelen[3]_i_5_n_0 ),
-        .I3(\sdtnamelen[7]_i_6_n_0 ),
-        .I4(\sdtnamelen[0]_i_3_n_0 ),
-        .I5(\sector_content[456][7]_i_2_n_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[1][7]_i_7_n_0 ),
+        .I2(islongok_i_2_n_0),
+        .I3(raddr[3]),
+        .I4(raddr[4]),
         .O(\file_name[1][7]_i_4_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFF7)) 
+    .INIT(64'h0000000000200000)) 
     \file_name[1][7]_i_5 
-       (.I0(\sdtnamelen[4]_i_5_n_0 ),
-        .I1(\sdtnamelen[4]_i_7_n_0 ),
-        .I2(islongok_i_3_n_0),
-        .I3(\file_name[5][6]_i_4_n_0 ),
-        .I4(\file_name[8][7]_i_11_n_0 ),
-        .I5(\file_name[8][7]_i_12_n_0 ),
+       (.I0(\file_name[1][7]_i_8_n_0 ),
+        .I1(\file_name[1][7]_i_9_n_0 ),
+        .I2(\file_name[1][7]_i_10_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [6]),
+        .I4(\sector_content[456][7]_i_2_n_0 ),
+        .I5(\sdtnamelen[1]_i_4_n_0 ),
         .O(\file_name[1][7]_i_5_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000000002)) 
+    .INIT(64'hFFFFFFFFFFFFFFEF)) 
     \file_name[1][7]_i_6 
-       (.I0(\file_namelen_reg[7]_0 [0]),
-        .I1(\file_namelen_reg[7]_0 [1]),
-        .I2(\file_namelen_reg[7]_0 [2]),
-        .I3(\file_namelen_reg[7]_0 [3]),
-        .I4(\longno[5]_i_2_n_0 ),
-        .I5(\file_name[5][3]_i_4_n_0 ),
+       (.I0(\file_name[1][7]_i_11_n_0 ),
+        .I1(\sdtnamelen[1]_i_3_n_0 ),
+        .I2(\file_name[6][2]_i_5_n_0 ),
+        .I3(islongok_i_2_n_0),
+        .I4(\file_name[8][7]_i_12_n_0 ),
+        .I5(\sdtnamelen[7]_i_3_n_0 ),
         .O(\file_name[1][7]_i_6_n_0 ));
-  LUT5 #(
-    .INIT(32'h57575557)) 
+  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+  LUT4 #(
+    .INIT(16'h0004)) 
     \file_name[1][7]_i_7 
-       (.I0(\outaddr_reg[0]_0 ),
-        .I1(raddr[3]),
-        .I2(raddr[4]),
-        .I3(\file_name[1][7]_i_6_n_0 ),
-        .I4(islongok_i_3_n_0),
+       (.I0(\longno[5]_i_2_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [0]),
+        .I2(\sdtnamelen_reg[7]_1 [1]),
+        .I3(\file_name[3][7]_i_9_n_0 ),
         .O(\file_name[1][7]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair106" *) 
+  (* SOFT_HLUTNM = "soft_lutpair88" *) 
   LUT5 #(
     .INIT(32'hFF00FF01)) 
     \file_name[1][7]_i_8 
-       (.I0(\file_namelen_reg[7]_0 [5]),
-        .I1(\file_namelen_reg[7]_0 [4]),
-        .I2(\file_namelen_reg[7]_0 [2]),
+       (.I0(\sdtnamelen_reg[7]_1 [4]),
+        .I1(\sdtnamelen_reg[7]_1 [5]),
+        .I2(\sdtnamelen_reg[7]_1 [2]),
         .I3(\longno[5]_i_2_n_0 ),
-        .I4(\file_namelen_reg[7]_0 [1]),
+        .I4(\sdtnamelen_reg[7]_1 [1]),
         .O(\file_name[1][7]_i_8_n_0 ));
   LUT6 #(
-    .INIT(64'h7F4FFFFF30000000)) 
-    \file_name[2][0]_i_1 
-       (.I0(\file_name[2][7]_i_5_n_0 ),
-        .I1(\file_name[2][7]_i_6_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [0]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [0]),
-        .O(\outbyte_reg[7]_10 [0]));
-  (* SOFT_HLUTNM = "soft_lutpair125" *) 
-  LUT4 #(
-    .INIT(16'hBF80)) 
-    \file_name[2][1]_i_1 
-       (.I0(\file_name[2][1]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
-        .I3(\file_name_reg[0][7]_0 [1]),
-        .O(\outbyte_reg[7]_10 [1]));
-  LUT5 #(
-    .INIT(32'hFFEF0040)) 
-    \file_name[2][1]_i_2 
-       (.I0(islongok_i_3_n_0),
-        .I1(\outbyte_reg[7]_0 [1]),
-        .I2(\file_name[8][5]_i_4_n_0 ),
-        .I3(\file_name[2][7]_i_9_n_0 ),
-        .I4(\file_name[2][1]_i_3_n_0 ),
-        .O(\file_name[2][1]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair178" *) 
-  LUT3 #(
-    .INIT(8'hF8)) 
-    \file_name[2][1]_i_3 
-       (.I0(\file_name[2][7]_i_7_n_0 ),
-        .I1(\sector_content[456][7]_i_2_n_0 ),
-        .I2(\file_name_reg[0][7]_0 [1]),
-        .O(\file_name[2][1]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair127" *) 
-  LUT4 #(
-    .INIT(16'hBF80)) 
-    \file_name[2][2]_i_1 
-       (.I0(\file_name[2][2]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
-        .I3(\file_name_reg[0][7]_0 [2]),
-        .O(\outbyte_reg[7]_10 [2]));
-  LUT5 #(
-    .INIT(32'hFFEF0040)) 
-    \file_name[2][2]_i_2 
-       (.I0(islongok_i_3_n_0),
-        .I1(\outbyte_reg[7]_0 [2]),
-        .I2(\file_name[8][5]_i_4_n_0 ),
-        .I3(\file_name[2][7]_i_9_n_0 ),
-        .I4(\file_name[2][2]_i_3_n_0 ),
-        .O(\file_name[2][2]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair178" *) 
-  LUT3 #(
-    .INIT(8'hF8)) 
-    \file_name[2][2]_i_3 
-       (.I0(\file_name[2][7]_i_7_n_0 ),
-        .I1(\sector_content[456][7]_i_2_n_0 ),
-        .I2(\file_name_reg[0][7]_0 [2]),
-        .O(\file_name[2][2]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair124" *) 
-  LUT4 #(
-    .INIT(16'hBF80)) 
-    \file_name[2][3]_i_1 
-       (.I0(\file_name[2][3]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
-        .I3(\file_name_reg[0][7]_0 [3]),
-        .O(\outbyte_reg[7]_10 [3]));
-  LUT5 #(
-    .INIT(32'hFFEF0040)) 
-    \file_name[2][3]_i_2 
-       (.I0(islongok_i_3_n_0),
-        .I1(\outbyte_reg[7]_0 [3]),
-        .I2(\file_name[8][5]_i_4_n_0 ),
-        .I3(\file_name[2][7]_i_9_n_0 ),
-        .I4(\file_name[2][3]_i_3_n_0 ),
-        .O(\file_name[2][3]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair177" *) 
-  LUT3 #(
-    .INIT(8'hF8)) 
-    \file_name[2][3]_i_3 
-       (.I0(\file_name[2][7]_i_7_n_0 ),
-        .I1(\sector_content[456][7]_i_2_n_0 ),
-        .I2(\file_name_reg[0][7]_0 [3]),
-        .O(\file_name[2][3]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h7F4FFFFF30000000)) 
-    \file_name[2][4]_i_1 
-       (.I0(\file_name[2][7]_i_5_n_0 ),
-        .I1(\file_name[2][7]_i_6_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [4]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [4]),
-        .O(\outbyte_reg[7]_10 [4]));
-  (* SOFT_HLUTNM = "soft_lutpair126" *) 
-  LUT4 #(
-    .INIT(16'hBF80)) 
-    \file_name[2][5]_i_1 
-       (.I0(\file_name[2][5]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
-        .I3(\file_name_reg[8][5] ),
-        .O(\outbyte_reg[7]_10 [5]));
-  LUT5 #(
-    .INIT(32'hFFEF0040)) 
-    \file_name[2][5]_i_2 
-       (.I0(islongok_i_3_n_0),
-        .I1(\outbyte_reg[7]_0 [5]),
-        .I2(\file_name[8][5]_i_4_n_0 ),
-        .I3(\file_name[2][7]_i_9_n_0 ),
-        .I4(\file_name[2][5]_i_3_n_0 ),
-        .O(\file_name[2][5]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair177" *) 
-  LUT3 #(
-    .INIT(8'hF8)) 
-    \file_name[2][5]_i_3 
-       (.I0(\file_name[2][7]_i_7_n_0 ),
-        .I1(\sector_content[456][7]_i_2_n_0 ),
-        .I2(\file_name_reg[8][5] ),
-        .O(\file_name[2][5]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h7F4FFFFF30000000)) 
-    \file_name[2][6]_i_1 
-       (.I0(\file_name[2][7]_i_5_n_0 ),
-        .I1(\file_name[2][7]_i_6_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [6]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [6]),
-        .O(\outbyte_reg[7]_10 [6]));
-  LUT6 #(
-    .INIT(64'h00000200AAAAAAAA)) 
-    \file_name[2][7]_i_1 
-       (.I0(fready152_out),
-        .I1(\file_name[3][7]_i_3_n_0 ),
-        .I2(\file_name[6][7]_i_4_n_0 ),
-        .I3(\file_namelen_reg[3]_i_2_n_6 ),
-        .I4(\file_name[2][7]_i_3_n_0 ),
-        .I5(\file_name[2][7]_i_4_n_0 ),
-        .O(outen_reg_10));
-  LUT6 #(
-    .INIT(64'h7F4FFFFF30000000)) 
-    \file_name[2][7]_i_2 
-       (.I0(\file_name[2][7]_i_5_n_0 ),
-        .I1(\file_name[2][7]_i_6_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [7]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [7]),
-        .O(\outbyte_reg[7]_10 [7]));
-  (* SOFT_HLUTNM = "soft_lutpair214" *) 
-  LUT2 #(
-    .INIT(4'hE)) 
-    \file_name[2][7]_i_3 
-       (.I0(\file_namelen_reg[3]_i_2_n_7 ),
-        .I1(\file_name[0][7]_i_3_n_0 ),
-        .O(\file_name[2][7]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFF00005DDD)) 
-    \file_name[2][7]_i_4 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(\file_name[2][7]_i_6_n_0 ),
-        .I2(\sector_content[456][7]_i_2_n_0 ),
-        .I3(\file_name[2][7]_i_7_n_0 ),
-        .I4(\sdtnamelen[3]_i_3_n_0 ),
-        .I5(\file_name[2][7]_i_8_n_0 ),
-        .O(\file_name[2][7]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000020202022)) 
-    \file_name[2][7]_i_5 
-       (.I0(\file_name[7][7]_i_11_n_0 ),
-        .I1(\file_namelen_reg[7]_0 [6]),
-        .I2(\longno[5]_i_2_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [3]),
-        .I4(\file_namelen_reg[7]_0 [2]),
-        .I5(\file_name[6][7]_i_11_n_0 ),
-        .O(\file_name[2][7]_i_5_n_0 ));
-  LUT5 #(
-    .INIT(32'hFFFEFFFF)) 
-    \file_name[2][7]_i_6 
-       (.I0(\file_name[2][7]_i_9_n_0 ),
-        .I1(islongok_i_3_n_0),
-        .I2(\file_name[8][7]_i_12_n_0 ),
-        .I3(\sdtnamelen[5]_i_4_n_0 ),
-        .I4(\sdtnamelen[4]_i_4_n_0 ),
-        .O(\file_name[2][7]_i_6_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000000000004)) 
-    \file_name[2][7]_i_7 
-       (.I0(\file_namelen_reg[7]_0 [0]),
-        .I1(\file_namelen_reg[7]_0 [1]),
-        .I2(\file_namelen_reg[7]_0 [2]),
-        .I3(\file_namelen_reg[7]_0 [3]),
-        .I4(\longno[5]_i_2_n_0 ),
-        .I5(\file_name[5][3]_i_4_n_0 ),
-        .O(\file_name[2][7]_i_7_n_0 ));
-  LUT5 #(
-    .INIT(32'h57575557)) 
-    \file_name[2][7]_i_8 
-       (.I0(\outaddr_reg[0]_0 ),
-        .I1(raddr[3]),
-        .I2(raddr[4]),
-        .I3(\file_name[2][7]_i_7_n_0 ),
-        .I4(islongok_i_3_n_0),
-        .O(\file_name[2][7]_i_8_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFEFFB)) 
-    \file_name[2][7]_i_9 
-       (.I0(\file_namelen_reg[7]_0 [3]),
-        .I1(\file_namelen_reg[7]_0 [1]),
-        .I2(\file_namelen_reg[7]_0 [0]),
-        .I3(\sector_content[456][7]_i_2_n_0 ),
-        .I4(\longno[5]_i_2_n_0 ),
-        .I5(\file_namelen_reg[7]_0 [2]),
-        .O(\file_name[2][7]_i_9_n_0 ));
-  LUT6 #(
-    .INIT(64'h3AFFFFFF0A000000)) 
-    \file_name[3][0]_i_1 
-       (.I0(\outbyte_reg[7]_0 [0]),
-        .I1(\file_name[3][7]_i_5_n_0 ),
-        .I2(\file_name[3][7]_i_6_n_0 ),
-        .I3(\sdtnamelen[6]_i_2_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [0]),
-        .O(\outbyte_reg[7]_9 [0]));
-  LUT6 #(
-    .INIT(64'hFABAFFFFEAAA0000)) 
-    \file_name[3][1]_i_1 
-       (.I0(\file_name[3][1]_i_2_n_0 ),
-        .I1(\file_name[3][5]_i_3_n_0 ),
-        .I2(\sdtnamelen[3]_i_3_n_0 ),
-        .I3(\outbyte_reg[7]_0 [1]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [1]),
-        .O(\outbyte_reg[7]_9 [1]));
-  LUT6 #(
-    .INIT(64'h00000000EEEEF0EE)) 
-    \file_name[3][1]_i_2 
-       (.I0(\file_name[3][7]_i_5_n_0 ),
-        .I1(\file_name_reg[0][7]_0 [1]),
-        .I2(\outbyte_reg[7]_0 [1]),
-        .I3(\sdtnamelen[6]_i_2_n_0 ),
-        .I4(\file_name[3][7]_i_6_n_0 ),
-        .I5(\sdtnamelen[3]_i_3_n_0 ),
-        .O(\file_name[3][1]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'hFABAFFFFEAAA0000)) 
-    \file_name[3][2]_i_1 
-       (.I0(\file_name[3][2]_i_2_n_0 ),
-        .I1(\file_name[3][5]_i_3_n_0 ),
-        .I2(\sdtnamelen[3]_i_3_n_0 ),
-        .I3(\outbyte_reg[7]_0 [2]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [2]),
-        .O(\outbyte_reg[7]_9 [2]));
-  LUT6 #(
-    .INIT(64'h00000000EEEEF0EE)) 
-    \file_name[3][2]_i_2 
-       (.I0(\file_name[3][7]_i_5_n_0 ),
-        .I1(\file_name_reg[0][7]_0 [2]),
-        .I2(\outbyte_reg[7]_0 [2]),
-        .I3(\sdtnamelen[6]_i_2_n_0 ),
-        .I4(\file_name[3][7]_i_6_n_0 ),
-        .I5(\sdtnamelen[3]_i_3_n_0 ),
-        .O(\file_name[3][2]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'hFABAFFFFEAAA0000)) 
-    \file_name[3][3]_i_1 
-       (.I0(\file_name[3][3]_i_2_n_0 ),
-        .I1(\file_name[3][5]_i_3_n_0 ),
-        .I2(\sdtnamelen[3]_i_3_n_0 ),
-        .I3(\outbyte_reg[7]_0 [3]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [3]),
-        .O(\outbyte_reg[7]_9 [3]));
-  LUT6 #(
-    .INIT(64'h00000000EEEEF0EE)) 
-    \file_name[3][3]_i_2 
-       (.I0(\file_name[3][7]_i_5_n_0 ),
-        .I1(\file_name_reg[0][7]_0 [3]),
-        .I2(\outbyte_reg[7]_0 [3]),
-        .I3(\sdtnamelen[6]_i_2_n_0 ),
-        .I4(\file_name[3][7]_i_6_n_0 ),
-        .I5(\sdtnamelen[3]_i_3_n_0 ),
-        .O(\file_name[3][3]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h5400FFFFFF00FF00)) 
-    \file_name[3][4]_i_1 
-       (.I0(\file_name[3][4]_i_2_n_0 ),
-        .I1(raddr[3]),
-        .I2(raddr[4]),
-        .I3(\file_name_reg[0][7]_0 [4]),
-        .I4(\file_name[3][4]_i_3_n_0 ),
-        .I5(\outaddr_reg[0]_0 ),
-        .O(\outbyte_reg[7]_9 [4]));
-  LUT6 #(
-    .INIT(64'hAAAAAAAAAAAAAAEA)) 
-    \file_name[3][4]_i_2 
-       (.I0(\file_name[3][7]_i_5_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\sdtnamelen[4]_i_6_n_0 ),
-        .I3(\file_name[8][7]_i_11_n_0 ),
-        .I4(\file_name[8][7]_i_12_n_0 ),
-        .I5(\file_name[3][4]_i_4_n_0 ),
-        .O(\file_name[3][4]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h1FBF00001FBF1FBF)) 
-    \file_name[3][4]_i_3 
-       (.I0(\file_name[3][5]_i_3_n_0 ),
-        .I1(\file_name_reg[0][7]_0 [4]),
-        .I2(\sdtnamelen[3]_i_3_n_0 ),
-        .I3(\outbyte_reg[7]_0 [4]),
-        .I4(\file_name[3][7]_i_6_n_0 ),
-        .I5(\file_name[3][4]_i_5_n_0 ),
-        .O(\file_name[3][4]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h1333333332222222)) 
-    \file_name[3][4]_i_4 
-       (.I0(\file_namelen_reg[7]_0 [3]),
-        .I1(\longno[5]_i_2_n_0 ),
-        .I2(\sector_content[456][7]_i_2_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [1]),
-        .I4(\file_namelen_reg[7]_0 [0]),
-        .I5(\file_namelen_reg[7]_0 [2]),
-        .O(\file_name[3][4]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000150000000000)) 
-    \file_name[3][4]_i_5 
-       (.I0(raddr[2]),
-        .I1(raddr[1]),
-        .I2(raddr[0]),
-        .I3(raddr[3]),
-        .I4(raddr[4]),
-        .I5(\outbyte_reg[7]_0 [4]),
-        .O(\file_name[3][4]_i_5_n_0 ));
-  LUT6 #(
-    .INIT(64'hFABAFFFFEAAA0000)) 
-    \file_name[3][5]_i_1 
-       (.I0(\file_name[3][5]_i_2_n_0 ),
-        .I1(\file_name[3][5]_i_3_n_0 ),
-        .I2(\sdtnamelen[3]_i_3_n_0 ),
-        .I3(\outbyte_reg[7]_0 [5]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[8][5] ),
-        .O(\outbyte_reg[7]_9 [5]));
-  LUT6 #(
-    .INIT(64'h00000000EEEEF0EE)) 
-    \file_name[3][5]_i_2 
-       (.I0(\file_name_reg[8][5] ),
-        .I1(\file_name[3][7]_i_5_n_0 ),
-        .I2(\outbyte_reg[7]_0 [5]),
-        .I3(\sdtnamelen[6]_i_2_n_0 ),
-        .I4(\file_name[3][7]_i_6_n_0 ),
-        .I5(\sdtnamelen[3]_i_3_n_0 ),
-        .O(\file_name[3][5]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair89" *) 
-  LUT5 #(
-    .INIT(32'h00100000)) 
-    \file_name[3][5]_i_3 
-       (.I0(islongok_i_3_n_0),
-        .I1(\file_name[3][7]_i_7_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [0]),
-        .I3(\longno[5]_i_2_n_0 ),
-        .I4(\file_namelen_reg[7]_0 [1]),
-        .O(\file_name[3][5]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h3AFFFFFF0A000000)) 
-    \file_name[3][6]_i_1 
-       (.I0(\outbyte_reg[7]_0 [6]),
-        .I1(\file_name[3][7]_i_5_n_0 ),
-        .I2(\file_name[3][7]_i_6_n_0 ),
-        .I3(\sdtnamelen[6]_i_2_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [6]),
-        .O(\outbyte_reg[7]_9 [6]));
-  LUT6 #(
-    .INIT(64'h00080000AAAAAAAA)) 
-    \file_name[3][7]_i_1 
-       (.I0(fready152_out),
-        .I1(\file_name[5][7]_i_5_n_0 ),
-        .I2(\file_name[3][7]_i_3_n_0 ),
-        .I3(\file_name[6][7]_i_4_n_0 ),
-        .I4(\file_namelen_reg[3]_i_2_n_6 ),
-        .I5(\file_name[3][7]_i_4_n_0 ),
-        .O(outen_reg_11));
-  LUT6 #(
-    .INIT(64'h74FFFFFF30000000)) 
-    \file_name[3][7]_i_2 
-       (.I0(\file_name[3][7]_i_5_n_0 ),
-        .I1(\file_name[3][7]_i_6_n_0 ),
-        .I2(\outbyte_reg[7]_0 [7]),
-        .I3(\sdtnamelen[6]_i_2_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [7]),
-        .O(\outbyte_reg[7]_9 [7]));
-  (* SOFT_HLUTNM = "soft_lutpair215" *) 
-  LUT2 #(
-    .INIT(4'hE)) 
-    \file_name[3][7]_i_3 
-       (.I0(\file_namelen_reg[3]_i_2_n_5 ),
-        .I1(\file_namelen_reg[3]_i_2_n_4 ),
-        .O(\file_name[3][7]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair100" *) 
-  LUT5 #(
-    .INIT(32'h01FDFFFF)) 
-    \file_name[3][7]_i_4 
-       (.I0(\file_name[3][5]_i_3_n_0 ),
-        .I1(raddr[4]),
-        .I2(raddr[3]),
-        .I3(\file_name[3][4]_i_2_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .O(\file_name[3][7]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair104" *) 
-  LUT5 #(
-    .INIT(32'h00200000)) 
-    \file_name[3][7]_i_5 
-       (.I0(\sector_content[456][7]_i_2_n_0 ),
-        .I1(\file_name[3][7]_i_7_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [0]),
-        .I3(\longno[5]_i_2_n_0 ),
-        .I4(\file_namelen_reg[7]_0 [1]),
-        .O(\file_name[3][7]_i_5_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFF7FFFFFFFFFFFF)) 
-    \file_name[3][7]_i_6 
-       (.I0(\sdtnamelen[4]_i_6_n_0 ),
-        .I1(\sdtnamelen[4]_i_4_n_0 ),
-        .I2(\sdtnamelen[5]_i_4_n_0 ),
-        .I3(\file_name[8][7]_i_12_n_0 ),
-        .I4(\sdtnamelen[4]_i_5_n_0 ),
-        .I5(\sdtnamelen[4]_i_7_n_0 ),
-        .O(\file_name[3][7]_i_6_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFEFFFF)) 
-    \file_name[3][7]_i_7 
-       (.I0(\sdtnamelen[4]_i_8_n_0 ),
-        .I1(\sdtnamelen[7]_i_12_n_0 ),
-        .I2(\sdtnamelen[7]_i_6_n_0 ),
-        .I3(\file_name[3][7]_i_8_n_0 ),
-        .I4(\sdtnamelen[3]_i_5_n_0 ),
-        .I5(\sdtnamelen[2]_i_2_n_0 ),
-        .O(\file_name[3][7]_i_7_n_0 ));
-  LUT6 #(
     .INIT(64'hAAAAAAAAAAAAAAA8)) 
-    \file_name[3][7]_i_8 
-       (.I0(\file_namelen_reg[7]_0 [6]),
+    \file_name[1][7]_i_9 
+       (.I0(\sdtnamelen_reg[7]_1 [7]),
         .I1(raddr[4]),
         .I2(raddr[0]),
         .I3(raddr[3]),
         .I4(raddr[2]),
         .I5(raddr[1]),
-        .O(\file_name[3][7]_i_8_n_0 ));
+        .O(\file_name[1][7]_i_9_n_0 ));
   LUT6 #(
-    .INIT(64'h7F4FFFFF30000000)) 
-    \file_name[4][0]_i_1 
-       (.I0(\file_name[4][7]_i_6_n_0 ),
-        .I1(\file_name[4][7]_i_7_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [0]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [0]),
-        .O(\outbyte_reg[7]_8 [0]));
-  (* SOFT_HLUTNM = "soft_lutpair125" *) 
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
+    \file_name[2][0]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [0]),
+        .I2(\file_name[2][7]_i_5_n_0 ),
+        .I3(\file_name[2][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [0]),
+        .O(\lastchar_reg[7]_1 [0]));
+  (* SOFT_HLUTNM = "soft_lutpair99" *) 
   LUT4 #(
-    .INIT(16'hBF80)) 
-    \file_name[4][1]_i_1 
-       (.I0(\file_name[4][1]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
+    .INIT(16'hEF40)) 
+    \file_name[2][1]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[2][1]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
         .I3(\file_name_reg[0][7]_0 [1]),
-        .O(\outbyte_reg[7]_8 [1]));
+        .O(\lastchar_reg[7]_1 [1]));
+  LUT5 #(
+    .INIT(32'hFFEF0040)) 
+    \file_name[2][1]_i_2 
+       (.I0(islongok_i_2_n_0),
+        .I1(\outbyte_reg[7]_0 [1]),
+        .I2(\file_name[8][5]_i_4_n_0 ),
+        .I3(\file_name[2][7]_i_8_n_0 ),
+        .I4(\file_name[2][1]_i_3_n_0 ),
+        .O(\file_name[2][1]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFFFFF00100000)) 
+    \file_name[2][1]_i_3 
+       (.I0(\file_name[3][7]_i_9_n_0 ),
+        .I1(\longno[5]_i_2_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [1]),
+        .I3(\sdtnamelen_reg[7]_1 [0]),
+        .I4(\sector_content[456][7]_i_2_n_0 ),
+        .I5(\file_name_reg[0][7]_0 [1]),
+        .O(\file_name[2][1]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair100" *) 
+  LUT4 #(
+    .INIT(16'hEF40)) 
+    \file_name[2][2]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[2][2]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
+        .I3(\file_name_reg[0][7]_0 [2]),
+        .O(\lastchar_reg[7]_1 [2]));
+  LUT5 #(
+    .INIT(32'hFFEF0040)) 
+    \file_name[2][2]_i_2 
+       (.I0(islongok_i_2_n_0),
+        .I1(\outbyte_reg[7]_0 [2]),
+        .I2(\file_name[8][5]_i_4_n_0 ),
+        .I3(\file_name[2][7]_i_8_n_0 ),
+        .I4(\file_name[2][2]_i_3_n_0 ),
+        .O(\file_name[2][2]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFFFFF00100000)) 
+    \file_name[2][2]_i_3 
+       (.I0(\file_name[3][7]_i_9_n_0 ),
+        .I1(\longno[5]_i_2_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [1]),
+        .I3(\sdtnamelen_reg[7]_1 [0]),
+        .I4(\sector_content[456][7]_i_2_n_0 ),
+        .I5(\file_name_reg[0][7]_0 [2]),
+        .O(\file_name[2][2]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair101" *) 
+  LUT4 #(
+    .INIT(16'hEF40)) 
+    \file_name[2][3]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[2][3]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
+        .I3(\file_name_reg[0][7]_0 [3]),
+        .O(\lastchar_reg[7]_1 [3]));
+  LUT5 #(
+    .INIT(32'hFFEF0040)) 
+    \file_name[2][3]_i_2 
+       (.I0(islongok_i_2_n_0),
+        .I1(\outbyte_reg[7]_0 [3]),
+        .I2(\file_name[8][5]_i_4_n_0 ),
+        .I3(\file_name[2][7]_i_8_n_0 ),
+        .I4(\file_name[2][3]_i_3_n_0 ),
+        .O(\file_name[2][3]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFFFFF00100000)) 
+    \file_name[2][3]_i_3 
+       (.I0(\file_name[3][7]_i_9_n_0 ),
+        .I1(\longno[5]_i_2_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [1]),
+        .I3(\sdtnamelen_reg[7]_1 [0]),
+        .I4(\sector_content[456][7]_i_2_n_0 ),
+        .I5(\file_name_reg[0][7]_0 [3]),
+        .O(\file_name[2][3]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
+    \file_name[2][4]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [4]),
+        .I2(\file_name[2][7]_i_5_n_0 ),
+        .I3(\file_name[2][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [4]),
+        .O(\lastchar_reg[7]_1 [4]));
+  (* SOFT_HLUTNM = "soft_lutpair102" *) 
+  LUT4 #(
+    .INIT(16'hEF40)) 
+    \file_name[2][5]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[2][5]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
+        .I3(\file_name_reg[0][5] ),
+        .O(\lastchar_reg[7]_1 [5]));
+  LUT5 #(
+    .INIT(32'hFFEF0040)) 
+    \file_name[2][5]_i_2 
+       (.I0(islongok_i_2_n_0),
+        .I1(\outbyte_reg[7]_0 [5]),
+        .I2(\file_name[8][5]_i_4_n_0 ),
+        .I3(\file_name[2][7]_i_8_n_0 ),
+        .I4(\file_name[2][5]_i_3_n_0 ),
+        .O(\file_name[2][5]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFFFFF00100000)) 
+    \file_name[2][5]_i_3 
+       (.I0(\file_name[3][7]_i_9_n_0 ),
+        .I1(\longno[5]_i_2_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [1]),
+        .I3(\sdtnamelen_reg[7]_1 [0]),
+        .I4(\sector_content[456][7]_i_2_n_0 ),
+        .I5(\file_name_reg[0][5] ),
+        .O(\file_name[2][5]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
+    \file_name[2][6]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [6]),
+        .I2(\file_name[2][7]_i_5_n_0 ),
+        .I3(\file_name[2][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [6]),
+        .O(\lastchar_reg[7]_1 [6]));
+  LUT6 #(
+    .INIT(64'h002000200020AAAA)) 
+    \file_name[2][7]_i_1 
+       (.I0(fready152_out),
+        .I1(\file_namelen_reg[3]_i_2_n_7 ),
+        .I2(\file_namelen_reg[3]_i_2_n_6 ),
+        .I3(\file_name[3][7]_i_3_n_0 ),
+        .I4(\file_name[2][7]_i_3_n_0 ),
+        .I5(\file_name[2][7]_i_4_n_0 ),
+        .O(outen_reg_4));
+  LUT6 #(
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
+    \file_name[2][7]_i_2 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [7]),
+        .I2(\file_name[2][7]_i_5_n_0 ),
+        .I3(\file_name[2][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [7]),
+        .O(\lastchar_reg[7]_1 [7]));
+  LUT6 #(
+    .INIT(64'h0EEE0000EEEEEEEE)) 
+    \file_name[2][7]_i_3 
+       (.I0(raddr[4]),
+        .I1(raddr[3]),
+        .I2(\file_name[2][7]_i_7_n_0 ),
+        .I3(\sector_content[456][7]_i_2_n_0 ),
+        .I4(\file_name[2][7]_i_6_n_0 ),
+        .I5(\lastchar[7]_i_2_n_0 ),
+        .O(\file_name[2][7]_i_3_n_0 ));
+  LUT5 #(
+    .INIT(32'hAAAAAAFB)) 
+    \file_name[2][7]_i_4 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[2][7]_i_7_n_0 ),
+        .I2(islongok_i_2_n_0),
+        .I3(raddr[3]),
+        .I4(raddr[4]),
+        .O(\file_name[2][7]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'h000000000000A0A2)) 
+    \file_name[2][7]_i_5 
+       (.I0(\file_name[7][7]_i_9_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [2]),
+        .I2(\longno[5]_i_2_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [3]),
+        .I4(\sdtnamelen_reg[7]_1 [6]),
+        .I5(\file_name[6][7]_i_8_n_0 ),
+        .O(\file_name[2][7]_i_5_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair108" *) 
+  LUT4 #(
+    .INIT(16'hFFFE)) 
+    \file_name[2][7]_i_6 
+       (.I0(islongok_i_2_n_0),
+        .I1(\file_name[8][7]_i_12_n_0 ),
+        .I2(\sdtnamelen[7]_i_3_n_0 ),
+        .I3(\file_name[2][7]_i_8_n_0 ),
+        .O(\file_name[2][7]_i_6_n_0 ));
+  LUT4 #(
+    .INIT(16'h0004)) 
+    \file_name[2][7]_i_7 
+       (.I0(\sdtnamelen_reg[7]_1 [0]),
+        .I1(\sdtnamelen_reg[7]_1 [1]),
+        .I2(\longno[5]_i_2_n_0 ),
+        .I3(\file_name[3][7]_i_9_n_0 ),
+        .O(\file_name[2][7]_i_7_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFFEFFB)) 
+    \file_name[2][7]_i_8 
+       (.I0(\sdtnamelen_reg[7]_1 [3]),
+        .I1(\sdtnamelen_reg[7]_1 [1]),
+        .I2(\sdtnamelen_reg[7]_1 [0]),
+        .I3(\sector_content[456][7]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [2]),
+        .I5(\longno[5]_i_2_n_0 ),
+        .O(\file_name[2][7]_i_8_n_0 ));
+  LUT6 #(
+    .INIT(64'hEF44FF00AB00FF00)) 
+    \file_name[3][0]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[3][7]_i_5_n_0 ),
+        .I2(\file_name[3][7]_i_6_n_0 ),
+        .I3(\file_name_reg[0][7]_0 [0]),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [0]),
+        .O(\outbyte_reg[7]_3 [0]));
+  LUT6 #(
+    .INIT(64'hF5F4F0F0B1B0F0F0)) 
+    \file_name[3][1]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[3][7]_i_5_n_0 ),
+        .I2(\file_name_reg[0][7]_0 [1]),
+        .I3(\file_name[3][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [1]),
+        .O(\outbyte_reg[7]_3 [1]));
+  LUT6 #(
+    .INIT(64'hF5F4F0F0B1B0F0F0)) 
+    \file_name[3][2]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[3][7]_i_5_n_0 ),
+        .I2(\file_name_reg[0][7]_0 [2]),
+        .I3(\file_name[3][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [2]),
+        .O(\outbyte_reg[7]_3 [2]));
+  LUT6 #(
+    .INIT(64'hF5F4F0F0B1B0F0F0)) 
+    \file_name[3][3]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[3][7]_i_5_n_0 ),
+        .I2(\file_name_reg[0][7]_0 [3]),
+        .I3(\file_name[3][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [3]),
+        .O(\outbyte_reg[7]_3 [3]));
+  LUT6 #(
+    .INIT(64'hEF44FF00AB00FF00)) 
+    \file_name[3][4]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[3][7]_i_5_n_0 ),
+        .I2(\file_name[3][7]_i_6_n_0 ),
+        .I3(\file_name_reg[0][7]_0 [4]),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [4]),
+        .O(\outbyte_reg[7]_3 [4]));
+  LUT6 #(
+    .INIT(64'hFF54FF00BB10FF00)) 
+    \file_name[3][5]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[3][7]_i_5_n_0 ),
+        .I2(\file_name[3][7]_i_6_n_0 ),
+        .I3(\file_name_reg[0][5] ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [5]),
+        .O(\outbyte_reg[7]_3 [5]));
+  LUT6 #(
+    .INIT(64'hEAFFEFFF40004000)) 
+    \file_name[3][6]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\outbyte_reg[7]_0 [6]),
+        .I2(\file_name[3][7]_i_5_n_0 ),
+        .I3(\lastchar[7]_i_2_n_0 ),
+        .I4(\file_name[3][7]_i_6_n_0 ),
+        .I5(\file_name_reg[0][7]_0 [6]),
+        .O(\outbyte_reg[7]_3 [6]));
+  LUT5 #(
+    .INIT(32'h0080AAAA)) 
+    \file_name[3][7]_i_1 
+       (.I0(fready152_out),
+        .I1(\file_namelen_reg[3]_i_2_n_6 ),
+        .I2(\file_namelen_reg[3]_i_2_n_7 ),
+        .I3(\file_name[3][7]_i_3_n_0 ),
+        .I4(\file_name[3][7]_i_4_n_0 ),
+        .O(outen_reg_5));
+  LUT6 #(
+    .INIT(64'hEAFFEFFF40004000)) 
+    \file_name[3][7]_i_2 
+       (.I0(isshort_i_2_n_0),
+        .I1(\outbyte_reg[7]_0 [7]),
+        .I2(\file_name[3][7]_i_5_n_0 ),
+        .I3(\lastchar[7]_i_2_n_0 ),
+        .I4(\file_name[3][7]_i_6_n_0 ),
+        .I5(\file_name_reg[0][7]_0 [7]),
+        .O(\outbyte_reg[7]_3 [7]));
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFFFFFE)) 
+    \file_name[3][7]_i_3 
+       (.I0(\file_name[8][7]_i_4_n_0 ),
+        .I1(\file_name[7][7]_i_7_n_0 ),
+        .I2(longvalid_i_6_n_0),
+        .I3(longvalid_i_7_n_0),
+        .I4(\file_namelen_reg[3]_i_2_n_4 ),
+        .I5(\file_namelen_reg[3]_i_2_n_5 ),
+        .O(\file_name[3][7]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFFFFF0057FF57)) 
+    \file_name[3][7]_i_4 
+       (.I0(\lastchar[7]_i_2_n_0 ),
+        .I1(\file_name[3][7]_i_5_n_0 ),
+        .I2(\file_name[3][7]_i_6_n_0 ),
+        .I3(\sdtnamelen[0]_i_3_n_0 ),
+        .I4(\file_name[3][7]_i_7_n_0 ),
+        .I5(isshort_i_2_n_0),
+        .O(\file_name[3][7]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000000010000000)) 
+    \file_name[3][7]_i_5 
+       (.I0(\sdtnamelen[7]_i_3_n_0 ),
+        .I1(islongok_i_2_n_0),
+        .I2(\sdtnamelen[4]_i_5_n_0 ),
+        .I3(\file_name[8][7]_i_14_n_0 ),
+        .I4(\file_name[3][7]_i_8_n_0 ),
+        .I5(\file_name[8][7]_i_12_n_0 ),
+        .O(\file_name[3][7]_i_5_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair82" *) 
+  LUT5 #(
+    .INIT(32'h00200000)) 
+    \file_name[3][7]_i_6 
+       (.I0(\sector_content[456][7]_i_2_n_0 ),
+        .I1(\file_name[3][7]_i_9_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [0]),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [1]),
+        .O(\file_name[3][7]_i_6_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+  LUT5 #(
+    .INIT(32'h00100000)) 
+    \file_name[3][7]_i_7 
+       (.I0(islongok_i_2_n_0),
+        .I1(\file_name[3][7]_i_9_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [0]),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [1]),
+        .O(\file_name[3][7]_i_7_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair92" *) 
+  LUT4 #(
+    .INIT(16'h0220)) 
+    \file_name[3][7]_i_8 
+       (.I0(\sdtnamelen_reg[7]_1 [1]),
+        .I1(\longno[5]_i_2_n_0 ),
+        .I2(\sector_content[456][7]_i_2_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [0]),
+        .O(\file_name[3][7]_i_8_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair87" *) 
+  LUT5 #(
+    .INIT(32'h3333FFFB)) 
+    \file_name[3][7]_i_9 
+       (.I0(\sdtnamelen_reg[7]_1 [2]),
+        .I1(\file_name[6][7]_i_7_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [7]),
+        .I3(\sdtnamelen_reg[7]_1 [3]),
+        .I4(\longno[5]_i_2_n_0 ),
+        .O(\file_name[3][7]_i_9_n_0 ));
+  LUT6 #(
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
+    \file_name[4][0]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [0]),
+        .I2(\file_name[4][7]_i_5_n_0 ),
+        .I3(\file_name[4][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [0]),
+        .O(\lastchar_reg[7]_2 [0]));
+  (* SOFT_HLUTNM = "soft_lutpair103" *) 
+  LUT4 #(
+    .INIT(16'hEF40)) 
+    \file_name[4][1]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[4][1]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
+        .I3(\file_name_reg[0][7]_0 [1]),
+        .O(\lastchar_reg[7]_2 [1]));
   LUT6 #(
     .INIT(64'hFFFFFFEF00000040)) 
     \file_name[4][1]_i_2 
-       (.I0(islongok_i_3_n_0),
+       (.I0(islongok_i_2_n_0),
         .I1(\outbyte_reg[7]_0 [1]),
         .I2(\file_name[8][5]_i_4_n_0 ),
         .I3(\file_name[4][5]_i_3_n_0 ),
-        .I4(\file_name[6][7]_i_10_n_0 ),
+        .I4(\file_name[4][7]_i_9_n_0 ),
         .I5(\file_name[4][1]_i_3_n_0 ),
         .O(\file_name[4][1]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair176" *) 
+  (* SOFT_HLUTNM = "soft_lutpair166" *) 
   LUT3 #(
     .INIT(8'hF8)) 
     \file_name[4][1]_i_3 
-       (.I0(\file_name[4][7]_i_8_n_0 ),
+       (.I0(\file_name[4][7]_i_7_n_0 ),
         .I1(\sector_content[456][7]_i_2_n_0 ),
         .I2(\file_name_reg[0][7]_0 [1]),
         .O(\file_name[4][1]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair122" *) 
+  (* SOFT_HLUTNM = "soft_lutpair104" *) 
   LUT4 #(
-    .INIT(16'hBF80)) 
+    .INIT(16'hEF40)) 
     \file_name[4][2]_i_1 
-       (.I0(\file_name[4][2]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[4][2]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
         .I3(\file_name_reg[0][7]_0 [2]),
-        .O(\outbyte_reg[7]_8 [2]));
+        .O(\lastchar_reg[7]_2 [2]));
   LUT6 #(
     .INIT(64'hFFFFFFEF00000040)) 
     \file_name[4][2]_i_2 
-       (.I0(islongok_i_3_n_0),
+       (.I0(islongok_i_2_n_0),
         .I1(\outbyte_reg[7]_0 [2]),
         .I2(\file_name[8][5]_i_4_n_0 ),
         .I3(\file_name[4][5]_i_3_n_0 ),
-        .I4(\file_name[6][7]_i_10_n_0 ),
+        .I4(\file_name[4][7]_i_9_n_0 ),
         .I5(\file_name[4][2]_i_3_n_0 ),
         .O(\file_name[4][2]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair176" *) 
+  (* SOFT_HLUTNM = "soft_lutpair166" *) 
   LUT3 #(
     .INIT(8'hF8)) 
     \file_name[4][2]_i_3 
-       (.I0(\file_name[4][7]_i_8_n_0 ),
+       (.I0(\file_name[4][7]_i_7_n_0 ),
         .I1(\sector_content[456][7]_i_2_n_0 ),
         .I2(\file_name_reg[0][7]_0 [2]),
         .O(\file_name[4][2]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair124" *) 
+  (* SOFT_HLUTNM = "soft_lutpair105" *) 
   LUT4 #(
-    .INIT(16'hBF80)) 
+    .INIT(16'hEF40)) 
     \file_name[4][3]_i_1 
-       (.I0(\file_name[4][3]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[4][3]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
         .I3(\file_name_reg[0][7]_0 [3]),
-        .O(\outbyte_reg[7]_8 [3]));
+        .O(\lastchar_reg[7]_2 [3]));
   LUT6 #(
     .INIT(64'hFFFFFFEF00000040)) 
     \file_name[4][3]_i_2 
-       (.I0(islongok_i_3_n_0),
+       (.I0(islongok_i_2_n_0),
         .I1(\outbyte_reg[7]_0 [3]),
         .I2(\file_name[8][5]_i_4_n_0 ),
         .I3(\file_name[4][5]_i_3_n_0 ),
-        .I4(\file_name[6][7]_i_10_n_0 ),
+        .I4(\file_name[4][7]_i_9_n_0 ),
         .I5(\file_name[4][3]_i_3_n_0 ),
         .O(\file_name[4][3]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair175" *) 
+  (* SOFT_HLUTNM = "soft_lutpair165" *) 
   LUT3 #(
     .INIT(8'hF8)) 
     \file_name[4][3]_i_3 
-       (.I0(\file_name[4][7]_i_8_n_0 ),
+       (.I0(\file_name[4][7]_i_7_n_0 ),
         .I1(\sector_content[456][7]_i_2_n_0 ),
         .I2(\file_name_reg[0][7]_0 [3]),
         .O(\file_name[4][3]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'h7F4FFFFF30000000)) 
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
     \file_name[4][4]_i_1 
-       (.I0(\file_name[4][7]_i_6_n_0 ),
-        .I1(\file_name[4][7]_i_7_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [4]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [4]),
-        .O(\outbyte_reg[7]_8 [4]));
-  (* SOFT_HLUTNM = "soft_lutpair120" *) 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [4]),
+        .I2(\file_name[4][7]_i_5_n_0 ),
+        .I3(\file_name[4][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [4]),
+        .O(\lastchar_reg[7]_2 [4]));
+  (* SOFT_HLUTNM = "soft_lutpair106" *) 
   LUT4 #(
-    .INIT(16'hBF80)) 
+    .INIT(16'hEF40)) 
     \file_name[4][5]_i_1 
-       (.I0(\file_name[4][5]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
-        .I3(\file_name_reg[8][5] ),
-        .O(\outbyte_reg[7]_8 [5]));
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[4][5]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
+        .I3(\file_name_reg[0][5] ),
+        .O(\lastchar_reg[7]_2 [5]));
   LUT6 #(
     .INIT(64'hFFFFFFEF00000040)) 
     \file_name[4][5]_i_2 
-       (.I0(islongok_i_3_n_0),
+       (.I0(islongok_i_2_n_0),
         .I1(\outbyte_reg[7]_0 [5]),
         .I2(\file_name[8][5]_i_4_n_0 ),
         .I3(\file_name[4][5]_i_3_n_0 ),
-        .I4(\file_name[6][7]_i_10_n_0 ),
+        .I4(\file_name[4][7]_i_9_n_0 ),
         .I5(\file_name[4][5]_i_4_n_0 ),
         .O(\file_name[4][5]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair85" *) 
+  (* SOFT_HLUTNM = "soft_lutpair79" *) 
   LUT5 #(
     .INIT(32'hFBFDFDFD)) 
     \file_name[4][5]_i_3 
-       (.I0(\file_namelen_reg[7]_0 [2]),
-        .I1(\file_namelen_reg[7]_0 [1]),
+       (.I0(\sdtnamelen_reg[7]_1 [2]),
+        .I1(\sdtnamelen_reg[7]_1 [1]),
         .I2(\longno[5]_i_2_n_0 ),
         .I3(\sector_content[456][7]_i_2_n_0 ),
-        .I4(\file_namelen_reg[7]_0 [0]),
+        .I4(\sdtnamelen_reg[7]_1 [0]),
         .O(\file_name[4][5]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair175" *) 
+  (* SOFT_HLUTNM = "soft_lutpair165" *) 
   LUT3 #(
     .INIT(8'hF8)) 
     \file_name[4][5]_i_4 
-       (.I0(\file_name[4][7]_i_8_n_0 ),
+       (.I0(\file_name[4][7]_i_7_n_0 ),
         .I1(\sector_content[456][7]_i_2_n_0 ),
-        .I2(\file_name_reg[8][5] ),
+        .I2(\file_name_reg[0][5] ),
         .O(\file_name[4][5]_i_4_n_0 ));
   LUT6 #(
-    .INIT(64'h7F4FFFFF30000000)) 
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
     \file_name[4][6]_i_1 
-       (.I0(\file_name[4][7]_i_6_n_0 ),
-        .I1(\file_name[4][7]_i_7_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [6]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [6]),
-        .O(\outbyte_reg[7]_8 [6]));
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [6]),
+        .I2(\file_name[4][7]_i_5_n_0 ),
+        .I3(\file_name[4][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [6]),
+        .O(\lastchar_reg[7]_2 [6]));
   LUT6 #(
     .INIT(64'h000200020002AAAA)) 
     \file_name[4][7]_i_1 
        (.I0(fready152_out),
-        .I1(\file_name[7][7]_i_5_n_0 ),
-        .I2(\file_name[4][7]_i_3_n_0 ),
-        .I3(\file_name[7][7]_i_4_n_0 ),
-        .I4(\file_name[4][7]_i_4_n_0 ),
-        .I5(\file_name[4][7]_i_5_n_0 ),
+        .I1(\file_namelen_reg[3]_i_2_n_6 ),
+        .I2(\file_namelen_reg[3]_i_2_n_7 ),
+        .I3(\file_name[7][7]_i_3_n_0 ),
+        .I4(\file_name[4][7]_i_3_n_0 ),
+        .I5(\file_name[4][7]_i_4_n_0 ),
         .O(outen_reg_6));
   LUT6 #(
-    .INIT(64'h7F4FFFFF30000000)) 
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
     \file_name[4][7]_i_2 
-       (.I0(\file_name[4][7]_i_6_n_0 ),
-        .I1(\file_name[4][7]_i_7_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [7]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [7]),
-        .O(\outbyte_reg[7]_8 [7]));
-  LUT2 #(
-    .INIT(4'hE)) 
-    \file_name[4][7]_i_3 
-       (.I0(\file_namelen_reg[3]_i_2_n_7 ),
-        .I1(\file_namelen_reg[3]_i_2_n_6 ),
-        .O(\file_name[4][7]_i_3_n_0 ));
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [7]),
+        .I2(\file_name[4][7]_i_5_n_0 ),
+        .I3(\file_name[4][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [7]),
+        .O(\lastchar_reg[7]_2 [7]));
   LUT6 #(
     .INIT(64'h0EEE0000EEEEEEEE)) 
-    \file_name[4][7]_i_4 
+    \file_name[4][7]_i_3 
        (.I0(raddr[4]),
         .I1(raddr[3]),
-        .I2(\file_name[4][7]_i_8_n_0 ),
+        .I2(\file_name[4][7]_i_7_n_0 ),
         .I3(\sector_content[456][7]_i_2_n_0 ),
-        .I4(\file_name[4][7]_i_7_n_0 ),
-        .I5(\sdtnamelen[6]_i_2_n_0 ),
-        .O(\file_name[4][7]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair99" *) 
+        .I4(\file_name[4][7]_i_6_n_0 ),
+        .I5(\lastchar[7]_i_2_n_0 ),
+        .O(\file_name[4][7]_i_3_n_0 ));
   LUT5 #(
-    .INIT(32'h57575557)) 
+    .INIT(32'hAAAAAAFB)) 
+    \file_name[4][7]_i_4 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[4][7]_i_7_n_0 ),
+        .I2(islongok_i_2_n_0),
+        .I3(raddr[3]),
+        .I4(raddr[4]),
+        .O(\file_name[4][7]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'hA200000000000000)) 
     \file_name[4][7]_i_5 
-       (.I0(\outaddr_reg[0]_0 ),
-        .I1(raddr[3]),
-        .I2(raddr[4]),
-        .I3(\file_name[4][7]_i_8_n_0 ),
-        .I4(islongok_i_3_n_0),
+       (.I0(\file_name[6][7]_i_7_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [0]),
+        .I2(\longno[5]_i_2_n_0 ),
+        .I3(\sector_content[456][7]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [2]),
+        .I5(\file_name[4][7]_i_8_n_0 ),
         .O(\file_name[4][7]_i_5_n_0 ));
   LUT6 #(
-    .INIT(64'h0008000000000000)) 
+    .INIT(64'hFFFFFFFFFFFEFFFF)) 
     \file_name[4][7]_i_6 
-       (.I0(\file_name[7][5]_i_3_n_0 ),
-        .I1(\file_namelen_reg[7]_0 [2]),
-        .I2(\longno[5]_i_2_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [0]),
-        .I4(\sector_content[456][7]_i_2_n_0 ),
-        .I5(\file_name[4][7]_i_9_n_0 ),
+       (.I0(\file_name[4][7]_i_9_n_0 ),
+        .I1(islongok_i_2_n_0),
+        .I2(\sdtnamelen[7]_i_3_n_0 ),
+        .I3(\file_name[8][7]_i_14_n_0 ),
+        .I4(\file_name[8][7]_i_13_n_0 ),
+        .I5(\file_name[8][7]_i_12_n_0 ),
         .O(\file_name[4][7]_i_6_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFEFFFF)) 
+    .INIT(64'h0000000000000200)) 
     \file_name[4][7]_i_7 
-       (.I0(\file_name[6][7]_i_10_n_0 ),
-        .I1(\file_name[8][7]_i_11_n_0 ),
-        .I2(\file_name[8][7]_i_12_n_0 ),
-        .I3(islongok_i_3_n_0),
-        .I4(\file_name[8][7]_i_13_n_0 ),
-        .I5(\sdtnamelen[4]_i_7_n_0 ),
-        .O(\file_name[4][7]_i_7_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000000000020)) 
-    \file_name[4][7]_i_8 
        (.I0(\file_name[6][5]_i_3_n_0 ),
-        .I1(\longno[5]_i_2_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [2]),
-        .I3(\file_namelen_reg[7]_0 [1]),
-        .I4(\file_namelen_reg[7]_0 [4]),
-        .I5(\file_namelen_reg[7]_0 [5]),
-        .O(\file_name[4][7]_i_8_n_0 ));
+        .I1(\sdtnamelen_reg[7]_1 [1]),
+        .I2(\longno[5]_i_2_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [2]),
+        .I4(\sdtnamelen_reg[7]_1 [5]),
+        .I5(\sdtnamelen_reg[7]_1 [4]),
+        .O(\file_name[4][7]_i_7_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair93" *) 
   LUT4 #(
     .INIT(16'hCCCD)) 
-    \file_name[4][7]_i_9 
-       (.I0(\file_namelen_reg[7]_0 [1]),
+    \file_name[4][7]_i_8 
+       (.I0(\sdtnamelen_reg[7]_1 [1]),
         .I1(\longno[5]_i_2_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [3]),
-        .I3(\file_namelen_reg[7]_0 [7]),
+        .I2(\sdtnamelen_reg[7]_1 [3]),
+        .I3(\sdtnamelen_reg[7]_1 [7]),
+        .O(\file_name[4][7]_i_8_n_0 ));
+  LUT6 #(
+    .INIT(64'hAA7FAAFFAAD5AAAA)) 
+    \file_name[4][7]_i_9 
+       (.I0(\sector_content[456][7]_i_2_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [2]),
+        .I2(\sdtnamelen_reg[7]_1 [1]),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [0]),
+        .I5(\sdtnamelen_reg[7]_1 [3]),
         .O(\file_name[4][7]_i_9_n_0 ));
   LUT6 #(
-    .INIT(64'h2FEFFFFF20200000)) 
+    .INIT(64'hAEFF0400FEFF0400)) 
     \file_name[5][0]_i_1 
-       (.I0(\outbyte_reg[7]_0 [0]),
-        .I1(\file_name[5][6]_i_2_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\file_name[5][7]_i_7_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [0]),
-        .O(\outbyte_reg[7]_7 [0]));
+       (.I0(isshort_i_2_n_0),
+        .I1(\outbyte_reg[7]_0 [0]),
+        .I2(\file_name[5][7]_i_5_n_0 ),
+        .I3(\lastchar[7]_i_2_n_0 ),
+        .I4(\file_name_reg[0][7]_0 [0]),
+        .I5(\file_name[5][7]_i_6_n_0 ),
+        .O(\outbyte_reg[7]_4 [0]));
   LUT6 #(
-    .INIT(64'hBFBFFFFFB0800000)) 
+    .INIT(64'hFFFAFFFF55400000)) 
     \file_name[5][1]_i_1 
-       (.I0(\outbyte_reg[7]_0 [1]),
-        .I1(\file_name[5][7]_i_6_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\file_name[5][3]_i_3_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[5][5]_i_2_n_0 ),
+        .I2(\file_name[5][7]_i_5_n_0 ),
+        .I3(\file_name[5][1]_i_2_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
         .I5(\file_name_reg[0][7]_0 [1]),
-        .O(\outbyte_reg[7]_7 [1]));
+        .O(\outbyte_reg[7]_4 [1]));
   LUT6 #(
-    .INIT(64'hEFEFFFFFE0400000)) 
+    .INIT(64'h0000000000020000)) 
+    \file_name[5][1]_i_2 
+       (.I0(\outbyte_reg[7]_0 [1]),
+        .I1(\sdtnamelen[7]_i_3_n_0 ),
+        .I2(\file_name[6][2]_i_4_n_0 ),
+        .I3(\sdtnamelen[1]_i_3_n_0 ),
+        .I4(\file_name[6][2]_i_5_n_0 ),
+        .I5(\file_name[5][7]_i_9_n_0 ),
+        .O(\file_name[5][1]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'hF5F1F0F0A0A0F0F0)) 
     \file_name[5][2]_i_1 
-       (.I0(\file_name[5][3]_i_2_n_0 ),
-        .I1(\outbyte_reg[7]_0 [2]),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\file_name[5][3]_i_3_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [2]),
-        .O(\outbyte_reg[7]_7 [2]));
+       (.I0(isshort_i_2_n_0),
+        .I1(islongok_i_2_n_0),
+        .I2(\file_name_reg[0][7]_0 [2]),
+        .I3(\file_name[5][5]_i_2_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\file_name[5][2]_i_2_n_0 ),
+        .O(\outbyte_reg[7]_4 [2]));
   LUT6 #(
-    .INIT(64'hEFEFFFFFE0400000)) 
+    .INIT(64'hFFFFFFFFEEEEEEF0)) 
+    \file_name[5][2]_i_2 
+       (.I0(\file_name_reg[0][7]_0 [2]),
+        .I1(\file_name[5][5]_i_2_n_0 ),
+        .I2(\outbyte_reg[7]_0 [2]),
+        .I3(\file_name[5][2]_i_3_n_0 ),
+        .I4(\file_name[5][7]_i_9_n_0 ),
+        .I5(islongok_i_2_n_0),
+        .O(\file_name[5][2]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'hEEFFEEFEFFFEFFFF)) 
+    \file_name[5][2]_i_3 
+       (.I0(\sdtnamelen[7]_i_3_n_0 ),
+        .I1(\file_name[6][2]_i_4_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [1]),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [0]),
+        .I5(\sector_content[456][7]_i_2_n_0 ),
+        .O(\file_name[5][2]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'hFEFF5400FEFF0400)) 
     \file_name[5][3]_i_1 
-       (.I0(\file_name[5][3]_i_2_n_0 ),
+       (.I0(isshort_i_2_n_0),
         .I1(\outbyte_reg[7]_0 [3]),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\file_name[5][3]_i_3_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [3]),
-        .O(\outbyte_reg[7]_7 [3]));
-  (* SOFT_HLUTNM = "soft_lutpair129" *) 
-  LUT3 #(
-    .INIT(8'hFE)) 
-    \file_name[5][3]_i_2 
-       (.I0(islongok_i_3_n_0),
-        .I1(\file_name[5][7]_i_9_n_0 ),
-        .I2(\file_name[8][7]_i_12_n_0 ),
-        .O(\file_name[5][3]_i_2_n_0 ));
+        .I2(\file_name[5][7]_i_5_n_0 ),
+        .I3(\lastchar[7]_i_2_n_0 ),
+        .I4(\file_name_reg[0][7]_0 [3]),
+        .I5(\file_name[5][5]_i_2_n_0 ),
+        .O(\outbyte_reg[7]_4 [3]));
+  LUT6 #(
+    .INIT(64'hAEFF0400FEFF0400)) 
+    \file_name[5][4]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\outbyte_reg[7]_0 [4]),
+        .I2(\file_name[5][7]_i_5_n_0 ),
+        .I3(\lastchar[7]_i_2_n_0 ),
+        .I4(\file_name_reg[0][7]_0 [4]),
+        .I5(\file_name[5][7]_i_6_n_0 ),
+        .O(\outbyte_reg[7]_4 [4]));
+  LUT6 #(
+    .INIT(64'hFEFFFEFF54000400)) 
+    \file_name[5][5]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\outbyte_reg[7]_0 [5]),
+        .I2(\file_name[5][7]_i_5_n_0 ),
+        .I3(\lastchar[7]_i_2_n_0 ),
+        .I4(\file_name[5][5]_i_2_n_0 ),
+        .I5(\file_name_reg[0][5] ),
+        .O(\outbyte_reg[7]_4 [5]));
   LUT6 #(
     .INIT(64'h0000002000000000)) 
-    \file_name[5][3]_i_3 
-       (.I0(\sector_content[456][7]_i_2_n_0 ),
-        .I1(\sdtnamelen[1]_i_2_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [2]),
-        .I3(\sdtnamelen[0]_i_3_n_0 ),
-        .I4(\file_name[5][3]_i_4_n_0 ),
-        .I5(\sdtnamelen[3]_i_5_n_0 ),
-        .O(\file_name[5][3]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair107" *) 
-  LUT5 #(
-    .INIT(32'h00FF00FE)) 
-    \file_name[5][3]_i_4 
-       (.I0(\file_namelen_reg[7]_0 [6]),
-        .I1(\file_namelen_reg[7]_0 [7]),
-        .I2(\file_namelen_reg[7]_0 [5]),
-        .I3(\longno[5]_i_2_n_0 ),
-        .I4(\file_namelen_reg[7]_0 [4]),
-        .O(\file_name[5][3]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'h2FEFFFFF20200000)) 
-    \file_name[5][4]_i_1 
-       (.I0(\outbyte_reg[7]_0 [4]),
-        .I1(\file_name[5][6]_i_2_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\file_name[5][7]_i_7_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [4]),
-        .O(\outbyte_reg[7]_7 [4]));
-  LUT6 #(
-    .INIT(64'hEFEFFFFFE0200000)) 
-    \file_name[5][5]_i_1 
-       (.I0(\outbyte_reg[7]_0 [5]),
-        .I1(\file_name[5][6]_i_2_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\file_name[5][5]_i_2_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[8][5] ),
-        .O(\outbyte_reg[7]_7 [5]));
-  LUT6 #(
-    .INIT(64'h0000020000000000)) 
     \file_name[5][5]_i_2 
        (.I0(\sector_content[456][7]_i_2_n_0 ),
-        .I1(\file_namelen_reg[7]_0 [1]),
-        .I2(\sdtnamelen[0]_i_3_n_0 ),
-        .I3(\file_name[7][5]_i_3_n_0 ),
-        .I4(\file_name[7][7]_i_10_n_0 ),
-        .I5(\file_namelen_reg[7]_0 [2]),
+        .I1(\sdtnamelen_reg[7]_1 [1]),
+        .I2(\sdtnamelen_reg[7]_1 [0]),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\file_name[7][5]_i_3_n_0 ),
+        .I5(\sdtnamelen_reg[7]_1 [2]),
         .O(\file_name[5][5]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h2FEFFFFF20200000)) 
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
     \file_name[5][6]_i_1 
-       (.I0(\outbyte_reg[7]_0 [6]),
-        .I1(\file_name[5][6]_i_2_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\file_name[5][7]_i_7_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [6]),
-        .O(\outbyte_reg[7]_7 [6]));
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [6]),
+        .I2(\file_name[5][7]_i_6_n_0 ),
+        .I3(\file_name[5][7]_i_5_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [6]),
+        .O(\outbyte_reg[7]_4 [6]));
   LUT6 #(
-    .INIT(64'hFFFEFFFFFFFFFFFF)) 
-    \file_name[5][6]_i_2 
-       (.I0(\file_name[8][7]_i_12_n_0 ),
-        .I1(\file_name[5][6]_i_3_n_0 ),
-        .I2(\file_name[5][6]_i_4_n_0 ),
-        .I3(\sdtnamelen[5]_i_4_n_0 ),
-        .I4(\sdtnamelen[4]_i_5_n_0 ),
-        .I5(\sdtnamelen[4]_i_4_n_0 ),
-        .O(\file_name[5][6]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFEAFFBFFFFF)) 
-    \file_name[5][6]_i_3 
-       (.I0(islongok_i_3_n_0),
-        .I1(\file_namelen_reg[7]_0 [0]),
-        .I2(\sector_content[456][7]_i_2_n_0 ),
-        .I3(\longno[5]_i_2_n_0 ),
-        .I4(\file_namelen_reg[7]_0 [1]),
-        .I5(\file_namelen_reg[7]_0 [2]),
-        .O(\file_name[5][6]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair101" *) 
-  LUT4 #(
-    .INIT(16'h32EF)) 
-    \file_name[5][6]_i_4 
-       (.I0(\file_namelen_reg[7]_0 [1]),
-        .I1(\longno[5]_i_2_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [0]),
-        .I3(\sector_content[456][7]_i_2_n_0 ),
-        .O(\file_name[5][6]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'h88888888888A8888)) 
+    .INIT(64'h002000200020AAAA)) 
     \file_name[5][7]_i_1 
        (.I0(fready152_out),
-        .I1(\file_name[5][7]_i_3_n_0 ),
-        .I2(\file_name[5][7]_i_4_n_0 ),
-        .I3(\file_namelen_reg[3]_i_2_n_6 ),
-        .I4(\file_name[5][7]_i_5_n_0 ),
-        .I5(\file_name[6][7]_i_4_n_0 ),
-        .O(outen_reg_9));
+        .I1(\file_namelen_reg[3]_i_2_n_6 ),
+        .I2(\file_namelen_reg[3]_i_2_n_7 ),
+        .I3(\file_name[7][7]_i_3_n_0 ),
+        .I4(\file_name[5][7]_i_3_n_0 ),
+        .I5(\file_name[5][7]_i_4_n_0 ),
+        .O(outen_reg_7));
   LUT6 #(
-    .INIT(64'h8FBFFFFF80800000)) 
+    .INIT(64'hBAFF1000FEFF1000)) 
     \file_name[5][7]_i_2 
-       (.I0(\outbyte_reg[7]_0 [7]),
-        .I1(\file_name[5][7]_i_6_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\file_name[5][7]_i_7_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [7]),
-        .O(\outbyte_reg[7]_7 [7]));
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[5][7]_i_5_n_0 ),
+        .I2(\outbyte_reg[7]_0 [7]),
+        .I3(\lastchar[7]_i_2_n_0 ),
+        .I4(\file_name_reg[0][7]_0 [7]),
+        .I5(\file_name[5][7]_i_6_n_0 ),
+        .O(\outbyte_reg[7]_4 [7]));
   LUT6 #(
-    .INIT(64'hFF008A8A00000000)) 
+    .INIT(64'h0000551555555555)) 
     \file_name[5][7]_i_3 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(\file_name[5][5]_i_2_n_0 ),
-        .I2(\file_name[5][6]_i_2_n_0 ),
-        .I3(\file_name[5][7]_i_8_n_0 ),
-        .I4(\sdtnamelen[3]_i_3_n_0 ),
-        .I5(\outaddr_reg[0]_0 ),
+       (.I0(\sdtnamelen[0]_i_3_n_0 ),
+        .I1(\file_name[5][7]_i_7_n_0 ),
+        .I2(\sdtnamelen[4]_i_5_n_0 ),
+        .I3(\file_name[8][7]_i_14_n_0 ),
+        .I4(\file_name[5][5]_i_2_n_0 ),
+        .I5(\lastchar[7]_i_2_n_0 ),
         .O(\file_name[5][7]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair215" *) 
-  LUT2 #(
-    .INIT(4'hB)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFEAAAAAAAA)) 
     \file_name[5][7]_i_4 
-       (.I0(\file_namelen_reg[3]_i_2_n_4 ),
-        .I1(\file_namelen_reg[3]_i_2_n_5 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(islongok_i_2_n_0),
+        .I2(\sdtnamelen_reg[7]_1 [1]),
+        .I3(\sdtnamelen[1]_i_4_n_0 ),
+        .I4(\file_name[5][7]_i_8_n_0 ),
+        .I5(\sdtnamelen[0]_i_3_n_0 ),
         .O(\file_name[5][7]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair214" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFEFFFF)) 
     \file_name[5][7]_i_5 
-       (.I0(\file_namelen_reg[3]_i_2_n_7 ),
-        .I1(\file_name[0][7]_i_3_n_0 ),
+       (.I0(islongok_i_2_n_0),
+        .I1(\sdtnamelen[7]_i_3_n_0 ),
+        .I2(\file_name[6][2]_i_4_n_0 ),
+        .I3(\sdtnamelen[1]_i_3_n_0 ),
+        .I4(\file_name[6][2]_i_5_n_0 ),
+        .I5(\file_name[5][7]_i_9_n_0 ),
         .O(\file_name[5][7]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair129" *) 
-  LUT4 #(
-    .INIT(16'h0001)) 
+  LUT6 #(
+    .INIT(64'h00000000F0F10000)) 
     \file_name[5][7]_i_6 
-       (.I0(\sdtnamelen[7]_i_9_n_0 ),
-        .I1(islongok_i_3_n_0),
-        .I2(\sdtnamelen[7]_i_11_n_0 ),
-        .I3(\file_name[5][7]_i_9_n_0 ),
+       (.I0(\sdtnamelen_reg[7]_1 [7]),
+        .I1(\sdtnamelen_reg[7]_1 [3]),
+        .I2(\longno[5]_i_2_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [1]),
+        .I4(\file_name[6][7]_i_7_n_0 ),
+        .I5(\file_name[7][7]_i_10_n_0 ),
         .O(\file_name[5][7]_i_6_n_0 ));
   LUT6 #(
-    .INIT(64'h0000100000000000)) 
+    .INIT(64'h0100010000000100)) 
     \file_name[5][7]_i_7 
-       (.I0(\file_name[7][7]_i_10_n_0 ),
-        .I1(\sdtnamelen[1]_i_2_n_0 ),
-        .I2(\file_name[7][5]_i_3_n_0 ),
-        .I3(\sector_content[456][7]_i_2_n_0 ),
-        .I4(\sdtnamelen[0]_i_3_n_0 ),
-        .I5(\file_namelen_reg[7]_0 [2]),
+       (.I0(\sdtnamelen[7]_i_3_n_0 ),
+        .I1(\file_name[8][7]_i_12_n_0 ),
+        .I2(islongok_i_2_n_0),
+        .I3(\file_name[6][2]_i_5_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [1]),
+        .I5(\longno[5]_i_2_n_0 ),
         .O(\file_name[5][7]_i_7_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000010000000000)) 
+  (* SOFT_HLUTNM = "soft_lutpair87" *) 
+  LUT5 #(
+    .INIT(32'h55FDFFFF)) 
     \file_name[5][7]_i_8 
-       (.I0(islongok_i_3_n_0),
-        .I1(\file_namelen_reg[7]_0 [1]),
-        .I2(\sdtnamelen[0]_i_3_n_0 ),
-        .I3(\file_name[7][5]_i_3_n_0 ),
-        .I4(\file_name[7][7]_i_10_n_0 ),
-        .I5(\file_namelen_reg[7]_0 [2]),
+       (.I0(\file_name[6][7]_i_7_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [7]),
+        .I2(\sdtnamelen_reg[7]_1 [3]),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [2]),
         .O(\file_name[5][7]_i_8_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFF7FF)) 
+    .INIT(64'hFFFFFFEAFFBFFFFF)) 
     \file_name[5][7]_i_9 
-       (.I0(\sdtnamelen[4]_i_4_n_0 ),
-        .I1(\sdtnamelen[4]_i_5_n_0 ),
-        .I2(\sdtnamelen[5]_i_4_n_0 ),
-        .I3(\sdtnamelen[5]_i_6_n_0 ),
-        .I4(\sdtnamelen[1]_i_2_n_0 ),
-        .I5(\file_name[4][5]_i_3_n_0 ),
+       (.I0(\file_name[8][7]_i_12_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [0]),
+        .I2(\sector_content[456][7]_i_2_n_0 ),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [1]),
+        .I5(\sdtnamelen_reg[7]_1 [2]),
         .O(\file_name[5][7]_i_9_n_0 ));
   LUT6 #(
-    .INIT(64'hBF1FFFFFA0000000)) 
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
     \file_name[6][0]_i_1 
-       (.I0(\file_name[6][7]_i_6_n_0 ),
-        .I1(\file_name[6][7]_i_7_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [0]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [0]),
-        .O(\outbyte_reg[7]_6 [0]));
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [0]),
+        .I2(\file_name[6][7]_i_4_n_0 ),
+        .I3(\file_name[6][7]_i_5_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [0]),
+        .O(\lastchar_reg[7]_3 [0]));
   LUT6 #(
-    .INIT(64'hFF5FFFFFE0400000)) 
+    .INIT(64'hFEFFFEFF54001000)) 
     \file_name[6][1]_i_1 
-       (.I0(\file_name[6][7]_i_6_n_0 ),
-        .I1(\file_name[6][5]_i_2_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [1]),
-        .I4(\outaddr_reg[0]_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[6][7]_i_5_n_0 ),
+        .I2(\outbyte_reg[7]_0 [1]),
+        .I3(\lastchar[7]_i_2_n_0 ),
+        .I4(\file_name[6][5]_i_2_n_0 ),
         .I5(\file_name_reg[0][7]_0 [1]),
-        .O(\outbyte_reg[7]_6 [1]));
+        .O(\lastchar_reg[7]_3 [1]));
   LUT6 #(
-    .INIT(64'hBFBFFFFFB0800000)) 
+    .INIT(64'hFFEEFFFF54440000)) 
     \file_name[6][2]_i_1 
-       (.I0(\outbyte_reg[7]_0 [2]),
-        .I1(\file_name[6][7]_i_6_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\file_name[6][5]_i_2_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [2]),
-        .O(\outbyte_reg[7]_6 [2]));
-  (* SOFT_HLUTNM = "soft_lutpair128" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \file_name[6][3]_i_1 
-       (.I0(\file_name[6][3]_i_2_n_0 ),
-        .I1(\outaddr_reg[0]_0 ),
-        .I2(\file_name_reg[0][7]_0 [3]),
-        .O(\outbyte_reg[7]_6 [3]));
-  LUT6 #(
-    .INIT(64'hEEAAEEAAEFAAE0AA)) 
-    \file_name[6][3]_i_2 
-       (.I0(\file_name_reg[0][7]_0 [3]),
-        .I1(\file_name[6][5]_i_2_n_0 ),
-        .I2(islongok_i_3_n_0),
-        .I3(\sdtnamelen[6]_i_2_n_0 ),
-        .I4(\outbyte_reg[7]_0 [3]),
-        .I5(\file_name[6][3]_i_3_n_0 ),
-        .O(\file_name[6][3]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFEFFFFFFFF)) 
-    \file_name[6][3]_i_3 
-       (.I0(\file_name[6][7]_i_10_n_0 ),
-        .I1(\sdtnamelen[4]_i_7_n_0 ),
-        .I2(\file_name[8][7]_i_13_n_0 ),
-        .I3(\file_name[8][7]_i_12_n_0 ),
-        .I4(\sdtnamelen[5]_i_4_n_0 ),
-        .I5(\sdtnamelen[4]_i_4_n_0 ),
-        .O(\file_name[6][3]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'hBF1FFFFFA0000000)) 
-    \file_name[6][4]_i_1 
-       (.I0(\file_name[6][7]_i_6_n_0 ),
-        .I1(\file_name[6][7]_i_7_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [4]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [4]),
-        .O(\outbyte_reg[7]_6 [4]));
-  LUT6 #(
-    .INIT(64'hBBFFFFFFB8000000)) 
-    \file_name[6][5]_i_1 
-       (.I0(\outbyte_reg[7]_0 [5]),
-        .I1(\file_name[6][7]_i_6_n_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[6][2]_i_2_n_0 ),
         .I2(\file_name[6][5]_i_2_n_0 ),
-        .I3(\sdtnamelen[6]_i_2_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[8][5] ),
-        .O(\outbyte_reg[7]_6 [5]));
+        .I3(\file_name[6][7]_i_5_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\file_name_reg[0][7]_0 [2]),
+        .O(\lastchar_reg[7]_3 [2]));
   LUT6 #(
-    .INIT(64'h0080000000000000)) 
+    .INIT(64'h0000000000000008)) 
+    \file_name[6][2]_i_2 
+       (.I0(\file_name[6][2]_i_3_n_0 ),
+        .I1(\outbyte_reg[7]_0 [2]),
+        .I2(\file_name[6][2]_i_4_n_0 ),
+        .I3(\file_name[6][2]_i_5_n_0 ),
+        .I4(\file_name[8][7]_i_13_n_0 ),
+        .I5(\file_name[8][7]_i_14_n_0 ),
+        .O(\file_name[6][2]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair107" *) 
+  LUT3 #(
+    .INIT(8'h01)) 
+    \file_name[6][2]_i_3 
+       (.I0(islongok_i_2_n_0),
+        .I1(\file_name[8][7]_i_12_n_0 ),
+        .I2(\sdtnamelen[7]_i_3_n_0 ),
+        .O(\file_name[6][2]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'hF60A0A0AFB0E0E0E)) 
+    \file_name[6][2]_i_4 
+       (.I0(\sdtnamelen_reg[7]_1 [5]),
+        .I1(\sdtnamelen_reg[7]_1 [3]),
+        .I2(\longno[5]_i_2_n_0 ),
+        .I3(\file_name[6][2]_i_6_n_0 ),
+        .I4(\sector_content[456][7]_i_2_n_0 ),
+        .I5(\sdtnamelen_reg[7]_1 [4]),
+        .O(\file_name[6][2]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'hAAAAAAAAAAAAA9A8)) 
+    \file_name[6][2]_i_5 
+       (.I0(\sdtnamelen_reg[7]_1 [0]),
+        .I1(raddr[1]),
+        .I2(raddr[2]),
+        .I3(raddr[3]),
+        .I4(raddr[0]),
+        .I5(raddr[4]),
+        .O(\file_name[6][2]_i_5_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair86" *) 
+  LUT4 #(
+    .INIT(16'h0800)) 
+    \file_name[6][2]_i_6 
+       (.I0(\sdtnamelen_reg[7]_1 [2]),
+        .I1(\sdtnamelen_reg[7]_1 [1]),
+        .I2(\longno[5]_i_2_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [0]),
+        .O(\file_name[6][2]_i_6_n_0 ));
+  LUT6 #(
+    .INIT(64'hFEFFFEFF54001000)) 
+    \file_name[6][3]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[6][7]_i_5_n_0 ),
+        .I2(\outbyte_reg[7]_0 [3]),
+        .I3(\lastchar[7]_i_2_n_0 ),
+        .I4(\file_name[6][5]_i_2_n_0 ),
+        .I5(\file_name_reg[0][7]_0 [3]),
+        .O(\lastchar_reg[7]_3 [3]));
+  LUT6 #(
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
+    \file_name[6][4]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [4]),
+        .I2(\file_name[6][7]_i_4_n_0 ),
+        .I3(\file_name[6][7]_i_5_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [4]),
+        .O(\lastchar_reg[7]_3 [4]));
+  LUT6 #(
+    .INIT(64'hFFFAFFFF45400000)) 
+    \file_name[6][5]_i_1 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[6][5]_i_2_n_0 ),
+        .I2(\file_name[6][7]_i_5_n_0 ),
+        .I3(\outbyte_reg[7]_0 [5]),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\file_name_reg[0][5] ),
+        .O(\lastchar_reg[7]_3 [5]));
+  LUT6 #(
+    .INIT(64'h0000000000800000)) 
     \file_name[6][5]_i_2 
        (.I0(\sector_content[456][7]_i_2_n_0 ),
         .I1(\file_name[6][5]_i_3_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [1]),
-        .I3(\longno[5]_i_2_n_0 ),
-        .I4(\file_name[6][5]_i_4_n_0 ),
-        .I5(\file_namelen_reg[7]_0 [2]),
+        .I2(\sdtnamelen_reg[7]_1 [2]),
+        .I3(\file_name[6][5]_i_4_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [1]),
+        .I5(\longno[5]_i_2_n_0 ),
         .O(\file_name[6][5]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair105" *) 
   LUT5 #(
     .INIT(32'hF0F0F0F1)) 
     \file_name[6][5]_i_3 
-       (.I0(\file_namelen_reg[7]_0 [6]),
-        .I1(\file_namelen_reg[7]_0 [7]),
+       (.I0(\sdtnamelen_reg[7]_1 [0]),
+        .I1(\sdtnamelen_reg[7]_1 [7]),
         .I2(\longno[5]_i_2_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [0]),
-        .I4(\file_namelen_reg[7]_0 [3]),
+        .I3(\sdtnamelen_reg[7]_1 [3]),
+        .I4(\sdtnamelen_reg[7]_1 [6]),
         .O(\file_name[6][5]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair103" *) 
+  (* SOFT_HLUTNM = "soft_lutpair116" *) 
   LUT3 #(
-    .INIT(8'hCD)) 
+    .INIT(8'h32)) 
     \file_name[6][5]_i_4 
-       (.I0(\file_namelen_reg[7]_0 [4]),
+       (.I0(\sdtnamelen_reg[7]_1 [5]),
         .I1(\longno[5]_i_2_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [5]),
+        .I2(\sdtnamelen_reg[7]_1 [4]),
         .O(\file_name[6][5]_i_4_n_0 ));
   LUT6 #(
-    .INIT(64'hBF1FFFFFA0000000)) 
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
     \file_name[6][6]_i_1 
-       (.I0(\file_name[6][7]_i_6_n_0 ),
-        .I1(\file_name[6][7]_i_7_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [6]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [6]),
-        .O(\outbyte_reg[7]_6 [6]));
-  LUT6 #(
-    .INIT(64'h88888888888888A8)) 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [6]),
+        .I2(\file_name[6][7]_i_4_n_0 ),
+        .I3(\file_name[6][7]_i_5_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [6]),
+        .O(\lastchar_reg[7]_3 [6]));
+  LUT5 #(
+    .INIT(32'h0020AAAA)) 
     \file_name[6][7]_i_1 
        (.I0(fready152_out),
-        .I1(\file_name[6][7]_i_3_n_0 ),
+        .I1(\file_namelen_reg[3]_i_2_n_7 ),
         .I2(\file_namelen_reg[3]_i_2_n_6 ),
-        .I3(\file_name[6][7]_i_4_n_0 ),
-        .I4(\file_name[6][7]_i_5_n_0 ),
-        .I5(\file_namelen_reg[3]_i_2_n_7 ),
-        .O(outen_reg_12));
-  LUT6 #(
-    .INIT(64'hD3E3F2F2E3E3F2F2)) 
+        .I3(\file_name[7][7]_i_3_n_0 ),
+        .I4(\file_name[6][7]_i_3_n_0 ),
+        .O(outen_reg_8));
+  (* SOFT_HLUTNM = "soft_lutpair79" *) 
+  LUT5 #(
+    .INIT(32'hFFFDFF7F)) 
     \file_name[6][7]_i_10 
-       (.I0(\file_namelen_reg[7]_0 [3]),
-        .I1(\longno[5]_i_2_n_0 ),
+       (.I0(\sdtnamelen_reg[7]_1 [2]),
+        .I1(\sdtnamelen_reg[7]_1 [0]),
         .I2(\sector_content[456][7]_i_2_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [1]),
-        .I4(\file_namelen_reg[7]_0 [0]),
-        .I5(\file_namelen_reg[7]_0 [2]),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [1]),
         .O(\file_name[6][7]_i_10_n_0 ));
-  LUT4 #(
-    .INIT(16'h32FF)) 
-    \file_name[6][7]_i_11 
-       (.I0(\file_namelen_reg[7]_0 [7]),
-        .I1(\longno[5]_i_2_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [0]),
-        .I3(\sector_content[456][7]_i_2_n_0 ),
-        .O(\file_name[6][7]_i_11_n_0 ));
   LUT6 #(
-    .INIT(64'hBF1FFFFFA0000000)) 
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
     \file_name[6][7]_i_2 
-       (.I0(\file_name[6][7]_i_6_n_0 ),
-        .I1(\file_name[6][7]_i_7_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [7]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [7]),
-        .O(\outbyte_reg[7]_6 [7]));
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [7]),
+        .I2(\file_name[6][7]_i_4_n_0 ),
+        .I3(\file_name[6][7]_i_5_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [7]),
+        .O(\lastchar_reg[7]_3 [7]));
   LUT6 #(
-    .INIT(64'hFF00A8A800000000)) 
+    .INIT(64'hFFFFFFFF0075FF75)) 
     \file_name[6][7]_i_3 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(\file_name[6][7]_i_6_n_0 ),
-        .I2(\file_name[6][5]_i_2_n_0 ),
-        .I3(\file_name[6][7]_i_8_n_0 ),
-        .I4(\sdtnamelen[3]_i_3_n_0 ),
-        .I5(\outaddr_reg[0]_0 ),
+       (.I0(\lastchar[7]_i_2_n_0 ),
+        .I1(\file_name[6][5]_i_2_n_0 ),
+        .I2(\file_name[6][7]_i_5_n_0 ),
+        .I3(\sdtnamelen[0]_i_3_n_0 ),
+        .I4(\file_name[6][7]_i_6_n_0 ),
+        .I5(isshort_i_2_n_0),
         .O(\file_name[6][7]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFEB)) 
+    .INIT(64'h0000000000000080)) 
     \file_name[6][7]_i_4 
-       (.I0(\file_name[6][7]_i_9_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(raddr[0]),
-        .I3(longvalid_i_6_n_0),
-        .I4(longvalid_i_5_n_0),
-        .I5(\file_name[7][7]_i_9_n_0 ),
+       (.I0(\file_name[6][7]_i_7_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [2]),
+        .I2(\sdtnamelen_reg[7]_1 [1]),
+        .I3(\sdtnamelen_reg[7]_1 [3]),
+        .I4(\longno[5]_i_2_n_0 ),
+        .I5(\file_name[6][7]_i_8_n_0 ),
         .O(\file_name[6][7]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair108" *) 
-  LUT3 #(
-    .INIT(8'hFD)) 
+  (* SOFT_HLUTNM = "soft_lutpair107" *) 
+  LUT4 #(
+    .INIT(16'hFFFE)) 
     \file_name[6][7]_i_5 
-       (.I0(\file_namelen_reg[3]_i_2_n_5 ),
-        .I1(\file_namelen_reg[3]_i_2_n_4 ),
-        .I2(\file_name[0][7]_i_3_n_0 ),
+       (.I0(\file_name[6][7]_i_9_n_0 ),
+        .I1(\sdtnamelen[7]_i_3_n_0 ),
+        .I2(\file_name[8][7]_i_12_n_0 ),
+        .I3(islongok_i_2_n_0),
         .O(\file_name[6][7]_i_5_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000000001)) 
+    .INIT(64'h0000000000400000)) 
     \file_name[6][7]_i_6 
-       (.I0(islongok_i_3_n_0),
-        .I1(\file_name[8][7]_i_11_n_0 ),
-        .I2(\file_name[8][7]_i_12_n_0 ),
-        .I3(\file_name[8][7]_i_13_n_0 ),
-        .I4(\sdtnamelen[4]_i_7_n_0 ),
-        .I5(\file_name[6][7]_i_10_n_0 ),
-        .O(\file_name[6][7]_i_6_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000000000080)) 
-    \file_name[6][7]_i_7 
-       (.I0(\file_name[7][5]_i_3_n_0 ),
-        .I1(\file_namelen_reg[7]_0 [2]),
-        .I2(\file_namelen_reg[7]_0 [1]),
-        .I3(\file_namelen_reg[7]_0 [3]),
-        .I4(\longno[5]_i_2_n_0 ),
-        .I5(\file_name[6][7]_i_11_n_0 ),
-        .O(\file_name[6][7]_i_7_n_0 ));
-  LUT6 #(
-    .INIT(64'h0040000000000000)) 
-    \file_name[6][7]_i_8 
-       (.I0(islongok_i_3_n_0),
+       (.I0(islongok_i_2_n_0),
         .I1(\file_name[6][5]_i_3_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [1]),
-        .I3(\longno[5]_i_2_n_0 ),
-        .I4(\file_name[6][5]_i_4_n_0 ),
-        .I5(\file_namelen_reg[7]_0 [2]),
+        .I2(\sdtnamelen_reg[7]_1 [2]),
+        .I3(\file_name[6][5]_i_4_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [1]),
+        .I5(\longno[5]_i_2_n_0 ),
+        .O(\file_name[6][7]_i_6_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair116" *) 
+  LUT4 #(
+    .INIT(16'hF0F1)) 
+    \file_name[6][7]_i_7 
+       (.I0(\sdtnamelen_reg[7]_1 [6]),
+        .I1(\sdtnamelen_reg[7]_1 [4]),
+        .I2(\longno[5]_i_2_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [5]),
+        .O(\file_name[6][7]_i_7_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair92" *) 
+  LUT4 #(
+    .INIT(16'h54FF)) 
+    \file_name[6][7]_i_8 
+       (.I0(\longno[5]_i_2_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [0]),
+        .I2(\sdtnamelen_reg[7]_1 [7]),
+        .I3(\sector_content[456][7]_i_2_n_0 ),
         .O(\file_name[6][7]_i_8_n_0 ));
-  LUT2 #(
-    .INIT(4'hE)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFF2FFFF222)) 
     \file_name[6][7]_i_9 
-       (.I0(\outbyte_reg[7]_0 [2]),
-        .I1(\outbyte_reg[7]_0 [1]),
+       (.I0(\sdtnamelen[4]_i_4_n_0 ),
+        .I1(\sdtnamelen[4]_i_5_n_0 ),
+        .I2(\sdtnamelen[6]_i_7_n_0 ),
+        .I3(\sector_content[456][7]_i_2_n_0 ),
+        .I4(\sdtnamelen[5]_i_6_n_0 ),
+        .I5(\file_name[6][7]_i_10_n_0 ),
         .O(\file_name[6][7]_i_9_n_0 ));
   LUT6 #(
-    .INIT(64'hBF1FFFFFA0000000)) 
+    .INIT(64'h8CDDCCCC8C88CCCC)) 
     \file_name[7][0]_i_1 
-       (.I0(\file_name[7][7]_i_6_n_0 ),
-        .I1(\file_name[7][7]_i_7_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [0]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [0]),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [0]),
+        .I2(\file_name[7][7]_i_5_n_0 ),
+        .I3(\file_name[7][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [0]),
         .O(\outbyte_reg[7]_5 [0]));
-  (* SOFT_HLUTNM = "soft_lutpair123" *) 
+  (* SOFT_HLUTNM = "soft_lutpair103" *) 
   LUT4 #(
-    .INIT(16'hBF80)) 
+    .INIT(16'hEF40)) 
     \file_name[7][1]_i_1 
-       (.I0(\file_name[7][1]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[7][1]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
         .I3(\file_name_reg[0][7]_0 [1]),
         .O(\outbyte_reg[7]_5 [1]));
   LUT6 #(
-    .INIT(64'h54545454FF545454)) 
+    .INIT(64'hEEEEEEFFEEEEEEE0)) 
     \file_name[7][1]_i_2 
-       (.I0(\file_name[7][7]_i_6_n_0 ),
-        .I1(\file_name_reg[0][7]_0 [1]),
-        .I2(\file_name[7][5]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [1]),
-        .I4(\file_name[8][5]_i_4_n_0 ),
-        .I5(\file_name[7][3]_i_3_n_0 ),
+       (.I0(\file_name_reg[0][7]_0 [1]),
+        .I1(\file_name[7][5]_i_2_n_0 ),
+        .I2(islongok_i_2_n_0),
+        .I3(\file_name[7][1]_i_3_n_0 ),
+        .I4(\file_name[7][7]_i_11_n_0 ),
+        .I5(\outbyte_reg[7]_0 [1]),
         .O(\file_name[7][1]_i_2_n_0 ));
+  LUT2 #(
+    .INIT(4'hE)) 
+    \file_name[7][1]_i_3 
+       (.I0(\sdtnamelen[7]_i_3_n_0 ),
+        .I1(\file_name[8][7]_i_12_n_0 ),
+        .O(\file_name[7][1]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hBBFFFFFFB8000000)) 
+    .INIT(64'hDCDDCCCCDC88CCCC)) 
     \file_name[7][2]_i_1 
-       (.I0(\outbyte_reg[7]_0 [2]),
-        .I1(\file_name[7][7]_i_6_n_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name_reg[0][7]_0 [2]),
         .I2(\file_name[7][5]_i_2_n_0 ),
-        .I3(\sdtnamelen[6]_i_2_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [2]),
+        .I3(\file_name[7][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [2]),
         .O(\outbyte_reg[7]_5 [2]));
-  (* SOFT_HLUTNM = "soft_lutpair121" *) 
-  LUT4 #(
-    .INIT(16'hBF80)) 
+  LUT6 #(
+    .INIT(64'hBFBFBFBF10100010)) 
     \file_name[7][3]_i_1 
-       (.I0(\file_name[7][3]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
-        .I3(\file_name_reg[0][7]_0 [3]),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[7][3]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
+        .I3(\file_name[7][7]_i_6_n_0 ),
+        .I4(\file_name[7][5]_i_2_n_0 ),
+        .I5(\file_name_reg[0][7]_0 [3]),
         .O(\outbyte_reg[7]_5 [3]));
   LUT6 #(
-    .INIT(64'h54FF545454545454)) 
+    .INIT(64'h0000000000022222)) 
     \file_name[7][3]_i_2 
-       (.I0(\file_name[7][7]_i_6_n_0 ),
-        .I1(\file_name_reg[0][7]_0 [3]),
-        .I2(\file_name[7][5]_i_2_n_0 ),
-        .I3(\file_name[7][3]_i_3_n_0 ),
-        .I4(\outbyte_reg[7]_0 [3]),
-        .I5(\file_name[8][5]_i_4_n_0 ),
+       (.I0(\file_name[8][5]_i_4_n_0 ),
+        .I1(\outbyte_reg[7]_0 [3]),
+        .I2(\file_name_reg[0][7]_0 [3]),
+        .I3(\file_name[7][5]_i_2_n_0 ),
+        .I4(islongok_i_2_n_0),
+        .I5(\file_name[7][7]_i_11_n_0 ),
         .O(\file_name[7][3]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'hFEFFEFFFFFFFFFFF)) 
-    \file_name[7][3]_i_3 
-       (.I0(\file_namelen_reg[7]_0 [3]),
-        .I1(\longno[5]_i_2_n_0 ),
-        .I2(\sector_content[456][7]_i_2_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [1]),
-        .I4(\file_namelen_reg[7]_0 [0]),
-        .I5(\file_namelen_reg[7]_0 [2]),
-        .O(\file_name[7][3]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h8FBFFFFF80800000)) 
+    .INIT(64'hBAFF1000FEFF1000)) 
     \file_name[7][4]_i_1 
-       (.I0(\outbyte_reg[7]_0 [4]),
+       (.I0(isshort_i_2_n_0),
         .I1(\file_name[7][7]_i_6_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\file_name[7][7]_i_7_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [4]),
+        .I2(\outbyte_reg[7]_0 [4]),
+        .I3(\lastchar[7]_i_2_n_0 ),
+        .I4(\file_name_reg[0][7]_0 [4]),
+        .I5(\file_name[7][7]_i_5_n_0 ),
         .O(\outbyte_reg[7]_5 [4]));
   LUT6 #(
-    .INIT(64'hFF5FFFFFE0400000)) 
+    .INIT(64'hF4F5F0F0F4A0F0F0)) 
     \file_name[7][5]_i_1 
-       (.I0(\file_name[7][7]_i_6_n_0 ),
+       (.I0(isshort_i_2_n_0),
         .I1(\file_name[7][5]_i_2_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [5]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[8][5] ),
+        .I2(\file_name_reg[0][5] ),
+        .I3(\file_name[7][7]_i_6_n_0 ),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\outbyte_reg[7]_0 [5]),
         .O(\outbyte_reg[7]_5 [5]));
   LUT6 #(
-    .INIT(64'h0000080000000000)) 
+    .INIT(64'h0000200000000000)) 
     \file_name[7][5]_i_2 
        (.I0(\sector_content[456][7]_i_2_n_0 ),
         .I1(\file_name[7][5]_i_3_n_0 ),
-        .I2(\file_name[7][7]_i_10_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [2]),
-        .I4(\sdtnamelen[0]_i_3_n_0 ),
-        .I5(\file_namelen_reg[7]_0 [1]),
+        .I2(\sdtnamelen_reg[7]_1 [2]),
+        .I3(\sdtnamelen_reg[7]_1 [0]),
+        .I4(\longno[5]_i_2_n_0 ),
+        .I5(\sdtnamelen_reg[7]_1 [1]),
         .O(\file_name[7][5]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair107" *) 
-  LUT4 #(
-    .INIT(16'hF0F1)) 
+  LUT6 #(
+    .INIT(64'h00FF00FF00FF00FE)) 
     \file_name[7][5]_i_3 
-       (.I0(\file_namelen_reg[7]_0 [5]),
-        .I1(\file_namelen_reg[7]_0 [4]),
-        .I2(\longno[5]_i_2_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [6]),
+       (.I0(\sdtnamelen_reg[7]_1 [3]),
+        .I1(\sdtnamelen_reg[7]_1 [7]),
+        .I2(\sdtnamelen_reg[7]_1 [5]),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [4]),
+        .I5(\sdtnamelen_reg[7]_1 [6]),
         .O(\file_name[7][5]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hBF1FFFFFA0000000)) 
+    .INIT(64'hAFBF0010BFBF0010)) 
     \file_name[7][6]_i_1 
-       (.I0(\file_name[7][7]_i_6_n_0 ),
-        .I1(\file_name[7][7]_i_7_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\outbyte_reg[7]_0 [6]),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\file_name_reg[0][7]_0 [6]),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[7][6]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
+        .I3(\file_name[7][7]_i_6_n_0 ),
+        .I4(\file_name_reg[0][7]_0 [6]),
+        .I5(\file_name[7][7]_i_5_n_0 ),
         .O(\outbyte_reg[7]_5 [6]));
-  LUT6 #(
-    .INIT(64'h888A888888888888)) 
+  (* SOFT_HLUTNM = "soft_lutpair80" *) 
+  LUT5 #(
+    .INIT(32'h00000001)) 
+    \file_name[7][6]_i_2 
+       (.I0(\outbyte_reg[7]_0 [6]),
+        .I1(\file_name[7][7]_i_11_n_0 ),
+        .I2(\file_name[8][7]_i_12_n_0 ),
+        .I3(\sdtnamelen[7]_i_3_n_0 ),
+        .I4(islongok_i_2_n_0),
+        .O(\file_name[7][6]_i_2_n_0 ));
+  LUT5 #(
+    .INIT(32'h0080AAAA)) 
     \file_name[7][7]_i_1 
        (.I0(fready152_out),
-        .I1(\file_name[7][7]_i_3_n_0 ),
-        .I2(\file_name[7][7]_i_4_n_0 ),
-        .I3(\file_name[7][7]_i_5_n_0 ),
-        .I4(\file_namelen_reg[3]_i_2_n_7 ),
-        .I5(\file_namelen_reg[3]_i_2_n_6 ),
-        .O(outen_reg_13));
-  (* SOFT_HLUTNM = "soft_lutpair105" *) 
-  LUT3 #(
-    .INIT(8'h0E)) 
-    \file_name[7][7]_i_10 
-       (.I0(\file_namelen_reg[7]_0 [7]),
-        .I1(\file_namelen_reg[7]_0 [3]),
-        .I2(\longno[5]_i_2_n_0 ),
-        .O(\file_name[7][7]_i_10_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair106" *) 
+        .I1(\file_namelen_reg[3]_i_2_n_6 ),
+        .I2(\file_namelen_reg[3]_i_2_n_7 ),
+        .I3(\file_name[7][7]_i_3_n_0 ),
+        .I4(\file_name[7][7]_i_4_n_0 ),
+        .O(outen_reg_9));
+  (* SOFT_HLUTNM = "soft_lutpair109" *) 
   LUT4 #(
-    .INIT(16'h0100)) 
+    .INIT(16'hDFFF)) 
+    \file_name[7][7]_i_10 
+       (.I0(\sdtnamelen_reg[7]_1 [0]),
+        .I1(\longno[5]_i_2_n_0 ),
+        .I2(\sector_content[456][7]_i_2_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [2]),
+        .O(\file_name[7][7]_i_10_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFFD7FF)) 
     \file_name[7][7]_i_11 
-       (.I0(\file_namelen_reg[7]_0 [5]),
-        .I1(\file_namelen_reg[7]_0 [4]),
-        .I2(\longno[5]_i_2_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [1]),
+       (.I0(\sdtnamelen_reg[7]_1 [1]),
+        .I1(\sdtnamelen_reg[7]_1 [0]),
+        .I2(\sector_content[456][7]_i_2_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [2]),
+        .I4(\longno[5]_i_2_n_0 ),
+        .I5(\sdtnamelen_reg[7]_1 [3]),
         .O(\file_name[7][7]_i_11_n_0 ));
   LUT6 #(
-    .INIT(64'h8FBFFFFF80800000)) 
+    .INIT(64'h0000000040000000)) 
+    \file_name[7][7]_i_12 
+       (.I0(longvalid_i_10_n_0),
+        .I1(\file_name_reg[0][7]_0 [4]),
+        .I2(\outbyte_reg[7]_0 [6]),
+        .I3(\file_name_reg[0][7]_0 [6]),
+        .I4(\outbyte_reg[7]_0 [4]),
+        .I5(islong_i_10_n_0),
+        .O(\file_name[7][7]_i_12_n_0 ));
+  LUT6 #(
+    .INIT(64'hBFBAFFFF05000000)) 
     \file_name[7][7]_i_2 
-       (.I0(\outbyte_reg[7]_0 [7]),
-        .I1(\file_name[7][7]_i_6_n_0 ),
-        .I2(\sdtnamelen[6]_i_2_n_0 ),
-        .I3(\file_name[7][7]_i_7_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[7][7]_i_5_n_0 ),
+        .I2(\file_name[7][7]_i_6_n_0 ),
+        .I3(\outbyte_reg[7]_0 [7]),
+        .I4(\lastchar[7]_i_2_n_0 ),
         .I5(\file_name_reg[0][7]_0 [7]),
         .O(\outbyte_reg[7]_5 [7]));
   LUT6 #(
-    .INIT(64'hFF00A8A800000000)) 
+    .INIT(64'hFFFFFFFFFFFEFFFF)) 
     \file_name[7][7]_i_3 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(\file_name[7][7]_i_6_n_0 ),
-        .I2(\file_name[7][5]_i_2_n_0 ),
-        .I3(\file_name[7][7]_i_8_n_0 ),
-        .I4(\sdtnamelen[3]_i_3_n_0 ),
-        .I5(\outaddr_reg[0]_0 ),
-        .O(\file_name[7][7]_i_3_n_0 ));
-  LUT5 #(
-    .INIT(32'hFFFEFEFF)) 
-    \file_name[7][7]_i_4 
-       (.I0(\file_name[7][7]_i_9_n_0 ),
-        .I1(longvalid_i_5_n_0),
+       (.I0(\file_name[8][7]_i_4_n_0 ),
+        .I1(\file_name[7][7]_i_7_n_0 ),
         .I2(longvalid_i_6_n_0),
-        .I3(raddr[0]),
-        .I4(\sdtnamelen[6]_i_2_n_0 ),
-        .O(\file_name[7][7]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair108" *) 
-  LUT5 #(
-    .INIT(32'hFFFEFFFF)) 
-    \file_name[7][7]_i_5 
-       (.I0(\outbyte_reg[7]_0 [1]),
-        .I1(\outbyte_reg[7]_0 [2]),
-        .I2(\file_name[0][7]_i_3_n_0 ),
-        .I3(\file_namelen_reg[3]_i_2_n_4 ),
+        .I3(longvalid_i_7_n_0),
         .I4(\file_namelen_reg[3]_i_2_n_5 ),
-        .O(\file_name[7][7]_i_5_n_0 ));
+        .I5(\file_namelen_reg[3]_i_2_n_4 ),
+        .O(\file_name[7][7]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000002000)) 
+    .INIT(64'hFFFFFFFF0075FF75)) 
+    \file_name[7][7]_i_4 
+       (.I0(\lastchar[7]_i_2_n_0 ),
+        .I1(\file_name[7][5]_i_2_n_0 ),
+        .I2(\file_name[7][7]_i_6_n_0 ),
+        .I3(\sdtnamelen[0]_i_3_n_0 ),
+        .I4(\file_name[7][7]_i_8_n_0 ),
+        .I5(isshort_i_2_n_0),
+        .O(\file_name[7][7]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000000050510000)) 
+    \file_name[7][7]_i_5 
+       (.I0(\sdtnamelen_reg[7]_1 [6]),
+        .I1(\sdtnamelen_reg[7]_1 [3]),
+        .I2(\longno[5]_i_2_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [7]),
+        .I4(\file_name[7][7]_i_9_n_0 ),
+        .I5(\file_name[7][7]_i_10_n_0 ),
+        .O(\file_name[7][7]_i_5_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair80" *) 
+  LUT4 #(
+    .INIT(16'hFFFE)) 
     \file_name[7][7]_i_6 
-       (.I0(\sdtnamelen[4]_i_5_n_0 ),
-        .I1(\sdtnamelen[4]_i_7_n_0 ),
-        .I2(\sdtnamelen[4]_i_6_n_0 ),
-        .I3(\sdtnamelen[4]_i_4_n_0 ),
-        .I4(\sdtnamelen[5]_i_4_n_0 ),
-        .I5(\file_name[8][7]_i_12_n_0 ),
+       (.I0(islongok_i_2_n_0),
+        .I1(\file_name[8][7]_i_12_n_0 ),
+        .I2(\sdtnamelen[7]_i_3_n_0 ),
+        .I3(\file_name[7][7]_i_11_n_0 ),
         .O(\file_name[7][7]_i_6_n_0 ));
   LUT6 #(
-    .INIT(64'h0000100000000000)) 
+    .INIT(64'hFFFFFFFFFFFFFFFE)) 
     \file_name[7][7]_i_7 
-       (.I0(\file_name[7][7]_i_10_n_0 ),
-        .I1(\file_namelen_reg[7]_0 [6]),
-        .I2(\file_name[7][7]_i_11_n_0 ),
-        .I3(\sector_content[456][7]_i_2_n_0 ),
-        .I4(\sdtnamelen[0]_i_3_n_0 ),
-        .I5(\file_namelen_reg[7]_0 [2]),
+       (.I0(\file_name[7][7]_i_12_n_0 ),
+        .I1(\file_namelen[7]_i_3_n_0 ),
+        .I2(\outbyte_reg[7]_0 [4]),
+        .I3(\outbyte_reg[7]_0 [6]),
+        .I4(\outbyte_reg[7]_0 [7]),
+        .I5(\outbyte_reg[7]_0 [5]),
         .O(\file_name[7][7]_i_7_n_0 ));
   LUT6 #(
-    .INIT(64'h0000040000000000)) 
+    .INIT(64'h0000100000000000)) 
     \file_name[7][7]_i_8 
-       (.I0(islongok_i_3_n_0),
+       (.I0(islongok_i_2_n_0),
         .I1(\file_name[7][5]_i_3_n_0 ),
-        .I2(\file_name[7][7]_i_10_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [2]),
-        .I4(\sdtnamelen[0]_i_3_n_0 ),
-        .I5(\file_namelen_reg[7]_0 [1]),
+        .I2(\sdtnamelen_reg[7]_1 [2]),
+        .I3(\sdtnamelen_reg[7]_1 [0]),
+        .I4(\longno[5]_i_2_n_0 ),
+        .I5(\sdtnamelen_reg[7]_1 [1]),
         .O(\file_name[7][7]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair135" *) 
+  (* SOFT_HLUTNM = "soft_lutpair88" *) 
   LUT4 #(
-    .INIT(16'hFFF2)) 
+    .INIT(16'h0002)) 
     \file_name[7][7]_i_9 
-       (.I0(\outbyte_reg[7]_0 [3]),
-        .I1(\outbyte_reg[7]_0 [4]),
-        .I2(\outbyte_reg[7]_0 [5]),
-        .I3(\file_name[8][7]_i_8_n_0 ),
+       (.I0(\sdtnamelen_reg[7]_1 [1]),
+        .I1(\sdtnamelen_reg[7]_1 [4]),
+        .I2(\longno[5]_i_2_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [5]),
         .O(\file_name[7][7]_i_9_n_0 ));
   LUT6 #(
-    .INIT(64'h74FFFFFF30000000)) 
+    .INIT(64'hBFBAFFFF05000000)) 
     \file_name[8][0]_i_1 
-       (.I0(\file_name[8][7]_i_6_n_0 ),
-        .I1(\file_name[8][7]_i_7_n_0 ),
-        .I2(\outbyte_reg[7]_0 [0]),
-        .I3(\sdtnamelen[6]_i_2_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[8][7]_i_6_n_0 ),
+        .I2(\file_name[8][7]_i_7_n_0 ),
+        .I3(\outbyte_reg[7]_0 [0]),
+        .I4(\lastchar[7]_i_2_n_0 ),
         .I5(\file_name_reg[0][7]_0 [0]),
-        .O(\outbyte_reg[7]_4 [0]));
-  (* SOFT_HLUTNM = "soft_lutpair123" *) 
+        .O(\outbyte_reg[7]_6 [0]));
   LUT4 #(
-    .INIT(16'hBF80)) 
+    .INIT(16'hEF40)) 
     \file_name[8][1]_i_1 
-       (.I0(\file_name[8][1]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[8][1]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
         .I3(\file_name_reg[0][7]_0 [1]),
-        .O(\outbyte_reg[7]_4 [1]));
-  LUT5 #(
-    .INIT(32'hFFEF0040)) 
+        .O(\outbyte_reg[7]_6 [1]));
+  LUT6 #(
+    .INIT(64'hFFFFFFEF00000040)) 
     \file_name[8][1]_i_2 
-       (.I0(islongok_i_3_n_0),
+       (.I0(islongok_i_2_n_0),
         .I1(\outbyte_reg[7]_0 [1]),
         .I2(\file_name[8][5]_i_4_n_0 ),
-        .I3(\file_name[8][5]_i_5_n_0 ),
-        .I4(\file_name[8][1]_i_3_n_0 ),
+        .I3(\file_name[8][7]_i_15_n_0 ),
+        .I4(\file_name[8][5]_i_5_n_0 ),
+        .I5(\file_name[8][1]_i_3_n_0 ),
         .O(\file_name[8][1]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair174" *) 
+  (* SOFT_HLUTNM = "soft_lutpair164" *) 
   LUT3 #(
     .INIT(8'hF8)) 
     \file_name[8][1]_i_3 
-       (.I0(\file_name[8][7]_i_10_n_0 ),
+       (.I0(\file_name[8][7]_i_11_n_0 ),
         .I1(\sector_content[456][7]_i_2_n_0 ),
         .I2(\file_name_reg[0][7]_0 [1]),
         .O(\file_name[8][1]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair122" *) 
+  (* SOFT_HLUTNM = "soft_lutpair104" *) 
   LUT4 #(
-    .INIT(16'hBF80)) 
+    .INIT(16'hEF40)) 
     \file_name[8][2]_i_1 
-       (.I0(\file_name[8][2]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[8][2]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
         .I3(\file_name_reg[0][7]_0 [2]),
-        .O(\outbyte_reg[7]_4 [2]));
-  LUT5 #(
-    .INIT(32'hFFEF0040)) 
+        .O(\outbyte_reg[7]_6 [2]));
+  LUT6 #(
+    .INIT(64'hFFFFFFEF00000040)) 
     \file_name[8][2]_i_2 
-       (.I0(islongok_i_3_n_0),
+       (.I0(islongok_i_2_n_0),
         .I1(\outbyte_reg[7]_0 [2]),
         .I2(\file_name[8][5]_i_4_n_0 ),
-        .I3(\file_name[8][5]_i_5_n_0 ),
-        .I4(\file_name[8][2]_i_3_n_0 ),
+        .I3(\file_name[8][7]_i_15_n_0 ),
+        .I4(\file_name[8][5]_i_5_n_0 ),
+        .I5(\file_name[8][2]_i_3_n_0 ),
         .O(\file_name[8][2]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair174" *) 
+  (* SOFT_HLUTNM = "soft_lutpair164" *) 
   LUT3 #(
     .INIT(8'hF8)) 
     \file_name[8][2]_i_3 
-       (.I0(\file_name[8][7]_i_10_n_0 ),
+       (.I0(\file_name[8][7]_i_11_n_0 ),
         .I1(\sector_content[456][7]_i_2_n_0 ),
         .I2(\file_name_reg[0][7]_0 [2]),
         .O(\file_name[8][2]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair121" *) 
+  (* SOFT_HLUTNM = "soft_lutpair105" *) 
   LUT4 #(
-    .INIT(16'hBF80)) 
+    .INIT(16'hEF40)) 
     \file_name[8][3]_i_1 
-       (.I0(\file_name[8][3]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[8][3]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
         .I3(\file_name_reg[0][7]_0 [3]),
-        .O(\outbyte_reg[7]_4 [3]));
-  LUT5 #(
-    .INIT(32'hFFEF0040)) 
+        .O(\outbyte_reg[7]_6 [3]));
+  LUT6 #(
+    .INIT(64'hFFFFFFEF00000040)) 
     \file_name[8][3]_i_2 
-       (.I0(islongok_i_3_n_0),
+       (.I0(islongok_i_2_n_0),
         .I1(\outbyte_reg[7]_0 [3]),
         .I2(\file_name[8][5]_i_4_n_0 ),
-        .I3(\file_name[8][5]_i_5_n_0 ),
-        .I4(\file_name[8][3]_i_3_n_0 ),
+        .I3(\file_name[8][7]_i_15_n_0 ),
+        .I4(\file_name[8][5]_i_5_n_0 ),
+        .I5(\file_name[8][3]_i_3_n_0 ),
         .O(\file_name[8][3]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair173" *) 
+  (* SOFT_HLUTNM = "soft_lutpair163" *) 
   LUT3 #(
     .INIT(8'hF8)) 
     \file_name[8][3]_i_3 
-       (.I0(\file_name[8][7]_i_10_n_0 ),
+       (.I0(\file_name[8][7]_i_11_n_0 ),
         .I1(\sector_content[456][7]_i_2_n_0 ),
         .I2(\file_name_reg[0][7]_0 [3]),
         .O(\file_name[8][3]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'h74FFFFFF30000000)) 
+    .INIT(64'hBFBAFFFF05000000)) 
     \file_name[8][4]_i_1 
-       (.I0(\file_name[8][7]_i_6_n_0 ),
-        .I1(\file_name[8][7]_i_7_n_0 ),
-        .I2(\outbyte_reg[7]_0 [4]),
-        .I3(\sdtnamelen[6]_i_2_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[8][7]_i_6_n_0 ),
+        .I2(\file_name[8][7]_i_7_n_0 ),
+        .I3(\outbyte_reg[7]_0 [4]),
+        .I4(\lastchar[7]_i_2_n_0 ),
         .I5(\file_name_reg[0][7]_0 [4]),
-        .O(\outbyte_reg[7]_4 [4]));
-  (* SOFT_HLUTNM = "soft_lutpair120" *) 
+        .O(\outbyte_reg[7]_6 [4]));
+  (* SOFT_HLUTNM = "soft_lutpair106" *) 
   LUT4 #(
-    .INIT(16'hBF80)) 
+    .INIT(16'hEF40)) 
     \file_name[8][5]_i_1 
-       (.I0(\file_name[8][5]_i_2_n_0 ),
-        .I1(\sdtnamelen[6]_i_2_n_0 ),
-        .I2(\outaddr_reg[0]_0 ),
-        .I3(\file_name_reg[8][5] ),
-        .O(\outbyte_reg[7]_4 [5]));
-  LUT5 #(
-    .INIT(32'hFFEF0040)) 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[8][5]_i_2_n_0 ),
+        .I2(\lastchar[7]_i_2_n_0 ),
+        .I3(\file_name_reg[0][5] ),
+        .O(\outbyte_reg[7]_6 [5]));
+  LUT6 #(
+    .INIT(64'hFFFFFFEF00000040)) 
     \file_name[8][5]_i_2 
-       (.I0(islongok_i_3_n_0),
+       (.I0(islongok_i_2_n_0),
         .I1(\outbyte_reg[7]_0 [5]),
         .I2(\file_name[8][5]_i_4_n_0 ),
-        .I3(\file_name[8][5]_i_5_n_0 ),
-        .I4(\file_name[8][5]_i_6_n_0 ),
+        .I3(\file_name[8][7]_i_15_n_0 ),
+        .I4(\file_name[8][5]_i_5_n_0 ),
+        .I5(\file_name[8][5]_i_6_n_0 ),
         .O(\file_name[8][5]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h1515400015150015)) 
+  (* SOFT_HLUTNM = "soft_lutpair108" *) 
+  LUT2 #(
+    .INIT(4'h1)) 
     \file_name[8][5]_i_4 
-       (.I0(\file_name[8][7]_i_11_n_0 ),
-        .I1(\sdtnamelen[7]_i_7_n_0 ),
-        .I2(\sector_content[456][7]_i_2_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [6]),
-        .I4(\longno[5]_i_2_n_0 ),
-        .I5(\file_namelen_reg[7]_0 [7]),
+       (.I0(\file_name[8][7]_i_12_n_0 ),
+        .I1(\sdtnamelen[7]_i_3_n_0 ),
         .O(\file_name[8][5]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFBFFFFFFFFFFFFD)) 
+  (* SOFT_HLUTNM = "soft_lutpair81" *) 
+  LUT5 #(
+    .INIT(32'h070E0E0E)) 
     \file_name[8][5]_i_5 
-       (.I0(\file_namelen_reg[7]_0 [3]),
-        .I1(\file_namelen_reg[7]_0 [0]),
-        .I2(\sector_content[456][7]_i_2_n_0 ),
-        .I3(\longno[5]_i_2_n_0 ),
-        .I4(\file_namelen_reg[7]_0 [1]),
-        .I5(\file_namelen_reg[7]_0 [2]),
+       (.I0(\sdtnamelen_reg[7]_1 [2]),
+        .I1(\sdtnamelen_reg[7]_1 [1]),
+        .I2(\longno[5]_i_2_n_0 ),
+        .I3(\sector_content[456][7]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [0]),
         .O(\file_name[8][5]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair173" *) 
+  (* SOFT_HLUTNM = "soft_lutpair163" *) 
   LUT3 #(
     .INIT(8'hF8)) 
     \file_name[8][5]_i_6 
-       (.I0(\file_name[8][7]_i_10_n_0 ),
+       (.I0(\file_name[8][7]_i_11_n_0 ),
         .I1(\sector_content[456][7]_i_2_n_0 ),
-        .I2(\file_name_reg[8][5] ),
+        .I2(\file_name_reg[0][5] ),
         .O(\file_name[8][5]_i_6_n_0 ));
   LUT6 #(
-    .INIT(64'h74FFFFFF30000000)) 
+    .INIT(64'hBFBAFFFF05000000)) 
     \file_name[8][6]_i_1 
-       (.I0(\file_name[8][7]_i_6_n_0 ),
-        .I1(\file_name[8][7]_i_7_n_0 ),
-        .I2(\outbyte_reg[7]_0 [6]),
-        .I3(\sdtnamelen[6]_i_2_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[8][7]_i_6_n_0 ),
+        .I2(\file_name[8][7]_i_7_n_0 ),
+        .I3(\outbyte_reg[7]_0 [6]),
+        .I4(\lastchar[7]_i_2_n_0 ),
         .I5(\file_name_reg[0][7]_0 [6]),
-        .O(\outbyte_reg[7]_4 [6]));
+        .O(\outbyte_reg[7]_6 [6]));
   LUT5 #(
-    .INIT(32'h0008AAAA)) 
+    .INIT(32'h0002AAAA)) 
     \file_name[8][7]_i_1 
        (.I0(fready152_out),
-        .I1(longvalid_i_2_n_0),
-        .I2(\file_name[8][7]_i_3_n_0 ),
-        .I3(\file_name[8][7]_i_4_n_0 ),
+        .I1(\file_name[8][7]_i_3_n_0 ),
+        .I2(\file_name[8][7]_i_4_n_0 ),
+        .I3(\lastchar[7]_i_3_n_0 ),
         .I4(\file_name[8][7]_i_5_n_0 ),
-        .O(outen_reg_5));
+        .O(outen_reg_10));
+  LUT5 #(
+    .INIT(32'hAAAAAAFB)) 
+    \file_name[8][7]_i_10 
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[8][7]_i_11_n_0 ),
+        .I2(islongok_i_2_n_0),
+        .I3(raddr[3]),
+        .I4(raddr[4]),
+        .O(\file_name[8][7]_i_10_n_0 ));
   LUT6 #(
     .INIT(64'h0000000000000002)) 
-    \file_name[8][7]_i_10 
-       (.I0(\file_name[7][5]_i_3_n_0 ),
-        .I1(\sdtnamelen[3]_i_5_n_0 ),
-        .I2(\sdtnamelen[7]_i_6_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [0]),
-        .I4(\sdtnamelen[1]_i_2_n_0 ),
-        .I5(\sdtnamelen[2]_i_2_n_0 ),
-        .O(\file_name[8][7]_i_10_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair103" *) 
-  LUT5 #(
-    .INIT(32'h3232DF32)) 
     \file_name[8][7]_i_11 
-       (.I0(\file_namelen_reg[7]_0 [5]),
-        .I1(\longno[5]_i_2_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [4]),
-        .I3(\sector_content[456][7]_i_2_n_0 ),
-        .I4(\file_name[8][7]_i_16_n_0 ),
+       (.I0(\file_name[6][7]_i_7_n_0 ),
+        .I1(\file_name[1][7]_i_10_n_0 ),
+        .I2(\file_name[1][7]_i_9_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [0]),
+        .I4(\sdtnamelen[1]_i_3_n_0 ),
+        .I5(\sdtnamelen[2]_i_2_n_0 ),
         .O(\file_name[8][7]_i_11_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair102" *) 
-  LUT5 #(
-    .INIT(32'hDF323232)) 
+  LUT6 #(
+    .INIT(64'hB5F55555F5F45544)) 
     \file_name[8][7]_i_12 
-       (.I0(\file_namelen_reg[7]_0 [7]),
-        .I1(\longno[5]_i_2_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [6]),
-        .I3(\sector_content[456][7]_i_2_n_0 ),
-        .I4(\sdtnamelen[7]_i_7_n_0 ),
+       (.I0(\longno[5]_i_2_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [6]),
+        .I2(\sector_content[456][7]_i_2_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [5]),
+        .I4(\sdtnamelen[6]_i_8_n_0 ),
+        .I5(\sdtnamelen_reg[7]_1 [4]),
         .O(\file_name[8][7]_i_12_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair104" *) 
+  (* SOFT_HLUTNM = "soft_lutpair109" *) 
   LUT4 #(
     .INIT(16'hF8F7)) 
     \file_name[8][7]_i_13 
-       (.I0(\file_namelen_reg[7]_0 [0]),
+       (.I0(\sdtnamelen_reg[7]_1 [0]),
         .I1(\sector_content[456][7]_i_2_n_0 ),
         .I2(\longno[5]_i_2_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [1]),
+        .I3(\sdtnamelen_reg[7]_1 [1]),
         .O(\file_name[8][7]_i_13_n_0 ));
-  LUT6 #(
-    .INIT(64'hFF95FFFFFFFFFF55)) 
-    \file_name[8][7]_i_14 
-       (.I0(\file_namelen_reg[7]_0 [3]),
-        .I1(\file_namelen_reg[7]_0 [1]),
-        .I2(\file_namelen_reg[7]_0 [2]),
-        .I3(\longno[5]_i_2_n_0 ),
-        .I4(\file_namelen_reg[7]_0 [0]),
-        .I5(\sector_content[456][7]_i_2_n_0 ),
-        .O(\file_name[8][7]_i_14_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair87" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
-    \file_name[8][7]_i_15 
-       (.I0(\outbyte_reg[7]_0 [0]),
-        .I1(\outbyte_reg[7]_0 [1]),
-        .O(\file_name[8][7]_i_15_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair88" *) 
+  (* SOFT_HLUTNM = "soft_lutpair81" *) 
   LUT5 #(
-    .INIT(32'hFF7FFFFF)) 
-    \file_name[8][7]_i_16 
-       (.I0(\file_namelen_reg[7]_0 [3]),
-        .I1(\file_namelen_reg[7]_0 [2]),
-        .I2(\file_namelen_reg[7]_0 [0]),
+    .INIT(32'hFFFF807F)) 
+    \file_name[8][7]_i_14 
+       (.I0(\sdtnamelen_reg[7]_1 [1]),
+        .I1(\sdtnamelen_reg[7]_1 [0]),
+        .I2(\sector_content[456][7]_i_2_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [2]),
+        .I4(\longno[5]_i_2_n_0 ),
+        .O(\file_name[8][7]_i_14_n_0 ));
+  LUT6 #(
+    .INIT(64'hFF87FFFFFFFFFF0F)) 
+    \file_name[8][7]_i_15 
+       (.I0(\sdtnamelen_reg[7]_1 [2]),
+        .I1(\sdtnamelen_reg[7]_1 [1]),
+        .I2(\sdtnamelen_reg[7]_1 [3]),
         .I3(\longno[5]_i_2_n_0 ),
-        .I4(\file_namelen_reg[7]_0 [1]),
-        .O(\file_name[8][7]_i_16_n_0 ));
+        .I4(\sdtnamelen_reg[7]_1 [0]),
+        .I5(\sector_content[456][7]_i_2_n_0 ),
+        .O(\file_name[8][7]_i_15_n_0 ));
   LUT6 #(
-    .INIT(64'h74FFFFFF30000000)) 
+    .INIT(64'hBFBAFFFF05000000)) 
     \file_name[8][7]_i_2 
-       (.I0(\file_name[8][7]_i_6_n_0 ),
-        .I1(\file_name[8][7]_i_7_n_0 ),
-        .I2(\outbyte_reg[7]_0 [7]),
-        .I3(\sdtnamelen[6]_i_2_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
+       (.I0(isshort_i_2_n_0),
+        .I1(\file_name[8][7]_i_6_n_0 ),
+        .I2(\file_name[8][7]_i_7_n_0 ),
+        .I3(\outbyte_reg[7]_0 [7]),
+        .I4(\lastchar[7]_i_2_n_0 ),
         .I5(\file_name_reg[0][7]_0 [7]),
-        .O(\outbyte_reg[7]_4 [7]));
+        .O(\outbyte_reg[7]_6 [7]));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFB)) 
+    .INIT(64'hFFFFFFFFFFFFFFDF)) 
     \file_name[8][7]_i_3 
-       (.I0(\file_name[8][7]_i_8_n_0 ),
-        .I1(\file_namelen_reg[3]_i_2_n_4 ),
-        .I2(\file_namelen_reg[3]_i_2_n_5 ),
-        .I3(\outbyte_reg[7]_0 [5]),
+       (.I0(longvalid_i_8_n_0),
+        .I1(longvalid_i_5_n_0),
+        .I2(\file_namelen_reg[3]_i_2_n_4 ),
+        .I3(\file_namelen_reg[3]_i_2_n_5 ),
         .I4(\file_namelen_reg[3]_i_2_n_7 ),
         .I5(\file_namelen_reg[3]_i_2_n_6 ),
         .O(\file_name[8][7]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
+    .INIT(64'hFFFFFFFFFFFFEFEE)) 
     \file_name[8][7]_i_4 
-       (.I0(\outbyte_reg[7]_0 [7]),
-        .I1(\outbyte_reg[7]_0 [6]),
-        .I2(\outbyte_reg[7]_0 [4]),
-        .I3(\outbyte_reg[7]_0 [2]),
-        .I4(\outbyte_reg[7]_0 [1]),
-        .I5(\outbyte_reg[7]_0 [3]),
+       (.I0(\fdtnamelen[2]_i_2_n_0 ),
+        .I1(\file_name[8][7]_i_8_n_0 ),
+        .I2(\outbyte_reg[7]_0 [1]),
+        .I3(\outbyte_reg[7]_0 [0]),
+        .I4(\outbyte_reg[7]_0 [2]),
+        .I5(\file_name[8][7]_i_9_n_0 ),
         .O(\file_name[8][7]_i_4_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFF75757500)) 
     \file_name[8][7]_i_5 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
+       (.I0(\lastchar[7]_i_2_n_0 ),
         .I1(\file_name[8][7]_i_6_n_0 ),
         .I2(\file_name[8][7]_i_7_n_0 ),
         .I3(raddr[3]),
         .I4(raddr[4]),
-        .I5(\file_name[8][7]_i_9_n_0 ),
+        .I5(\file_name[8][7]_i_10_n_0 ),
         .O(\file_name[8][7]_i_5_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000020000)) 
+    .INIT(64'h0000000000000008)) 
     \file_name[8][7]_i_6 
-       (.I0(\file_name[8][7]_i_10_n_0 ),
-        .I1(raddr[0]),
-        .I2(raddr[1]),
+       (.I0(\file_name[8][7]_i_11_n_0 ),
+        .I1(raddr[3]),
+        .I2(raddr[2]),
         .I3(raddr[4]),
-        .I4(raddr[3]),
-        .I5(raddr[2]),
+        .I4(raddr[0]),
+        .I5(raddr[1]),
         .O(\file_name[8][7]_i_6_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFEFFFFF)) 
+    .INIT(64'hFFFFFFFFFEFFFFFF)) 
     \file_name[8][7]_i_7 
-       (.I0(\file_name[8][7]_i_11_n_0 ),
-        .I1(\file_name[8][7]_i_12_n_0 ),
-        .I2(\sdtnamelen[4]_i_7_n_0 ),
-        .I3(islongok_i_3_n_0),
-        .I4(\file_name[8][7]_i_13_n_0 ),
-        .I5(\file_name[8][7]_i_14_n_0 ),
-        .O(\file_name[8][7]_i_7_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \file_name[8][7]_i_8 
-       (.I0(\outbyte_reg[7]_0 [2]),
-        .I1(\file_namelen_reg[7]_i_6_n_7 ),
-        .I2(\file_namelen_reg[7]_i_6_n_4 ),
-        .I3(\file_namelen_reg[7]_i_6_n_6 ),
-        .I4(\file_namelen_reg[7]_i_6_n_5 ),
+       (.I0(\file_name[8][7]_i_12_n_0 ),
+        .I1(\sdtnamelen[7]_i_3_n_0 ),
+        .I2(islongok_i_2_n_0),
+        .I3(\file_name[8][7]_i_13_n_0 ),
+        .I4(\file_name[8][7]_i_14_n_0 ),
         .I5(\file_name[8][7]_i_15_n_0 ),
-        .O(\file_name[8][7]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair98" *) 
+        .O(\file_name[8][7]_i_7_n_0 ));
   LUT5 #(
-    .INIT(32'h57575557)) 
+    .INIT(32'hFFFFFFFE)) 
+    \file_name[8][7]_i_8 
+       (.I0(\file_namelen_reg[7]_i_5_n_4 ),
+        .I1(\outbyte_reg[7]_0 [5]),
+        .I2(\file_namelen_reg[7]_i_5_n_7 ),
+        .I3(\file_namelen_reg[7]_i_5_n_6 ),
+        .I4(\file_namelen_reg[7]_i_5_n_5 ),
+        .O(\file_name[8][7]_i_8_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair117" *) 
+  LUT4 #(
+    .INIT(16'hEFEE)) 
     \file_name[8][7]_i_9 
-       (.I0(\outaddr_reg[0]_0 ),
-        .I1(raddr[3]),
-        .I2(raddr[4]),
-        .I3(\file_name[8][7]_i_10_n_0 ),
-        .I4(islongok_i_3_n_0),
+       (.I0(\outbyte_reg[7]_0 [1]),
+        .I1(\outbyte_reg[7]_0 [2]),
+        .I2(\outbyte_reg[7]_0 [4]),
+        .I3(\outbyte_reg[7]_0 [3]),
         .O(\file_name[8][7]_i_9_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair160" *) 
+  (* SOFT_HLUTNM = "soft_lutpair159" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \file_namelen[0]_i_1 
-       (.I0(\file_namelen_reg[7]_0 [0]),
-        .I1(\file_namelen[7]_i_3_n_0 ),
-        .I2(\file_namelen_reg[3]_i_2_n_7 ),
-        .O(\sdtnamelen_reg[7] [0]));
-  (* SOFT_HLUTNM = "soft_lutpair160" *) 
+       (.I0(\file_namelen_reg[3]_i_2_n_7 ),
+        .I1(\file_namelen[7]_i_4_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [0]),
+        .O(\sdtnamelen_reg[7]_0 [0]));
+  (* SOFT_HLUTNM = "soft_lutpair159" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \file_namelen[1]_i_1 
-       (.I0(\file_namelen_reg[7]_0 [1]),
-        .I1(\file_namelen[7]_i_3_n_0 ),
-        .I2(\file_namelen_reg[3]_i_2_n_6 ),
-        .O(\sdtnamelen_reg[7] [1]));
-  (* SOFT_HLUTNM = "soft_lutpair161" *) 
+       (.I0(\file_namelen_reg[3]_i_2_n_6 ),
+        .I1(\file_namelen[7]_i_4_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [1]),
+        .O(\sdtnamelen_reg[7]_0 [1]));
+  (* SOFT_HLUTNM = "soft_lutpair160" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \file_namelen[2]_i_1 
-       (.I0(\file_namelen_reg[7]_0 [2]),
-        .I1(\file_namelen[7]_i_3_n_0 ),
-        .I2(\file_namelen_reg[3]_i_2_n_5 ),
-        .O(\sdtnamelen_reg[7] [2]));
-  (* SOFT_HLUTNM = "soft_lutpair161" *) 
+       (.I0(\file_namelen_reg[3]_i_2_n_5 ),
+        .I1(\file_namelen[7]_i_4_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [2]),
+        .O(\sdtnamelen_reg[7]_0 [2]));
+  (* SOFT_HLUTNM = "soft_lutpair160" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \file_namelen[3]_i_1 
-       (.I0(\file_namelen_reg[7]_0 [3]),
-        .I1(\file_namelen[7]_i_3_n_0 ),
-        .I2(\file_namelen_reg[3]_i_2_n_4 ),
-        .O(\sdtnamelen_reg[7] [3]));
+       (.I0(\file_namelen_reg[3]_i_2_n_4 ),
+        .I1(\file_namelen[7]_i_4_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [3]),
+        .O(\sdtnamelen_reg[7]_0 [3]));
   LUT3 #(
     .INIT(8'h9A)) 
     \file_namelen[3]_i_10 
@@ -27839,7 +27726,6 @@ module design_1_top_system_0_1_sd_reader
         .I1(\longno[5]_i_2_n_0 ),
         .I2(\fdtnamelen_reg[7] [0]),
         .O(\file_namelen[3]_i_10_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair87" *) 
   LUT5 #(
     .INIT(32'h335ACC5A)) 
     \file_namelen[3]_i_11 
@@ -27849,14 +27735,15 @@ module design_1_top_system_0_1_sd_reader
         .I3(\file_namelen[3]_i_12_n_0 ),
         .I4(\outbyte_reg[7]_0 [1]),
         .O(\file_namelen[3]_i_11_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair132" *) 
-  LUT4 #(
-    .INIT(16'h8880)) 
+  LUT6 #(
+    .INIT(64'h8080808080888080)) 
     \file_namelen[3]_i_12 
        (.I0(\longno[5]_i_2_n_0 ),
-        .I1(\longno[5]_i_3_n_0 ),
+        .I1(longvalid_i_12_n_0),
         .I2(\outbyte_reg[7]_0 [6]),
-        .I3(\longno[5]_i_4_n_0 ),
+        .I3(islong_i_9_n_0),
+        .I4(islong_i_8_n_0),
+        .I5(islong_i_7_n_0),
         .O(\file_namelen[3]_i_12_n_0 ));
   LUT3 #(
     .INIT(8'hBA)) 
@@ -27880,11 +27767,11 @@ module design_1_top_system_0_1_sd_reader
         .I2(\fdtnamelen_reg[7] [0]),
         .O(\file_namelen[3]_i_5_n_0 ));
   LUT3 #(
-    .INIT(8'h65)) 
+    .INIT(8'h2D)) 
     \file_namelen[3]_i_6 
-       (.I0(file_namelen2),
+       (.I0(\fdtnamelen_reg[7] [0]),
         .I1(\longno[5]_i_2_n_0 ),
-        .I2(\fdtnamelen_reg[7] [0]),
+        .I2(file_namelen2),
         .O(\file_namelen[3]_i_6_n_0 ));
   LUT5 #(
     .INIT(32'hCC1E33E1)) 
@@ -27913,259 +27800,251 @@ module design_1_top_system_0_1_sd_reader
         .I3(\longno[5]_i_2_n_0 ),
         .I4(\file_namelen[3]_i_11_n_0 ),
         .O(\file_namelen[3]_i_9_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair162" *) 
+  (* SOFT_HLUTNM = "soft_lutpair161" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \file_namelen[4]_i_1 
-       (.I0(\file_namelen_reg[7]_0 [4]),
-        .I1(\file_namelen[7]_i_3_n_0 ),
-        .I2(\file_namelen_reg[7]_i_6_n_7 ),
-        .O(\sdtnamelen_reg[7] [4]));
-  (* SOFT_HLUTNM = "soft_lutpair162" *) 
+       (.I0(\file_namelen_reg[7]_i_5_n_7 ),
+        .I1(\file_namelen[7]_i_4_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [4]),
+        .O(\sdtnamelen_reg[7]_0 [4]));
+  (* SOFT_HLUTNM = "soft_lutpair161" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \file_namelen[5]_i_1 
-       (.I0(\file_namelen_reg[7]_0 [5]),
-        .I1(\file_namelen[7]_i_3_n_0 ),
-        .I2(\file_namelen_reg[7]_i_6_n_6 ),
-        .O(\sdtnamelen_reg[7] [5]));
-  (* SOFT_HLUTNM = "soft_lutpair163" *) 
+       (.I0(\file_namelen_reg[7]_i_5_n_6 ),
+        .I1(\file_namelen[7]_i_4_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [5]),
+        .O(\sdtnamelen_reg[7]_0 [5]));
+  (* SOFT_HLUTNM = "soft_lutpair162" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \file_namelen[6]_i_1 
-       (.I0(\file_namelen_reg[7]_0 [6]),
-        .I1(\file_namelen[7]_i_3_n_0 ),
-        .I2(\file_namelen_reg[7]_i_6_n_5 ),
-        .O(\sdtnamelen_reg[7] [6]));
-  LUT4 #(
-    .INIT(16'hA888)) 
+       (.I0(\file_namelen_reg[7]_i_5_n_5 ),
+        .I1(\file_namelen[7]_i_4_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [6]),
+        .O(\sdtnamelen_reg[7]_0 [6]));
+  LUT6 #(
+    .INIT(64'h00080800AAAAAAAA)) 
     \file_namelen[7]_i_1 
        (.I0(fready152_out),
         .I1(\file_namelen[7]_i_3_n_0 ),
-        .I2(\file_namelen[7]_i_4_n_0 ),
-        .I3(\file_namelen[7]_i_5_n_0 ),
-        .O(outen_reg_3));
-  LUT3 #(
-    .INIT(8'hBA)) 
-    \file_namelen[7]_i_10 
-       (.I0(PCOUT[3]),
-        .I1(\longno[5]_i_2_n_0 ),
-        .I2(\fdtnamelen_reg[7] [3]),
-        .O(\file_namelen[7]_i_10_n_0 ));
+        .I2(\lastchar[7]_i_3_n_0 ),
+        .I3(raddr[0]),
+        .I4(\lastchar[7]_i_2_n_0 ),
+        .I5(\file_namelen[7]_i_4_n_0 ),
+        .O(\outaddr_reg[0]_7 ));
   LUT5 #(
     .INIT(32'hC1CE3E31)) 
-    \file_namelen[7]_i_11 
+    \file_namelen[7]_i_10 
        (.I0(\fdtnamelen_reg[7] [6]),
         .I1(PCOUT[6]),
         .I2(\longno[5]_i_2_n_0 ),
         .I3(\fdtnamelen_reg[7] [7]),
         .I4(PCOUT[7]),
-        .O(\file_namelen[7]_i_11_n_0 ));
+        .O(\file_namelen[7]_i_10_n_0 ));
   LUT5 #(
     .INIT(32'hCC1E33E1)) 
-    \file_namelen[7]_i_12 
+    \file_namelen[7]_i_11 
        (.I0(\fdtnamelen_reg[7] [5]),
         .I1(PCOUT[5]),
         .I2(\fdtnamelen_reg[7] [6]),
         .I3(\longno[5]_i_2_n_0 ),
         .I4(PCOUT[6]),
-        .O(\file_namelen[7]_i_12_n_0 ));
+        .O(\file_namelen[7]_i_11_n_0 ));
   LUT5 #(
     .INIT(32'hCC1E33E1)) 
-    \file_namelen[7]_i_13 
+    \file_namelen[7]_i_12 
        (.I0(\fdtnamelen_reg[7] [4]),
         .I1(PCOUT[4]),
         .I2(\fdtnamelen_reg[7] [5]),
         .I3(\longno[5]_i_2_n_0 ),
         .I4(PCOUT[5]),
-        .O(\file_namelen[7]_i_13_n_0 ));
+        .O(\file_namelen[7]_i_12_n_0 ));
   LUT5 #(
     .INIT(32'hCC1E33E1)) 
-    \file_namelen[7]_i_14 
+    \file_namelen[7]_i_13 
        (.I0(\fdtnamelen_reg[7] [3]),
         .I1(PCOUT[3]),
         .I2(\fdtnamelen_reg[7] [4]),
         .I3(\longno[5]_i_2_n_0 ),
         .I4(PCOUT[4]),
-        .O(\file_namelen[7]_i_14_n_0 ));
+        .O(\file_namelen[7]_i_13_n_0 ));
   LUT6 #(
-    .INIT(64'hBABFEFEA202A8A80)) 
-    \file_namelen[7]_i_17 
-       (.I0(\file_namelen[7]_i_27_n_0 ),
-        .I1(\outbyte_reg[7]_0 [4]),
-        .I2(\file_namelen[3]_i_12_n_0 ),
-        .I3(\longno_reg[5] [4]),
-        .I4(\file_namelen[7]_i_28_n_0 ),
-        .I5(file_namelen2),
-        .O(\file_namelen[7]_i_17_n_0 ));
+    .INIT(64'h8E888EEEE8EEE888)) 
+    \file_namelen[7]_i_16 
+       (.I0(file_namelen2),
+        .I1(\file_namelen[7]_i_26_n_0 ),
+        .I2(\outbyte_reg[7]_0 [4]),
+        .I3(\file_namelen[3]_i_12_n_0 ),
+        .I4(\longno_reg[5] [4]),
+        .I5(\file_namelen[7]_i_27_n_0 ),
+        .O(\file_namelen[7]_i_16_n_0 ));
   LUT4 #(
     .INIT(16'hA808)) 
-    \file_namelen[7]_i_18 
+    \file_namelen[7]_i_17 
        (.I0(\file_namelen[3]_i_11_n_0 ),
         .I1(\longno_reg[5] [3]),
         .I2(\file_namelen[3]_i_12_n_0 ),
         .I3(\outbyte_reg[7]_0 [3]),
-        .O(\file_namelen[7]_i_18_n_0 ));
+        .O(\file_namelen[7]_i_17_n_0 ));
   LUT6 #(
     .INIT(64'h6969695959596959)) 
-    \file_namelen[7]_i_19 
+    \file_namelen[7]_i_18 
        (.I0(longno_t[3]),
         .I1(longno_t[1]),
         .I2(file_namelen2),
         .I3(\longno_reg[5] [2]),
         .I4(\file_namelen[3]_i_12_n_0 ),
         .I5(\outbyte_reg[7]_0 [2]),
+        .O(\file_namelen[7]_i_18_n_0 ));
+  LUT3 #(
+    .INIT(8'h96)) 
+    \file_namelen[7]_i_19 
+       (.I0(\file_namelen[7]_i_16_n_0 ),
+        .I1(\file_namelen[7]_i_28_n_0 ),
+        .I2(\file_namelen[7]_i_18_n_0 ),
         .O(\file_namelen[7]_i_19_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair163" *) 
+  (* SOFT_HLUTNM = "soft_lutpair162" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \file_namelen[7]_i_2 
-       (.I0(\file_namelen_reg[7]_0 [7]),
-        .I1(\file_namelen[7]_i_3_n_0 ),
-        .I2(\file_namelen_reg[7]_i_6_n_4 ),
-        .O(\sdtnamelen_reg[7] [7]));
-  LUT3 #(
-    .INIT(8'h96)) 
-    \file_namelen[7]_i_20 
-       (.I0(\file_namelen[7]_i_17_n_0 ),
-        .I1(\file_namelen[7]_i_29_n_0 ),
-        .I2(\file_namelen[7]_i_19_n_0 ),
-        .O(\file_namelen[7]_i_20_n_0 ));
+       (.I0(\file_namelen_reg[7]_i_5_n_4 ),
+        .I1(\file_namelen[7]_i_4_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [7]),
+        .O(\sdtnamelen_reg[7]_0 [7]));
   LUT6 #(
     .INIT(64'h6696996999696696)) 
-    \file_namelen[7]_i_21 
-       (.I0(\file_namelen[7]_i_27_n_0 ),
+    \file_namelen[7]_i_20 
+       (.I0(\file_namelen[7]_i_26_n_0 ),
         .I1(longno_t[4]),
-        .I2(\file_namelen[7]_i_30_n_0 ),
+        .I2(\file_namelen[7]_i_29_n_0 ),
         .I3(longno_t[3]),
         .I4(file_namelen2),
-        .I5(\file_namelen[7]_i_18_n_0 ),
-        .O(\file_namelen[7]_i_21_n_0 ));
+        .I5(\file_namelen[7]_i_17_n_0 ),
+        .O(\file_namelen[7]_i_20_n_0 ));
   LUT3 #(
     .INIT(8'h87)) 
-    \file_namelen[7]_i_22 
-       (.I0(\file_namelen[7]_i_27_n_0 ),
+    \file_namelen[7]_i_21 
+       (.I0(\file_namelen[7]_i_26_n_0 ),
         .I1(file_namelen2),
-        .I2(\file_namelen[7]_i_19_n_0 ),
-        .O(\file_namelen[7]_i_22_n_0 ));
+        .I2(\file_namelen[7]_i_18_n_0 ),
+        .O(\file_namelen[7]_i_21_n_0 ));
   LUT2 #(
     .INIT(4'h9)) 
-    \file_namelen[7]_i_23 
-       (.I0(\file_namelen[7]_i_27_n_0 ),
+    \file_namelen[7]_i_22 
+       (.I0(\file_namelen[7]_i_26_n_0 ),
         .I1(file_namelen2),
-        .O(\file_namelen[7]_i_23_n_0 ));
+        .O(\file_namelen[7]_i_22_n_0 ));
   LUT6 #(
-    .INIT(64'h0A000AAAEBEEEBBB)) 
-    \file_namelen[7]_i_24 
+    .INIT(64'h333FFF3F22211121)) 
+    \file_namelen[7]_i_23 
        (.I0(\file_namelen[7]_i_29_n_0 ),
-        .I1(\file_namelen[7]_i_30_n_0 ),
-        .I2(\outbyte_reg[7]_0 [3]),
+        .I1(\file_namelen[3]_i_11_n_0 ),
+        .I2(\longno_reg[5] [3]),
         .I3(\file_namelen[3]_i_12_n_0 ),
-        .I4(\longno_reg[5] [3]),
-        .I5(\file_namelen[3]_i_11_n_0 ),
-        .O(\file_namelen[7]_i_24_n_0 ));
+        .I4(\outbyte_reg[7]_0 [3]),
+        .I5(\file_namelen[7]_i_28_n_0 ),
+        .O(\file_namelen[7]_i_23_n_0 ));
   LUT5 #(
-    .INIT(32'h1E81E17E)) 
-    \file_namelen[7]_i_25 
-       (.I0(\file_namelen[7]_i_27_n_0 ),
-        .I1(longno_t[4]),
-        .I2(\file_namelen[7]_i_30_n_0 ),
-        .I3(longno_t[3]),
-        .I4(longno_t[5]),
-        .O(\file_namelen[7]_i_25_n_0 ));
+    .INIT(32'h39C36396)) 
+    \file_namelen[7]_i_24 
+       (.I0(\file_namelen[7]_i_26_n_0 ),
+        .I1(longno_t[5]),
+        .I2(longno_t[3]),
+        .I3(\file_namelen[7]_i_29_n_0 ),
+        .I4(longno_t[4]),
+        .O(\file_namelen[7]_i_24_n_0 ));
   LUT6 #(
     .INIT(64'h660C63F699F39C39)) 
-    \file_namelen[7]_i_26 
+    \file_namelen[7]_i_25 
        (.I0(\file_namelen[3]_i_11_n_0 ),
         .I1(longno_t[4]),
-        .I2(\file_namelen[7]_i_30_n_0 ),
+        .I2(\file_namelen[7]_i_29_n_0 ),
         .I3(longno_t[3]),
         .I4(longno_t[5]),
-        .I5(\file_namelen[7]_i_27_n_0 ),
-        .O(\file_namelen[7]_i_26_n_0 ));
+        .I5(\file_namelen[7]_i_26_n_0 ),
+        .O(\file_namelen[7]_i_25_n_0 ));
   LUT6 #(
     .INIT(64'h505030CFAFAF30CF)) 
-    \file_namelen[7]_i_27 
+    \file_namelen[7]_i_26 
        (.I0(\outbyte_reg[7]_0 [1]),
         .I1(\longno_reg[5] [1]),
         .I2(file_namelen2),
         .I3(\longno_reg[5] [2]),
         .I4(\file_namelen[3]_i_12_n_0 ),
         .I5(\outbyte_reg[7]_0 [2]),
-        .O(\file_namelen[7]_i_27_n_0 ));
+        .O(\file_namelen[7]_i_26_n_0 ));
   LUT6 #(
     .INIT(64'h0000000000044404)) 
-    \file_namelen[7]_i_28 
+    \file_namelen[7]_i_27 
        (.I0(longno_t[2]),
         .I1(file_namelen2),
         .I2(\longno_reg[5] [1]),
         .I3(\file_namelen[3]_i_12_n_0 ),
         .I4(\outbyte_reg[7]_0 [1]),
         .I5(longno_t[3]),
-        .O(\file_namelen[7]_i_28_n_0 ));
+        .O(\file_namelen[7]_i_27_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFEF00000010)) 
-    \file_namelen[7]_i_29 
+    \file_namelen[7]_i_28 
        (.I0(longno_t[4]),
         .I1(longno_t[2]),
         .I2(file_namelen2),
         .I3(longno_t[1]),
         .I4(longno_t[3]),
         .I5(longno_t[5]),
-        .O(\file_namelen[7]_i_29_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000080000000000)) 
-    \file_namelen[7]_i_3 
-       (.I0(raddr[0]),
-        .I1(raddr[1]),
-        .I2(raddr[4]),
-        .I3(raddr[3]),
-        .I4(raddr[2]),
-        .I5(\outaddr_reg[0]_0 ),
-        .O(\file_namelen[7]_i_3_n_0 ));
+        .O(\file_namelen[7]_i_28_n_0 ));
   LUT6 #(
     .INIT(64'h0000003050500030)) 
-    \file_namelen[7]_i_30 
+    \file_namelen[7]_i_29 
        (.I0(\outbyte_reg[7]_0 [1]),
         .I1(\longno_reg[5] [1]),
         .I2(file_namelen2),
         .I3(\longno_reg[5] [2]),
         .I4(\file_namelen[3]_i_12_n_0 ),
         .I5(\outbyte_reg[7]_0 [2]),
-        .O(\file_namelen[7]_i_30_n_0 ));
+        .O(\file_namelen[7]_i_29_n_0 ));
   LUT6 #(
     .INIT(64'h0000000200000000)) 
-    \file_namelen[7]_i_4 
+    \file_namelen[7]_i_3 
        (.I0(longvalid_i_3_n_0),
         .I1(\file_name_reg[0][7]_0 [4]),
         .I2(\file_name_reg[0][7]_0 [5]),
         .I3(\file_name_reg[0][7]_0 [6]),
         .I4(\file_name_reg[0][7]_0 [7]),
         .I5(\file_namelen_reg[0] ),
-        .O(\file_namelen[7]_i_4_n_0 ));
+        .O(\file_namelen[7]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'h00000000A8991998)) 
-    \file_namelen[7]_i_5 
-       (.I0(raddr[0]),
-        .I1(raddr[4]),
-        .I2(raddr[1]),
-        .I3(raddr[3]),
-        .I4(raddr[2]),
-        .I5(longvalid_i_5_n_0),
-        .O(\file_namelen[7]_i_5_n_0 ));
+    .INIT(64'hFFFFFFFFEFFFFFFF)) 
+    \file_namelen[7]_i_4 
+       (.I0(raddr[4]),
+        .I1(raddr[2]),
+        .I2(raddr[3]),
+        .I3(raddr[1]),
+        .I4(raddr[0]),
+        .I5(isshort_i_2_n_0),
+        .O(\file_namelen[7]_i_4_n_0 ));
   LUT3 #(
     .INIT(8'hBA)) 
-    \file_namelen[7]_i_8 
+    \file_namelen[7]_i_7 
        (.I0(PCOUT[5]),
         .I1(\longno[5]_i_2_n_0 ),
         .I2(\fdtnamelen_reg[7] [5]),
+        .O(\file_namelen[7]_i_7_n_0 ));
+  LUT3 #(
+    .INIT(8'hBA)) 
+    \file_namelen[7]_i_8 
+       (.I0(PCOUT[4]),
+        .I1(\longno[5]_i_2_n_0 ),
+        .I2(\fdtnamelen_reg[7] [4]),
         .O(\file_namelen[7]_i_8_n_0 ));
   LUT3 #(
     .INIT(8'hBA)) 
     \file_namelen[7]_i_9 
-       (.I0(PCOUT[4]),
+       (.I0(PCOUT[3]),
         .I1(\longno[5]_i_2_n_0 ),
-        .I2(\fdtnamelen_reg[7] [4]),
+        .I2(\fdtnamelen_reg[7] [3]),
         .O(\file_namelen[7]_i_9_n_0 ));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 \file_namelen_reg[3]_i_2 
@@ -28175,29 +28054,29 @@ module design_1_top_system_0_1_sd_reader
         .DI({\file_namelen[3]_i_3_n_0 ,\file_namelen[3]_i_4_n_0 ,\file_namelen[3]_i_5_n_0 ,\file_namelen[3]_i_6_n_0 }),
         .O({\file_namelen_reg[3]_i_2_n_4 ,\file_namelen_reg[3]_i_2_n_5 ,\file_namelen_reg[3]_i_2_n_6 ,\file_namelen_reg[3]_i_2_n_7 }),
         .S({\file_namelen[3]_i_7_n_0 ,\file_namelen[3]_i_8_n_0 ,\file_namelen[3]_i_9_n_0 ,\file_namelen[3]_i_10_n_0 }));
-  CARRY4 \file_namelen_reg[7]_i_15 
+  CARRY4 \file_namelen_reg[7]_i_14 
        (.CI(1'b0),
-        .CO({\file_namelen_reg[7]_i_15_n_0 ,\file_namelen_reg[7]_i_15_n_1 ,\file_namelen_reg[7]_i_15_n_2 ,\file_namelen_reg[7]_i_15_n_3 }),
+        .CO({\file_namelen_reg[7]_i_14_n_0 ,\file_namelen_reg[7]_i_14_n_1 ,\file_namelen_reg[7]_i_14_n_2 ,\file_namelen_reg[7]_i_14_n_3 }),
         .CYINIT(1'b0),
-        .DI({\file_namelen[7]_i_17_n_0 ,\file_namelen[7]_i_18_n_0 ,\file_namelen[7]_i_19_n_0 ,1'b0}),
+        .DI({\file_namelen[7]_i_16_n_0 ,\file_namelen[7]_i_17_n_0 ,\file_namelen[7]_i_18_n_0 ,1'b0}),
         .O(PCOUT[5:2]),
-        .S({\file_namelen[7]_i_20_n_0 ,\file_namelen[7]_i_21_n_0 ,\file_namelen[7]_i_22_n_0 ,\file_namelen[7]_i_23_n_0 }));
-  CARRY4 \file_namelen_reg[7]_i_16 
-       (.CI(\file_namelen_reg[7]_i_15_n_0 ),
-        .CO({\NLW_file_namelen_reg[7]_i_16_CO_UNCONNECTED [3:1],\file_namelen_reg[7]_i_16_n_3 }),
+        .S({\file_namelen[7]_i_19_n_0 ,\file_namelen[7]_i_20_n_0 ,\file_namelen[7]_i_21_n_0 ,\file_namelen[7]_i_22_n_0 }));
+  CARRY4 \file_namelen_reg[7]_i_15 
+       (.CI(\file_namelen_reg[7]_i_14_n_0 ),
+        .CO({\NLW_file_namelen_reg[7]_i_15_CO_UNCONNECTED [3:1],\file_namelen_reg[7]_i_15_n_3 }),
         .CYINIT(1'b0),
-        .DI({1'b0,1'b0,1'b0,\file_namelen[7]_i_24_n_0 }),
-        .O({\NLW_file_namelen_reg[7]_i_16_O_UNCONNECTED [3:2],PCOUT[7:6]}),
-        .S({1'b0,1'b0,\file_namelen[7]_i_25_n_0 ,\file_namelen[7]_i_26_n_0 }));
+        .DI({1'b0,1'b0,1'b0,\file_namelen[7]_i_23_n_0 }),
+        .O({\NLW_file_namelen_reg[7]_i_15_O_UNCONNECTED [3:2],PCOUT[7:6]}),
+        .S({1'b0,1'b0,\file_namelen[7]_i_24_n_0 ,\file_namelen[7]_i_25_n_0 }));
   (* ADDER_THRESHOLD = "35" *) 
-  CARRY4 \file_namelen_reg[7]_i_6 
+  CARRY4 \file_namelen_reg[7]_i_5 
        (.CI(\file_namelen_reg[3]_i_2_n_0 ),
-        .CO({\NLW_file_namelen_reg[7]_i_6_CO_UNCONNECTED [3],\file_namelen_reg[7]_i_6_n_1 ,\file_namelen_reg[7]_i_6_n_2 ,\file_namelen_reg[7]_i_6_n_3 }),
+        .CO({\NLW_file_namelen_reg[7]_i_5_CO_UNCONNECTED [3],\file_namelen_reg[7]_i_5_n_1 ,\file_namelen_reg[7]_i_5_n_2 ,\file_namelen_reg[7]_i_5_n_3 }),
         .CYINIT(1'b0),
-        .DI({1'b0,\file_namelen[7]_i_8_n_0 ,\file_namelen[7]_i_9_n_0 ,\file_namelen[7]_i_10_n_0 }),
-        .O({\file_namelen_reg[7]_i_6_n_4 ,\file_namelen_reg[7]_i_6_n_5 ,\file_namelen_reg[7]_i_6_n_6 ,\file_namelen_reg[7]_i_6_n_7 }),
-        .S({\file_namelen[7]_i_11_n_0 ,\file_namelen[7]_i_12_n_0 ,\file_namelen[7]_i_13_n_0 ,\file_namelen[7]_i_14_n_0 }));
-  (* SOFT_HLUTNM = "soft_lutpair157" *) 
+        .DI({1'b0,\file_namelen[7]_i_7_n_0 ,\file_namelen[7]_i_8_n_0 ,\file_namelen[7]_i_9_n_0 }),
+        .O({\file_namelen_reg[7]_i_5_n_4 ,\file_namelen_reg[7]_i_5_n_5 ,\file_namelen_reg[7]_i_5_n_6 ,\file_namelen_reg[7]_i_5_n_7 }),
+        .S({\file_namelen[7]_i_10_n_0 ,\file_namelen[7]_i_11_n_0 ,\file_namelen[7]_i_12_n_0 ,\file_namelen[7]_i_13_n_0 }));
+  (* SOFT_HLUTNM = "soft_lutpair156" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \filesystem[0]_i_1 
@@ -28205,7 +28084,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(\rootdir_sectorcount[11]_i_2_n_0 ),
         .I2(\filesystem_reg[0]_2 ),
         .O(\filesystem_reg[0] ));
-  (* SOFT_HLUTNM = "soft_lutpair158" *) 
+  (* SOFT_HLUTNM = "soft_lutpair157" *) 
   LUT3 #(
     .INIT(8'h74)) 
     \filesystem[1]_i_1 
@@ -28213,54 +28092,6 @@ module design_1_top_system_0_1_sd_reader
         .I1(\rootdir_sectorcount[11]_i_2_n_0 ),
         .I2(\filesystem_reg[1]_1 ),
         .O(\filesystem_reg[1] ));
-  LUT6 #(
-    .INIT(64'hEFFFEFFFE0EEE000)) 
-    \filesystem_state[0]_i_1 
-       (.I0(\filesystem_state_reg[0]_1 ),
-        .I1(\filesystem_state[1]_i_3_n_0 ),
-        .I2(\filesystem_state_reg[0]_2 ),
-        .I3(read_done),
-        .I4(\filesystem_state_reg[0]_3 ),
-        .I5(filesystem_state[0]),
-        .O(\filesystem_state_reg[0] ));
-  LUT6 #(
-    .INIT(64'h2F222FFF20222000)) 
-    \filesystem_state[1]_i_1 
-       (.I0(\filesystem_state_reg[1]_6 ),
-        .I1(\filesystem_state[1]_i_3_n_0 ),
-        .I2(\filesystem_state_reg[0]_2 ),
-        .I3(read_done),
-        .I4(\filesystem_state_reg[1]_7 ),
-        .I5(filesystem_state[1]),
-        .O(\filesystem_state_reg[1]_0 ));
-  LUT5 #(
-    .INIT(32'hB3B3333F)) 
-    \filesystem_state[1]_i_3 
-       (.I0(search_fat_reg_0),
-        .I1(read_done),
-        .I2(filesystem_state[0]),
-        .I3(search_fat_reg_2),
-        .I4(filesystem_state[1]),
-        .O(\filesystem_state[1]_i_3_n_0 ));
-  LUT5 #(
-    .INIT(32'h7F7F4000)) 
-    \filesystem_state[2]_i_1 
-       (.I0(\filesystem_state_reg[0]_1 ),
-        .I1(\filesystem_state_reg[0]_2 ),
-        .I2(read_done),
-        .I3(filesystem_state[1]),
-        .I4(filesystem_state[2]),
-        .O(\filesystem_state_reg[1]_1 ));
-  (* SOFT_HLUTNM = "soft_lutpair112" *) 
-  LUT5 #(
-    .INIT(32'h02000000)) 
-    \filesystem_state[2]_i_4 
-       (.I0(\FSM_onehot_sddat_stat_reg_n_0_[3] ),
-        .I1(Q[0]),
-        .I2(Q[2]),
-        .I3(Q[1]),
-        .I4(Q[3]),
-        .O(read_done));
   LUT6 #(
     .INIT(64'h8888888888808888)) 
     \fname[0][0]_i_1 
@@ -28493,7 +28324,7 @@ module design_1_top_system_0_1_sd_reader
         .I4(\fnamelen_reg[7] [2]),
         .I5(\fnamelen_reg[7] [1]),
         .O(\file_name_reg[2][7] [7]));
-  (* SOFT_HLUTNM = "soft_lutpair119" *) 
+  (* SOFT_HLUTNM = "soft_lutpair113" *) 
   LUT4 #(
     .INIT(16'h8808)) 
     \fname[3][0]_i_1 
@@ -28502,7 +28333,7 @@ module design_1_top_system_0_1_sd_reader
         .I2(\fname_reg[7][7]_0 ),
         .I3(\fnamelen_reg[7] [2]),
         .O(\file_name_reg[3][7] [0]));
-  (* SOFT_HLUTNM = "soft_lutpair119" *) 
+  (* SOFT_HLUTNM = "soft_lutpair113" *) 
   LUT4 #(
     .INIT(16'h8808)) 
     \fname[3][1]_i_1 
@@ -28511,7 +28342,7 @@ module design_1_top_system_0_1_sd_reader
         .I2(\fname_reg[7][7]_0 ),
         .I3(\fnamelen_reg[7] [2]),
         .O(\file_name_reg[3][7] [1]));
-  (* SOFT_HLUTNM = "soft_lutpair118" *) 
+  (* SOFT_HLUTNM = "soft_lutpair112" *) 
   LUT4 #(
     .INIT(16'h8808)) 
     \fname[3][2]_i_1 
@@ -28520,7 +28351,7 @@ module design_1_top_system_0_1_sd_reader
         .I2(\fname_reg[7][7]_0 ),
         .I3(\fnamelen_reg[7] [2]),
         .O(\file_name_reg[3][7] [2]));
-  (* SOFT_HLUTNM = "soft_lutpair118" *) 
+  (* SOFT_HLUTNM = "soft_lutpair112" *) 
   LUT4 #(
     .INIT(16'h8808)) 
     \fname[3][3]_i_1 
@@ -28529,7 +28360,7 @@ module design_1_top_system_0_1_sd_reader
         .I2(\fname_reg[7][7]_0 ),
         .I3(\fnamelen_reg[7] [2]),
         .O(\file_name_reg[3][7] [3]));
-  (* SOFT_HLUTNM = "soft_lutpair117" *) 
+  (* SOFT_HLUTNM = "soft_lutpair111" *) 
   LUT4 #(
     .INIT(16'h8808)) 
     \fname[3][4]_i_1 
@@ -28538,7 +28369,7 @@ module design_1_top_system_0_1_sd_reader
         .I2(\fname_reg[7][7]_0 ),
         .I3(\fnamelen_reg[7] [2]),
         .O(\file_name_reg[3][7] [4]));
-  (* SOFT_HLUTNM = "soft_lutpair117" *) 
+  (* SOFT_HLUTNM = "soft_lutpair111" *) 
   LUT4 #(
     .INIT(16'h8808)) 
     \fname[3][5]_i_1 
@@ -28547,7 +28378,7 @@ module design_1_top_system_0_1_sd_reader
         .I2(\fname_reg[7][7]_0 ),
         .I3(\fnamelen_reg[7] [2]),
         .O(\file_name_reg[3][7] [5]));
-  (* SOFT_HLUTNM = "soft_lutpair116" *) 
+  (* SOFT_HLUTNM = "soft_lutpair110" *) 
   LUT4 #(
     .INIT(16'h8808)) 
     \fname[3][6]_i_1 
@@ -28556,7 +28387,7 @@ module design_1_top_system_0_1_sd_reader
         .I2(\fname_reg[7][7]_0 ),
         .I3(\fnamelen_reg[7] [2]),
         .O(\file_name_reg[3][7] [6]));
-  (* SOFT_HLUTNM = "soft_lutpair116" *) 
+  (* SOFT_HLUTNM = "soft_lutpair110" *) 
   LUT4 #(
     .INIT(16'h8808)) 
     \fname[3][7]_i_1 
@@ -28699,7 +28530,7 @@ module design_1_top_system_0_1_sd_reader
         .I3(\fnamelen_reg[7] [1]),
         .I4(\fnamelen_reg[7] [2]),
         .O(\file_name_reg[5][7] [5]));
-  (* SOFT_HLUTNM = "soft_lutpair96" *) 
+  (* SOFT_HLUTNM = "soft_lutpair84" *) 
   LUT5 #(
     .INIT(32'h88080808)) 
     \fname[5][6]_i_1 
@@ -28709,7 +28540,7 @@ module design_1_top_system_0_1_sd_reader
         .I3(\fnamelen_reg[7] [1]),
         .I4(\fnamelen_reg[7] [2]),
         .O(\file_name_reg[5][7] [6]));
-  (* SOFT_HLUTNM = "soft_lutpair95" *) 
+  (* SOFT_HLUTNM = "soft_lutpair83" *) 
   LUT5 #(
     .INIT(32'h88080808)) 
     \fname[5][7]_i_1 
@@ -28799,7 +28630,7 @@ module design_1_top_system_0_1_sd_reader
         .I4(fready),
         .I5(\fname_reg[6][7] [7]),
         .O(\file_namelen_reg[1] [7]));
-  (* SOFT_HLUTNM = "soft_lutpair171" *) 
+  (* SOFT_HLUTNM = "soft_lutpair174" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \fname[7][0]_i_1 
@@ -28807,7 +28638,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fname_reg[7][7] [0]),
         .I2(\fname_reg[7][7]_0 ),
         .O(\file_name_reg[7][7] [0]));
-  (* SOFT_HLUTNM = "soft_lutpair171" *) 
+  (* SOFT_HLUTNM = "soft_lutpair174" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \fname[7][1]_i_1 
@@ -28815,7 +28646,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fname_reg[7][7] [1]),
         .I2(\fname_reg[7][7]_0 ),
         .O(\file_name_reg[7][7] [1]));
-  (* SOFT_HLUTNM = "soft_lutpair170" *) 
+  (* SOFT_HLUTNM = "soft_lutpair173" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \fname[7][2]_i_1 
@@ -28823,7 +28654,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fname_reg[7][7] [2]),
         .I2(\fname_reg[7][7]_0 ),
         .O(\file_name_reg[7][7] [2]));
-  (* SOFT_HLUTNM = "soft_lutpair170" *) 
+  (* SOFT_HLUTNM = "soft_lutpair173" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \fname[7][3]_i_1 
@@ -28831,7 +28662,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fname_reg[7][7] [3]),
         .I2(\fname_reg[7][7]_0 ),
         .O(\file_name_reg[7][7] [3]));
-  (* SOFT_HLUTNM = "soft_lutpair169" *) 
+  (* SOFT_HLUTNM = "soft_lutpair172" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \fname[7][4]_i_1 
@@ -28839,7 +28670,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fname_reg[7][7] [4]),
         .I2(\fname_reg[7][7]_0 ),
         .O(\file_name_reg[7][7] [4]));
-  (* SOFT_HLUTNM = "soft_lutpair169" *) 
+  (* SOFT_HLUTNM = "soft_lutpair172" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \fname[7][5]_i_1 
@@ -28847,7 +28678,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fname_reg[7][7] [5]),
         .I2(\fname_reg[7][7]_0 ),
         .O(\file_name_reg[7][7] [5]));
-  (* SOFT_HLUTNM = "soft_lutpair168" *) 
+  (* SOFT_HLUTNM = "soft_lutpair171" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \fname[7][6]_i_1 
@@ -28855,7 +28686,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fname_reg[7][7] [6]),
         .I2(\fname_reg[7][7]_0 ),
         .O(\file_name_reg[7][7] [6]));
-  (* SOFT_HLUTNM = "soft_lutpair168" *) 
+  (* SOFT_HLUTNM = "soft_lutpair171" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \fname[7][7]_i_1 
@@ -28863,7 +28694,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fname_reg[7][7] [7]),
         .I2(\fname_reg[7][7]_0 ),
         .O(\file_name_reg[7][7] [7]));
-  (* SOFT_HLUTNM = "soft_lutpair167" *) 
+  (* SOFT_HLUTNM = "soft_lutpair170" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \fname[8][0]_i_1 
@@ -28871,7 +28702,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fname_reg[8][7] [0]),
         .I2(\fname_reg[8][7]_0 ),
         .O(\file_name_reg[8][7] [0]));
-  (* SOFT_HLUTNM = "soft_lutpair167" *) 
+  (* SOFT_HLUTNM = "soft_lutpair170" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \fname[8][1]_i_1 
@@ -28879,7 +28710,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fname_reg[8][7] [1]),
         .I2(\fname_reg[8][7]_0 ),
         .O(\file_name_reg[8][7] [1]));
-  (* SOFT_HLUTNM = "soft_lutpair166" *) 
+  (* SOFT_HLUTNM = "soft_lutpair169" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \fname[8][2]_i_1 
@@ -28887,7 +28718,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fname_reg[8][7] [2]),
         .I2(\fname_reg[8][7]_0 ),
         .O(\file_name_reg[8][7] [2]));
-  (* SOFT_HLUTNM = "soft_lutpair166" *) 
+  (* SOFT_HLUTNM = "soft_lutpair169" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \fname[8][3]_i_1 
@@ -28895,7 +28726,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fname_reg[8][7] [3]),
         .I2(\fname_reg[8][7]_0 ),
         .O(\file_name_reg[8][7] [3]));
-  (* SOFT_HLUTNM = "soft_lutpair165" *) 
+  (* SOFT_HLUTNM = "soft_lutpair168" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \fname[8][4]_i_1 
@@ -28903,7 +28734,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fname_reg[8][7] [4]),
         .I2(\fname_reg[8][7]_0 ),
         .O(\file_name_reg[8][7] [4]));
-  (* SOFT_HLUTNM = "soft_lutpair165" *) 
+  (* SOFT_HLUTNM = "soft_lutpair168" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \fname[8][5]_i_1 
@@ -28911,7 +28742,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fname_reg[8][7] [5]),
         .I2(\fname_reg[8][7]_0 ),
         .O(\file_name_reg[8][7] [5]));
-  (* SOFT_HLUTNM = "soft_lutpair164" *) 
+  (* SOFT_HLUTNM = "soft_lutpair167" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \fname[8][6]_i_1 
@@ -28919,7 +28750,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fname_reg[8][7] [6]),
         .I2(\fname_reg[8][7]_0 ),
         .O(\file_name_reg[8][7] [6]));
-  (* SOFT_HLUTNM = "soft_lutpair164" *) 
+  (* SOFT_HLUTNM = "soft_lutpair167" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \fname[8][7]_i_1 
@@ -28927,56 +28758,56 @@ module design_1_top_system_0_1_sd_reader
         .I1(\fname_reg[8][7] [7]),
         .I2(\fname_reg[8][7]_0 ),
         .O(\file_name_reg[8][7] [7]));
-  (* SOFT_HLUTNM = "soft_lutpair193" *) 
+  (* SOFT_HLUTNM = "soft_lutpair184" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fnamelen[0]_i_1 
        (.I0(\fnamelen_reg[7] [0]),
         .I1(fready),
         .O(\file_namelen_reg[7] [0]));
-  (* SOFT_HLUTNM = "soft_lutpair95" *) 
+  (* SOFT_HLUTNM = "soft_lutpair83" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fnamelen[1]_i_1 
        (.I0(fready),
         .I1(\fnamelen_reg[7] [1]),
         .O(\file_namelen_reg[7] [1]));
-  (* SOFT_HLUTNM = "soft_lutpair96" *) 
+  (* SOFT_HLUTNM = "soft_lutpair84" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fnamelen[2]_i_1 
        (.I0(\fnamelen_reg[7] [2]),
         .I1(fready),
         .O(\file_namelen_reg[7] [2]));
-  (* SOFT_HLUTNM = "soft_lutpair192" *) 
+  (* SOFT_HLUTNM = "soft_lutpair183" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fnamelen[3]_i_1 
        (.I0(\fnamelen_reg[7] [3]),
         .I1(fready),
         .O(\file_namelen_reg[7] [3]));
-  (* SOFT_HLUTNM = "soft_lutpair192" *) 
+  (* SOFT_HLUTNM = "soft_lutpair183" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fnamelen[4]_i_1 
        (.I0(\fnamelen_reg[7] [4]),
         .I1(fready),
         .O(\file_namelen_reg[7] [4]));
-  (* SOFT_HLUTNM = "soft_lutpair191" *) 
+  (* SOFT_HLUTNM = "soft_lutpair182" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fnamelen[5]_i_1 
        (.I0(\fnamelen_reg[7] [5]),
         .I1(fready),
         .O(\file_namelen_reg[7] [5]));
-  (* SOFT_HLUTNM = "soft_lutpair191" *) 
+  (* SOFT_HLUTNM = "soft_lutpair182" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fnamelen[6]_i_1 
        (.I0(\fnamelen_reg[7] [6]),
         .I1(fready),
         .O(\file_namelen_reg[7] [6]));
-  (* SOFT_HLUTNM = "soft_lutpair183" *) 
+  (* SOFT_HLUTNM = "soft_lutpair177" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fnamelen[7]_i_1 
@@ -28993,7 +28824,7 @@ module design_1_top_system_0_1_sd_reader
         .I4(\sector_content[510][7]_i_2_n_0 ),
         .I5(fready_i_2_n_0),
         .O(fready));
-  (* SOFT_HLUTNM = "soft_lutpair190" *) 
+  (* SOFT_HLUTNM = "soft_lutpair98" *) 
   LUT2 #(
     .INIT(4'h8)) 
     fready_i_2
@@ -29003,253 +28834,262 @@ module design_1_top_system_0_1_sd_reader
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[0]_i_1 
-       (.I0(\file_1st_size_reg[23] [0]),
+       (.I0(\fsize_reg[23] [0]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [0]));
-  (* SOFT_HLUTNM = "soft_lutpair208" *) 
+  (* SOFT_HLUTNM = "soft_lutpair199" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[10]_i_1 
-       (.I0(\file_1st_size_reg[23] [10]),
+       (.I0(\fsize_reg[23] [10]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [10]));
-  (* SOFT_HLUTNM = "soft_lutpair207" *) 
+  (* SOFT_HLUTNM = "soft_lutpair198" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[11]_i_1 
-       (.I0(\file_1st_size_reg[23] [11]),
+       (.I0(\fsize_reg[23] [11]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [11]));
-  (* SOFT_HLUTNM = "soft_lutpair207" *) 
+  (* SOFT_HLUTNM = "soft_lutpair198" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[12]_i_1 
-       (.I0(\file_1st_size_reg[23] [12]),
+       (.I0(\fsize_reg[23] [12]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [12]));
-  (* SOFT_HLUTNM = "soft_lutpair206" *) 
+  (* SOFT_HLUTNM = "soft_lutpair197" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[13]_i_1 
-       (.I0(\file_1st_size_reg[23] [13]),
+       (.I0(\fsize_reg[23] [13]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [13]));
-  (* SOFT_HLUTNM = "soft_lutpair206" *) 
+  (* SOFT_HLUTNM = "soft_lutpair197" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[14]_i_1 
-       (.I0(\file_1st_size_reg[23] [14]),
+       (.I0(\fsize_reg[23] [14]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [14]));
-  (* SOFT_HLUTNM = "soft_lutpair205" *) 
+  (* SOFT_HLUTNM = "soft_lutpair196" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[15]_i_1 
-       (.I0(\file_1st_size_reg[23] [15]),
+       (.I0(\fsize_reg[23] [15]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [15]));
-  (* SOFT_HLUTNM = "soft_lutpair205" *) 
+  (* SOFT_HLUTNM = "soft_lutpair196" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[16]_i_1 
-       (.I0(\file_1st_size_reg[23] [16]),
+       (.I0(\fsize_reg[23] [16]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [16]));
-  (* SOFT_HLUTNM = "soft_lutpair204" *) 
+  (* SOFT_HLUTNM = "soft_lutpair195" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[17]_i_1 
-       (.I0(\file_1st_size_reg[23] [17]),
+       (.I0(\fsize_reg[23] [17]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [17]));
-  (* SOFT_HLUTNM = "soft_lutpair204" *) 
+  (* SOFT_HLUTNM = "soft_lutpair195" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[18]_i_1 
-       (.I0(\file_1st_size_reg[23] [18]),
+       (.I0(\fsize_reg[23] [18]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [18]));
-  (* SOFT_HLUTNM = "soft_lutpair203" *) 
+  (* SOFT_HLUTNM = "soft_lutpair194" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[19]_i_1 
-       (.I0(\file_1st_size_reg[23] [19]),
+       (.I0(\fsize_reg[23] [19]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [19]));
-  (* SOFT_HLUTNM = "soft_lutpair212" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \fsize[1]_i_1 
-       (.I0(\file_1st_size_reg[23] [1]),
-        .I1(fready),
-        .O(\outbyte_reg[7]_1 [1]));
   (* SOFT_HLUTNM = "soft_lutpair203" *) 
   LUT2 #(
     .INIT(4'h8)) 
+    \fsize[1]_i_1 
+       (.I0(\fsize_reg[23] [1]),
+        .I1(fready),
+        .O(\outbyte_reg[7]_1 [1]));
+  (* SOFT_HLUTNM = "soft_lutpair194" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \fsize[20]_i_1 
-       (.I0(\file_1st_size_reg[23] [20]),
+       (.I0(\fsize_reg[23] [20]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [20]));
-  (* SOFT_HLUTNM = "soft_lutpair202" *) 
+  (* SOFT_HLUTNM = "soft_lutpair193" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[21]_i_1 
-       (.I0(\file_1st_size_reg[23] [21]),
+       (.I0(\fsize_reg[23] [21]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [21]));
-  (* SOFT_HLUTNM = "soft_lutpair202" *) 
+  (* SOFT_HLUTNM = "soft_lutpair193" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[22]_i_1 
-       (.I0(\file_1st_size_reg[23] [22]),
+       (.I0(\fsize_reg[23] [22]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [22]));
-  (* SOFT_HLUTNM = "soft_lutpair201" *) 
+  (* SOFT_HLUTNM = "soft_lutpair192" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[23]_i_1 
-       (.I0(\file_1st_size_reg[23] [23]),
+       (.I0(\fsize_reg[23] [23]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [23]));
-  (* SOFT_HLUTNM = "soft_lutpair183" *) 
+  (* SOFT_HLUTNM = "soft_lutpair176" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[24]_i_1 
        (.I0(fready),
         .I1(\outbyte_reg[7]_0 [0]),
         .O(\outbyte_reg[7]_1 [24]));
-  (* SOFT_HLUTNM = "soft_lutpair184" *) 
+  (* SOFT_HLUTNM = "soft_lutpair117" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[25]_i_1 
        (.I0(fready),
         .I1(\outbyte_reg[7]_0 [1]),
         .O(\outbyte_reg[7]_1 [25]));
-  (* SOFT_HLUTNM = "soft_lutpair185" *) 
+  (* SOFT_HLUTNM = "soft_lutpair177" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[26]_i_1 
        (.I0(fready),
         .I1(\outbyte_reg[7]_0 [2]),
         .O(\outbyte_reg[7]_1 [26]));
-  (* SOFT_HLUTNM = "soft_lutpair135" *) 
+  (* SOFT_HLUTNM = "soft_lutpair176" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[27]_i_1 
        (.I0(fready),
         .I1(\outbyte_reg[7]_0 [3]),
         .O(\outbyte_reg[7]_1 [27]));
-  (* SOFT_HLUTNM = "soft_lutpair185" *) 
+  (* SOFT_HLUTNM = "soft_lutpair118" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[28]_i_1 
        (.I0(fready),
         .I1(\outbyte_reg[7]_0 [4]),
         .O(\outbyte_reg[7]_1 [28]));
-  (* SOFT_HLUTNM = "soft_lutpair134" *) 
+  (* SOFT_HLUTNM = "soft_lutpair119" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[29]_i_1 
        (.I0(fready),
         .I1(\outbyte_reg[7]_0 [5]),
         .O(\outbyte_reg[7]_1 [29]));
-  (* SOFT_HLUTNM = "soft_lutpair212" *) 
+  (* SOFT_HLUTNM = "soft_lutpair203" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[2]_i_1 
-       (.I0(\file_1st_size_reg[23] [2]),
+       (.I0(\fsize_reg[23] [2]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [2]));
-  (* SOFT_HLUTNM = "soft_lutpair132" *) 
+  (* SOFT_HLUTNM = "soft_lutpair96" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[30]_i_1 
        (.I0(fready),
         .I1(\outbyte_reg[7]_0 [6]),
         .O(\outbyte_reg[7]_1 [30]));
-  (* SOFT_HLUTNM = "soft_lutpair184" *) 
+  (* SOFT_HLUTNM = "soft_lutpair94" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[31]_i_1 
        (.I0(fready),
         .I1(\outbyte_reg[7]_0 [7]),
         .O(\outbyte_reg[7]_1 [31]));
-  (* SOFT_HLUTNM = "soft_lutpair211" *) 
+  (* SOFT_HLUTNM = "soft_lutpair202" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[3]_i_1 
-       (.I0(\file_1st_size_reg[23] [3]),
+       (.I0(\fsize_reg[23] [3]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [3]));
-  (* SOFT_HLUTNM = "soft_lutpair211" *) 
+  (* SOFT_HLUTNM = "soft_lutpair202" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[4]_i_1 
-       (.I0(\file_1st_size_reg[23] [4]),
+       (.I0(\fsize_reg[23] [4]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [4]));
-  (* SOFT_HLUTNM = "soft_lutpair210" *) 
+  (* SOFT_HLUTNM = "soft_lutpair201" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[5]_i_1 
-       (.I0(\file_1st_size_reg[23] [5]),
+       (.I0(\fsize_reg[23] [5]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [5]));
-  (* SOFT_HLUTNM = "soft_lutpair210" *) 
+  (* SOFT_HLUTNM = "soft_lutpair201" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[6]_i_1 
-       (.I0(\file_1st_size_reg[23] [6]),
+       (.I0(\fsize_reg[23] [6]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [6]));
-  (* SOFT_HLUTNM = "soft_lutpair209" *) 
+  (* SOFT_HLUTNM = "soft_lutpair200" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[7]_i_1 
-       (.I0(\file_1st_size_reg[23] [7]),
+       (.I0(\fsize_reg[23] [7]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [7]));
-  (* SOFT_HLUTNM = "soft_lutpair209" *) 
+  (* SOFT_HLUTNM = "soft_lutpair200" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[8]_i_1 
-       (.I0(\file_1st_size_reg[23] [8]),
+       (.I0(\fsize_reg[23] [8]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [8]));
-  (* SOFT_HLUTNM = "soft_lutpair208" *) 
+  (* SOFT_HLUTNM = "soft_lutpair199" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fsize[9]_i_1 
-       (.I0(\file_1st_size_reg[23] [9]),
+       (.I0(\fsize_reg[23] [9]),
         .I1(fready),
         .O(\outbyte_reg[7]_1 [9]));
   LUT5 #(
-    .INIT(32'h02000020)) 
+    .INIT(32'h00022000)) 
     islong_i_1
        (.I0(rvalid),
-        .I1(search_fat_reg_2),
-        .I2(filesystem_state[2]),
-        .I3(filesystem_state[0]),
-        .I4(filesystem_state[1]),
+        .I1(search_fat_reg_1),
+        .I2(filesystem_state[0]),
+        .I3(filesystem_state[1]),
+        .I4(filesystem_state[2]),
         .O(fready152_out));
+  (* SOFT_HLUTNM = "soft_lutpair72" *) 
+  LUT4 #(
+    .INIT(16'h7FFF)) 
+    islong_i_10
+       (.I0(\outbyte_reg[7]_0 [3]),
+        .I1(\outbyte_reg[7]_0 [2]),
+        .I2(\outbyte_reg[7]_0 [1]),
+        .I3(\outbyte_reg[7]_0 [0]),
+        .O(islong_i_10_n_0));
   LUT6 #(
-    .INIT(64'hAAAA2AEA22222AEA)) 
+    .INIT(64'hAAAA22222AEA2AEA)) 
     islong_i_2
        (.I0(p_0_in23_in),
         .I1(islong_i_3_n_0),
         .I2(islong_i_4_n_0),
         .I3(islong_i_5_n_0),
-        .I4(raddr[3]),
-        .I5(islong_i_6_n_0),
+        .I4(islong_i_6_n_0),
+        .I5(raddr[3]),
         .O(islong_reg));
-  (* SOFT_HLUTNM = "soft_lutpair181" *) 
+  (* SOFT_HLUTNM = "soft_lutpair114" *) 
   LUT2 #(
     .INIT(4'h1)) 
     islong_i_3
        (.I0(raddr[4]),
         .I1(raddr[2]),
         .O(islong_i_3_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair213" *) 
+  (* SOFT_HLUTNM = "soft_lutpair175" *) 
   LUT2 #(
     .INIT(4'h1)) 
     islong_i_4
@@ -29257,19 +29097,19 @@ module design_1_top_system_0_1_sd_reader
         .I1(raddr[1]),
         .O(islong_i_4_n_0));
   LUT6 #(
-    .INIT(64'h00007DD7FFFFFFFF)) 
+    .INIT(64'hFFFFFFFFFFFF00FB)) 
     islong_i_5
        (.I0(islong_i_7_n_0),
-        .I1(\outbyte_reg[7]_0 [4]),
-        .I2(islong_i_8_n_0),
-        .I3(\longno_reg[5] [4]),
-        .I4(\outbyte_reg[7]_0 [6]),
-        .I5(\longno[5]_i_3_n_0 ),
+        .I1(islong_i_8_n_0),
+        .I2(islong_i_9_n_0),
+        .I3(\outbyte_reg[7]_0 [6]),
+        .I4(\longno[5]_i_3_n_0 ),
+        .I5(\outbyte_reg[7]_0 [7]),
         .O(islong_i_5_n_0));
   LUT6 #(
     .INIT(64'h00000001FFFFFFFF)) 
     islong_i_6
-       (.I0(islong_i_8_n_0),
+       (.I0(islong_i_10_n_0),
         .I1(\outbyte_reg[7]_0 [5]),
         .I2(\outbyte_reg[7]_0 [7]),
         .I3(\outbyte_reg[7]_0 [6]),
@@ -29277,249 +29117,228 @@ module design_1_top_system_0_1_sd_reader
         .I5(fready_i_2_n_0),
         .O(islong_i_6_n_0));
   LUT6 #(
-    .INIT(64'h1001011010011001)) 
+    .INIT(64'h87F8FF7FFF7F87F8)) 
     islong_i_7
-       (.I0(\longno[5]_i_8_n_0 ),
-        .I1(\longno[5]_i_7_n_0 ),
-        .I2(\outbyte_reg[7]_0 [5]),
-        .I3(\longno_reg[5] [5]),
-        .I4(islong_i_8_n_0),
-        .I5(\outbyte_reg[7]_0 [4]),
-        .O(islong_i_7_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair91" *) 
-  LUT4 #(
-    .INIT(16'h7FFF)) 
-    islong_i_8
        (.I0(\outbyte_reg[7]_0 [1]),
         .I1(\outbyte_reg[7]_0 [0]),
         .I2(\outbyte_reg[7]_0 [2]),
-        .I3(\outbyte_reg[7]_0 [3]),
+        .I3(\longno_reg[5] [2]),
+        .I4(\longno_reg[5] [3]),
+        .I5(\outbyte_reg[7]_0 [3]),
+        .O(islong_i_7_n_0));
+  LUT6 #(
+    .INIT(64'h0020800020000080)) 
+    islong_i_8
+       (.I0(p_0_in23_in),
+        .I1(\longno_reg[5] [0]),
+        .I2(\file_namelen[3]_i_12_0 ),
+        .I3(\outbyte_reg[7]_0 [1]),
+        .I4(\outbyte_reg[7]_0 [0]),
+        .I5(\longno_reg[5] [1]),
         .O(islong_i_8_n_0));
+  LUT5 #(
+    .INIT(32'h7DEBBE7D)) 
+    islong_i_9
+       (.I0(\longno_reg[5] [4]),
+        .I1(\outbyte_reg[7]_0 [5]),
+        .I2(\longno_reg[5] [5]),
+        .I3(islong_i_10_n_0),
+        .I4(\outbyte_reg[7]_0 [4]),
+        .O(islong_i_9_n_0));
   LUT6 #(
     .INIT(64'hFFFFF88800000888)) 
     islongok_i_1
-       (.I0(islongok_i_2_n_0),
+       (.I0(\longno[5]_i_3_n_0 ),
         .I1(\longno[5]_i_2_n_0 ),
-        .I2(islongok_i_3_n_0),
+        .I2(islongok_i_2_n_0),
         .I3(raddr[3]),
-        .I4(islongok_i_4_n_0),
+        .I4(islongok_i_3_n_0),
         .I5(islongok),
         .O(\outaddr_reg[3]_0 ));
+  LUT5 #(
+    .INIT(32'h00000004)) 
+    islongok_i_2
+       (.I0(\outbyte_reg[7]_0 [0]),
+        .I1(\outbyte_reg[7]_0 [5]),
+        .I2(\outbyte_reg[7]_0 [2]),
+        .I3(\outbyte_reg[7]_0 [1]),
+        .I4(islongok_i_4_n_0),
+        .O(islongok_i_2_n_0));
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFF7FFD)) 
+    islongok_i_3
+       (.I0(fready152_out),
+        .I1(raddr[0]),
+        .I2(raddr[1]),
+        .I3(raddr[3]),
+        .I4(raddr[2]),
+        .I5(raddr[4]),
+        .O(islongok_i_3_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair95" *) 
+  LUT4 #(
+    .INIT(16'hFFFE)) 
+    islongok_i_4
+       (.I0(\outbyte_reg[7]_0 [6]),
+        .I1(\outbyte_reg[7]_0 [7]),
+        .I2(\outbyte_reg[7]_0 [3]),
+        .I3(\outbyte_reg[7]_0 [4]),
+        .O(islongok_i_4_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair78" *) 
+  LUT1 #(
+    .INIT(2'h1)) 
+    isshort_i_1
+       (.I0(isshort_i_2_n_0),
+        .O(isshort_i_2_0));
+  LUT6 #(
+    .INIT(64'hFE00FE00FE00FEFE)) 
+    isshort_i_2
+       (.I0(isshort_i_3_n_0),
+        .I1(longvalid_i_3_n_0),
+        .I2(isshort_i_4_n_0),
+        .I3(isshort_i_5_n_0),
+        .I4(isshort_i_6_n_0),
+        .I5(islongok_i_2_n_0),
+        .O(isshort_i_2_n_0));
+  LUT4 #(
+    .INIT(16'h08FF)) 
+    isshort_i_3
+       (.I0(p_0_in23_in),
+        .I1(\longno_reg[5] [0]),
+        .I2(\file_namelen[3]_i_12_0 ),
+        .I3(\longno[5]_i_2_n_0 ),
+        .O(isshort_i_3_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair89" *) 
+  LUT5 #(
+    .INIT(32'h01FF0101)) 
+    isshort_i_4
+       (.I0(\longno[5]_i_5_n_0 ),
+        .I1(\outbyte_reg[7]_0 [4]),
+        .I2(\outbyte_reg[7]_0 [3]),
+        .I3(\longno[5]_i_8_n_0 ),
+        .I4(isshort_i_7_n_0),
+        .O(isshort_i_4_n_0));
+  LUT6 #(
+    .INIT(64'h00000001FFFFFFFF)) 
+    isshort_i_5
+       (.I0(raddr[4]),
+        .I1(raddr[0]),
+        .I2(raddr[3]),
+        .I3(raddr[2]),
+        .I4(raddr[1]),
+        .I5(p_2_in),
+        .O(isshort_i_5_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair68" *) 
+  LUT5 #(
+    .INIT(32'hFFFFFF7F)) 
+    isshort_i_6
+       (.I0(raddr[0]),
+        .I1(raddr[1]),
+        .I2(raddr[3]),
+        .I3(raddr[2]),
+        .I4(raddr[4]),
+        .O(isshort_i_6_n_0));
   (* SOFT_HLUTNM = "soft_lutpair90" *) 
   LUT4 #(
     .INIT(16'h8000)) 
-    islongok_i_2
-       (.I0(isshort_i_3_n_0),
-        .I1(\longno_reg[2] ),
-        .I2(p_0_in23_in),
-        .I3(\longno_reg[5] [0]),
-        .O(islongok_i_2_n_0));
-  LUT6 #(
-    .INIT(64'h0000000000000004)) 
-    islongok_i_3
-       (.I0(\outbyte_reg[7]_0 [0]),
-        .I1(\outbyte_reg[7]_0 [5]),
-        .I2(\outbyte_reg[7]_0 [3]),
-        .I3(\outbyte_reg[7]_0 [1]),
-        .I4(\outbyte_reg[7]_0 [2]),
-        .I5(islongok_i_5_n_0),
-        .O(islongok_i_3_n_0));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFF7FFFFFD)) 
-    islongok_i_4
+    isshort_i_7
+       (.I0(\outbyte_reg[7]_0 [2]),
+        .I1(\outbyte_reg[7]_0 [3]),
+        .I2(\outbyte_reg[7]_0 [1]),
+        .I3(\outbyte_reg[7]_0 [5]),
+        .O(isshort_i_7_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair98" *) 
+  LUT4 #(
+    .INIT(16'h0082)) 
+    \lastchar[7]_i_1 
        (.I0(fready152_out),
-        .I1(raddr[1]),
-        .I2(raddr[2]),
-        .I3(raddr[3]),
-        .I4(raddr[0]),
-        .I5(raddr[4]),
-        .O(islongok_i_4_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair113" *) 
-  LUT3 #(
-    .INIT(8'hFE)) 
-    islongok_i_5
-       (.I0(\outbyte_reg[7]_0 [4]),
-        .I1(\outbyte_reg[7]_0 [6]),
-        .I2(\outbyte_reg[7]_0 [7]),
-        .O(islongok_i_5_n_0));
-  LUT6 #(
-    .INIT(64'h00000000AAAAAAEA)) 
-    isshort_i_1
-       (.I0(isshort_i_2_n_0),
-        .I1(isshort_i_3_n_0),
-        .I2(isshort_reg),
-        .I3(raddr[0]),
-        .I4(raddr[1]),
-        .I5(isshort_i_5_n_0),
-        .O(\outaddr_reg[0]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair156" *) 
-  LUT3 #(
-    .INIT(8'h04)) 
-    isshort_i_10
+        .I1(raddr[0]),
+        .I2(\lastchar[7]_i_2_n_0 ),
+        .I3(\lastchar[7]_i_3_n_0 ),
+        .O(\outaddr_reg[0]_6 ));
+  LUT5 #(
+    .INIT(32'h11151515)) 
+    \lastchar[7]_i_2 
        (.I0(raddr[4]),
         .I1(raddr[3]),
         .I2(raddr[2]),
-        .O(isshort_i_10_n_0));
-  LUT6 #(
-    .INIT(64'hFFFFFFFEFEFEFEFE)) 
-    isshort_i_2
-       (.I0(raddr[4]),
-        .I1(raddr[2]),
-        .I2(raddr[3]),
-        .I3(raddr[0]),
-        .I4(raddr[1]),
-        .I5(p_2_in),
-        .O(isshort_i_2_n_0));
-  LUT6 #(
-    .INIT(64'h000BBBBBBB0BBBBB)) 
-    isshort_i_3
-       (.I0(isshort_i_6_n_0),
-        .I1(longvalid_i_8_n_0),
-        .I2(isshort_i_7_n_0),
-        .I3(\outbyte_reg[7]_0 [3]),
-        .I4(\outbyte_reg[7]_0 [2]),
-        .I5(isshort_i_8_n_0),
-        .O(isshort_i_3_n_0));
-  LUT6 #(
-    .INIT(64'hFF3F333311111111)) 
-    isshort_i_5
-       (.I0(islong_i_3_n_0),
-        .I1(p_2_in),
-        .I2(isshort_i_9_n_0),
-        .I3(\file_name[8][7]_i_4_n_0 ),
-        .I4(fready_i_2_n_0),
-        .I5(isshort_i_10_n_0),
-        .O(isshort_i_5_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair109" *) 
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    isshort_i_6
-       (.I0(\outbyte_reg[7]_0 [0]),
-        .I1(\outbyte_reg[7]_0 [2]),
-        .I2(\outbyte_reg[7]_0 [1]),
-        .I3(\outbyte_reg[7]_0 [3]),
-        .O(isshort_i_6_n_0));
-  LUT6 #(
-    .INIT(64'h0040000000000000)) 
-    isshort_i_7
-       (.I0(\outbyte_reg[7]_0 [4]),
-        .I1(\outbyte_reg[7]_0 [6]),
-        .I2(\outbyte_reg[7]_0 [0]),
-        .I3(\outbyte_reg[7]_0 [1]),
-        .I4(\outbyte_reg[7]_0 [5]),
-        .I5(\outbyte_reg[7]_0 [7]),
-        .O(isshort_i_7_n_0));
-  LUT6 #(
-    .INIT(64'h0000000000000008)) 
-    isshort_i_8
-       (.I0(\outbyte_reg[7]_0 [1]),
-        .I1(\outbyte_reg[7]_0 [5]),
-        .I2(\outbyte_reg[7]_0 [0]),
-        .I3(\outbyte_reg[7]_0 [7]),
-        .I4(\outbyte_reg[7]_0 [6]),
-        .I5(\outbyte_reg[7]_0 [4]),
-        .O(isshort_i_8_n_0));
-  LUT2 #(
-    .INIT(4'h2)) 
-    isshort_i_9
-       (.I0(\outbyte_reg[7]_0 [5]),
-        .I1(\outbyte_reg[7]_0 [0]),
-        .O(isshort_i_9_n_0));
-  LUT6 #(
-    .INIT(64'h0000000000180000)) 
-    \lastchar[7]_i_1 
-       (.I0(filesystem_state[1]),
-        .I1(filesystem_state[0]),
-        .I2(filesystem_state[2]),
-        .I3(search_fat_reg_2),
-        .I4(rvalid),
-        .I5(\lastchar[7]_i_2_n_0 ),
-        .O(\filesystem_state_reg[1]_5 ));
-  LUT6 #(
-    .INIT(64'hFFFEAFBBEEEEBBBB)) 
-    \lastchar[7]_i_2 
-       (.I0(longvalid_i_5_n_0),
-        .I1(raddr[4]),
-        .I2(raddr[2]),
         .I3(raddr[1]),
         .I4(raddr[0]),
-        .I5(raddr[3]),
         .O(\lastchar[7]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'hBAAABAEABAAAAAEB)) 
+    \lastchar[7]_i_3 
+       (.I0(longvalid_i_6_n_0),
+        .I1(raddr[2]),
+        .I2(raddr[3]),
+        .I3(raddr[1]),
+        .I4(raddr[4]),
+        .I5(raddr[0]),
+        .O(\lastchar[7]_i_3_n_0 ));
   LUT1 #(
     .INIT(2'h1)) 
     \longno[0]_i_1 
        (.I0(file_namelen2),
         .O(longno_t[0]));
   LUT6 #(
-    .INIT(64'h404040007F7F7FFF)) 
+    .INIT(64'h00000004FFFFFFF7)) 
     \longno[0]_i_2 
        (.I0(\outbyte_reg[7]_0 [0]),
         .I1(\longno[5]_i_2_n_0 ),
-        .I2(\longno[5]_i_3_n_0 ),
-        .I3(\outbyte_reg[7]_0 [6]),
+        .I2(\outbyte_reg[7]_0 [7]),
+        .I3(\longno[5]_i_3_n_0 ),
         .I4(\longno[5]_i_4_n_0 ),
         .I5(\longno_reg[5] [0]),
         .O(file_namelen2));
   LUT6 #(
-    .INIT(64'hBFBFBFFF80808000)) 
+    .INIT(64'hFFFFFFFB00000008)) 
     \longno[1]_i_1 
        (.I0(\outbyte_reg[7]_0 [1]),
         .I1(\longno[5]_i_2_n_0 ),
-        .I2(\longno[5]_i_3_n_0 ),
-        .I3(\outbyte_reg[7]_0 [6]),
+        .I2(\outbyte_reg[7]_0 [7]),
+        .I3(\longno[5]_i_3_n_0 ),
         .I4(\longno[5]_i_4_n_0 ),
         .I5(\longno_reg[5] [1]),
         .O(longno_t[1]));
   LUT6 #(
-    .INIT(64'hBFBFBFFF80808000)) 
+    .INIT(64'hFFFFFFFB00000008)) 
     \longno[2]_i_1 
        (.I0(\outbyte_reg[7]_0 [2]),
         .I1(\longno[5]_i_2_n_0 ),
-        .I2(\longno[5]_i_3_n_0 ),
-        .I3(\outbyte_reg[7]_0 [6]),
+        .I2(\outbyte_reg[7]_0 [7]),
+        .I3(\longno[5]_i_3_n_0 ),
         .I4(\longno[5]_i_4_n_0 ),
         .I5(\longno_reg[5] [2]),
         .O(longno_t[2]));
   LUT6 #(
-    .INIT(64'hBFBFBFFF80808000)) 
+    .INIT(64'hFFFFFFFB00000008)) 
     \longno[3]_i_1 
        (.I0(\outbyte_reg[7]_0 [3]),
         .I1(\longno[5]_i_2_n_0 ),
-        .I2(\longno[5]_i_3_n_0 ),
-        .I3(\outbyte_reg[7]_0 [6]),
+        .I2(\outbyte_reg[7]_0 [7]),
+        .I3(\longno[5]_i_3_n_0 ),
         .I4(\longno[5]_i_4_n_0 ),
         .I5(\longno_reg[5] [3]),
         .O(longno_t[3]));
   LUT6 #(
-    .INIT(64'hBFBFBFFF80808000)) 
+    .INIT(64'hFFFFFFFB00000008)) 
     \longno[4]_i_1 
        (.I0(\outbyte_reg[7]_0 [4]),
         .I1(\longno[5]_i_2_n_0 ),
-        .I2(\longno[5]_i_3_n_0 ),
-        .I3(\outbyte_reg[7]_0 [6]),
+        .I2(\outbyte_reg[7]_0 [7]),
+        .I3(\longno[5]_i_3_n_0 ),
         .I4(\longno[5]_i_4_n_0 ),
         .I5(\longno_reg[5] [4]),
         .O(longno_t[4]));
   LUT6 #(
-    .INIT(64'hBFBFBFFF80808000)) 
+    .INIT(64'hFFFFFFFB00000008)) 
     \longno[5]_i_1 
        (.I0(\outbyte_reg[7]_0 [5]),
         .I1(\longno[5]_i_2_n_0 ),
-        .I2(\longno[5]_i_3_n_0 ),
-        .I3(\outbyte_reg[7]_0 [6]),
+        .I2(\outbyte_reg[7]_0 [7]),
+        .I3(\longno[5]_i_3_n_0 ),
         .I4(\longno[5]_i_4_n_0 ),
         .I5(\longno_reg[5] [5]),
         .O(longno_t[5]));
-  (* SOFT_HLUTNM = "soft_lutpair110" *) 
-  LUT5 #(
-    .INIT(32'hE77BA55A)) 
-    \longno[5]_i_10 
-       (.I0(\longno_reg[5] [1]),
-        .I1(\outbyte_reg[7]_0 [2]),
-        .I2(\outbyte_reg[7]_0 [0]),
-        .I3(\outbyte_reg[7]_0 [1]),
-        .I4(\longno_reg[5] [2]),
-        .O(\longno[5]_i_10_n_0 ));
   LUT5 #(
     .INIT(32'h00000001)) 
     \longno[5]_i_2 
@@ -29529,176 +29348,185 @@ module design_1_top_system_0_1_sd_reader
         .I3(raddr[0]),
         .I4(raddr[4]),
         .O(\longno[5]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'h00000000000000FE)) 
+    \longno[5]_i_3 
+       (.I0(\longno[5]_i_5_n_0 ),
+        .I1(\outbyte_reg[7]_0 [4]),
+        .I2(\outbyte_reg[7]_0 [3]),
+        .I3(\longno[5]_i_6_n_0 ),
+        .I4(longvalid_i_3_n_0),
+        .I5(\longno_reg[2] ),
+        .O(\longno[5]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair96" *) 
+  LUT4 #(
+    .INIT(16'h5545)) 
+    \longno[5]_i_4 
+       (.I0(\outbyte_reg[7]_0 [6]),
+        .I1(islong_i_9_n_0),
+        .I2(islong_i_8_n_0),
+        .I3(islong_i_7_n_0),
+        .O(\longno[5]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'hDFFFFFFFFFFFFFFF)) 
+    \longno[5]_i_5 
+       (.I0(\outbyte_reg[7]_0 [0]),
+        .I1(\outbyte_reg[7]_0 [1]),
+        .I2(\outbyte_reg[7]_0 [6]),
+        .I3(\outbyte_reg[7]_0 [2]),
+        .I4(\outbyte_reg[7]_0 [7]),
+        .I5(\outbyte_reg[7]_0 [5]),
+        .O(\longno[5]_i_5_n_0 ));
   (* SOFT_HLUTNM = "soft_lutpair90" *) 
   LUT5 #(
-    .INIT(32'h15555555)) 
-    \longno[5]_i_3 
-       (.I0(\outbyte_reg[7]_0 [7]),
-        .I1(\longno_reg[5] [0]),
-        .I2(p_0_in23_in),
-        .I3(\longno_reg[2] ),
-        .I4(isshort_i_3_n_0),
-        .O(\longno[5]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h0200000200020100)) 
-    \longno[5]_i_4 
-       (.I0(\longno[5]_i_6_n_0 ),
-        .I1(\longno[5]_i_7_n_0 ),
-        .I2(\longno[5]_i_8_n_0 ),
-        .I3(\outbyte_reg[7]_0 [4]),
-        .I4(islong_i_8_n_0),
-        .I5(\longno_reg[5] [4]),
-        .O(\longno[5]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair133" *) 
-  LUT2 #(
-    .INIT(4'h9)) 
+    .INIT(32'h00008000)) 
     \longno[5]_i_6 
        (.I0(\outbyte_reg[7]_0 [5]),
-        .I1(\longno_reg[5] [5]),
+        .I1(\outbyte_reg[7]_0 [1]),
+        .I2(\outbyte_reg[7]_0 [3]),
+        .I3(\outbyte_reg[7]_0 [2]),
+        .I4(\longno[5]_i_8_n_0 ),
         .O(\longno[5]_i_6_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFD7FFFFFFD7FFD7)) 
-    \longno[5]_i_7 
-       (.I0(p_0_in23_in),
-        .I1(\outbyte_reg[7]_0 [0]),
-        .I2(\longno_reg[5] [0]),
-        .I3(\longno_reg[2] ),
-        .I4(\longno_reg[5] [2]),
-        .I5(\longno[5]_i_9_n_0 ),
-        .O(\longno[5]_i_7_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFF96666666)) 
+  (* SOFT_HLUTNM = "soft_lutpair118" *) 
+  LUT4 #(
+    .INIT(16'hFFFE)) 
     \longno[5]_i_8 
-       (.I0(\outbyte_reg[7]_0 [3]),
-        .I1(\longno_reg[5] [3]),
-        .I2(\outbyte_reg[7]_0 [2]),
-        .I3(\outbyte_reg[7]_0 [0]),
-        .I4(\outbyte_reg[7]_0 [1]),
-        .I5(\longno[5]_i_10_n_0 ),
+       (.I0(\outbyte_reg[7]_0 [4]),
+        .I1(\outbyte_reg[7]_0 [7]),
+        .I2(\outbyte_reg[7]_0 [0]),
+        .I3(\outbyte_reg[7]_0 [6]),
         .O(\longno[5]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair110" *) 
-  LUT3 #(
-    .INIT(8'h6A)) 
-    \longno[5]_i_9 
-       (.I0(\outbyte_reg[7]_0 [2]),
-        .I1(\outbyte_reg[7]_0 [0]),
-        .I2(\outbyte_reg[7]_0 [1]),
-        .O(\longno[5]_i_9_n_0 ));
   LUT6 #(
-    .INIT(64'hF777F7F700220000)) 
+    .INIT(64'hFF3F3B3B00000808)) 
     longvalid_i_1
-       (.I0(fready152_out),
-        .I1(longvalid_i_2_n_0),
-        .I2(longvalid_i_3_n_0),
-        .I3(longvalid_i_4_n_0),
-        .I4(\outbyte_reg[7]_0 [6]),
+       (.I0(\outbyte_reg[7]_0 [6]),
+        .I1(fready152_out),
+        .I2(longvalid_i_2_n_0),
+        .I3(longvalid_i_3_n_0),
+        .I4(longvalid_i_4_n_0),
         .I5(longvalid),
         .O(\outbyte_reg[6]_0 ));
   LUT5 #(
-    .INIT(32'h55555554)) 
+    .INIT(32'hFFFF7FFF)) 
     longvalid_i_10
-       (.I0(\outbyte_reg[7]_0 [6]),
-        .I1(longvalid_i_13_n_0),
-        .I2(\longno[5]_i_8_n_0 ),
-        .I3(\longno[5]_i_7_n_0 ),
-        .I4(longvalid_i_14_n_0),
+       (.I0(\file_name_reg[0][7]_0 [3]),
+        .I1(\file_name_reg[0][7]_0 [2]),
+        .I2(\file_name_reg[0][7]_0 [1]),
+        .I3(\file_name_reg[0][7]_0 [0]),
+        .I4(longvalid_i_15_n_0),
         .O(longvalid_i_10_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair131" *) 
+  LUT6 #(
+    .INIT(64'h08008888FFFFFFFF)) 
+    longvalid_i_11
+       (.I0(p_0_in23_in),
+        .I1(raddr[3]),
+        .I2(islong_i_10_n_0),
+        .I3(longvalid_i_8_n_0),
+        .I4(fready_i_2_n_0),
+        .I5(islong_i_3_n_0),
+        .O(longvalid_i_11_n_0));
+  LUT6 #(
+    .INIT(64'h5554555455555554)) 
+    longvalid_i_12
+       (.I0(\outbyte_reg[7]_0 [7]),
+        .I1(\longno_reg[2] ),
+        .I2(longvalid_i_3_n_0),
+        .I3(\longno[5]_i_6_n_0 ),
+        .I4(longvalid_i_16_n_0),
+        .I5(\longno[5]_i_5_n_0 ),
+        .O(longvalid_i_12_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair115" *) 
   LUT4 #(
     .INIT(16'hAAFE)) 
-    longvalid_i_11
+    longvalid_i_13
        (.I0(raddr[3]),
         .I1(raddr[0]),
         .I2(raddr[1]),
         .I3(p_0_in23_in),
-        .O(longvalid_i_11_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair156" *) 
+        .O(longvalid_i_13_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair97" *) 
   LUT3 #(
     .INIT(8'h54)) 
-    longvalid_i_12
+    longvalid_i_14
        (.I0(p_0_in23_in),
         .I1(raddr[2]),
         .I2(raddr[4]),
-        .O(longvalid_i_12_n_0));
-  LUT6 #(
-    .INIT(64'h955555556AAAAAAA)) 
-    longvalid_i_13
-       (.I0(\longno_reg[5] [4]),
-        .I1(\outbyte_reg[7]_0 [1]),
-        .I2(\outbyte_reg[7]_0 [0]),
-        .I3(\outbyte_reg[7]_0 [2]),
-        .I4(\outbyte_reg[7]_0 [3]),
-        .I5(\outbyte_reg[7]_0 [4]),
-        .O(longvalid_i_13_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair133" *) 
-  LUT4 #(
-    .INIT(16'h2DD2)) 
-    longvalid_i_14
-       (.I0(\outbyte_reg[7]_0 [4]),
-        .I1(islong_i_8_n_0),
-        .I2(\longno_reg[5] [5]),
-        .I3(\outbyte_reg[7]_0 [5]),
         .O(longvalid_i_14_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair119" *) 
+  LUT4 #(
+    .INIT(16'h7FFF)) 
+    longvalid_i_15
+       (.I0(\outbyte_reg[7]_0 [5]),
+        .I1(\outbyte_reg[7]_0 [7]),
+        .I2(\file_name_reg[0][7]_0 [7]),
+        .I3(\file_name_reg[0][7]_0 [5]),
+        .O(longvalid_i_15_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair89" *) 
+  LUT2 #(
+    .INIT(4'h1)) 
+    longvalid_i_16
+       (.I0(\outbyte_reg[7]_0 [4]),
+        .I1(\outbyte_reg[7]_0 [3]),
+        .O(longvalid_i_16_n_0));
   LUT5 #(
-    .INIT(32'h00000110)) 
+    .INIT(32'h00010100)) 
     longvalid_i_2
        (.I0(longvalid_i_5_n_0),
         .I1(longvalid_i_6_n_0),
-        .I2(raddr[0]),
-        .I3(\sdtnamelen[6]_i_2_n_0 ),
-        .I4(longvalid_i_7_n_0),
+        .I2(longvalid_i_7_n_0),
+        .I3(raddr[0]),
+        .I4(\lastchar[7]_i_2_n_0 ),
         .O(longvalid_i_2_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair109" *) 
-  LUT5 #(
-    .INIT(32'h00000002)) 
-    longvalid_i_3
-       (.I0(longvalid_i_8_n_0),
-        .I1(\outbyte_reg[7]_0 [3]),
-        .I2(\outbyte_reg[7]_0 [1]),
-        .I3(\outbyte_reg[7]_0 [2]),
-        .I4(\outbyte_reg[7]_0 [0]),
-        .O(longvalid_i_3_n_0));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFD)) 
+    .INIT(64'h00000000000000B0)) 
+    longvalid_i_3
+       (.I0(\outbyte_reg[7]_0 [4]),
+        .I1(\outbyte_reg[7]_0 [3]),
+        .I2(longvalid_i_8_n_0),
+        .I3(\outbyte_reg[7]_0 [1]),
+        .I4(\outbyte_reg[7]_0 [0]),
+        .I5(\outbyte_reg[7]_0 [2]),
+        .O(longvalid_i_3_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair94" *) 
+  LUT4 #(
+    .INIT(16'hFDFF)) 
     longvalid_i_4
-       (.I0(\longno[5]_i_3_n_0 ),
-        .I1(raddr[4]),
-        .I2(raddr[0]),
-        .I3(raddr[3]),
-        .I4(raddr[2]),
-        .I5(raddr[1]),
+       (.I0(\longno[5]_i_2_n_0 ),
+        .I1(\outbyte_reg[7]_0 [7]),
+        .I2(\longno[5]_i_3_n_0 ),
+        .I3(\outbyte_reg[7]_0 [6]),
         .O(longvalid_i_4_n_0));
   LUT6 #(
-    .INIT(64'hFFFFFFFF55554044)) 
+    .INIT(64'hAAAAAAAABAAAAAAA)) 
     longvalid_i_5
-       (.I0(longvalid_i_9_n_0),
-        .I1(islong_i_4_n_0),
-        .I2(longvalid_i_10_n_0),
-        .I3(\longno[5]_i_3_n_0 ),
-        .I4(longvalid_i_11_n_0),
-        .I5(longvalid_i_12_n_0),
+       (.I0(\file_namelen[7]_i_3_n_0 ),
+        .I1(longvalid_i_9_n_0),
+        .I2(\file_name_reg[0][7]_0 [6]),
+        .I3(\outbyte_reg[7]_0 [6]),
+        .I4(\file_name_reg[0][7]_0 [4]),
+        .I5(longvalid_i_10_n_0),
         .O(longvalid_i_5_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair97" *) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFF55554044)) 
+    longvalid_i_6
+       (.I0(longvalid_i_11_n_0),
+        .I1(islong_i_4_n_0),
+        .I2(\longno[5]_i_4_n_0 ),
+        .I3(longvalid_i_12_n_0),
+        .I4(longvalid_i_13_n_0),
+        .I5(longvalid_i_14_n_0),
+        .O(longvalid_i_6_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair85" *) 
   LUT5 #(
     .INIT(32'h0300E001)) 
-    longvalid_i_6
+    longvalid_i_7
        (.I0(raddr[0]),
         .I1(raddr[4]),
         .I2(raddr[1]),
         .I3(raddr[3]),
         .I4(raddr[2]),
-        .O(longvalid_i_6_n_0));
-  LUT6 #(
-    .INIT(64'hABAAAAAAAAAAAAAA)) 
-    longvalid_i_7
-       (.I0(\file_namelen[7]_i_4_n_0 ),
-        .I1(\file_name[0][7]_i_8_n_0 ),
-        .I2(\file_name[0][7]_i_7_n_0 ),
-        .I3(\file_name_reg[0][7]_0 [3]),
-        .I4(\file_name_reg[0][7]_0 [2]),
-        .I5(\outbyte_reg[7]_0 [6]),
         .O(longvalid_i_7_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair113" *) 
+  (* SOFT_HLUTNM = "soft_lutpair95" *) 
   LUT4 #(
     .INIT(16'h0001)) 
     longvalid_i_8
@@ -29707,15 +29535,15 @@ module design_1_top_system_0_1_sd_reader
         .I2(\outbyte_reg[7]_0 [6]),
         .I3(\outbyte_reg[7]_0 [4]),
         .O(longvalid_i_8_n_0));
-  LUT6 #(
-    .INIT(64'h75FF555555555555)) 
+  (* SOFT_HLUTNM = "soft_lutpair72" *) 
+  LUT5 #(
+    .INIT(32'h7FFFFFFF)) 
     longvalid_i_9
-       (.I0(islong_i_3_n_0),
-        .I1(islong_i_8_n_0),
-        .I2(longvalid_i_8_n_0),
-        .I3(fready_i_2_n_0),
-        .I4(p_0_in23_in),
-        .I5(raddr[3]),
+       (.I0(\outbyte_reg[7]_0 [0]),
+        .I1(\outbyte_reg[7]_0 [1]),
+        .I2(\outbyte_reg[7]_0 [2]),
+        .I3(\outbyte_reg[7]_0 [3]),
+        .I4(\outbyte_reg[7]_0 [4]),
         .O(longvalid_i_9_n_0));
   FDCE #(
     .INIT(1'b0)) 
@@ -29723,7 +29551,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_109),
+        .D(u_sdcmd_ctrl_n_93),
         .Q(raddr[0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -29731,7 +29559,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_108),
+        .D(u_sdcmd_ctrl_n_92),
         .Q(raddr[1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -29739,7 +29567,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_107),
+        .D(u_sdcmd_ctrl_n_91),
         .Q(raddr[2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -29747,7 +29575,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_106),
+        .D(u_sdcmd_ctrl_n_90),
         .Q(raddr[3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -29755,7 +29583,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_105),
+        .D(u_sdcmd_ctrl_n_89),
         .Q(raddr[4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -29763,7 +29591,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_104),
+        .D(u_sdcmd_ctrl_n_88),
         .Q(raddr[5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -29771,7 +29599,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_103),
+        .D(u_sdcmd_ctrl_n_87),
         .Q(raddr[6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -29779,7 +29607,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_102),
+        .D(u_sdcmd_ctrl_n_86),
         .Q(raddr[7]));
   FDCE #(
     .INIT(1'b0)) 
@@ -29787,58 +29615,58 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_101),
+        .D(u_sdcmd_ctrl_n_85),
         .Q(raddr[8]));
-  (* SOFT_HLUTNM = "soft_lutpair186" *) 
+  (* SOFT_HLUTNM = "soft_lutpair178" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outbyte[0]_i_1__0 
        (.I0(fptr0),
         .I1(\outbyte_reg[7]_0 [0]),
         .O(\outbyte_reg[7]_2 [0]));
-  (* SOFT_HLUTNM = "soft_lutpair187" *) 
+  (* SOFT_HLUTNM = "soft_lutpair178" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outbyte[1]_i_1__0 
        (.I0(fptr0),
         .I1(\outbyte_reg[7]_0 [1]),
         .O(\outbyte_reg[7]_2 [1]));
-  (* SOFT_HLUTNM = "soft_lutpair188" *) 
+  (* SOFT_HLUTNM = "soft_lutpair181" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outbyte[2]_i_1__0 
        (.I0(fptr0),
         .I1(\outbyte_reg[7]_0 [2]),
         .O(\outbyte_reg[7]_2 [2]));
-  (* SOFT_HLUTNM = "soft_lutpair189" *) 
+  (* SOFT_HLUTNM = "soft_lutpair179" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outbyte[3]_i_1__0 
        (.I0(fptr0),
         .I1(\outbyte_reg[7]_0 [3]),
         .O(\outbyte_reg[7]_2 [3]));
-  (* SOFT_HLUTNM = "soft_lutpair188" *) 
+  (* SOFT_HLUTNM = "soft_lutpair180" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outbyte[4]_i_1__0 
        (.I0(fptr0),
         .I1(\outbyte_reg[7]_0 [4]),
         .O(\outbyte_reg[7]_2 [4]));
-  (* SOFT_HLUTNM = "soft_lutpair189" *) 
+  (* SOFT_HLUTNM = "soft_lutpair181" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outbyte[5]_i_1__0 
        (.I0(fptr0),
         .I1(\outbyte_reg[7]_0 [5]),
         .O(\outbyte_reg[7]_2 [5]));
-  (* SOFT_HLUTNM = "soft_lutpair186" *) 
+  (* SOFT_HLUTNM = "soft_lutpair179" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outbyte[6]_i_1__0 
        (.I0(fptr0),
         .I1(\outbyte_reg[7]_0 [6]),
         .O(\outbyte_reg[7]_2 [6]));
-  (* SOFT_HLUTNM = "soft_lutpair187" *) 
+  (* SOFT_HLUTNM = "soft_lutpair180" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outbyte[7]_i_1__0 
@@ -29851,7 +29679,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_26),
+        .D(u_sdcmd_ctrl_n_43),
         .Q(\outbyte_reg[7]_0 [0]));
   FDCE #(
     .INIT(1'b0)) 
@@ -29859,7 +29687,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_25),
+        .D(u_sdcmd_ctrl_n_42),
         .Q(\outbyte_reg[7]_0 [1]));
   FDCE #(
     .INIT(1'b0)) 
@@ -29867,7 +29695,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_24),
+        .D(u_sdcmd_ctrl_n_41),
         .Q(\outbyte_reg[7]_0 [2]));
   FDCE #(
     .INIT(1'b0)) 
@@ -29875,7 +29703,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_23),
+        .D(u_sdcmd_ctrl_n_40),
         .Q(\outbyte_reg[7]_0 [3]));
   FDCE #(
     .INIT(1'b0)) 
@@ -29883,7 +29711,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_22),
+        .D(u_sdcmd_ctrl_n_39),
         .Q(\outbyte_reg[7]_0 [4]));
   FDCE #(
     .INIT(1'b0)) 
@@ -29891,7 +29719,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_21),
+        .D(u_sdcmd_ctrl_n_38),
         .Q(\outbyte_reg[7]_0 [5]));
   FDCE #(
     .INIT(1'b0)) 
@@ -29899,7 +29727,7 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_20),
+        .D(u_sdcmd_ctrl_n_37),
         .Q(\outbyte_reg[7]_0 [6]));
   FDCE #(
     .INIT(1'b0)) 
@@ -29907,17 +29735,17 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_19),
+        .D(u_sdcmd_ctrl_n_36),
         .Q(\outbyte_reg[7]_0 [7]));
   LUT6 #(
-    .INIT(64'h0000000040000000)) 
+    .INIT(64'h0000400000000000)) 
     outen_i_1__0
        (.I0(filesystem_state[1]),
         .I1(filesystem_state[2]),
         .I2(filesystem_state[0]),
         .I3(\fptr_reg[0] ),
-        .I4(rvalid),
-        .I5(search_fat_reg_2),
+        .I4(search_fat_reg_1),
+        .I5(rvalid),
         .O(fptr0));
   FDCE #(
     .INIT(1'b0)) 
@@ -29927,6 +29755,14 @@ module design_1_top_system_0_1_sd_reader
         .CLR(reset_n_0),
         .D(outen2_out),
         .Q(rvalid));
+  (* SOFT_HLUTNM = "soft_lutpair138" *) 
+  LUT3 #(
+    .INIT(8'hEF)) 
+    \precnt[7]_i_2 
+       (.I0(Q[0]),
+        .I1(Q[2]),
+        .I2(Q[1]),
+        .O(\precnt[7]_i_2_n_0 ));
   FDCE #(
     .INIT(1'b0)) 
     \precnt_reg[11] 
@@ -29971,7 +29807,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rca_reg[0] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_28),
+        .CE(u_sdcmd_ctrl_n_98),
         .CLR(reset_n_0),
         .D(p_1_in[0]),
         .Q(rca__0[0]));
@@ -29979,7 +29815,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rca_reg[10] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_28),
+        .CE(u_sdcmd_ctrl_n_98),
         .CLR(reset_n_0),
         .D(p_1_in[10]),
         .Q(rca__0[10]));
@@ -29987,7 +29823,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rca_reg[11] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_28),
+        .CE(u_sdcmd_ctrl_n_98),
         .CLR(reset_n_0),
         .D(p_1_in[11]),
         .Q(rca__0[11]));
@@ -29995,7 +29831,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rca_reg[12] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_28),
+        .CE(u_sdcmd_ctrl_n_98),
         .CLR(reset_n_0),
         .D(p_1_in[12]),
         .Q(rca__0[12]));
@@ -30003,7 +29839,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rca_reg[13] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_28),
+        .CE(u_sdcmd_ctrl_n_98),
         .CLR(reset_n_0),
         .D(p_1_in[13]),
         .Q(rca__0[13]));
@@ -30011,15 +29847,15 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rca_reg[14] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_28),
+        .CE(u_sdcmd_ctrl_n_98),
         .CLR(reset_n_0),
-        .D(p_1_in[14]),
+        .D(p_0_in),
         .Q(rca__0[14]));
   FDCE #(
     .INIT(1'b0)) 
     \rca_reg[15] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_28),
+        .CE(u_sdcmd_ctrl_n_98),
         .CLR(reset_n_0),
         .D(p_0_in10_in),
         .Q(rca__0[15]));
@@ -30027,7 +29863,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rca_reg[1] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_28),
+        .CE(u_sdcmd_ctrl_n_98),
         .CLR(reset_n_0),
         .D(p_1_in[1]),
         .Q(rca__0[1]));
@@ -30035,7 +29871,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rca_reg[2] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_28),
+        .CE(u_sdcmd_ctrl_n_98),
         .CLR(reset_n_0),
         .D(p_1_in[2]),
         .Q(rca__0[2]));
@@ -30043,7 +29879,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rca_reg[3] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_28),
+        .CE(u_sdcmd_ctrl_n_98),
         .CLR(reset_n_0),
         .D(p_1_in[3]),
         .Q(rca__0[3]));
@@ -30051,7 +29887,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rca_reg[4] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_28),
+        .CE(u_sdcmd_ctrl_n_98),
         .CLR(reset_n_0),
         .D(p_1_in[4]),
         .Q(rca__0[4]));
@@ -30059,7 +29895,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rca_reg[5] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_28),
+        .CE(u_sdcmd_ctrl_n_98),
         .CLR(reset_n_0),
         .D(p_1_in[5]),
         .Q(rca__0[5]));
@@ -30067,7 +29903,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rca_reg[6] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_28),
+        .CE(u_sdcmd_ctrl_n_98),
         .CLR(reset_n_0),
         .D(p_1_in[6]),
         .Q(rca__0[6]));
@@ -30075,7 +29911,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rca_reg[7] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_28),
+        .CE(u_sdcmd_ctrl_n_98),
         .CLR(reset_n_0),
         .D(p_1_in[7]),
         .Q(rca__0[7]));
@@ -30083,7 +29919,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rca_reg[8] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_28),
+        .CE(u_sdcmd_ctrl_n_98),
         .CLR(reset_n_0),
         .D(p_1_in[8]),
         .Q(rca__0[8]));
@@ -30091,7 +29927,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rca_reg[9] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_28),
+        .CE(u_sdcmd_ctrl_n_98),
         .CLR(reset_n_0),
         .D(p_1_in[9]),
         .Q(rca__0[9]));
@@ -30101,7 +29937,7 @@ module design_1_top_system_0_1_sd_reader
        (.I0(\sector_content[0][7]_i_2_n_0 ),
         .I1(raddr[4]),
         .I2(rvalid),
-        .O(\outaddr_reg[4]_0 ));
+        .O(\outaddr_reg[4]_3 ));
   LUT6 #(
     .INIT(64'hFFFFFFFF0F080000)) 
     \read_sector_no[31]_i_1 
@@ -30110,18 +29946,18 @@ module design_1_top_system_0_1_sd_reader
         .I2(filesystem_state[2]),
         .I3(filesystem_state[1]),
         .I4(\cluster_sector_offset[7]_i_3_n_0 ),
-        .I5(\read_sector_no[31]_i_3_n_0 ),
-        .O(\filesystem_state_reg[0]_0 ));
+        .I5(\read_sector_no[31]_i_4_n_0 ),
+        .O(E));
   LUT6 #(
     .INIT(64'h2000200000002000)) 
-    \read_sector_no[31]_i_3 
+    \read_sector_no[31]_i_4 
        (.I0(\read_sector_no_reg[0]_0 ),
         .I1(filesystem_state[1]),
         .I2(filesystem_state[2]),
         .I3(read_done),
         .I4(\read_sector_no_reg[0]_1 ),
         .I5(filesystem_state[0]),
-        .O(\read_sector_no[31]_i_3_n_0 ));
+        .O(\read_sector_no[31]_i_4_n_0 ));
   LUT5 #(
     .INIT(32'h05141514)) 
     read_start_i_1
@@ -30130,176 +29966,175 @@ module design_1_top_system_0_1_sd_reader
         .I2(filesystem_state[2]),
         .I3(filesystem_state[0]),
         .I4(fifo_prog_full),
-        .O(\filesystem_state_reg[1] ));
-  (* SOFT_HLUTNM = "soft_lutpair231" *) 
+        .O(\FSM_sequential_filesystem_state_reg[1] ));
+  (* SOFT_HLUTNM = "soft_lutpair121" *) 
   LUT2 #(
     .INIT(4'h1)) 
     \ridx[0]_i_1 
        (.I0(\ridx_reg_n_0_[0] ),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair226" *) 
+  (* SOFT_HLUTNM = "soft_lutpair215" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[10]_i_1 
        (.I0(in7[10]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[10]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair226" *) 
+  (* SOFT_HLUTNM = "soft_lutpair215" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[11]_i_1 
        (.I0(in7[11]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[11]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair225" *) 
+  (* SOFT_HLUTNM = "soft_lutpair214" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[12]_i_1 
        (.I0(in7[12]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[12]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair225" *) 
+  (* SOFT_HLUTNM = "soft_lutpair214" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[13]_i_1 
        (.I0(in7[13]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[13]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair224" *) 
+  (* SOFT_HLUTNM = "soft_lutpair213" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[14]_i_1 
        (.I0(in7[14]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[14]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair224" *) 
+  (* SOFT_HLUTNM = "soft_lutpair213" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[15]_i_1 
        (.I0(in7[15]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[15]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair223" *) 
+  (* SOFT_HLUTNM = "soft_lutpair212" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[16]_i_1 
        (.I0(in7[16]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[16]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair223" *) 
+  (* SOFT_HLUTNM = "soft_lutpair212" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[17]_i_1 
        (.I0(in7[17]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[17]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair222" *) 
+  (* SOFT_HLUTNM = "soft_lutpair211" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[18]_i_1 
        (.I0(in7[18]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[18]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair222" *) 
+  (* SOFT_HLUTNM = "soft_lutpair211" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[19]_i_1 
        (.I0(in7[19]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[19]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair231" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[1]_i_1 
        (.I0(in7[1]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair221" *) 
+  (* SOFT_HLUTNM = "soft_lutpair210" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[20]_i_1 
        (.I0(in7[20]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[20]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair221" *) 
+  (* SOFT_HLUTNM = "soft_lutpair210" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[21]_i_1 
        (.I0(in7[21]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[21]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair220" *) 
+  (* SOFT_HLUTNM = "soft_lutpair209" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[22]_i_1 
        (.I0(in7[22]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[22]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair220" *) 
+  (* SOFT_HLUTNM = "soft_lutpair209" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[23]_i_1 
        (.I0(in7[23]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[23]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair219" *) 
+  (* SOFT_HLUTNM = "soft_lutpair208" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[24]_i_1 
        (.I0(in7[24]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[24]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair219" *) 
+  (* SOFT_HLUTNM = "soft_lutpair208" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[25]_i_1 
        (.I0(in7[25]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[25]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair218" *) 
+  (* SOFT_HLUTNM = "soft_lutpair207" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[26]_i_1 
        (.I0(in7[26]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[26]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair218" *) 
+  (* SOFT_HLUTNM = "soft_lutpair207" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[27]_i_1 
        (.I0(in7[27]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[27]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair217" *) 
+  (* SOFT_HLUTNM = "soft_lutpair206" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[28]_i_1 
        (.I0(in7[28]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[28]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair217" *) 
+  (* SOFT_HLUTNM = "soft_lutpair206" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[29]_i_1 
        (.I0(in7[29]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[29]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair230" *) 
+  (* SOFT_HLUTNM = "soft_lutpair219" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[2]_i_1 
        (.I0(in7[2]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair216" *) 
+  (* SOFT_HLUTNM = "soft_lutpair205" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[30]_i_1 
        (.I0(in7[30]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[30]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair216" *) 
+  (* SOFT_HLUTNM = "soft_lutpair205" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[31]_i_2 
@@ -30307,58 +30142,58 @@ module design_1_top_system_0_1_sd_reader
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[31]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h15001515FFFFFFFF)) 
+    .INIT(64'h00151515FFFFFFFF)) 
     \ridx[31]_i_4 
        (.I0(\FSM_onehot_sddat_stat_reg_n_0_[2] ),
         .I1(\FSM_onehot_sddat_stat_reg_n_0_[0] ),
         .I2(sd_dat0),
-        .I3(\FSM_onehot_sddat_stat[4]_i_10_n_0 ),
-        .I4(\FSM_onehot_sddat_stat_reg_n_0_[1] ),
+        .I3(\FSM_onehot_sddat_stat_reg_n_0_[1] ),
+        .I4(\FSM_onehot_sddat_stat[4]_i_9_n_0 ),
         .I5(\FSM_onehot_sddat_stat[4]_i_5_n_0 ),
         .O(\ridx[31]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair230" *) 
+  (* SOFT_HLUTNM = "soft_lutpair219" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[3]_i_1 
        (.I0(in7[3]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[3]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair229" *) 
+  (* SOFT_HLUTNM = "soft_lutpair218" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[4]_i_1 
        (.I0(in7[4]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[4]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair229" *) 
+  (* SOFT_HLUTNM = "soft_lutpair218" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[5]_i_1 
        (.I0(in7[5]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair228" *) 
+  (* SOFT_HLUTNM = "soft_lutpair217" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[6]_i_1 
        (.I0(in7[6]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair228" *) 
+  (* SOFT_HLUTNM = "soft_lutpair217" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[7]_i_1 
        (.I0(in7[7]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[7]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair227" *) 
+  (* SOFT_HLUTNM = "soft_lutpair216" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[8]_i_1 
        (.I0(in7[8]),
         .I1(\ridx[31]_i_4_n_0 ),
         .O(\ridx[8]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair227" *) 
+  (* SOFT_HLUTNM = "soft_lutpair216" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ridx[9]_i_1 
@@ -30369,7 +30204,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[0] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[0]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[0] ));
@@ -30377,7 +30212,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[10] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[10]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[10] ));
@@ -30385,7 +30220,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[11] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[11]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[11] ));
@@ -30393,7 +30228,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[12] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[12]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[12] ));
@@ -30409,7 +30244,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[13] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[13]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[13] ));
@@ -30417,7 +30252,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[14] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[14]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[14] ));
@@ -30425,7 +30260,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[15] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[15]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[15] ));
@@ -30433,7 +30268,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[16] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[16]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[16] ));
@@ -30449,7 +30284,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[17] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[17]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[17] ));
@@ -30457,7 +30292,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[18] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[18]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[18] ));
@@ -30465,7 +30300,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[19] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[19]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[19] ));
@@ -30473,7 +30308,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[1] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[1]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[1] ));
@@ -30481,7 +30316,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[20] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[20]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[20] ));
@@ -30497,7 +30332,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[21] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[21]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[21] ));
@@ -30505,7 +30340,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[22] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[22]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[22] ));
@@ -30513,7 +30348,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[23] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[23]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[23] ));
@@ -30521,7 +30356,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[24] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[24]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[24] ));
@@ -30537,7 +30372,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[25] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[25]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[25] ));
@@ -30545,7 +30380,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[26] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[26]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[26] ));
@@ -30553,7 +30388,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[27] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[27]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[27] ));
@@ -30561,7 +30396,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[28] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[28]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[28] ));
@@ -30577,7 +30412,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[29] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[29]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[29] ));
@@ -30585,7 +30420,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[2] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[2]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[2] ));
@@ -30593,7 +30428,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[30] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[30]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[30] ));
@@ -30601,7 +30436,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[31] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[31]_i_2_n_0 ),
         .Q(\ridx_reg_n_0_[31] ));
@@ -30617,7 +30452,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[3] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[3]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[3] ));
@@ -30625,7 +30460,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[4] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[4]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[4] ));
@@ -30641,7 +30476,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[5] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[5]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[5] ));
@@ -30649,7 +30484,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[6] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[6]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[6] ));
@@ -30657,7 +30492,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[7] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[7]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[7] ));
@@ -30665,7 +30500,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[8] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[8]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[8] ));
@@ -30681,32 +30516,308 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \ridx_reg[9] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_3),
+        .CE(u_sdcmd_ctrl_n_2),
         .CLR(reset_n_0),
         .D(\ridx[9]_i_1_n_0 ),
         .Q(\ridx_reg_n_0_[9] ));
-  (* SOFT_HLUTNM = "soft_lutpair157" *) 
+  (* SOFT_HLUTNM = "soft_lutpair156" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \rootdir_sectorcount[11]_i_1 
        (.I0(\rootdir_sectorcount[11]_i_2_n_0 ),
         .I1(\filesystem_reg[0]_1 ),
-        .O(\filesystem_state_reg[1]_2 ));
+        .O(\FSM_sequential_filesystem_state_reg[1]_1 ));
   LUT6 #(
-    .INIT(64'h0000000000000020)) 
+    .INIT(64'h0000000000000400)) 
     \rootdir_sectorcount[11]_i_2 
-       (.I0(filesystem_state[1]),
-        .I1(\cluster_sector_offset_reg[0] ),
-        .I2(read_done),
-        .I3(filesystem_state[0]),
-        .I4(filesystem_state[2]),
-        .I5(\read_sector_no_reg[0] ),
+       (.I0(\cluster_sector_offset_reg[0] ),
+        .I1(filesystem_state[1]),
+        .I2(\read_sector_no_reg[0] ),
+        .I3(read_done),
+        .I4(filesystem_state[0]),
+        .I5(filesystem_state[2]),
         .O(\rootdir_sectorcount[11]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair123" *) 
+  LUT3 #(
+    .INIT(8'h80)) 
+    \rsectoraddr[0]_i_1 
+       (.I0(\arg_reg[31]_0 [0]),
+        .I1(\card_type_reg[1]_0 ),
+        .I2(\card_type_reg[0]_0 ),
+        .O(_arg[0]));
+  (* SOFT_HLUTNM = "soft_lutpair124" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[10]_i_1 
+       (.I0(\arg_reg[31]_0 [1]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [10]),
+        .O(_arg[10]));
+  (* SOFT_HLUTNM = "soft_lutpair125" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[11]_i_1 
+       (.I0(\arg_reg[31]_0 [2]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [11]),
+        .O(_arg[11]));
+  (* SOFT_HLUTNM = "soft_lutpair126" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[12]_i_1 
+       (.I0(\arg_reg[31]_0 [3]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [12]),
+        .O(_arg[12]));
+  (* SOFT_HLUTNM = "soft_lutpair127" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[13]_i_1 
+       (.I0(\arg_reg[31]_0 [4]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [13]),
+        .O(_arg[13]));
+  (* SOFT_HLUTNM = "soft_lutpair128" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[14]_i_1 
+       (.I0(\arg_reg[31]_0 [5]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [14]),
+        .O(_arg[14]));
+  (* SOFT_HLUTNM = "soft_lutpair129" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[15]_i_1 
+       (.I0(\arg_reg[31]_0 [6]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [15]),
+        .O(_arg[15]));
+  (* SOFT_HLUTNM = "soft_lutpair130" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[16]_i_1 
+       (.I0(\arg_reg[31]_0 [7]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [16]),
+        .O(_arg[16]));
+  (* SOFT_HLUTNM = "soft_lutpair131" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[17]_i_1 
+       (.I0(\arg_reg[31]_0 [8]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [17]),
+        .O(_arg[17]));
+  (* SOFT_HLUTNM = "soft_lutpair132" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[18]_i_1 
+       (.I0(\arg_reg[31]_0 [9]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [18]),
+        .O(_arg[18]));
+  (* SOFT_HLUTNM = "soft_lutpair133" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[19]_i_1 
+       (.I0(\arg_reg[31]_0 [10]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [19]),
+        .O(_arg[19]));
+  (* SOFT_HLUTNM = "soft_lutpair124" *) 
+  LUT3 #(
+    .INIT(8'h80)) 
+    \rsectoraddr[1]_i_1 
+       (.I0(\arg_reg[31]_0 [1]),
+        .I1(\card_type_reg[1]_0 ),
+        .I2(\card_type_reg[0]_0 ),
+        .O(_arg[1]));
+  (* SOFT_HLUTNM = "soft_lutpair134" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[20]_i_1 
+       (.I0(\arg_reg[31]_0 [11]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [20]),
+        .O(_arg[20]));
+  (* SOFT_HLUTNM = "soft_lutpair135" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[21]_i_1 
+       (.I0(\arg_reg[31]_0 [12]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [21]),
+        .O(_arg[21]));
+  (* SOFT_HLUTNM = "soft_lutpair136" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[22]_i_1 
+       (.I0(\arg_reg[31]_0 [13]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [22]),
+        .O(_arg[22]));
+  (* SOFT_HLUTNM = "soft_lutpair137" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[23]_i_1 
+       (.I0(\arg_reg[31]_0 [14]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [23]),
+        .O(_arg[23]));
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[24]_i_1 
+       (.I0(\arg_reg[31]_0 [15]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [24]),
+        .O(_arg[24]));
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[25]_i_1 
+       (.I0(\arg_reg[31]_0 [16]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [25]),
+        .O(_arg[25]));
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[26]_i_1 
+       (.I0(\arg_reg[31]_0 [17]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [26]),
+        .O(_arg[26]));
+  (* SOFT_HLUTNM = "soft_lutpair132" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[27]_i_1 
+       (.I0(\arg_reg[31]_0 [18]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [27]),
+        .O(_arg[27]));
+  (* SOFT_HLUTNM = "soft_lutpair133" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[28]_i_1 
+       (.I0(\arg_reg[31]_0 [19]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [28]),
+        .O(_arg[28]));
+  (* SOFT_HLUTNM = "soft_lutpair134" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[29]_i_1 
+       (.I0(\arg_reg[31]_0 [20]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [29]),
+        .O(_arg[29]));
+  (* SOFT_HLUTNM = "soft_lutpair125" *) 
+  LUT3 #(
+    .INIT(8'h80)) 
+    \rsectoraddr[2]_i_1 
+       (.I0(\arg_reg[31]_0 [2]),
+        .I1(\card_type_reg[1]_0 ),
+        .I2(\card_type_reg[0]_0 ),
+        .O(_arg[2]));
+  (* SOFT_HLUTNM = "soft_lutpair135" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[30]_i_1 
+       (.I0(\arg_reg[31]_0 [21]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [30]),
+        .O(_arg[30]));
+  (* SOFT_HLUTNM = "soft_lutpair136" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[31]_i_2 
+       (.I0(\arg_reg[31]_0 [22]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [31]),
+        .O(_arg[31]));
+  (* SOFT_HLUTNM = "soft_lutpair126" *) 
+  LUT3 #(
+    .INIT(8'h80)) 
+    \rsectoraddr[3]_i_1 
+       (.I0(\arg_reg[31]_0 [3]),
+        .I1(\card_type_reg[1]_0 ),
+        .I2(\card_type_reg[0]_0 ),
+        .O(_arg[3]));
+  (* SOFT_HLUTNM = "soft_lutpair127" *) 
+  LUT3 #(
+    .INIT(8'h80)) 
+    \rsectoraddr[4]_i_1 
+       (.I0(\arg_reg[31]_0 [4]),
+        .I1(\card_type_reg[1]_0 ),
+        .I2(\card_type_reg[0]_0 ),
+        .O(_arg[4]));
+  (* SOFT_HLUTNM = "soft_lutpair128" *) 
+  LUT3 #(
+    .INIT(8'h80)) 
+    \rsectoraddr[5]_i_1 
+       (.I0(\arg_reg[31]_0 [5]),
+        .I1(\card_type_reg[1]_0 ),
+        .I2(\card_type_reg[0]_0 ),
+        .O(_arg[5]));
+  (* SOFT_HLUTNM = "soft_lutpair129" *) 
+  LUT3 #(
+    .INIT(8'h80)) 
+    \rsectoraddr[6]_i_1 
+       (.I0(\arg_reg[31]_0 [6]),
+        .I1(\card_type_reg[1]_0 ),
+        .I2(\card_type_reg[0]_0 ),
+        .O(_arg[6]));
+  (* SOFT_HLUTNM = "soft_lutpair130" *) 
+  LUT3 #(
+    .INIT(8'h80)) 
+    \rsectoraddr[7]_i_1 
+       (.I0(\arg_reg[31]_0 [7]),
+        .I1(\card_type_reg[1]_0 ),
+        .I2(\card_type_reg[0]_0 ),
+        .O(_arg[7]));
+  (* SOFT_HLUTNM = "soft_lutpair131" *) 
+  LUT3 #(
+    .INIT(8'h80)) 
+    \rsectoraddr[8]_i_1 
+       (.I0(\arg_reg[31]_0 [8]),
+        .I1(\card_type_reg[1]_0 ),
+        .I2(\card_type_reg[0]_0 ),
+        .O(_arg[8]));
+  (* SOFT_HLUTNM = "soft_lutpair123" *) 
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    \rsectoraddr[9]_i_1 
+       (.I0(\arg_reg[31]_0 [0]),
+        .I1(\card_type_reg[0]_0 ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31]_0 [9]),
+        .O(_arg[9]));
   FDCE #(
     .INIT(1'b0)) 
     \rsectoraddr_reg[0] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[0]),
         .Q(rsectoraddr__0[0]));
@@ -30714,7 +30825,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[10] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[10]),
         .Q(rsectoraddr__0[10]));
@@ -30722,7 +30833,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[11] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[11]),
         .Q(rsectoraddr__0[11]));
@@ -30730,7 +30841,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[12] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[12]),
         .Q(rsectoraddr__0[12]));
@@ -30738,7 +30849,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[13] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[13]),
         .Q(rsectoraddr__0[13]));
@@ -30746,7 +30857,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[14] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[14]),
         .Q(rsectoraddr__0[14]));
@@ -30754,7 +30865,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[15] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[15]),
         .Q(rsectoraddr__0[15]));
@@ -30762,7 +30873,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[16] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[16]),
         .Q(rsectoraddr__0[16]));
@@ -30770,7 +30881,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[17] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[17]),
         .Q(rsectoraddr__0[17]));
@@ -30778,7 +30889,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[18] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[18]),
         .Q(rsectoraddr__0[18]));
@@ -30786,7 +30897,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[19] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[19]),
         .Q(rsectoraddr__0[19]));
@@ -30794,7 +30905,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[1] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[1]),
         .Q(rsectoraddr__0[1]));
@@ -30802,7 +30913,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[20] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[20]),
         .Q(rsectoraddr__0[20]));
@@ -30810,7 +30921,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[21] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[21]),
         .Q(rsectoraddr__0[21]));
@@ -30818,7 +30929,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[22] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[22]),
         .Q(rsectoraddr__0[22]));
@@ -30826,7 +30937,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[23] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[23]),
         .Q(rsectoraddr__0[23]));
@@ -30834,7 +30945,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[24] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[24]),
         .Q(rsectoraddr__0[24]));
@@ -30842,7 +30953,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[25] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[25]),
         .Q(rsectoraddr__0[25]));
@@ -30850,7 +30961,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[26] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[26]),
         .Q(rsectoraddr__0[26]));
@@ -30858,7 +30969,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[27] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[27]),
         .Q(rsectoraddr__0[27]));
@@ -30866,7 +30977,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[28] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[28]),
         .Q(rsectoraddr__0[28]));
@@ -30874,7 +30985,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[29] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[29]),
         .Q(rsectoraddr__0[29]));
@@ -30882,7 +30993,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[2] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[2]),
         .Q(rsectoraddr__0[2]));
@@ -30890,7 +31001,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[30] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[30]),
         .Q(rsectoraddr__0[30]));
@@ -30898,7 +31009,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[31] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[31]),
         .Q(rsectoraddr__0[31]));
@@ -30906,7 +31017,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[3] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[3]),
         .Q(rsectoraddr__0[3]));
@@ -30914,7 +31025,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[4] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[4]),
         .Q(rsectoraddr__0[4]));
@@ -30922,7 +31033,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[5] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[5]),
         .Q(rsectoraddr__0[5]));
@@ -30930,7 +31041,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[6] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[6]),
         .Q(rsectoraddr__0[6]));
@@ -30938,7 +31049,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[7] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[7]),
         .Q(rsectoraddr__0[7]));
@@ -30946,7 +31057,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[8] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[8]),
         .Q(rsectoraddr__0[8]));
@@ -30954,7 +31065,7 @@ module design_1_top_system_0_1_sd_reader
     .INIT(1'b0)) 
     \rsectoraddr_reg[9] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_11),
+        .CE(u_sdcmd_ctrl_n_5),
         .CLR(reset_n_0),
         .D(_arg[9]),
         .Q(rsectoraddr__0[9]));
@@ -30967,12 +31078,12 @@ module design_1_top_system_0_1_sd_reader
         .D(sdclk_reg),
         .Q(sdclkl));
   LUT2 #(
-    .INIT(4'h7)) 
-    \sdcmd_stat[2]_i_3 
+    .INIT(4'h8)) 
+    \sdcmd_stat[2]_i_2 
        (.I0(Q[0]),
         .I1(Q[1]),
-        .O(\sdcmd_stat[2]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair138" *) 
+        .O(\sdcmd_stat[2]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair122" *) 
   LUT4 #(
     .INIT(16'h0008)) 
     \sdcmd_stat[3]_i_4 
@@ -30981,120 +31092,128 @@ module design_1_top_system_0_1_sd_reader
         .I2(Q[2]),
         .I3(Q[0]),
         .O(\sdcmd_stat[3]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair137" *) 
+  (* SOFT_HLUTNM = "soft_lutpair120" *) 
   LUT4 #(
     .INIT(16'hFFFD)) 
     \sdcmd_stat[3]_i_5 
        (.I0(Q[0]),
-        .I1(Q[3]),
-        .I2(Q[1]),
-        .I3(Q[2]),
+        .I1(Q[1]),
+        .I2(Q[2]),
+        .I3(Q[3]),
         .O(\sdcmd_stat[3]_i_5_n_0 ));
   FDCE #(
     .INIT(1'b0)) 
     \sdcmd_stat_reg[0] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_100),
+        .CE(u_sdcmd_ctrl_n_84),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_113),
+        .D(u_sdcmd_ctrl_n_97),
         .Q(Q[0]));
   FDCE #(
     .INIT(1'b0)) 
     \sdcmd_stat_reg[1] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_100),
+        .CE(u_sdcmd_ctrl_n_84),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_112),
+        .D(u_sdcmd_ctrl_n_96),
         .Q(Q[1]));
   FDCE #(
     .INIT(1'b0)) 
     \sdcmd_stat_reg[2] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_100),
+        .CE(u_sdcmd_ctrl_n_84),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_111),
+        .D(u_sdcmd_ctrl_n_95),
         .Q(Q[2]));
   FDCE #(
     .INIT(1'b0)) 
     \sdcmd_stat_reg[3] 
        (.C(clk_sd),
-        .CE(u_sdcmd_ctrl_n_100),
+        .CE(u_sdcmd_ctrl_n_84),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_110),
+        .D(u_sdcmd_ctrl_n_94),
         .Q(Q[3]));
   LUT6 #(
-    .INIT(64'hCFCCFDDD0000FFFF)) 
+    .INIT(64'h4545FE454444EE44)) 
     \sdtnamelen[0]_i_1 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
+       (.I0(isshort_i_2_n_0),
         .I1(\sdtnamelen[0]_i_2_n_0 ),
-        .I2(islongok_i_3_n_0),
-        .I3(\sdtnamelen[3]_i_3_n_0 ),
-        .I4(\sdtnamelen[0]_i_3_n_0 ),
-        .I5(\outaddr_reg[0]_0 ),
-        .O(\outaddr_reg[4]_3 [0]));
-  LUT5 #(
-    .INIT(32'h88282282)) 
+        .I2(islongok_i_2_n_0),
+        .I3(\sdtnamelen_reg[7]_1 [0]),
+        .I4(\longno[5]_i_2_n_0 ),
+        .I5(\sdtnamelen[0]_i_3_n_0 ),
+        .O(\sdtnamelen_reg[7] [0]));
+  LUT6 #(
+    .INIT(64'h9060909090FF9090)) 
     \sdtnamelen[0]_i_2 
-       (.I0(\sdtnamelen[7]_i_8_n_0 ),
+       (.I0(islongok_i_2_n_0),
         .I1(\sector_content[456][7]_i_2_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [0]),
+        .I2(\sdtnamelen[6]_i_3_n_0 ),
         .I3(\longno[5]_i_2_n_0 ),
-        .I4(islongok_i_3_n_0),
+        .I4(\sdtnamelen_reg[7]_1 [0]),
+        .I5(\lastchar[7]_i_2_n_0 ),
         .O(\sdtnamelen[0]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h00000001FFFFFFFF)) 
+  (* SOFT_HLUTNM = "soft_lutpair73" *) 
+  LUT2 #(
+    .INIT(4'h1)) 
     \sdtnamelen[0]_i_3 
-       (.I0(raddr[4]),
-        .I1(raddr[0]),
-        .I2(raddr[3]),
-        .I3(raddr[2]),
-        .I4(raddr[1]),
-        .I5(\file_namelen_reg[7]_0 [0]),
+       (.I0(raddr[3]),
+        .I1(raddr[4]),
         .O(\sdtnamelen[0]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'hD500FFFFFF00FF00)) 
+  (* SOFT_HLUTNM = "soft_lutpair78" *) 
+  LUT5 #(
+    .INIT(32'h0C0C04FF)) 
     \sdtnamelen[1]_i_1 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(islongok_i_3_n_0),
-        .I2(\sdtnamelen[3]_i_3_n_0 ),
+       (.I0(\lastchar[7]_i_2_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [1]),
+        .I2(\longno[5]_i_2_n_0 ),
         .I3(\sdtnamelen[1]_i_2_n_0 ),
-        .I4(\sdtnamelen[1]_i_3_n_0 ),
-        .I5(\outaddr_reg[0]_0 ),
-        .O(\outaddr_reg[4]_3 [1]));
+        .I4(isshort_i_2_n_0),
+        .O(\sdtnamelen_reg[7] [1]));
+  LUT6 #(
+    .INIT(64'h34334C3C77777D7D)) 
+    \sdtnamelen[1]_i_2 
+       (.I0(\sdtnamelen[0]_i_3_n_0 ),
+        .I1(\sdtnamelen[1]_i_3_n_0 ),
+        .I2(islongok_i_2_n_0),
+        .I3(\sector_content[456][7]_i_2_n_0 ),
+        .I4(\sdtnamelen[1]_i_4_n_0 ),
+        .I5(\sdtnamelen[6]_i_3_n_0 ),
+        .O(\sdtnamelen[1]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hAAAAAAAAAAAAAAA8)) 
-    \sdtnamelen[1]_i_2 
-       (.I0(\file_namelen_reg[7]_0 [1]),
+    \sdtnamelen[1]_i_3 
+       (.I0(\sdtnamelen_reg[7]_1 [1]),
         .I1(raddr[4]),
         .I2(raddr[0]),
         .I3(raddr[3]),
         .I4(raddr[2]),
         .I5(raddr[1]),
-        .O(\sdtnamelen[1]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h505DDFDFF7F77075)) 
-    \sdtnamelen[1]_i_3 
-       (.I0(\sdtnamelen[7]_i_8_n_0 ),
-        .I1(\sector_content[456][7]_i_2_n_0 ),
-        .I2(islongok_i_3_n_0),
-        .I3(\sdtnamelen[3]_i_3_n_0 ),
-        .I4(\sdtnamelen[0]_i_3_n_0 ),
-        .I5(\sdtnamelen[1]_i_2_n_0 ),
         .O(\sdtnamelen[1]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hD500FFFFFF00FF00)) 
+    .INIT(64'h00000001FFFFFFFF)) 
+    \sdtnamelen[1]_i_4 
+       (.I0(raddr[4]),
+        .I1(raddr[0]),
+        .I2(raddr[3]),
+        .I3(raddr[2]),
+        .I4(raddr[1]),
+        .I5(\sdtnamelen_reg[7]_1 [0]),
+        .O(\sdtnamelen[1]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'hCCCCCCCC4FFF4F4F)) 
     \sdtnamelen[2]_i_1 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(islongok_i_3_n_0),
-        .I2(\sdtnamelen[3]_i_3_n_0 ),
-        .I3(\sdtnamelen[2]_i_2_n_0 ),
-        .I4(\sdtnamelen[2]_i_3_n_0 ),
-        .I5(\outaddr_reg[0]_0 ),
-        .O(\outaddr_reg[4]_3 [2]));
+       (.I0(\lastchar[7]_i_2_n_0 ),
+        .I1(\sdtnamelen[2]_i_2_n_0 ),
+        .I2(\sdtnamelen[2]_i_3_n_0 ),
+        .I3(\sdtnamelen[2]_i_4_n_0 ),
+        .I4(\sdtnamelen[6]_i_3_n_0 ),
+        .I5(isshort_i_2_n_0),
+        .O(\sdtnamelen_reg[7] [2]));
   LUT6 #(
     .INIT(64'hAAAAAAAAAAAAAAA8)) 
     \sdtnamelen[2]_i_2 
-       (.I0(\file_namelen_reg[7]_0 [2]),
+       (.I0(\sdtnamelen_reg[7]_1 [2]),
         .I1(raddr[4]),
         .I2(raddr[0]),
         .I3(raddr[3]),
@@ -31102,624 +31221,568 @@ module design_1_top_system_0_1_sd_reader
         .I5(raddr[1]),
         .O(\sdtnamelen[2]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'hF5007D7D5F5FD700)) 
+    .INIT(64'hFFFF0F8FFFFFFF7F)) 
     \sdtnamelen[2]_i_3 
-       (.I0(\sdtnamelen[7]_i_8_n_0 ),
-        .I1(\sector_content[456][7]_i_2_n_0 ),
-        .I2(\sdtnamelen[4]_i_6_n_0 ),
-        .I3(\sdtnamelen[7]_i_2_n_0 ),
-        .I4(\sdtnamelen[2]_i_4_n_0 ),
-        .I5(\sdtnamelen[2]_i_2_n_0 ),
-        .O(\sdtnamelen[2]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair89" *) 
-  LUT3 #(
-    .INIT(8'hDF)) 
-    \sdtnamelen[2]_i_4 
-       (.I0(\file_namelen_reg[7]_0 [0]),
-        .I1(\longno[5]_i_2_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [1]),
-        .O(\sdtnamelen[2]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'hFF100000FFB0FFFF)) 
-    \sdtnamelen[3]_i_1 
-       (.I0(islongok_i_3_n_0),
-        .I1(\sdtnamelen[3]_i_2_n_0 ),
-        .I2(\sdtnamelen[3]_i_3_n_0 ),
-        .I3(\sdtnamelen[3]_i_4_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .I5(\sdtnamelen[3]_i_5_n_0 ),
-        .O(\outaddr_reg[4]_3 [3]));
-  (* SOFT_HLUTNM = "soft_lutpair88" *) 
-  LUT5 #(
-    .INIT(32'hFF95FF55)) 
-    \sdtnamelen[3]_i_2 
-       (.I0(\file_namelen_reg[7]_0 [3]),
-        .I1(\file_namelen_reg[7]_0 [2]),
-        .I2(\file_namelen_reg[7]_0 [0]),
-        .I3(\longno[5]_i_2_n_0 ),
-        .I4(\file_namelen_reg[7]_0 [1]),
-        .O(\sdtnamelen[3]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair100" *) 
-  LUT2 #(
-    .INIT(4'h1)) 
-    \sdtnamelen[3]_i_3 
-       (.I0(raddr[3]),
-        .I1(raddr[4]),
-        .O(\sdtnamelen[3]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h282228222822FFFF)) 
-    \sdtnamelen[3]_i_4 
-       (.I0(\sdtnamelen[7]_i_8_n_0 ),
-        .I1(\sdtnamelen[4]_i_5_n_0 ),
-        .I2(\sdtnamelen[4]_i_7_n_0 ),
-        .I3(\sdtnamelen[4]_i_6_n_0 ),
-        .I4(\sdtnamelen[3]_i_5_n_0 ),
-        .I5(\sdtnamelen[6]_i_2_n_0 ),
-        .O(\sdtnamelen[3]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'h00000001FFFFFFFF)) 
-    \sdtnamelen[3]_i_5 
-       (.I0(raddr[4]),
-        .I1(raddr[0]),
-        .I2(raddr[3]),
-        .I3(raddr[2]),
-        .I4(raddr[1]),
-        .I5(\file_namelen_reg[7]_0 [3]),
-        .O(\sdtnamelen[3]_i_5_n_0 ));
-  LUT5 #(
-    .INIT(32'h04FF0C0C)) 
-    \sdtnamelen[4]_i_1 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(\file_namelen_reg[7]_0 [4]),
-        .I2(\longno[5]_i_2_n_0 ),
-        .I3(\sdtnamelen[4]_i_2_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .O(\outaddr_reg[4]_3 [4]));
-  LUT6 #(
-    .INIT(64'h88888288AAAAAAAA)) 
-    \sdtnamelen[4]_i_2 
-       (.I0(\sdtnamelen[4]_i_3_n_0 ),
-        .I1(\sdtnamelen[4]_i_4_n_0 ),
-        .I2(\sdtnamelen[4]_i_5_n_0 ),
-        .I3(\sdtnamelen[4]_i_6_n_0 ),
-        .I4(\sdtnamelen[4]_i_7_n_0 ),
-        .I5(\sdtnamelen[7]_i_8_n_0 ),
-        .O(\sdtnamelen[4]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h0004FFFFFFFBFFFF)) 
-    \sdtnamelen[4]_i_3 
-       (.I0(\sdtnamelen[2]_i_4_n_0 ),
-        .I1(\file_namelen_reg[7]_0 [2]),
-        .I2(\sdtnamelen[3]_i_5_n_0 ),
-        .I3(islongok_i_3_n_0),
-        .I4(\sdtnamelen[3]_i_3_n_0 ),
-        .I5(\sdtnamelen[4]_i_8_n_0 ),
-        .O(\sdtnamelen[4]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFF4000BFFF)) 
-    \sdtnamelen[4]_i_4 
-       (.I0(\sdtnamelen[2]_i_4_n_0 ),
-        .I1(\file_namelen_reg[7]_0 [2]),
-        .I2(\file_namelen_reg[7]_0 [3]),
-        .I3(\sector_content[456][7]_i_2_n_0 ),
-        .I4(\file_namelen_reg[7]_0 [4]),
-        .I5(\longno[5]_i_2_n_0 ),
-        .O(\sdtnamelen[4]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFF8000FFFF7FFF)) 
-    \sdtnamelen[4]_i_5 
-       (.I0(\file_namelen_reg[7]_0 [2]),
-        .I1(\file_namelen_reg[7]_0 [0]),
-        .I2(\file_namelen_reg[7]_0 [1]),
-        .I3(\sector_content[456][7]_i_2_n_0 ),
+       (.I0(\sdtnamelen_reg[7]_1 [1]),
+        .I1(\sdtnamelen_reg[7]_1 [0]),
+        .I2(\sdtnamelen[0]_i_3_n_0 ),
+        .I3(islongok_i_2_n_0),
         .I4(\longno[5]_i_2_n_0 ),
-        .I5(\file_namelen_reg[7]_0 [3]),
-        .O(\sdtnamelen[4]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair101" *) 
-  LUT5 #(
-    .INIT(32'h00040400)) 
-    \sdtnamelen[4]_i_6 
-       (.I0(islongok_i_3_n_0),
-        .I1(\file_namelen_reg[7]_0 [1]),
-        .I2(\longno[5]_i_2_n_0 ),
-        .I3(\sector_content[456][7]_i_2_n_0 ),
-        .I4(\file_namelen_reg[7]_0 [0]),
-        .O(\sdtnamelen[4]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair85" *) 
-  LUT5 #(
-    .INIT(32'hFF80FF7F)) 
-    \sdtnamelen[4]_i_7 
-       (.I0(\file_namelen_reg[7]_0 [1]),
-        .I1(\file_namelen_reg[7]_0 [0]),
+        .I5(\sdtnamelen_reg[7]_1 [2]),
+        .O(\sdtnamelen[2]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'hFF95FF55FFA9FF55)) 
+    \sdtnamelen[2]_i_4 
+       (.I0(\sdtnamelen_reg[7]_1 [2]),
+        .I1(\sdtnamelen_reg[7]_1 [0]),
         .I2(\sector_content[456][7]_i_2_n_0 ),
         .I3(\longno[5]_i_2_n_0 ),
-        .I4(\file_namelen_reg[7]_0 [2]),
-        .O(\sdtnamelen[4]_i_7_n_0 ));
+        .I4(\sdtnamelen_reg[7]_1 [1]),
+        .I5(islongok_i_2_n_0),
+        .O(\sdtnamelen[2]_i_4_n_0 ));
+  LUT5 #(
+    .INIT(32'h303010FF)) 
+    \sdtnamelen[3]_i_1 
+       (.I0(\lastchar[7]_i_2_n_0 ),
+        .I1(\longno[5]_i_2_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [3]),
+        .I3(\sdtnamelen[3]_i_2_n_0 ),
+        .I4(isshort_i_2_n_0),
+        .O(\sdtnamelen_reg[7] [3]));
+  LUT6 #(
+    .INIT(64'h00FEFE00FEFEFEFE)) 
+    \sdtnamelen[3]_i_2 
+       (.I0(raddr[3]),
+        .I1(raddr[4]),
+        .I2(\sdtnamelen[3]_i_3_n_0 ),
+        .I3(\sdtnamelen[4]_i_5_n_0 ),
+        .I4(\sdtnamelen[4]_i_6_n_0 ),
+        .I5(\sdtnamelen[6]_i_3_n_0 ),
+        .O(\sdtnamelen[3]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'hFF63FF33FF33FF33)) 
+    \sdtnamelen[3]_i_3 
+       (.I0(islongok_i_2_n_0),
+        .I1(\sdtnamelen_reg[7]_1 [3]),
+        .I2(\sdtnamelen_reg[7]_1 [0]),
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [1]),
+        .I5(\sdtnamelen_reg[7]_1 [2]),
+        .O(\sdtnamelen[3]_i_3_n_0 ));
+  LUT5 #(
+    .INIT(32'h0C0C04FF)) 
+    \sdtnamelen[4]_i_1 
+       (.I0(\lastchar[7]_i_2_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [4]),
+        .I2(\longno[5]_i_2_n_0 ),
+        .I3(\sdtnamelen[4]_i_2_n_0 ),
+        .I4(isshort_i_2_n_0),
+        .O(\sdtnamelen_reg[7] [4]));
+  LUT6 #(
+    .INIT(64'h7007707077777777)) 
+    \sdtnamelen[4]_i_2 
+       (.I0(\sdtnamelen[4]_i_3_n_0 ),
+        .I1(\sdtnamelen[0]_i_3_n_0 ),
+        .I2(\sdtnamelen[4]_i_4_n_0 ),
+        .I3(\sdtnamelen[4]_i_5_n_0 ),
+        .I4(\sdtnamelen[4]_i_6_n_0 ),
+        .I5(\sdtnamelen[6]_i_3_n_0 ),
+        .O(\sdtnamelen[4]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000FFBF00000040)) 
+    \sdtnamelen[4]_i_3 
+       (.I0(islongok_i_2_n_0),
+        .I1(\sdtnamelen_reg[7]_1 [3]),
+        .I2(\sdtnamelen_reg[7]_1 [2]),
+        .I3(\sdtnamelen[6]_i_11_n_0 ),
+        .I4(\longno[5]_i_2_n_0 ),
+        .I5(\sdtnamelen_reg[7]_1 [4]),
+        .O(\sdtnamelen[4]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'h00400000FFBFFFFF)) 
+    \sdtnamelen[4]_i_4 
+       (.I0(\sdtnamelen[1]_i_4_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [1]),
+        .I2(\sdtnamelen_reg[7]_1 [2]),
+        .I3(\file_name[1][7]_i_10_n_0 ),
+        .I4(\sector_content[456][7]_i_2_n_0 ),
+        .I5(\sdtnamelen[4]_i_7_n_0 ),
+        .O(\sdtnamelen[4]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'hF9F5F5F5F5F5F5F5)) 
+    \sdtnamelen[4]_i_5 
+       (.I0(\sdtnamelen_reg[7]_1 [3]),
+        .I1(\sdtnamelen_reg[7]_1 [0]),
+        .I2(\longno[5]_i_2_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [1]),
+        .I4(\sdtnamelen_reg[7]_1 [2]),
+        .I5(\sector_content[456][7]_i_2_n_0 ),
+        .O(\sdtnamelen[4]_i_5_n_0 ));
+  LUT6 #(
+    .INIT(64'h0010100000000000)) 
+    \sdtnamelen[4]_i_6 
+       (.I0(islongok_i_2_n_0),
+        .I1(\longno[5]_i_2_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [2]),
+        .I3(\sector_content[456][7]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [0]),
+        .I5(\sdtnamelen_reg[7]_1 [1]),
+        .O(\sdtnamelen[4]_i_6_n_0 ));
   LUT6 #(
     .INIT(64'hAAAAAAAAAAAAAAA8)) 
-    \sdtnamelen[4]_i_8 
-       (.I0(\file_namelen_reg[7]_0 [4]),
+    \sdtnamelen[4]_i_7 
+       (.I0(\sdtnamelen_reg[7]_1 [4]),
         .I1(raddr[4]),
         .I2(raddr[0]),
         .I3(raddr[3]),
         .I4(raddr[2]),
         .I5(raddr[1]),
-        .O(\sdtnamelen[4]_i_8_n_0 ));
+        .O(\sdtnamelen[4]_i_7_n_0 ));
   LUT5 #(
-    .INIT(32'h04FF0C0C)) 
+    .INIT(32'h0C0C04FF)) 
     \sdtnamelen[5]_i_1 
-       (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(\file_namelen_reg[7]_0 [5]),
+       (.I0(\lastchar[7]_i_2_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [5]),
         .I2(\longno[5]_i_2_n_0 ),
         .I3(\sdtnamelen[5]_i_2_n_0 ),
-        .I4(\outaddr_reg[0]_0 ),
-        .O(\outaddr_reg[4]_3 [5]));
+        .I4(isshort_i_2_n_0),
+        .O(\sdtnamelen_reg[7] [5]));
   LUT6 #(
     .INIT(64'hFDFD00FD00FDFDFD)) 
     \sdtnamelen[5]_i_2 
        (.I0(\sdtnamelen[5]_i_3_n_0 ),
         .I1(raddr[3]),
         .I2(raddr[4]),
-        .I3(\sdtnamelen[7]_i_8_n_0 ),
+        .I3(\sdtnamelen[6]_i_3_n_0 ),
         .I4(\sdtnamelen[5]_i_4_n_0 ),
         .I5(\sdtnamelen[5]_i_5_n_0 ),
         .O(\sdtnamelen[5]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hCCCCC9CCCCCCCCCC)) 
     \sdtnamelen[5]_i_3 
-       (.I0(islongok_i_3_n_0),
-        .I1(\sdtnamelen[7]_i_12_n_0 ),
-        .I2(\sdtnamelen[2]_i_4_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [2]),
-        .I4(\sdtnamelen[3]_i_5_n_0 ),
-        .I5(\file_namelen_reg[7]_0 [4]),
+       (.I0(islongok_i_2_n_0),
+        .I1(\sdtnamelen[5]_i_6_n_0 ),
+        .I2(\sdtnamelen[6]_i_11_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [2]),
+        .I4(\file_name[1][7]_i_10_n_0 ),
+        .I5(\sdtnamelen_reg[7]_1 [4]),
         .O(\sdtnamelen[5]_i_3_n_0 ));
   LUT6 #(
     .INIT(64'hFBFFFFFF04000000)) 
     \sdtnamelen[5]_i_4 
-       (.I0(\sdtnamelen[2]_i_4_n_0 ),
-        .I1(\file_namelen_reg[7]_0 [2]),
-        .I2(\sdtnamelen[3]_i_5_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [4]),
+       (.I0(\sdtnamelen[6]_i_11_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [2]),
+        .I2(\file_name[1][7]_i_10_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [4]),
         .I4(\sector_content[456][7]_i_2_n_0 ),
-        .I5(\sdtnamelen[7]_i_12_n_0 ),
+        .I5(\sdtnamelen[5]_i_6_n_0 ),
         .O(\sdtnamelen[5]_i_4_n_0 ));
   LUT6 #(
     .INIT(64'h0000000000000010)) 
     \sdtnamelen[5]_i_5 
        (.I0(\sdtnamelen[4]_i_5_n_0 ),
         .I1(\file_name[8][7]_i_13_n_0 ),
-        .I2(\sdtnamelen[5]_i_6_n_0 ),
-        .I3(islongok_i_3_n_0),
-        .I4(\sdtnamelen[4]_i_7_n_0 ),
+        .I2(\file_name[6][2]_i_5_n_0 ),
+        .I3(islongok_i_2_n_0),
+        .I4(\file_name[8][7]_i_14_n_0 ),
         .I5(\sdtnamelen[4]_i_4_n_0 ),
         .O(\sdtnamelen[5]_i_5_n_0 ));
   LUT6 #(
-    .INIT(64'hAAAAAAAAAAAAA9A8)) 
+    .INIT(64'hAAAAAAAAAAAAAAA8)) 
     \sdtnamelen[5]_i_6 
-       (.I0(\file_namelen_reg[7]_0 [0]),
-        .I1(raddr[1]),
-        .I2(raddr[2]),
+       (.I0(\sdtnamelen_reg[7]_1 [5]),
+        .I1(raddr[4]),
+        .I2(raddr[0]),
         .I3(raddr[3]),
-        .I4(raddr[0]),
-        .I5(raddr[4]),
+        .I4(raddr[2]),
+        .I5(raddr[1]),
         .O(\sdtnamelen[5]_i_6_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFF04FF0C0C0C0C)) 
+    .INIT(64'hBBBBBBBB88B8B888)) 
     \sdtnamelen[6]_i_1 
        (.I0(\sdtnamelen[6]_i_2_n_0 ),
-        .I1(\file_namelen_reg[7]_0 [6]),
-        .I2(\longno[5]_i_2_n_0 ),
-        .I3(\sdtnamelen[6]_i_3_n_0 ),
-        .I4(\sdtnamelen[6]_i_4_n_0 ),
-        .I5(\outaddr_reg[0]_0 ),
-        .O(\outaddr_reg[4]_3 [6]));
-  LUT5 #(
-    .INIT(32'h01115555)) 
+        .I1(isshort_i_2_n_0),
+        .I2(\sdtnamelen[6]_i_3_n_0 ),
+        .I3(\sdtnamelen[6]_i_4_n_0 ),
+        .I4(\sdtnamelen[6]_i_5_n_0 ),
+        .I5(\sdtnamelen[6]_i_6_n_0 ),
+        .O(\sdtnamelen_reg[7] [6]));
+  LUT6 #(
+    .INIT(64'h0000200000000000)) 
+    \sdtnamelen[6]_i_10 
+       (.I0(\sdtnamelen_reg[7]_1 [5]),
+        .I1(\sdtnamelen[6]_i_11_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [2]),
+        .I3(\sdtnamelen_reg[7]_1 [3]),
+        .I4(\longno[5]_i_2_n_0 ),
+        .I5(\sdtnamelen_reg[7]_1 [4]),
+        .O(\sdtnamelen[6]_i_10_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair93" *) 
+  LUT3 #(
+    .INIT(8'hDF)) 
+    \sdtnamelen[6]_i_11 
+       (.I0(\sdtnamelen_reg[7]_1 [0]),
+        .I1(\longno[5]_i_2_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [1]),
+        .O(\sdtnamelen[6]_i_11_n_0 ));
+  LUT6 #(
+    .INIT(64'hAAAAAAAAAAAAAAA8)) 
     \sdtnamelen[6]_i_2 
-       (.I0(raddr[4]),
-        .I1(raddr[2]),
-        .I2(raddr[1]),
-        .I3(raddr[0]),
-        .I4(raddr[3]),
+       (.I0(\sdtnamelen_reg[7]_1 [6]),
+        .I1(raddr[4]),
+        .I2(raddr[0]),
+        .I3(raddr[3]),
+        .I4(raddr[2]),
+        .I5(raddr[1]),
         .O(\sdtnamelen[6]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFEFFFEFEEFEFFEF)) 
+  (* SOFT_HLUTNM = "soft_lutpair68" *) 
+  LUT5 #(
+    .INIT(32'h00070000)) 
     \sdtnamelen[6]_i_3 
-       (.I0(raddr[4]),
-        .I1(raddr[3]),
-        .I2(\file_namelen_reg[7]_0 [6]),
-        .I3(\longno[5]_i_2_n_0 ),
-        .I4(\sdtnamelen[7]_i_7_n_0 ),
-        .I5(islongok_i_3_n_0),
-        .O(\sdtnamelen[6]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000000060000)) 
-    \sdtnamelen[6]_i_4 
-       (.I0(\sdtnamelen[7]_i_10_n_0 ),
-        .I1(\sdtnamelen[7]_i_9_n_0 ),
-        .I2(fready_i_2_n_0),
-        .I3(raddr[4]),
+       (.I0(raddr[1]),
+        .I1(raddr[0]),
+        .I2(raddr[4]),
+        .I3(raddr[2]),
         .I4(raddr[3]),
-        .I5(raddr[2]),
+        .O(\sdtnamelen[6]_i_3_n_0 ));
+  LUT5 #(
+    .INIT(32'h00007F80)) 
+    \sdtnamelen[6]_i_4 
+       (.I0(\sdtnamelen[6]_i_7_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [5]),
+        .I2(\sector_content[456][7]_i_2_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [6]),
+        .I4(\longno[5]_i_2_n_0 ),
         .O(\sdtnamelen[6]_i_4_n_0 ));
   LUT6 #(
-    .INIT(64'hFF4FFF44FFFF0000)) 
-    \sdtnamelen[7]_i_1 
-       (.I0(\sdtnamelen[7]_i_2_n_0 ),
-        .I1(\sdtnamelen[7]_i_3_n_0 ),
-        .I2(\sdtnamelen[7]_i_4_n_0 ),
-        .I3(\sdtnamelen[7]_i_5_n_0 ),
-        .I4(\sdtnamelen[7]_i_6_n_0 ),
-        .I5(\outaddr_reg[0]_0 ),
-        .O(\outaddr_reg[4]_3 [7]));
-  LUT5 #(
-    .INIT(32'h00000200)) 
-    \sdtnamelen[7]_i_10 
-       (.I0(\sdtnamelen[5]_i_4_n_0 ),
-        .I1(\sdtnamelen[4]_i_4_n_0 ),
-        .I2(\sdtnamelen[4]_i_7_n_0 ),
-        .I3(\sdtnamelen[4]_i_6_n_0 ),
-        .I4(\sdtnamelen[4]_i_5_n_0 ),
-        .O(\sdtnamelen[7]_i_10_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair102" *) 
-  LUT5 #(
-    .INIT(32'h80807F80)) 
-    \sdtnamelen[7]_i_11 
-       (.I0(\sdtnamelen[7]_i_7_n_0 ),
-        .I1(\file_namelen_reg[7]_0 [6]),
+    .INIT(64'hC02A008000000000)) 
+    \sdtnamelen[6]_i_5 
+       (.I0(\sdtnamelen_reg[7]_1 [5]),
+        .I1(\sdtnamelen[6]_i_8_n_0 ),
         .I2(\sector_content[456][7]_i_2_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [7]),
-        .I4(\longno[5]_i_2_n_0 ),
-        .O(\sdtnamelen[7]_i_11_n_0 ));
+        .I3(\longno[5]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [4]),
+        .I5(\sdtnamelen[6]_i_9_n_0 ),
+        .O(\sdtnamelen[6]_i_5_n_0 ));
   LUT6 #(
-    .INIT(64'hAAAAAAAAAAAAAAA8)) 
-    \sdtnamelen[7]_i_12 
-       (.I0(\file_namelen_reg[7]_0 [5]),
-        .I1(raddr[4]),
-        .I2(raddr[0]),
-        .I3(raddr[3]),
-        .I4(raddr[2]),
-        .I5(raddr[1]),
-        .O(\sdtnamelen[7]_i_12_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair98" *) 
-  LUT3 #(
-    .INIT(8'hFE)) 
+    .INIT(64'h0C00D5DD0C000C00)) 
+    \sdtnamelen[6]_i_6 
+       (.I0(\lastchar[7]_i_2_n_0 ),
+        .I1(\sdtnamelen[0]_i_3_n_0 ),
+        .I2(islongok_i_2_n_0),
+        .I3(\sdtnamelen[6]_i_10_n_0 ),
+        .I4(\longno[5]_i_2_n_0 ),
+        .I5(\sdtnamelen_reg[7]_1 [6]),
+        .O(\sdtnamelen[6]_i_6_n_0 ));
+  LUT6 #(
+    .INIT(64'h2000000000000000)) 
+    \sdtnamelen[6]_i_7 
+       (.I0(\sdtnamelen_reg[7]_1 [4]),
+        .I1(\longno[5]_i_2_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [3]),
+        .I3(\sdtnamelen_reg[7]_1 [2]),
+        .I4(\sdtnamelen_reg[7]_1 [1]),
+        .I5(\sdtnamelen_reg[7]_1 [0]),
+        .O(\sdtnamelen[6]_i_7_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair86" *) 
+  LUT5 #(
+    .INIT(32'h00008000)) 
+    \sdtnamelen[6]_i_8 
+       (.I0(\sdtnamelen_reg[7]_1 [0]),
+        .I1(\sdtnamelen_reg[7]_1 [1]),
+        .I2(\sdtnamelen_reg[7]_1 [2]),
+        .I3(\sdtnamelen_reg[7]_1 [3]),
+        .I4(\longno[5]_i_2_n_0 ),
+        .O(\sdtnamelen[6]_i_8_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000000010000010)) 
+    \sdtnamelen[6]_i_9 
+       (.I0(\file_name[8][7]_i_14_n_0 ),
+        .I1(islongok_i_2_n_0),
+        .I2(\sdtnamelen[1]_i_3_n_0 ),
+        .I3(\sector_content[456][7]_i_2_n_0 ),
+        .I4(\sdtnamelen[1]_i_4_n_0 ),
+        .I5(\sdtnamelen[4]_i_5_n_0 ),
+        .O(\sdtnamelen[6]_i_9_n_0 ));
+  LUT5 #(
+    .INIT(32'h0C0C04FF)) 
+    \sdtnamelen[7]_i_1 
+       (.I0(\lastchar[7]_i_2_n_0 ),
+        .I1(\sdtnamelen_reg[7]_1 [7]),
+        .I2(\longno[5]_i_2_n_0 ),
+        .I3(\sdtnamelen[7]_i_2_n_0 ),
+        .I4(isshort_i_2_n_0),
+        .O(\sdtnamelen_reg[7] [7]));
+  LUT6 #(
+    .INIT(64'hD7770000D777D777)) 
     \sdtnamelen[7]_i_2 
-       (.I0(islongok_i_3_n_0),
-        .I1(raddr[4]),
-        .I2(raddr[3]),
+       (.I0(\sdtnamelen[6]_i_3_n_0 ),
+        .I1(\sdtnamelen[7]_i_3_n_0 ),
+        .I2(\sdtnamelen[6]_i_5_n_0 ),
+        .I3(\sdtnamelen[6]_i_4_n_0 ),
+        .I4(\sdtnamelen[7]_i_4_n_0 ),
+        .I5(\sdtnamelen[0]_i_3_n_0 ),
         .O(\sdtnamelen[7]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair130" *) 
-  LUT4 #(
-    .INIT(16'hB444)) 
+  LUT6 #(
+    .INIT(64'h000000007FFF8000)) 
     \sdtnamelen[7]_i_3 
-       (.I0(\longno[5]_i_2_n_0 ),
-        .I1(\file_namelen_reg[7]_0 [7]),
-        .I2(\sdtnamelen[7]_i_7_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [6]),
+       (.I0(\sdtnamelen_reg[7]_1 [5]),
+        .I1(\sdtnamelen[6]_i_7_n_0 ),
+        .I2(\sdtnamelen_reg[7]_1 [6]),
+        .I3(\sector_content[456][7]_i_2_n_0 ),
+        .I4(\sdtnamelen_reg[7]_1 [7]),
+        .I5(\longno[5]_i_2_n_0 ),
         .O(\sdtnamelen[7]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000011111DDD)) 
+    .INIT(64'hFFFF4000FFFFBFFF)) 
     \sdtnamelen[7]_i_4 
-       (.I0(islongok_i_3_n_0),
-        .I1(raddr[3]),
-        .I2(raddr[0]),
-        .I3(raddr[1]),
-        .I4(raddr[2]),
-        .I5(raddr[4]),
+       (.I0(islongok_i_2_n_0),
+        .I1(\sdtnamelen_reg[7]_1 [5]),
+        .I2(\sdtnamelen[6]_i_7_n_0 ),
+        .I3(\sdtnamelen_reg[7]_1 [6]),
+        .I4(\longno[5]_i_2_n_0 ),
+        .I5(\sdtnamelen_reg[7]_1 [7]),
         .O(\sdtnamelen[7]_i_4_n_0 ));
-  LUT4 #(
-    .INIT(16'h2A80)) 
-    \sdtnamelen[7]_i_5 
-       (.I0(\sdtnamelen[7]_i_8_n_0 ),
-        .I1(\sdtnamelen[7]_i_9_n_0 ),
-        .I2(\sdtnamelen[7]_i_10_n_0 ),
-        .I3(\sdtnamelen[7]_i_11_n_0 ),
-        .O(\sdtnamelen[7]_i_5_n_0 ));
-  LUT6 #(
-    .INIT(64'hAAAAAAAAAAAAAAA8)) 
-    \sdtnamelen[7]_i_6 
-       (.I0(\file_namelen_reg[7]_0 [7]),
-        .I1(raddr[4]),
-        .I2(raddr[0]),
-        .I3(raddr[3]),
-        .I4(raddr[2]),
-        .I5(raddr[1]),
-        .O(\sdtnamelen[7]_i_6_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000080000000000)) 
-    \sdtnamelen[7]_i_7 
-       (.I0(\sdtnamelen[7]_i_12_n_0 ),
-        .I1(\file_namelen_reg[7]_0 [4]),
-        .I2(\sdtnamelen[3]_i_5_n_0 ),
-        .I3(\file_namelen_reg[7]_0 [2]),
-        .I4(\sdtnamelen[0]_i_3_n_0 ),
-        .I5(\file_namelen_reg[7]_0 [1]),
-        .O(\sdtnamelen[7]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair97" *) 
-  LUT5 #(
-    .INIT(32'h00040404)) 
-    \sdtnamelen[7]_i_8 
-       (.I0(raddr[2]),
-        .I1(raddr[3]),
-        .I2(raddr[4]),
-        .I3(raddr[1]),
-        .I4(raddr[0]),
-        .O(\sdtnamelen[7]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair130" *) 
-  LUT4 #(
-    .INIT(16'h8878)) 
-    \sdtnamelen[7]_i_9 
-       (.I0(\sdtnamelen[7]_i_7_n_0 ),
-        .I1(\sector_content[456][7]_i_2_n_0 ),
-        .I2(\file_namelen_reg[7]_0 [6]),
-        .I3(\longno[5]_i_2_n_0 ),
-        .O(\sdtnamelen[7]_i_9_n_0 ));
   FDCE #(
     .INIT(1'b0)) 
     sdv1_maybe_reg
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_15),
-        .Q(sdv1_maybe_reg_0));
+        .D(u_sdcmd_ctrl_n_35),
+        .Q(sdv1_maybe));
   LUT6 #(
     .INIT(64'h00FFFFFF51000000)) 
     search_fat_i_1
        (.I0(CO),
-        .I1(search_fat_reg_0),
+        .I1(search_fat_reg),
         .I2(filesystem_state[0]),
-        .I3(search_fat_reg_1),
+        .I3(search_fat_reg_0),
         .I4(read_done),
-        .I5(search_fat_reg_2),
+        .I5(search_fat_reg_1),
         .O(file_found_reg));
-  (* SOFT_HLUTNM = "soft_lutpair159" *) 
   LUT3 #(
     .INIT(8'h40)) 
     \sector_content[0][7]_i_1 
        (.I0(raddr[4]),
         .I1(rvalid),
         .I2(\sector_content[0][7]_i_2_n_0 ),
-        .O(\outaddr_reg[4]_1 ));
+        .O(\outaddr_reg[4]_4 ));
   LUT6 #(
-    .INIT(64'h0000000000000004)) 
+    .INIT(64'h0000000000000002)) 
     \sector_content[0][7]_i_2 
-       (.I0(raddr[0]),
-        .I1(\sector_content[18][7]_i_2_n_0 ),
-        .I2(raddr[3]),
-        .I3(raddr[2]),
-        .I4(raddr[1]),
-        .I5(raddr[5]),
+       (.I0(\sector_content[0][7]_i_3_n_0 ),
+        .I1(raddr[3]),
+        .I2(raddr[2]),
+        .I3(raddr[1]),
+        .I4(raddr[5]),
+        .I5(raddr[6]),
         .O(\sector_content[0][7]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair158" *) 
+  LUT3 #(
+    .INIT(8'h01)) 
+    \sector_content[0][7]_i_3 
+       (.I0(raddr[7]),
+        .I1(raddr[8]),
+        .I2(raddr[0]),
+        .O(\sector_content[0][7]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'h0000080000000000)) 
+    .INIT(64'h0200000000000000)) 
     \sector_content[11][7]_i_1 
-       (.I0(raddr[0]),
-        .I1(raddr[1]),
-        .I2(raddr[4]),
+       (.I0(\sector_content[23][7]_i_2_n_0 ),
+        .I1(raddr[4]),
+        .I2(raddr[2]),
         .I3(raddr[3]),
-        .I4(raddr[2]),
-        .I5(\sector_content[11][7]_i_2_n_0 ),
-        .O(\outaddr_reg[0]_2 ));
-  (* SOFT_HLUTNM = "soft_lutpair86" *) 
-  LUT5 #(
-    .INIT(32'h00000004)) 
-    \sector_content[11][7]_i_2 
-       (.I0(raddr[5]),
-        .I1(rvalid),
-        .I2(raddr[8]),
-        .I3(raddr[7]),
-        .I4(raddr[6]),
-        .O(\sector_content[11][7]_i_2_n_0 ));
+        .I4(raddr[1]),
+        .I5(raddr[0]),
+        .O(\outaddr_reg[4]_2 ));
   LUT6 #(
     .INIT(64'h0002000000000000)) 
     \sector_content[12][7]_i_1 
-       (.I0(\sector_content[11][7]_i_2_n_0 ),
+       (.I0(\sector_content[23][7]_i_2_n_0 ),
         .I1(raddr[0]),
         .I2(raddr[1]),
         .I3(raddr[4]),
         .I4(raddr[2]),
         .I5(raddr[3]),
-        .O(\outaddr_reg[0]_1 ));
+        .O(\outaddr_reg[0]_4 ));
   LUT6 #(
     .INIT(64'h0020000000000000)) 
     \sector_content[13][7]_i_1 
-       (.I0(\sector_content[22][7]_i_3_n_0 ),
-        .I1(\sector_content[13][7]_i_2_n_0 ),
-        .I2(rvalid),
+       (.I0(\sector_content[23][7]_i_2_n_0 ),
+        .I1(raddr[1]),
+        .I2(raddr[0]),
         .I3(raddr[4]),
         .I4(raddr[2]),
         .I5(raddr[3]),
-        .O(outen_reg_2));
-  (* SOFT_HLUTNM = "soft_lutpair213" *) 
-  LUT2 #(
-    .INIT(4'hB)) 
-    \sector_content[13][7]_i_2 
-       (.I0(raddr[1]),
-        .I1(raddr[0]),
-        .O(\sector_content[13][7]_i_2_n_0 ));
+        .O(\outaddr_reg[1]_3 ));
   LUT6 #(
     .INIT(64'h0000000000008000)) 
     \sector_content[14][7]_i_1 
-       (.I0(\sector_content[11][7]_i_2_n_0 ),
+       (.I0(\sector_content[23][7]_i_2_n_0 ),
         .I1(raddr[1]),
         .I2(raddr[2]),
         .I3(raddr[3]),
         .I4(raddr[4]),
         .I5(raddr[0]),
-        .O(\outaddr_reg[1]_0 ));
-  LUT6 #(
-    .INIT(64'h0000000000008000)) 
-    \sector_content[15][7]_i_1 
-       (.I0(raddr[1]),
-        .I1(raddr[2]),
-        .I2(\sector_content[22][7]_i_3_n_0 ),
-        .I3(raddr[3]),
-        .I4(raddr[4]),
-        .I5(\sector_content[23][7]_i_2_n_0 ),
-        .O(\outaddr_reg[1]_4 ));
-  LUT6 #(
-    .INIT(64'h0000000000000008)) 
-    \sector_content[17][7]_i_1 
-       (.I0(\sector_content[22][7]_i_3_n_0 ),
-        .I1(raddr[4]),
-        .I2(raddr[3]),
-        .I3(\sector_content[23][7]_i_2_n_0 ),
-        .I4(raddr[1]),
-        .I5(raddr[2]),
-        .O(\outaddr_reg[4]_2 ));
-  LUT6 #(
-    .INIT(64'h0400000000000000)) 
-    \sector_content[18][7]_i_1 
-       (.I0(raddr[5]),
-        .I1(\sector_content[18][7]_i_2_n_0 ),
-        .I2(raddr[3]),
-        .I3(raddr[4]),
-        .I4(rvalid),
-        .I5(\sector_content[18][7]_i_3_n_0 ),
-        .O(\outaddr_reg[5]_1 ));
-  (* SOFT_HLUTNM = "soft_lutpair115" *) 
-  LUT3 #(
-    .INIT(8'h01)) 
-    \sector_content[18][7]_i_2 
-       (.I0(raddr[6]),
-        .I1(raddr[7]),
-        .I2(raddr[8]),
-        .O(\sector_content[18][7]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair92" *) 
-  LUT3 #(
-    .INIT(8'h04)) 
-    \sector_content[18][7]_i_3 
-       (.I0(raddr[0]),
-        .I1(raddr[1]),
-        .I2(raddr[2]),
-        .O(\sector_content[18][7]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000800000000000)) 
-    \sector_content[22][7]_i_1 
-       (.I0(\sector_content[22][7]_i_2_n_0 ),
-        .I1(\sector_content[22][7]_i_3_n_0 ),
-        .I2(raddr[2]),
-        .I3(raddr[1]),
-        .I4(raddr[3]),
-        .I5(raddr[4]),
-        .O(E));
-  (* SOFT_HLUTNM = "soft_lutpair94" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
-    \sector_content[22][7]_i_2 
-       (.I0(rvalid),
-        .I1(raddr[0]),
-        .O(\sector_content[22][7]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair115" *) 
-  LUT4 #(
-    .INIT(16'h0001)) 
-    \sector_content[22][7]_i_3 
-       (.I0(raddr[8]),
-        .I1(raddr[7]),
-        .I2(raddr[6]),
-        .I3(raddr[5]),
-        .O(\sector_content[22][7]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000000800000)) 
-    \sector_content[23][7]_i_1 
-       (.I0(\sector_content[22][7]_i_3_n_0 ),
-        .I1(raddr[2]),
-        .I2(raddr[1]),
-        .I3(raddr[3]),
-        .I4(raddr[4]),
-        .I5(\sector_content[23][7]_i_2_n_0 ),
-        .O(\outaddr_reg[2]_2 ));
-  (* SOFT_HLUTNM = "soft_lutpair190" *) 
-  LUT2 #(
-    .INIT(4'h7)) 
-    \sector_content[23][7]_i_2 
-       (.I0(rvalid),
-        .I1(raddr[0]),
-        .O(\sector_content[23][7]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000800000000000)) 
-    \sector_content[36][7]_i_1 
-       (.I0(\sdtnamelen[3]_i_3_n_0 ),
-        .I1(\sector_content[22][7]_i_2_n_0 ),
-        .I2(raddr[2]),
-        .I3(raddr[5]),
-        .I4(raddr[1]),
-        .I5(\sector_content[18][7]_i_2_n_0 ),
-        .O(\outaddr_reg[2]_0 ));
-  LUT6 #(
-    .INIT(64'h0020000000000000)) 
-    \sector_content[37][7]_i_1 
-       (.I0(\sdtnamelen[3]_i_3_n_0 ),
-        .I1(\sector_content[23][7]_i_2_n_0 ),
-        .I2(\sector_content[18][7]_i_2_n_0 ),
-        .I3(raddr[1]),
-        .I4(raddr[5]),
-        .I5(raddr[2]),
         .O(\outaddr_reg[1]_2 ));
   LUT6 #(
-    .INIT(64'h0400000000000000)) 
-    \sector_content[38][7]_i_1 
+    .INIT(64'h0080000000000000)) 
+    \sector_content[15][7]_i_1 
        (.I0(raddr[0]),
-        .I1(\sector_content[18][7]_i_2_n_0 ),
-        .I2(\sector_content[38][7]_i_2_n_0 ),
-        .I3(\sdtnamelen[3]_i_3_n_0 ),
-        .I4(rvalid),
-        .I5(raddr[5]),
+        .I1(\sector_content[23][7]_i_2_n_0 ),
+        .I2(raddr[3]),
+        .I3(raddr[4]),
+        .I4(raddr[1]),
+        .I5(raddr[2]),
         .O(\outaddr_reg[0]_3 ));
-  (* SOFT_HLUTNM = "soft_lutpair93" *) 
-  LUT2 #(
-    .INIT(4'h7)) 
-    \sector_content[38][7]_i_2 
-       (.I0(raddr[1]),
+  LUT6 #(
+    .INIT(64'h0000000000000080)) 
+    \sector_content[17][7]_i_1 
+       (.I0(\sector_content[23][7]_i_2_n_0 ),
+        .I1(raddr[0]),
+        .I2(raddr[4]),
+        .I3(raddr[3]),
+        .I4(raddr[2]),
+        .I5(raddr[1]),
+        .O(\outaddr_reg[0]_0 ));
+  LUT6 #(
+    .INIT(64'h0200000000000000)) 
+    \sector_content[18][7]_i_1 
+       (.I0(\sector_content[22][7]_i_2_n_0 ),
         .I1(raddr[2]),
-        .O(\sector_content[38][7]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair114" *) 
-  LUT4 #(
-    .INIT(16'h0080)) 
-    \sector_content[39][7]_i_1 
-       (.I0(\sector_content[46][7]_i_2_n_0 ),
+        .I2(raddr[0]),
+        .I3(raddr[1]),
+        .I4(rvalid),
+        .I5(raddr[4]),
+        .O(\outaddr_reg[2]_2 ));
+  LUT6 #(
+    .INIT(64'h0800000000000000)) 
+    \sector_content[22][7]_i_1 
+       (.I0(\sector_content[22][7]_i_2_n_0 ),
         .I1(rvalid),
         .I2(raddr[0]),
-        .I3(raddr[3]),
+        .I3(raddr[4]),
+        .I4(raddr[2]),
+        .I5(raddr[1]),
         .O(outen_reg_0));
+  (* SOFT_HLUTNM = "soft_lutpair77" *) 
+  LUT5 #(
+    .INIT(32'h00000001)) 
+    \sector_content[22][7]_i_2 
+       (.I0(raddr[5]),
+        .I1(raddr[6]),
+        .I2(raddr[8]),
+        .I3(raddr[7]),
+        .I4(raddr[3]),
+        .O(\sector_content[22][7]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h0000800000000000)) 
-    \sector_content[44][7]_i_1 
-       (.I0(\sector_content[44][7]_i_2_n_0 ),
-        .I1(\sector_content[22][7]_i_2_n_0 ),
-        .I2(raddr[2]),
-        .I3(raddr[5]),
-        .I4(raddr[1]),
-        .I5(\sector_content[18][7]_i_2_n_0 ),
+    .INIT(64'h0000000080000000)) 
+    \sector_content[23][7]_i_1 
+       (.I0(raddr[2]),
+        .I1(raddr[1]),
+        .I2(\sector_content[23][7]_i_2_n_0 ),
+        .I3(raddr[0]),
+        .I4(raddr[4]),
+        .I5(raddr[3]),
+        .O(\outaddr_reg[2]_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair76" *) 
+  LUT5 #(
+    .INIT(32'h00000002)) 
+    \sector_content[23][7]_i_2 
+       (.I0(rvalid),
+        .I1(raddr[5]),
+        .I2(raddr[6]),
+        .I3(raddr[8]),
+        .I4(raddr[7]),
+        .O(\sector_content[23][7]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair74" *) 
+  LUT5 #(
+    .INIT(32'h00000200)) 
+    \sector_content[36][7]_i_1 
+       (.I0(\sector_content[45][7]_i_2_n_0 ),
+        .I1(raddr[3]),
+        .I2(raddr[4]),
+        .I3(rvalid),
+        .I4(raddr[0]),
+        .O(\outaddr_reg[3]_3 ));
+  (* SOFT_HLUTNM = "soft_lutpair74" *) 
+  LUT5 #(
+    .INIT(32'h10000000)) 
+    \sector_content[37][7]_i_1 
+       (.I0(raddr[4]),
+        .I1(raddr[3]),
+        .I2(\sector_content[45][7]_i_2_n_0 ),
+        .I3(rvalid),
+        .I4(raddr[0]),
+        .O(\outaddr_reg[4]_0 ));
+  LUT6 #(
+    .INIT(64'h0000000000000080)) 
+    \sector_content[38][7]_i_1 
+       (.I0(\sector_content[47][7]_i_2_n_0 ),
+        .I1(raddr[2]),
+        .I2(raddr[1]),
+        .I3(raddr[4]),
+        .I4(raddr[3]),
+        .I5(raddr[0]),
         .O(\outaddr_reg[2]_1 ));
-  (* SOFT_HLUTNM = "soft_lutpair99" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
+  LUT5 #(
+    .INIT(32'h00001000)) 
+    \sector_content[39][7]_i_1 
+       (.I0(raddr[3]),
+        .I1(raddr[6]),
+        .I2(rvalid),
+        .I3(raddr[0]),
+        .I4(\sector_content[39][7]_i_2_n_0 ),
+        .O(\outaddr_reg[3]_2 ));
+  LUT6 #(
+    .INIT(64'hFFFDFFFFFFFFFFFF)) 
+    \sector_content[39][7]_i_2 
+       (.I0(raddr[1]),
+        .I1(raddr[4]),
+        .I2(raddr[8]),
+        .I3(raddr[7]),
+        .I4(raddr[2]),
+        .I5(raddr[5]),
+        .O(\sector_content[39][7]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000000000001000)) 
+    \sector_content[44][7]_i_1 
+       (.I0(raddr[1]),
+        .I1(raddr[6]),
+        .I2(\sector_content[86][7]_i_2_n_0 ),
+        .I3(\sector_content[44][7]_i_2_n_0 ),
+        .I4(raddr[4]),
+        .I5(raddr[0]),
+        .O(\outaddr_reg[1]_1 ));
+  (* SOFT_HLUTNM = "soft_lutpair114" *) 
+  LUT4 #(
+    .INIT(16'h8000)) 
     \sector_content[44][7]_i_2 
+       (.I0(raddr[2]),
+        .I1(raddr[3]),
+        .I2(raddr[5]),
+        .I3(rvalid),
+        .O(\sector_content[44][7]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair73" *) 
+  LUT5 #(
+    .INIT(32'h00000010)) 
+    \sector_content[454][7]_i_1 
        (.I0(raddr[3]),
         .I1(raddr[4]),
-        .O(\sector_content[44][7]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair94" *) 
-  LUT5 #(
-    .INIT(32'h00000040)) 
-    \sector_content[454][7]_i_1 
-       (.I0(raddr[5]),
-        .I1(raddr[7]),
         .I2(rvalid),
         .I3(raddr[0]),
         .I4(\sector_content[454][7]_i_2_n_0 ),
-        .O(\outaddr_reg[5]_2 ));
+        .O(\outaddr_reg[3]_1 ));
   LUT6 #(
-    .INIT(64'hFFF7FFFFFFFFFFFF)) 
+    .INIT(64'hF7FFFFFFFFFFFFFF)) 
     \sector_content[454][7]_i_2 
-       (.I0(raddr[8]),
-        .I1(raddr[1]),
-        .I2(raddr[3]),
-        .I3(raddr[4]),
-        .I4(raddr[2]),
-        .I5(raddr[6]),
+       (.I0(raddr[6]),
+        .I1(raddr[2]),
+        .I2(raddr[5]),
+        .I3(raddr[7]),
+        .I4(raddr[1]),
+        .I5(raddr[8]),
         .O(\sector_content[454][7]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'h0000000000008000)) 
@@ -31730,8 +31793,8 @@ module design_1_top_system_0_1_sd_reader
         .I3(raddr[1]),
         .I4(raddr[4]),
         .I5(raddr[3]),
-        .O(\outaddr_reg[0]_4 ));
-  (* SOFT_HLUTNM = "soft_lutpair86" *) 
+        .O(\outaddr_reg[0]_5 ));
+  (* SOFT_HLUTNM = "soft_lutpair70" *) 
   LUT5 #(
     .INIT(32'h08000000)) 
     \sector_content[455][7]_i_2 
@@ -31750,15 +31813,15 @@ module design_1_top_system_0_1_sd_reader
         .I3(raddr[5]),
         .I4(raddr[7]),
         .I5(raddr[6]),
-        .O(outen_reg_14));
+        .O(outen_reg_11));
   LUT5 #(
-    .INIT(32'h00000004)) 
+    .INIT(32'h00010000)) 
     \sector_content[456][7]_i_2 
-       (.I0(raddr[2]),
-        .I1(raddr[3]),
+       (.I0(raddr[1]),
+        .I1(raddr[0]),
         .I2(raddr[4]),
-        .I3(raddr[1]),
-        .I4(raddr[0]),
+        .I3(raddr[2]),
+        .I4(raddr[3]),
         .O(\sector_content[456][7]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'h2000000000000000)) 
@@ -31770,7 +31833,7 @@ module design_1_top_system_0_1_sd_reader
         .I4(raddr[3]),
         .I5(raddr[0]),
         .O(\outaddr_reg[8]_1 ));
-  (* SOFT_HLUTNM = "soft_lutpair155" *) 
+  (* SOFT_HLUTNM = "soft_lutpair77" *) 
   LUT3 #(
     .INIT(8'h40)) 
     \sector_content[457][7]_i_2 
@@ -31778,65 +31841,69 @@ module design_1_top_system_0_1_sd_reader
         .I1(raddr[7]),
         .I2(raddr[6]),
         .O(\sector_content[457][7]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair204" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \sector_content[457][7]_i_3 
        (.I0(raddr[1]),
         .I1(raddr[2]),
         .O(\sector_content[457][7]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair136" *) 
+  (* SOFT_HLUTNM = "soft_lutpair75" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \sector_content[457][7]_i_4 
        (.I0(rvalid),
         .I1(raddr[4]),
         .O(\sector_content[457][7]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'h0020000000000000)) 
+  (* SOFT_HLUTNM = "soft_lutpair75" *) 
+  LUT5 #(
+    .INIT(32'h40000000)) 
     \sector_content[45][7]_i_1 
-       (.I0(\sector_content[44][7]_i_2_n_0 ),
-        .I1(\sector_content[23][7]_i_2_n_0 ),
-        .I2(\sector_content[18][7]_i_2_n_0 ),
-        .I3(raddr[1]),
+       (.I0(raddr[4]),
+        .I1(raddr[3]),
+        .I2(\sector_content[45][7]_i_2_n_0 ),
+        .I3(rvalid),
+        .I4(raddr[0]),
+        .O(\outaddr_reg[4]_1 ));
+  LUT6 #(
+    .INIT(64'h0001000000000000)) 
+    \sector_content[45][7]_i_2 
+       (.I0(raddr[1]),
+        .I1(raddr[6]),
+        .I2(raddr[8]),
+        .I3(raddr[7]),
         .I4(raddr[5]),
         .I5(raddr[2]),
-        .O(\outaddr_reg[1]_3 ));
-  (* SOFT_HLUTNM = "soft_lutpair114" *) 
-  LUT4 #(
-    .INIT(16'h0800)) 
-    \sector_content[46][7]_i_1 
-       (.I0(\sector_content[46][7]_i_2_n_0 ),
-        .I1(rvalid),
-        .I2(raddr[0]),
-        .I3(raddr[3]),
-        .O(outen_reg_1));
-  (* SOFT_HLUTNM = "soft_lutpair93" *) 
-  LUT5 #(
-    .INIT(32'h20000000)) 
-    \sector_content[46][7]_i_2 
-       (.I0(\sector_content[18][7]_i_2_n_0 ),
-        .I1(raddr[4]),
-        .I2(raddr[5]),
-        .I3(raddr[1]),
-        .I4(raddr[2]),
-        .O(\sector_content[46][7]_i_2_n_0 ));
+        .O(\sector_content[45][7]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000080000000)) 
+    .INIT(64'h0000000000200000)) 
+    \sector_content[46][7]_i_1 
+       (.I0(\sector_content[44][7]_i_2_n_0 ),
+        .I1(raddr[6]),
+        .I2(raddr[1]),
+        .I3(raddr[4]),
+        .I4(\sector_content[86][7]_i_2_n_0 ),
+        .I5(raddr[0]),
+        .O(\outaddr_reg[6]_0 ));
+  LUT6 #(
+    .INIT(64'h0080000000000000)) 
     \sector_content[47][7]_i_1 
-       (.I0(\sector_content[18][7]_i_2_n_0 ),
-        .I1(raddr[5]),
-        .I2(rvalid),
-        .I3(raddr[1]),
-        .I4(raddr[0]),
-        .I5(\sector_content[47][7]_i_2_n_0 ),
-        .O(\outaddr_reg[5]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair181" *) 
-  LUT3 #(
-    .INIT(8'hBF)) 
+       (.I0(\sector_content[47][7]_i_2_n_0 ),
+        .I1(raddr[0]),
+        .I2(raddr[1]),
+        .I3(raddr[4]),
+        .I4(raddr[2]),
+        .I5(raddr[3]),
+        .O(\outaddr_reg[0]_2 ));
+  (* SOFT_HLUTNM = "soft_lutpair70" *) 
+  LUT5 #(
+    .INIT(32'h00001000)) 
     \sector_content[47][7]_i_2 
-       (.I0(raddr[4]),
-        .I1(raddr[2]),
-        .I2(raddr[3]),
+       (.I0(raddr[7]),
+        .I1(raddr[8]),
+        .I2(rvalid),
+        .I3(raddr[5]),
+        .I4(raddr[6]),
         .O(\sector_content[47][7]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'h0000000000800000)) 
@@ -31848,7 +31915,7 @@ module design_1_top_system_0_1_sd_reader
         .I4(rvalid),
         .I5(\sector_content[510][7]_i_3_n_0 ),
         .O(\outaddr_reg[8]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair159" *) 
+  (* SOFT_HLUTNM = "soft_lutpair85" *) 
   LUT3 #(
     .INIT(8'h80)) 
     \sector_content[510][7]_i_2 
@@ -31856,7 +31923,7 @@ module design_1_top_system_0_1_sd_reader
         .I1(raddr[2]),
         .I2(raddr[3]),
         .O(\sector_content[510][7]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair155" *) 
+  (* SOFT_HLUTNM = "soft_lutpair76" *) 
   LUT3 #(
     .INIT(8'h7F)) 
     \sector_content[510][7]_i_3 
@@ -31873,8 +31940,8 @@ module design_1_top_system_0_1_sd_reader
         .I3(raddr[7]),
         .I4(raddr[6]),
         .I5(raddr[5]),
-        .O(outen_reg_4));
-  (* SOFT_HLUTNM = "soft_lutpair83" *) 
+        .O(outen_reg_12));
+  (* SOFT_HLUTNM = "soft_lutpair69" *) 
   LUT5 #(
     .INIT(32'h80000000)) 
     \sector_content[511][7]_i_2 
@@ -31884,27 +31951,33 @@ module design_1_top_system_0_1_sd_reader
         .I3(raddr[1]),
         .I4(raddr[0]),
         .O(\sector_content[511][7]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair92" *) 
-  LUT5 #(
-    .INIT(32'h00002000)) 
-    \sector_content[86][7]_i_1 
-       (.I0(raddr[1]),
-        .I1(raddr[0]),
-        .I2(raddr[2]),
-        .I3(raddr[6]),
-        .I4(\sector_content[86][7]_i_2_n_0 ),
-        .O(\outaddr_reg[1]_1 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFDF)) 
+    .INIT(64'h0000040000000000)) 
+    \sector_content[86][7]_i_1 
+       (.I0(raddr[0]),
+        .I1(\sector_content[86][7]_i_2_n_0 ),
+        .I2(\sector_content[86][7]_i_3_n_0 ),
+        .I3(raddr[1]),
+        .I4(raddr[5]),
+        .I5(rvalid),
+        .O(\outaddr_reg[0]_1 ));
+  (* SOFT_HLUTNM = "soft_lutpair158" *) 
+  LUT2 #(
+    .INIT(4'h1)) 
     \sector_content[86][7]_i_2 
-       (.I0(raddr[4]),
-        .I1(raddr[3]),
-        .I2(rvalid),
-        .I3(raddr[5]),
-        .I4(raddr[8]),
-        .I5(raddr[7]),
+       (.I0(raddr[8]),
+        .I1(raddr[7]),
         .O(\sector_content[86][7]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair232" *) 
+  (* SOFT_HLUTNM = "soft_lutpair97" *) 
+  LUT4 #(
+    .INIT(16'hF7FF)) 
+    \sector_content[86][7]_i_3 
+       (.I0(raddr[6]),
+        .I1(raddr[2]),
+        .I2(raddr[3]),
+        .I3(raddr[4]),
+        .O(\sector_content[86][7]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair220" *) 
   LUT2 #(
     .INIT(4'h1)) 
     start_i_2
@@ -31917,32 +31990,32 @@ module design_1_top_system_0_1_sd_reader
        (.C(clk_sd),
         .CE(1'b1),
         .CLR(reset_n_0),
-        .D(u_sdcmd_ctrl_n_99),
+        .D(u_sdcmd_ctrl_n_83),
         .Q(start_reg_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair147" *) 
+  (* SOFT_HLUTNM = "soft_lutpair148" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \target_cluster[0]_i_1 
        (.I0(raddr[1]),
         .I1(raddr[0]),
         .I2(\outbyte_reg[7]_0 [0]),
-        .O(D[0]));
-  (* SOFT_HLUTNM = "soft_lutpair151" *) 
+        .O(\outaddr_reg[1]_0 [0]));
+  (* SOFT_HLUTNM = "soft_lutpair155" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \target_cluster[10]_i_1 
        (.I0(\outbyte_reg[7]_0 [2]),
         .I1(raddr[0]),
         .I2(raddr[1]),
-        .O(D[10]));
-  (* SOFT_HLUTNM = "soft_lutpair153" *) 
+        .O(\outaddr_reg[1]_0 [10]));
+  (* SOFT_HLUTNM = "soft_lutpair150" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \target_cluster[11]_i_1 
        (.I0(\outbyte_reg[7]_0 [3]),
         .I1(raddr[0]),
         .I2(raddr[1]),
-        .O(D[11]));
+        .O(\outaddr_reg[1]_0 [11]));
   (* SOFT_HLUTNM = "soft_lutpair152" *) 
   LUT3 #(
     .INIT(8'h08)) 
@@ -31950,7 +32023,7 @@ module design_1_top_system_0_1_sd_reader
        (.I0(\outbyte_reg[7]_0 [4]),
         .I1(raddr[0]),
         .I2(raddr[1]),
-        .O(D[12]));
+        .O(\outaddr_reg[1]_0 [12]));
   (* SOFT_HLUTNM = "soft_lutpair154" *) 
   LUT3 #(
     .INIT(8'h08)) 
@@ -31958,15 +32031,15 @@ module design_1_top_system_0_1_sd_reader
        (.I0(\outbyte_reg[7]_0 [5]),
         .I1(raddr[0]),
         .I2(raddr[1]),
-        .O(D[13]));
-  (* SOFT_HLUTNM = "soft_lutpair148" *) 
+        .O(\outaddr_reg[1]_0 [13]));
+  (* SOFT_HLUTNM = "soft_lutpair151" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \target_cluster[14]_i_1 
        (.I0(\outbyte_reg[7]_0 [6]),
         .I1(raddr[0]),
         .I2(raddr[1]),
-        .O(D[14]));
+        .O(\outaddr_reg[1]_0 [14]));
   LUT6 #(
     .INIT(64'h0000000080000000)) 
     \target_cluster[15]_i_1 
@@ -31974,81 +32047,87 @@ module design_1_top_system_0_1_sd_reader
         .I1(\filesystem_reg[0]_2 ),
         .I2(rvalid),
         .I3(\filesystem_reg[1]_1 ),
-        .I4(search_fat_reg_2),
-        .I5(\sector_content[13][7]_i_2_n_0 ),
+        .I4(search_fat_reg_1),
+        .I5(\target_cluster[15]_i_3_n_0 ),
         .O(\filesystem_reg[0]_0 [1]));
-  (* SOFT_HLUTNM = "soft_lutpair149" *) 
+  (* SOFT_HLUTNM = "soft_lutpair153" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \target_cluster[15]_i_2 
        (.I0(\outbyte_reg[7]_0 [7]),
         .I1(raddr[0]),
         .I2(raddr[1]),
-        .O(D[15]));
-  (* SOFT_HLUTNM = "soft_lutpair131" *) 
+        .O(\outaddr_reg[1]_0 [15]));
+  LUT2 #(
+    .INIT(4'hB)) 
+    \target_cluster[15]_i_3 
+       (.I0(raddr[1]),
+        .I1(raddr[0]),
+        .O(\target_cluster[15]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair148" *) 
   LUT3 #(
     .INIT(8'h40)) 
     \target_cluster[16]_i_1 
        (.I0(raddr[0]),
         .I1(raddr[1]),
         .I2(\outbyte_reg[7]_0 [0]),
-        .O(D[16]));
-  (* SOFT_HLUTNM = "soft_lutpair142" *) 
+        .O(\outaddr_reg[1]_0 [16]));
+  (* SOFT_HLUTNM = "soft_lutpair149" *) 
   LUT3 #(
     .INIT(8'h40)) 
     \target_cluster[17]_i_1 
        (.I0(raddr[0]),
         .I1(raddr[1]),
         .I2(\outbyte_reg[7]_0 [1]),
-        .O(D[17]));
-  (* SOFT_HLUTNM = "soft_lutpair143" *) 
+        .O(\outaddr_reg[1]_0 [17]));
+  (* SOFT_HLUTNM = "soft_lutpair155" *) 
   LUT3 #(
     .INIT(8'h40)) 
     \target_cluster[18]_i_1 
        (.I0(raddr[0]),
         .I1(raddr[1]),
         .I2(\outbyte_reg[7]_0 [2]),
-        .O(D[18]));
-  (* SOFT_HLUTNM = "soft_lutpair145" *) 
+        .O(\outaddr_reg[1]_0 [18]));
+  (* SOFT_HLUTNM = "soft_lutpair150" *) 
   LUT3 #(
     .INIT(8'h40)) 
     \target_cluster[19]_i_1 
        (.I0(raddr[0]),
         .I1(raddr[1]),
         .I2(\outbyte_reg[7]_0 [3]),
-        .O(D[19]));
-  (* SOFT_HLUTNM = "soft_lutpair150" *) 
+        .O(\outaddr_reg[1]_0 [19]));
+  (* SOFT_HLUTNM = "soft_lutpair141" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \target_cluster[1]_i_1 
        (.I0(raddr[1]),
         .I1(raddr[0]),
         .I2(\outbyte_reg[7]_0 [1]),
-        .O(D[1]));
-  (* SOFT_HLUTNM = "soft_lutpair144" *) 
+        .O(\outaddr_reg[1]_0 [1]));
+  (* SOFT_HLUTNM = "soft_lutpair152" *) 
   LUT3 #(
     .INIT(8'h40)) 
     \target_cluster[20]_i_1 
        (.I0(raddr[0]),
         .I1(raddr[1]),
         .I2(\outbyte_reg[7]_0 [4]),
-        .O(D[20]));
-  (* SOFT_HLUTNM = "soft_lutpair146" *) 
+        .O(\outaddr_reg[1]_0 [20]));
+  (* SOFT_HLUTNM = "soft_lutpair154" *) 
   LUT3 #(
     .INIT(8'h40)) 
     \target_cluster[21]_i_1 
        (.I0(raddr[0]),
         .I1(raddr[1]),
         .I2(\outbyte_reg[7]_0 [5]),
-        .O(D[21]));
-  (* SOFT_HLUTNM = "soft_lutpair140" *) 
+        .O(\outaddr_reg[1]_0 [21]));
+  (* SOFT_HLUTNM = "soft_lutpair151" *) 
   LUT3 #(
     .INIT(8'h40)) 
     \target_cluster[22]_i_1 
        (.I0(raddr[0]),
         .I1(raddr[1]),
         .I2(\outbyte_reg[7]_0 [6]),
-        .O(D[22]));
+        .O(\outaddr_reg[1]_0 [22]));
   LUT6 #(
     .INIT(64'h8000000000000000)) 
     \target_cluster[23]_i_1 
@@ -32057,48 +32136,48 @@ module design_1_top_system_0_1_sd_reader
         .I2(\filesystem_reg[0]_2 ),
         .I3(rvalid),
         .I4(\filesystem_reg[1]_1 ),
-        .I5(search_fat_reg_2),
+        .I5(search_fat_reg_1),
         .O(\filesystem_reg[0]_0 [2]));
-  (* SOFT_HLUTNM = "soft_lutpair141" *) 
+  (* SOFT_HLUTNM = "soft_lutpair153" *) 
   LUT3 #(
     .INIT(8'h40)) 
     \target_cluster[23]_i_2 
        (.I0(raddr[0]),
         .I1(raddr[1]),
         .I2(\outbyte_reg[7]_0 [7]),
-        .O(D[23]));
-  (* SOFT_HLUTNM = "soft_lutpair147" *) 
+        .O(\outaddr_reg[1]_0 [23]));
+  (* SOFT_HLUTNM = "soft_lutpair115" *) 
   LUT3 #(
     .INIT(8'h80)) 
     \target_cluster[24]_i_1 
        (.I0(raddr[1]),
         .I1(raddr[0]),
         .I2(\outbyte_reg[7]_0 [0]),
-        .O(D[24]));
-  (* SOFT_HLUTNM = "soft_lutpair142" *) 
+        .O(\outaddr_reg[1]_0 [24]));
+  (* SOFT_HLUTNM = "soft_lutpair141" *) 
   LUT3 #(
     .INIT(8'h80)) 
     \target_cluster[25]_i_1 
        (.I0(raddr[1]),
         .I1(raddr[0]),
         .I2(\outbyte_reg[7]_0 [1]),
-        .O(D[25]));
-  (* SOFT_HLUTNM = "soft_lutpair143" *) 
+        .O(\outaddr_reg[1]_0 [25]));
+  (* SOFT_HLUTNM = "soft_lutpair147" *) 
   LUT3 #(
     .INIT(8'h80)) 
     \target_cluster[26]_i_1 
        (.I0(raddr[1]),
         .I1(raddr[0]),
         .I2(\outbyte_reg[7]_0 [2]),
-        .O(D[26]));
-  (* SOFT_HLUTNM = "soft_lutpair145" *) 
+        .O(\outaddr_reg[1]_0 [26]));
+  (* SOFT_HLUTNM = "soft_lutpair142" *) 
   LUT3 #(
     .INIT(8'h80)) 
     \target_cluster[27]_i_1 
        (.I0(raddr[1]),
         .I1(raddr[0]),
         .I2(\outbyte_reg[7]_0 [3]),
-        .O(D[27]));
+        .O(\outaddr_reg[1]_0 [27]));
   (* SOFT_HLUTNM = "soft_lutpair144" *) 
   LUT3 #(
     .INIT(8'h80)) 
@@ -32106,7 +32185,7 @@ module design_1_top_system_0_1_sd_reader
        (.I0(raddr[1]),
         .I1(raddr[0]),
         .I2(\outbyte_reg[7]_0 [4]),
-        .O(D[28]));
+        .O(\outaddr_reg[1]_0 [28]));
   (* SOFT_HLUTNM = "soft_lutpair146" *) 
   LUT3 #(
     .INIT(8'h80)) 
@@ -32114,23 +32193,23 @@ module design_1_top_system_0_1_sd_reader
        (.I0(raddr[1]),
         .I1(raddr[0]),
         .I2(\outbyte_reg[7]_0 [5]),
-        .O(D[29]));
-  (* SOFT_HLUTNM = "soft_lutpair151" *) 
+        .O(\outaddr_reg[1]_0 [29]));
+  (* SOFT_HLUTNM = "soft_lutpair147" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \target_cluster[2]_i_1 
        (.I0(raddr[1]),
         .I1(raddr[0]),
         .I2(\outbyte_reg[7]_0 [2]),
-        .O(D[2]));
-  (* SOFT_HLUTNM = "soft_lutpair140" *) 
+        .O(\outaddr_reg[1]_0 [2]));
+  (* SOFT_HLUTNM = "soft_lutpair143" *) 
   LUT3 #(
     .INIT(8'h80)) 
     \target_cluster[30]_i_1 
        (.I0(raddr[1]),
         .I1(raddr[0]),
         .I2(\outbyte_reg[7]_0 [6]),
-        .O(D[30]));
+        .O(\outaddr_reg[1]_0 [30]));
   LUT6 #(
     .INIT(64'h8000000000000000)) 
     \target_cluster[31]_i_1 
@@ -32139,25 +32218,25 @@ module design_1_top_system_0_1_sd_reader
         .I2(\filesystem_reg[0]_2 ),
         .I3(rvalid),
         .I4(\filesystem_reg[1]_1 ),
-        .I5(search_fat_reg_2),
+        .I5(search_fat_reg_1),
         .O(\filesystem_reg[0]_0 [3]));
-  (* SOFT_HLUTNM = "soft_lutpair141" *) 
+  (* SOFT_HLUTNM = "soft_lutpair145" *) 
   LUT3 #(
     .INIT(8'h80)) 
     \target_cluster[31]_i_2 
        (.I0(raddr[1]),
         .I1(raddr[0]),
         .I2(\outbyte_reg[7]_0 [7]),
-        .O(D[31]));
+        .O(\outaddr_reg[1]_0 [31]));
   LUT6 #(
     .INIT(64'h2002000000002002)) 
     \target_cluster[31]_i_3 
        (.I0(\target_cluster[31]_i_4_n_0 ),
         .I1(\target_cluster[31]_i_5_n_0 ),
-        .I2(\target_cluster_fat16_reg[15] [0]),
-        .I3(raddr[2]),
-        .I4(\target_cluster_fat16_reg[15] [1]),
-        .I5(raddr[3]),
+        .I2(\target_cluster_fat16_reg[15] [2]),
+        .I3(raddr[4]),
+        .I4(\target_cluster_fat16_reg[15] [0]),
+        .I5(raddr[2]),
         .O(\target_cluster[31]_i_3_n_0 ));
   LUT6 #(
     .INIT(64'h9009000000009009)) 
@@ -32169,47 +32248,46 @@ module design_1_top_system_0_1_sd_reader
         .I4(\target_cluster_fat16_reg[15] [6]),
         .I5(raddr[8]),
         .O(\target_cluster[31]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair136" *) 
   LUT4 #(
     .INIT(16'h6FF6)) 
     \target_cluster[31]_i_5 
-       (.I0(\target_cluster_fat16_reg[15] [2]),
-        .I1(raddr[4]),
-        .I2(\target_cluster_fat16_reg[15] [4]),
-        .I3(raddr[6]),
+       (.I0(\target_cluster_fat16_reg[15] [4]),
+        .I1(raddr[6]),
+        .I2(\target_cluster_fat16_reg[15] [1]),
+        .I3(raddr[3]),
         .O(\target_cluster[31]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair153" *) 
+  (* SOFT_HLUTNM = "soft_lutpair142" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \target_cluster[3]_i_1 
        (.I0(raddr[1]),
         .I1(raddr[0]),
         .I2(\outbyte_reg[7]_0 [3]),
-        .O(D[3]));
-  (* SOFT_HLUTNM = "soft_lutpair152" *) 
+        .O(\outaddr_reg[1]_0 [3]));
+  (* SOFT_HLUTNM = "soft_lutpair144" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \target_cluster[4]_i_1 
        (.I0(raddr[1]),
         .I1(raddr[0]),
         .I2(\outbyte_reg[7]_0 [4]),
-        .O(D[4]));
-  (* SOFT_HLUTNM = "soft_lutpair154" *) 
+        .O(\outaddr_reg[1]_0 [4]));
+  (* SOFT_HLUTNM = "soft_lutpair146" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \target_cluster[5]_i_1 
        (.I0(raddr[1]),
         .I1(raddr[0]),
         .I2(\outbyte_reg[7]_0 [5]),
-        .O(D[5]));
-  (* SOFT_HLUTNM = "soft_lutpair148" *) 
+        .O(\outaddr_reg[1]_0 [5]));
+  (* SOFT_HLUTNM = "soft_lutpair143" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \target_cluster[6]_i_1 
        (.I0(raddr[1]),
         .I1(raddr[0]),
         .I2(\outbyte_reg[7]_0 [6]),
-        .O(D[6]));
+        .O(\outaddr_reg[1]_0 [6]));
   LUT6 #(
     .INIT(64'h8000000000000000)) 
     \target_cluster[7]_i_1 
@@ -32218,42 +32296,42 @@ module design_1_top_system_0_1_sd_reader
         .I2(\filesystem_reg[0]_2 ),
         .I3(rvalid),
         .I4(\filesystem_reg[1]_1 ),
-        .I5(search_fat_reg_2),
+        .I5(search_fat_reg_1),
         .O(\filesystem_reg[0]_0 [0]));
-  (* SOFT_HLUTNM = "soft_lutpair149" *) 
+  (* SOFT_HLUTNM = "soft_lutpair145" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \target_cluster[7]_i_2 
        (.I0(raddr[1]),
         .I1(raddr[0]),
         .I2(\outbyte_reg[7]_0 [7]),
-        .O(D[7]));
-  (* SOFT_HLUTNM = "soft_lutpair182" *) 
+        .O(\outaddr_reg[1]_0 [7]));
+  (* SOFT_HLUTNM = "soft_lutpair175" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \target_cluster[8]_i_1 
        (.I0(\outbyte_reg[7]_0 [0]),
         .I1(raddr[0]),
         .I2(raddr[1]),
-        .O(D[8]));
-  (* SOFT_HLUTNM = "soft_lutpair150" *) 
+        .O(\outaddr_reg[1]_0 [8]));
+  (* SOFT_HLUTNM = "soft_lutpair149" *) 
   LUT3 #(
     .INIT(8'h08)) 
     \target_cluster[9]_i_1 
        (.I0(\outbyte_reg[7]_0 [1]),
         .I1(raddr[0]),
         .I2(raddr[1]),
-        .O(D[9]));
+        .O(\outaddr_reg[1]_0 [9]));
   LUT6 #(
-    .INIT(64'h0800000000000000)) 
+    .INIT(64'h0000800000000000)) 
     \target_cluster_fat16[15]_i_1 
        (.I0(\target_cluster_fat16[15]_i_2_n_0 ),
-        .I1(search_fat_reg_2),
-        .I2(\filesystem_reg[0]_2 ),
-        .I3(\filesystem_reg[1]_1 ),
-        .I4(rvalid),
-        .I5(raddr[0]),
-        .O(search_fat_reg[1]));
+        .I1(rvalid),
+        .I2(raddr[0]),
+        .I3(search_fat_reg_1),
+        .I4(\filesystem_reg[0]_2 ),
+        .I5(\filesystem_reg[1]_1 ),
+        .O(outen_reg_1[1]));
   LUT6 #(
     .INIT(64'h0000000000009009)) 
     \target_cluster_fat16[15]_i_2 
@@ -32269,20 +32347,20 @@ module design_1_top_system_0_1_sd_reader
     \target_cluster_fat16[15]_i_3 
        (.I0(\target_cluster_fat16_reg[15] [0]),
         .I1(raddr[1]),
-        .I2(raddr[3]),
-        .I3(\target_cluster_fat16_reg[15] [2]),
-        .I4(raddr[2]),
-        .I5(\target_cluster_fat16_reg[15] [1]),
+        .I2(raddr[2]),
+        .I3(\target_cluster_fat16_reg[15] [1]),
+        .I4(raddr[3]),
+        .I5(\target_cluster_fat16_reg[15] [2]),
         .O(\target_cluster_fat16[15]_i_3_n_0 ));
   LUT6 #(
     .INIT(64'h6FF6FFFFFFFF6FF6)) 
     \target_cluster_fat16[15]_i_4 
        (.I0(\target_cluster_fat16_reg[15] [3]),
         .I1(raddr[4]),
-        .I2(raddr[5]),
-        .I3(\target_cluster_fat16_reg[15] [4]),
-        .I4(raddr[6]),
-        .I5(\target_cluster_fat16_reg[15] [5]),
+        .I2(raddr[6]),
+        .I3(\target_cluster_fat16_reg[15] [5]),
+        .I4(raddr[5]),
+        .I5(\target_cluster_fat16_reg[15] [4]),
         .O(\target_cluster_fat16[15]_i_4_n_0 ));
   LUT6 #(
     .INIT(64'h0000080000000000)) 
@@ -32290,39 +32368,47 @@ module design_1_top_system_0_1_sd_reader
        (.I0(\target_cluster_fat16[15]_i_2_n_0 ),
         .I1(rvalid),
         .I2(raddr[0]),
-        .I3(search_fat_reg_2),
+        .I3(search_fat_reg_1),
         .I4(\filesystem_reg[0]_2 ),
         .I5(\filesystem_reg[1]_1 ),
-        .O(search_fat_reg[0]));
+        .O(outen_reg_1[0]));
   design_1_top_system_0_1_sdcmd_ctrl u_sdcmd_ctrl
        (.D({precnt1_out[11],precnt1_out[9],precnt1_out[7],precnt1_out[5],u_sdcmd_ctrl_n_10}),
-        .E(u_sdcmd_ctrl_n_3),
-        .\FSM_onehot_sddat_stat_reg[0] (u_sdcmd_ctrl_n_5),
-        .\FSM_onehot_sddat_stat_reg[4] (u_sdcmd_ctrl_n_100),
+        .E(u_sdcmd_ctrl_n_2),
+        .\FSM_onehot_sddat_stat_reg[0] (u_sdcmd_ctrl_n_4),
+        .\FSM_onehot_sddat_stat_reg[4] (u_sdcmd_ctrl_n_84),
         .\FSM_onehot_sddat_stat_reg[4]_0 (\FSM_onehot_sddat_stat[4]_i_3_n_0 ),
         .\FSM_onehot_sddat_stat_reg[4]_1 (\FSM_onehot_sddat_stat[4]_i_4_n_0 ),
         .I(I),
         .Q({start,\FSM_onehot_sddat_stat_reg_n_0_[3] ,\FSM_onehot_sddat_stat_reg_n_0_[2] ,\FSM_onehot_sddat_stat_reg_n_0_[1] ,\FSM_onehot_sddat_stat_reg_n_0_[0] }),
         .T(T),
+        .\arg_reg[10] (\arg[15]_i_2_n_0 ),
         .\arg_reg[16] (\arg[31]_i_3_n_0 ),
         .\arg_reg[1] (\arg[8]_i_2_n_0 ),
-        .\arg_reg[31] (rsectoraddr__0),
-        .\arg_reg[31]_0 (rca__0),
+        .\arg_reg[30] ({_arg[30],_arg[20],_arg[8:7],_arg[5],_arg[3],_arg[1]}),
+        .\arg_reg[31] ({\arg_reg[31]_0 [31],\arg_reg[31]_0 [29:0]}),
+        .\arg_reg[31]_0 (rsectoraddr__0),
+        .\arg_reg[31]_1 (rca__0),
         .\arg_reg[9] (\arg[9]_i_2_n_0 ),
-        .busy_reg_0(u_sdcmd_ctrl_n_11),
-        .busy_reg_1(u_sdcmd_ctrl_n_13),
+        .\arg_reg[9]_0 (\arg[9]_i_4_n_0 ),
+        .busy_reg_0(u_sdcmd_ctrl_n_5),
+        .busy_reg_1(u_sdcmd_ctrl_n_12),
         .busy_reg_2(start_reg_n_0),
+        .\card_type_reg[0] (\card_type_reg[0]_0 ),
+        .\card_type_reg[1] (Q),
+        .\card_type_reg[1]_0 (\card_type_reg[1]_0 ),
         .clk_sd(clk_sd),
         .clkdiv__0({clkdiv__0[6],clkdiv__0[2]}),
         .\clkdiv_reg[6] (\sdcmd_stat[3]_i_4_n_0 ),
         .\clkdiv_reg[6]_0 (\clkdiv[6]_i_2_n_0 ),
         .cmd8_cnt__0(cmd8_cnt__0),
-        .\cmd8_cnt_reg[0] (u_sdcmd_ctrl_n_17),
-        .\cmd8_cnt_reg[0]_0 (u_sdcmd_ctrl_n_18),
-        .\cmd8_cnt_reg[1] (u_sdcmd_ctrl_n_16),
+        .\cmd8_cnt_reg[0] (u_sdcmd_ctrl_n_33),
+        .\cmd8_cnt_reg[0]_0 (u_sdcmd_ctrl_n_34),
+        .\cmd8_cnt_reg[1] (u_sdcmd_ctrl_n_32),
         .\cnt1_reg[11]_0 ({precnt[11],precnt[9],precnt[7],precnt[5:4]}),
-        .done_reg_0(u_sdcmd_ctrl_n_14),
-        .done_reg_1(u_sdcmd_ctrl_n_15),
+        .done_reg_0(u_sdcmd_ctrl_n_13),
+        .done_reg_1(u_sdcmd_ctrl_n_35),
+        .done_reg_2(u_sdcmd_ctrl_n_98),
         .\outaddr_reg[8] ({\ridx_reg_n_0_[11] ,\ridx_reg_n_0_[10] ,\ridx_reg_n_0_[9] ,\ridx_reg_n_0_[8] ,\ridx_reg_n_0_[7] ,\ridx_reg_n_0_[6] ,\ridx_reg_n_0_[5] ,\ridx_reg_n_0_[4] ,\ridx_reg_n_0_[3] ,\ridx_reg_n_0_[2] ,\ridx_reg_n_0_[1] ,\ridx_reg_n_0_[0] }),
         .\outbyte_reg[0] (\outbyte_reg[7]_0 [0]),
         .\outbyte_reg[1] (\outbyte_reg[7]_0 [1]),
@@ -32335,58 +32421,57 @@ module design_1_top_system_0_1_sd_reader
         .\outbyte_reg[7]_0 (\outbyte_reg[7]_0 [7]),
         .outen2_out(outen2_out),
         .pll_locked(pll_locked),
-        .\rca_reg[0] (Q),
-        .\read_sector_no_reg[22] ({u_sdcmd_ctrl_n_29,u_sdcmd_ctrl_n_30,u_sdcmd_ctrl_n_31,u_sdcmd_ctrl_n_32,u_sdcmd_ctrl_n_33,u_sdcmd_ctrl_n_34,u_sdcmd_ctrl_n_35,u_sdcmd_ctrl_n_36,u_sdcmd_ctrl_n_37,u_sdcmd_ctrl_n_38,u_sdcmd_ctrl_n_39,u_sdcmd_ctrl_n_40,u_sdcmd_ctrl_n_41,u_sdcmd_ctrl_n_42,u_sdcmd_ctrl_n_43,u_sdcmd_ctrl_n_44,u_sdcmd_ctrl_n_45,u_sdcmd_ctrl_n_46,u_sdcmd_ctrl_n_47,u_sdcmd_ctrl_n_48,u_sdcmd_ctrl_n_49,u_sdcmd_ctrl_n_50,u_sdcmd_ctrl_n_51,u_sdcmd_ctrl_n_52,u_sdcmd_ctrl_n_53,u_sdcmd_ctrl_n_54,u_sdcmd_ctrl_n_55,u_sdcmd_ctrl_n_56,u_sdcmd_ctrl_n_57,u_sdcmd_ctrl_n_58,u_sdcmd_ctrl_n_59,u_sdcmd_ctrl_n_60}),
-        .\read_sector_no_reg[22]_0 (_arg),
+        .\precnt_reg[7] (\precnt[7]_i_2_n_0 ),
+        .\read_sector_no_reg[22] ({u_sdcmd_ctrl_n_45,u_sdcmd_ctrl_n_46,u_sdcmd_ctrl_n_47,u_sdcmd_ctrl_n_48,u_sdcmd_ctrl_n_49,u_sdcmd_ctrl_n_50,u_sdcmd_ctrl_n_51,u_sdcmd_ctrl_n_52,u_sdcmd_ctrl_n_53,u_sdcmd_ctrl_n_54,u_sdcmd_ctrl_n_55,u_sdcmd_ctrl_n_56,u_sdcmd_ctrl_n_57,u_sdcmd_ctrl_n_58,u_sdcmd_ctrl_n_59,u_sdcmd_ctrl_n_60,u_sdcmd_ctrl_n_61,u_sdcmd_ctrl_n_62,u_sdcmd_ctrl_n_63,u_sdcmd_ctrl_n_64,u_sdcmd_ctrl_n_65,u_sdcmd_ctrl_n_66,u_sdcmd_ctrl_n_67,u_sdcmd_ctrl_n_68,u_sdcmd_ctrl_n_69,u_sdcmd_ctrl_n_70,u_sdcmd_ctrl_n_71,u_sdcmd_ctrl_n_72,u_sdcmd_ctrl_n_73,u_sdcmd_ctrl_n_74,u_sdcmd_ctrl_n_75,u_sdcmd_ctrl_n_76}),
         .\req_arg_reg[31]_0 ({\arg_reg_n_0_[31] ,\arg_reg_n_0_[30] ,\arg_reg_n_0_[29] ,\arg_reg_n_0_[28] ,\arg_reg_n_0_[27] ,\arg_reg_n_0_[26] ,\arg_reg_n_0_[25] ,\arg_reg_n_0_[24] ,\arg_reg_n_0_[23] ,\arg_reg_n_0_[22] ,\arg_reg_n_0_[21] ,\arg_reg_n_0_[20] ,\arg_reg_n_0_[19] ,\arg_reg_n_0_[18] ,\arg_reg_n_0_[17] ,\arg_reg_n_0_[16] ,\arg_reg_n_0_[15] ,\arg_reg_n_0_[14] ,\arg_reg_n_0_[13] ,\arg_reg_n_0_[12] ,\arg_reg_n_0_[11] ,\arg_reg_n_0_[10] ,\arg_reg_n_0_[9] ,\arg_reg_n_0_[8] ,\arg_reg_n_0_[7] ,\arg_reg_n_0_[6] ,\arg_reg_n_0_[5] ,\arg_reg_n_0_[4] ,\arg_reg_n_0_[3] ,\arg_reg_n_0_[2] ,\arg_reg_n_0_[1] ,\arg_reg_n_0_[0] }),
         .\req_cmd_reg[5]_0 (cmd),
         .reset_n(reset_n),
         .reset_n_0(reset_n_0),
-        .\resp_arg_reg[31]_0 ({p_0_in10_in,p_1_in}),
-        .\ridx_reg[11] ({u_sdcmd_ctrl_n_101,u_sdcmd_ctrl_n_102,u_sdcmd_ctrl_n_103,u_sdcmd_ctrl_n_104,u_sdcmd_ctrl_n_105,u_sdcmd_ctrl_n_106,u_sdcmd_ctrl_n_107,u_sdcmd_ctrl_n_108,u_sdcmd_ctrl_n_109}),
+        .\resp_arg_reg[30]_0 (u_sdcmd_ctrl_n_14),
+        .\resp_arg_reg[31]_0 ({p_0_in10_in,p_0_in,p_1_in}),
+        .\ridx_reg[11] ({u_sdcmd_ctrl_n_85,u_sdcmd_ctrl_n_86,u_sdcmd_ctrl_n_87,u_sdcmd_ctrl_n_88,u_sdcmd_ctrl_n_89,u_sdcmd_ctrl_n_90,u_sdcmd_ctrl_n_91,u_sdcmd_ctrl_n_92,u_sdcmd_ctrl_n_93}),
         .\rsectoraddr_reg[31] (\rsectoraddr_reg[31]_0 ),
-        .\rsectoraddr_reg[31]_0 (\rsectoraddr_reg[31]_1 ),
         .sd_cmd_in(sd_cmd_in),
         .sd_dat0(sd_dat0),
-        .sd_dat0_0(u_sdcmd_ctrl_n_19),
-        .sd_dat0_1(u_sdcmd_ctrl_n_20),
-        .sd_dat0_2(u_sdcmd_ctrl_n_21),
-        .sd_dat0_3(u_sdcmd_ctrl_n_22),
-        .sd_dat0_4(u_sdcmd_ctrl_n_23),
-        .sd_dat0_5(u_sdcmd_ctrl_n_24),
-        .sd_dat0_6(u_sdcmd_ctrl_n_25),
-        .sd_dat0_7(u_sdcmd_ctrl_n_26),
+        .sd_dat0_0(u_sdcmd_ctrl_n_36),
+        .sd_dat0_1(u_sdcmd_ctrl_n_37),
+        .sd_dat0_2(u_sdcmd_ctrl_n_38),
+        .sd_dat0_3(u_sdcmd_ctrl_n_39),
+        .sd_dat0_4(u_sdcmd_ctrl_n_40),
+        .sd_dat0_5(u_sdcmd_ctrl_n_41),
+        .sd_dat0_6(u_sdcmd_ctrl_n_42),
+        .sd_dat0_7(u_sdcmd_ctrl_n_43),
         .sdclk_reg_0(sdclk_reg),
         .sdclkl(sdclkl),
-        .\sdcmd_stat_reg[0] ({u_sdcmd_ctrl_n_110,u_sdcmd_ctrl_n_111,u_sdcmd_ctrl_n_112,u_sdcmd_ctrl_n_113}),
-        .\sdcmd_stat_reg[0]_0 (\sdcmd_stat[3]_i_5_n_0 ),
-        .\sdcmd_stat_reg[1] (u_sdcmd_ctrl_n_28),
-        .\sdcmd_stat_reg[1]_0 ({u_sdcmd_ctrl_n_93,u_sdcmd_ctrl_n_94,u_sdcmd_ctrl_n_95,u_sdcmd_ctrl_n_96,u_sdcmd_ctrl_n_97,u_sdcmd_ctrl_n_98}),
-        .\sdcmd_stat_reg[2] (\sdcmd_stat[2]_i_3_n_0 ),
-        .\sdcmd_stat_reg[3] (u_sdcmd_ctrl_n_99),
-        .sdv1_maybe_reg(sdv1_maybe_reg_0),
-        .start_reg(start_i_2_n_0),
-        .start_reg_0(\arg[30]_i_4_n_0 ),
-        .timeout_reg_0(card_type));
+        .\sdcmd_stat_reg[0] (\sdcmd_stat[3]_i_5_n_0 ),
+        .\sdcmd_stat_reg[1] ({u_sdcmd_ctrl_n_77,u_sdcmd_ctrl_n_78,u_sdcmd_ctrl_n_79,u_sdcmd_ctrl_n_80,u_sdcmd_ctrl_n_81,u_sdcmd_ctrl_n_82}),
+        .\sdcmd_stat_reg[2] ({u_sdcmd_ctrl_n_94,u_sdcmd_ctrl_n_95,u_sdcmd_ctrl_n_96,u_sdcmd_ctrl_n_97}),
+        .\sdcmd_stat_reg[2]_0 (\sdcmd_stat[2]_i_2_n_0 ),
+        .\sdcmd_stat_reg[3] (u_sdcmd_ctrl_n_83),
+        .sdv1_maybe(sdv1_maybe),
+        .sdv1_maybe_reg(u_sdcmd_ctrl_n_31),
+        .start_reg(start_i_2_n_0));
 endmodule
 
 (* ORIG_REF_NAME = "sdcmd_ctrl" *) 
 module design_1_top_system_0_1_sdcmd_ctrl
    (reset_n_0,
-    timeout_reg_0,
     I,
     E,
     sdclk_reg_0,
     \FSM_onehot_sddat_stat_reg[0] ,
-    D,
     busy_reg_0,
+    D,
     T,
     busy_reg_1,
     done_reg_0,
-    done_reg_1,
+    \resp_arg_reg[30]_0 ,
+    \resp_arg_reg[31]_0 ,
+    sdv1_maybe_reg,
     \cmd8_cnt_reg[1] ,
     \cmd8_cnt_reg[0] ,
     \cmd8_cnt_reg[0]_0 ,
+    done_reg_1,
     sd_dat0_0,
     sd_dat0_1,
     sd_dat0_2,
@@ -32396,15 +32481,13 @@ module design_1_top_system_0_1_sdcmd_ctrl
     sd_dat0_6,
     sd_dat0_7,
     outen2_out,
-    \sdcmd_stat_reg[1] ,
     \read_sector_no_reg[22] ,
-    \read_sector_no_reg[22]_0 ,
-    \sdcmd_stat_reg[1]_0 ,
+    \sdcmd_stat_reg[1] ,
     \sdcmd_stat_reg[3] ,
     \FSM_onehot_sddat_stat_reg[4] ,
     \ridx_reg[11] ,
-    \sdcmd_stat_reg[0] ,
-    \resp_arg_reg[31]_0 ,
+    \sdcmd_stat_reg[2] ,
+    done_reg_2,
     clk_sd,
     sd_cmd_in,
     Q,
@@ -32412,13 +32495,15 @@ module design_1_top_system_0_1_sdcmd_ctrl
     \outbyte_reg[7] ,
     \FSM_onehot_sddat_stat_reg[4]_0 ,
     \FSM_onehot_sddat_stat_reg[4]_1 ,
-    \rca_reg[0] ,
+    \card_type_reg[1] ,
     \rsectoraddr_reg[31] ,
     \clkdiv_reg[6] ,
     \clkdiv_reg[6]_0 ,
     clkdiv__0,
+    sdv1_maybe,
+    \card_type_reg[0] ,
+    \card_type_reg[1]_0 ,
     cmd8_cnt__0,
-    sdv1_maybe_reg,
     sd_dat0,
     \outaddr_reg[8] ,
     \outbyte_reg[7]_0 ,
@@ -32429,37 +32514,42 @@ module design_1_top_system_0_1_sdcmd_ctrl
     \outbyte_reg[2] ,
     \outbyte_reg[1] ,
     \outbyte_reg[0] ,
-    \rsectoraddr_reg[31]_0 ,
     \arg_reg[31] ,
+    \arg_reg[31]_0 ,
+    \arg_reg[30] ,
     \arg_reg[1] ,
     \arg_reg[9] ,
+    \arg_reg[9]_0 ,
+    \arg_reg[10] ,
     \arg_reg[16] ,
-    \arg_reg[31]_0 ,
+    \arg_reg[31]_1 ,
     start_reg,
-    start_reg_0,
-    \sdcmd_stat_reg[0]_0 ,
+    \precnt_reg[7] ,
+    \sdcmd_stat_reg[0] ,
     \cnt1_reg[11]_0 ,
-    \sdcmd_stat_reg[2] ,
+    \sdcmd_stat_reg[2]_0 ,
     reset_n,
     pll_locked,
     busy_reg_2,
     \req_arg_reg[31]_0 ,
     \req_cmd_reg[5]_0 );
   output reset_n_0;
-  output timeout_reg_0;
   output I;
   output [0:0]E;
   output sdclk_reg_0;
   output [0:0]\FSM_onehot_sddat_stat_reg[0] ;
-  output [4:0]D;
   output busy_reg_0;
+  output [4:0]D;
   output T;
   output busy_reg_1;
   output done_reg_0;
-  output done_reg_1;
+  output \resp_arg_reg[30]_0 ;
+  output [15:0]\resp_arg_reg[31]_0 ;
+  output sdv1_maybe_reg;
   output \cmd8_cnt_reg[1] ;
   output \cmd8_cnt_reg[0] ;
   output \cmd8_cnt_reg[0]_0 ;
+  output done_reg_1;
   output sd_dat0_0;
   output sd_dat0_1;
   output sd_dat0_2;
@@ -32469,15 +32559,13 @@ module design_1_top_system_0_1_sdcmd_ctrl
   output sd_dat0_6;
   output sd_dat0_7;
   output outen2_out;
-  output [0:0]\sdcmd_stat_reg[1] ;
   output [31:0]\read_sector_no_reg[22] ;
-  output [31:0]\read_sector_no_reg[22]_0 ;
-  output [5:0]\sdcmd_stat_reg[1]_0 ;
+  output [5:0]\sdcmd_stat_reg[1] ;
   output \sdcmd_stat_reg[3] ;
   output [0:0]\FSM_onehot_sddat_stat_reg[4] ;
   output [8:0]\ridx_reg[11] ;
-  output [3:0]\sdcmd_stat_reg[0] ;
-  output [15:0]\resp_arg_reg[31]_0 ;
+  output [3:0]\sdcmd_stat_reg[2] ;
+  output [0:0]done_reg_2;
   input clk_sd;
   input sd_cmd_in;
   input [4:0]Q;
@@ -32485,13 +32573,15 @@ module design_1_top_system_0_1_sdcmd_ctrl
   input \outbyte_reg[7] ;
   input \FSM_onehot_sddat_stat_reg[4]_0 ;
   input \FSM_onehot_sddat_stat_reg[4]_1 ;
-  input [3:0]\rca_reg[0] ;
+  input [3:0]\card_type_reg[1] ;
   input \rsectoraddr_reg[31] ;
   input \clkdiv_reg[6] ;
   input \clkdiv_reg[6]_0 ;
   input [1:0]clkdiv__0;
+  input sdv1_maybe;
+  input \card_type_reg[0] ;
+  input \card_type_reg[1]_0 ;
   input [2:0]cmd8_cnt__0;
-  input sdv1_maybe_reg;
   input sd_dat0;
   input [11:0]\outaddr_reg[8] ;
   input \outbyte_reg[7]_0 ;
@@ -32502,17 +32592,20 @@ module design_1_top_system_0_1_sdcmd_ctrl
   input \outbyte_reg[2] ;
   input \outbyte_reg[1] ;
   input \outbyte_reg[0] ;
-  input [31:0]\rsectoraddr_reg[31]_0 ;
-  input [31:0]\arg_reg[31] ;
+  input [30:0]\arg_reg[31] ;
+  input [31:0]\arg_reg[31]_0 ;
+  input [6:0]\arg_reg[30] ;
   input \arg_reg[1] ;
   input \arg_reg[9] ;
+  input \arg_reg[9]_0 ;
+  input \arg_reg[10] ;
   input \arg_reg[16] ;
-  input [15:0]\arg_reg[31]_0 ;
+  input [15:0]\arg_reg[31]_1 ;
   input start_reg;
-  input start_reg_0;
-  input \sdcmd_stat_reg[0]_0 ;
+  input \precnt_reg[7] ;
+  input \sdcmd_stat_reg[0] ;
   input [4:0]\cnt1_reg[11]_0 ;
-  input \sdcmd_stat_reg[2] ;
+  input \sdcmd_stat_reg[2]_0 ;
   input reset_n;
   input pll_locked;
   input busy_reg_2;
@@ -32528,7 +32621,6 @@ module design_1_top_system_0_1_sdcmd_ctrl
   wire I;
   wire [4:0]Q;
   wire T;
-  wire \arg[15]_i_2_n_0 ;
   wire \arg[16]_i_2_n_0 ;
   wire \arg[17]_i_2_n_0 ;
   wire \arg[18]_i_2_n_0 ;
@@ -32549,17 +32641,25 @@ module design_1_top_system_0_1_sdcmd_ctrl
   wire \arg[31]_i_4_n_0 ;
   wire \arg[8]_i_3_n_0 ;
   wire \arg[9]_i_3_n_0 ;
-  wire \arg[9]_i_4_n_0 ;
+  wire \arg_reg[10] ;
   wire \arg_reg[16] ;
   wire \arg_reg[1] ;
-  wire [31:0]\arg_reg[31] ;
-  wire [15:0]\arg_reg[31]_0 ;
+  wire [6:0]\arg_reg[30] ;
+  wire [30:0]\arg_reg[31] ;
+  wire [31:0]\arg_reg[31]_0 ;
+  wire [15:0]\arg_reg[31]_1 ;
   wire \arg_reg[9] ;
+  wire \arg_reg[9]_0 ;
   wire busy;
   wire busy_i_1_n_0;
   wire busy_reg_0;
   wire busy_reg_1;
   wire busy_reg_2;
+  wire \card_type[0]_i_2_n_0 ;
+  wire \card_type[1]_i_2_n_0 ;
+  wire \card_type_reg[0] ;
+  wire [3:0]\card_type_reg[1] ;
+  wire \card_type_reg[1]_0 ;
   wire clk_sd;
   wire clkcnt2;
   wire clkcnt2_carry__0_i_1_n_0;
@@ -32653,6 +32753,8 @@ module design_1_top_system_0_1_sdcmd_ctrl
   wire \clkdivr[2]_i_1_n_0 ;
   wire \clkdivr[7]_i_1_n_0 ;
   wire clkdivr_0;
+  wire \cmd8_cnt[2]_i_2_n_0 ;
+  wire \cmd8_cnt[2]_i_3_n_0 ;
   wire [2:0]cmd8_cnt__0;
   wire \cmd8_cnt_reg[0] ;
   wire \cmd8_cnt_reg[0]_0 ;
@@ -32754,17 +32856,22 @@ module design_1_top_system_0_1_sdcmd_ctrl
   wire \cnt3[6]_i_1_n_0 ;
   wire \cnt3[8]_i_1_n_0 ;
   wire \cnt3[9]_i_1_n_0 ;
+  wire \cnt4[2]_i_1_n_0 ;
+  wire \cnt4[5]_i_1_n_0 ;
+  wire \cnt4[5]_i_2_n_0 ;
+  wire \cnt4[6]_i_1_n_0 ;
   wire \cnt4[7]_i_1_n_0 ;
   wire \cnt4[7]_i_2_n_0 ;
-  wire \cnt4[7]_i_3_n_0 ;
   wire [7:0]cnt4_reg;
   wire done;
   wire done13_out;
   wire done_i_2_n_0;
   wire done_i_3_n_0;
   wire done_i_4_n_0;
+  wire done_i_5_n_0;
   wire done_reg_0;
   wire done_reg_1;
+  wire [0:0]done_reg_2;
   wire [11:0]\outaddr_reg[8] ;
   wire \outbyte[2]_i_2_n_0 ;
   wire \outbyte[4]_i_2_n_0 ;
@@ -32781,15 +32888,14 @@ module design_1_top_system_0_1_sdcmd_ctrl
   wire \outbyte_reg[7]_0 ;
   wire outen2_out;
   wire outen_i_2_n_0;
-  wire [3:0]p_0_in;
-  wire [6:0]p_0_in__0;
+  wire [3:0]p_0_in__0;
+  wire [4:0]p_0_in__1;
   wire p_18_in;
   wire [15:1]p_1_in__0;
   wire pll_locked;
-  wire \precnt[7]_i_2_n_0 ;
-  wire [3:0]\rca_reg[0] ;
+  wire \precnt_reg[7] ;
+  wire \rca[15]_i_2_n_0 ;
   wire [31:0]\read_sector_no_reg[22] ;
-  wire [31:0]\read_sector_no_reg[22]_0 ;
   wire [31:0]\req_arg_reg[31]_0 ;
   wire [5:0]\req_cmd_reg[5]_0 ;
   wire \req_crc[0]_i_1_n_0 ;
@@ -32831,6 +32937,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
   wire \resp_arg[31]_i_2_n_0 ;
   wire \resp_arg[31]_i_3_n_0 ;
   wire \resp_arg[31]_i_4_n_0 ;
+  wire \resp_arg_reg[30]_0 ;
   wire [15:0]\resp_arg_reg[31]_0 ;
   wire \resp_arg_reg_n_0_[0] ;
   wire \resp_arg_reg_n_0_[10] ;
@@ -32852,7 +32959,6 @@ module design_1_top_system_0_1_sdcmd_ctrl
   wire resp_st_reg_n_0;
   wire [8:0]\ridx_reg[11] ;
   wire \rsectoraddr_reg[31] ;
-  wire [31:0]\rsectoraddr_reg[31]_0 ;
   wire sd_cmd_in;
   wire sd_cmd_oe;
   wire sd_dat0;
@@ -32868,25 +32974,23 @@ module design_1_top_system_0_1_sdcmd_ctrl
   wire sdclk_reg_0;
   wire sdclkl;
   wire \sdcmd_stat[1]_i_2_n_0 ;
-  wire \sdcmd_stat[2]_i_2_n_0 ;
+  wire \sdcmd_stat[2]_i_3_n_0 ;
   wire \sdcmd_stat[3]_i_3_n_0 ;
   wire \sdcmd_stat[3]_i_6_n_0 ;
-  wire [3:0]\sdcmd_stat_reg[0] ;
-  wire \sdcmd_stat_reg[0]_0 ;
-  wire [0:0]\sdcmd_stat_reg[1] ;
-  wire [5:0]\sdcmd_stat_reg[1]_0 ;
-  wire \sdcmd_stat_reg[2] ;
+  wire \sdcmd_stat[3]_i_7_n_0 ;
+  wire \sdcmd_stat[3]_i_8_n_0 ;
+  wire \sdcmd_stat_reg[0] ;
+  wire [5:0]\sdcmd_stat_reg[1] ;
+  wire [3:0]\sdcmd_stat_reg[2] ;
+  wire \sdcmd_stat_reg[2]_0 ;
   wire \sdcmd_stat_reg[3] ;
   wire sdcmdin;
   wire sdcmdoe;
   wire sdcmdoe_i_1_n_0;
   wire sdcmdout_i_1_n_0;
-  wire sdv1_maybe_i_2_n_0;
-  wire sdv1_maybe_i_3_n_0;
-  wire sdv1_maybe_i_4_n_0;
+  wire sdv1_maybe;
   wire sdv1_maybe_reg;
   wire start_reg;
-  wire start_reg_0;
   wire syntaxe;
   wire syntaxe1_carry__0_i_1_n_0;
   wire syntaxe1_carry__0_i_2_n_0;
@@ -32917,14 +33021,13 @@ module design_1_top_system_0_1_sdcmd_ctrl
   wire syntaxe_i_3_n_0;
   wire syntaxe_i_4_n_0;
   wire syntaxe_i_5_n_0;
+  wire timeout;
   wire timeout_i_1_n_0;
   wire timeout_i_2_n_0;
   wire timeout_i_3_n_0;
   wire timeout_i_4_n_0;
   wire timeout_i_5_n_0;
   wire timeout_i_6_n_0;
-  wire timeout_i_7_n_0;
-  wire timeout_reg_0;
   wire [3:0]NLW_clkcnt2_carry_O_UNCONNECTED;
   wire [3:0]NLW_clkcnt2_carry__0_O_UNCONNECTED;
   wire [3:1]NLW_clkcnt2_carry__1_CO_UNCONNECTED;
@@ -32954,538 +33057,521 @@ module design_1_top_system_0_1_sdcmd_ctrl
   LUT6 #(
     .INIT(64'h8000FFFF80008000)) 
     \arg[0]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [0]),
-        .I1(sdv1_maybe_reg),
-        .I2(timeout_reg_0),
+       (.I0(\arg_reg[31] [0]),
+        .I1(\card_type_reg[1]_0 ),
+        .I2(\card_type_reg[0] ),
         .I3(busy_reg_0),
         .I4(\arg[30]_i_2_n_0 ),
-        .I5(\arg_reg[31] [0]),
+        .I5(\arg_reg[31]_0 [0]),
         .O(\read_sector_no_reg[22] [0]));
   LUT6 #(
     .INIT(64'hB800FFFFB800B800)) 
     \arg[10]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [1]),
-        .I1(\arg[15]_i_2_n_0 ),
-        .I2(\rsectoraddr_reg[31]_0 [10]),
+       (.I0(\arg_reg[31] [1]),
+        .I1(\arg_reg[10] ),
+        .I2(\arg_reg[31] [10]),
         .I3(busy_reg_0),
         .I4(\arg[30]_i_2_n_0 ),
-        .I5(\arg_reg[31] [10]),
+        .I5(\arg_reg[31]_0 [10]),
         .O(\read_sector_no_reg[22] [10]));
   LUT6 #(
     .INIT(64'hB800FFFFB800B800)) 
     \arg[11]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [2]),
-        .I1(\arg[15]_i_2_n_0 ),
-        .I2(\rsectoraddr_reg[31]_0 [11]),
+       (.I0(\arg_reg[31] [2]),
+        .I1(\arg_reg[10] ),
+        .I2(\arg_reg[31] [11]),
         .I3(busy_reg_0),
         .I4(\arg[30]_i_2_n_0 ),
-        .I5(\arg_reg[31] [11]),
+        .I5(\arg_reg[31]_0 [11]),
         .O(\read_sector_no_reg[22] [11]));
   LUT6 #(
     .INIT(64'hB800FFFFB800B800)) 
     \arg[12]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [3]),
-        .I1(\arg[15]_i_2_n_0 ),
-        .I2(\rsectoraddr_reg[31]_0 [12]),
+       (.I0(\arg_reg[31] [3]),
+        .I1(\arg_reg[10] ),
+        .I2(\arg_reg[31] [12]),
         .I3(busy_reg_0),
         .I4(\arg[30]_i_2_n_0 ),
-        .I5(\arg_reg[31] [12]),
+        .I5(\arg_reg[31]_0 [12]),
         .O(\read_sector_no_reg[22] [12]));
   LUT6 #(
     .INIT(64'hB800FFFFB800B800)) 
     \arg[13]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [4]),
-        .I1(\arg[15]_i_2_n_0 ),
-        .I2(\rsectoraddr_reg[31]_0 [13]),
+       (.I0(\arg_reg[31] [4]),
+        .I1(\arg_reg[10] ),
+        .I2(\arg_reg[31] [13]),
         .I3(busy_reg_0),
         .I4(\arg[30]_i_2_n_0 ),
-        .I5(\arg_reg[31] [13]),
+        .I5(\arg_reg[31]_0 [13]),
         .O(\read_sector_no_reg[22] [13]));
   LUT6 #(
     .INIT(64'hB800FFFFB800B800)) 
     \arg[14]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [5]),
-        .I1(\arg[15]_i_2_n_0 ),
-        .I2(\rsectoraddr_reg[31]_0 [14]),
+       (.I0(\arg_reg[31] [5]),
+        .I1(\arg_reg[10] ),
+        .I2(\arg_reg[31] [14]),
         .I3(busy_reg_0),
         .I4(\arg[30]_i_2_n_0 ),
-        .I5(\arg_reg[31] [14]),
+        .I5(\arg_reg[31]_0 [14]),
         .O(\read_sector_no_reg[22] [14]));
   LUT6 #(
     .INIT(64'hB800FFFFB800B800)) 
     \arg[15]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [6]),
-        .I1(\arg[15]_i_2_n_0 ),
-        .I2(\rsectoraddr_reg[31]_0 [15]),
+       (.I0(\arg_reg[31] [6]),
+        .I1(\arg_reg[10] ),
+        .I2(\arg_reg[31] [15]),
         .I3(busy_reg_0),
         .I4(\arg[30]_i_2_n_0 ),
-        .I5(\arg_reg[31] [15]),
+        .I5(\arg_reg[31]_0 [15]),
         .O(\read_sector_no_reg[22] [15]));
-  (* SOFT_HLUTNM = "soft_lutpair69" *) 
-  LUT2 #(
-    .INIT(4'h7)) 
-    \arg[15]_i_2 
-       (.I0(timeout_reg_0),
-        .I1(sdv1_maybe_reg),
-        .O(\arg[15]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFEA2A0000)) 
     \arg[16]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [7]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [16]),
+       (.I0(\arg_reg[31] [7]),
+        .I1(\card_type_reg[0] ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31] [16]),
         .I4(busy_reg_0),
         .I5(\arg[16]_i_2_n_0 ),
         .O(\read_sector_no_reg[22] [16]));
   LUT6 #(
-    .INIT(64'hF444444444444444)) 
+    .INIT(64'h4F44444444444444)) 
     \arg[16]_i_2 
        (.I0(\arg[30]_i_2_n_0 ),
-        .I1(\arg_reg[31] [16]),
+        .I1(\arg_reg[31]_0 [16]),
         .I2(\arg_reg[16] ),
-        .I3(\arg_reg[31]_0 [0]),
-        .I4(\rca_reg[0] [1]),
+        .I3(\arg_reg[31]_1 [0]),
+        .I4(\card_type_reg[1] [1]),
         .I5(\arg[31]_i_4_n_0 ),
         .O(\arg[16]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFEA2A0000)) 
     \arg[17]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [8]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [17]),
+       (.I0(\arg_reg[31] [8]),
+        .I1(\card_type_reg[0] ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31] [17]),
         .I4(busy_reg_0),
         .I5(\arg[17]_i_2_n_0 ),
         .O(\read_sector_no_reg[22] [17]));
   LUT6 #(
-    .INIT(64'hF444444444444444)) 
+    .INIT(64'h4F44444444444444)) 
     \arg[17]_i_2 
        (.I0(\arg[30]_i_2_n_0 ),
-        .I1(\arg_reg[31] [17]),
+        .I1(\arg_reg[31]_0 [17]),
         .I2(\arg_reg[16] ),
-        .I3(\arg_reg[31]_0 [1]),
-        .I4(\rca_reg[0] [1]),
+        .I3(\arg_reg[31]_1 [1]),
+        .I4(\card_type_reg[1] [1]),
         .I5(\arg[31]_i_4_n_0 ),
         .O(\arg[17]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFEA2A0000)) 
     \arg[18]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [9]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [18]),
+       (.I0(\arg_reg[31] [9]),
+        .I1(\card_type_reg[0] ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31] [18]),
         .I4(busy_reg_0),
         .I5(\arg[18]_i_2_n_0 ),
         .O(\read_sector_no_reg[22] [18]));
   LUT6 #(
-    .INIT(64'hF444444444444444)) 
+    .INIT(64'h4F44444444444444)) 
     \arg[18]_i_2 
        (.I0(\arg[30]_i_2_n_0 ),
-        .I1(\arg_reg[31] [18]),
+        .I1(\arg_reg[31]_0 [18]),
         .I2(\arg_reg[16] ),
-        .I3(\arg_reg[31]_0 [2]),
-        .I4(\rca_reg[0] [1]),
+        .I3(\arg_reg[31]_1 [2]),
+        .I4(\card_type_reg[1] [1]),
         .I5(\arg[31]_i_4_n_0 ),
         .O(\arg[18]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFEA2A0000)) 
     \arg[19]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [10]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [19]),
+       (.I0(\arg_reg[31] [10]),
+        .I1(\card_type_reg[0] ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31] [19]),
         .I4(busy_reg_0),
         .I5(\arg[19]_i_2_n_0 ),
         .O(\read_sector_no_reg[22] [19]));
   LUT6 #(
-    .INIT(64'hF444444444444444)) 
+    .INIT(64'h4F44444444444444)) 
     \arg[19]_i_2 
        (.I0(\arg[30]_i_2_n_0 ),
-        .I1(\arg_reg[31] [19]),
+        .I1(\arg_reg[31]_0 [19]),
         .I2(\arg_reg[16] ),
-        .I3(\arg_reg[31]_0 [3]),
-        .I4(\rca_reg[0] [1]),
+        .I3(\arg_reg[31]_1 [3]),
+        .I4(\card_type_reg[1] [1]),
         .I5(\arg[31]_i_4_n_0 ),
         .O(\arg[19]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hEA00FFFFEA00EA00)) 
     \arg[1]_i_1 
-       (.I0(\rca_reg[0] [0]),
-        .I1(\read_sector_no_reg[22]_0 [1]),
+       (.I0(\card_type_reg[1] [0]),
+        .I1(\arg_reg[30] [0]),
         .I2(\arg_reg[1] ),
         .I3(\arg[8]_i_3_n_0 ),
         .I4(\arg[30]_i_2_n_0 ),
-        .I5(\arg_reg[31] [1]),
+        .I5(\arg_reg[31]_0 [1]),
         .O(\read_sector_no_reg[22] [1]));
   LUT5 #(
     .INIT(32'hFFFF88F8)) 
     \arg[20]_i_1 
-       (.I0(\read_sector_no_reg[22]_0 [20]),
+       (.I0(\arg_reg[30] [5]),
         .I1(busy_reg_0),
-        .I2(\arg_reg[31] [20]),
+        .I2(\arg_reg[31]_0 [20]),
         .I3(\arg[30]_i_2_n_0 ),
         .I4(\arg[20]_i_2_n_0 ),
         .O(\read_sector_no_reg[22] [20]));
   LUT6 #(
-    .INIT(64'h0005000000400000)) 
+    .INIT(64'h0000004000005000)) 
     \arg[20]_i_2 
        (.I0(busy),
-        .I1(\arg_reg[31]_0 [4]),
-        .I2(\rca_reg[0] [2]),
-        .I3(\rca_reg[0] [3]),
-        .I4(\rca_reg[0] [1]),
-        .I5(\rca_reg[0] [0]),
+        .I1(\arg_reg[31]_1 [4]),
+        .I2(\card_type_reg[1] [1]),
+        .I3(\card_type_reg[1] [0]),
+        .I4(\card_type_reg[1] [3]),
+        .I5(\card_type_reg[1] [2]),
         .O(\arg[20]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFEA2A0000)) 
     \arg[21]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [12]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [21]),
+       (.I0(\arg_reg[31] [12]),
+        .I1(\card_type_reg[0] ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31] [21]),
         .I4(busy_reg_0),
         .I5(\arg[21]_i_2_n_0 ),
         .O(\read_sector_no_reg[22] [21]));
   LUT6 #(
-    .INIT(64'hF444444444444444)) 
+    .INIT(64'h4F44444444444444)) 
     \arg[21]_i_2 
        (.I0(\arg[30]_i_2_n_0 ),
-        .I1(\arg_reg[31] [21]),
+        .I1(\arg_reg[31]_0 [21]),
         .I2(\arg_reg[16] ),
-        .I3(\arg_reg[31]_0 [5]),
-        .I4(\rca_reg[0] [1]),
+        .I3(\arg_reg[31]_1 [5]),
+        .I4(\card_type_reg[1] [1]),
         .I5(\arg[31]_i_4_n_0 ),
         .O(\arg[21]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFEA2A0000)) 
     \arg[22]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [13]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [22]),
+       (.I0(\arg_reg[31] [13]),
+        .I1(\card_type_reg[0] ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31] [22]),
         .I4(busy_reg_0),
         .I5(\arg[22]_i_2_n_0 ),
         .O(\read_sector_no_reg[22] [22]));
   LUT6 #(
-    .INIT(64'hF444444444444444)) 
+    .INIT(64'h4F44444444444444)) 
     \arg[22]_i_2 
        (.I0(\arg[30]_i_2_n_0 ),
-        .I1(\arg_reg[31] [22]),
+        .I1(\arg_reg[31]_0 [22]),
         .I2(\arg_reg[16] ),
-        .I3(\arg_reg[31]_0 [6]),
-        .I4(\rca_reg[0] [1]),
+        .I3(\arg_reg[31]_1 [6]),
+        .I4(\card_type_reg[1] [1]),
         .I5(\arg[31]_i_4_n_0 ),
         .O(\arg[22]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFEA2A0000)) 
     \arg[23]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [14]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [23]),
+       (.I0(\arg_reg[31] [14]),
+        .I1(\card_type_reg[0] ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31] [23]),
         .I4(busy_reg_0),
         .I5(\arg[23]_i_2_n_0 ),
         .O(\read_sector_no_reg[22] [23]));
   LUT6 #(
-    .INIT(64'hF444444444444444)) 
+    .INIT(64'h4F44444444444444)) 
     \arg[23]_i_2 
        (.I0(\arg[30]_i_2_n_0 ),
-        .I1(\arg_reg[31] [23]),
+        .I1(\arg_reg[31]_0 [23]),
         .I2(\arg_reg[16] ),
-        .I3(\arg_reg[31]_0 [7]),
-        .I4(\rca_reg[0] [1]),
+        .I3(\arg_reg[31]_1 [7]),
+        .I4(\card_type_reg[1] [1]),
         .I5(\arg[31]_i_4_n_0 ),
         .O(\arg[23]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFEA2A0000)) 
     \arg[24]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [15]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [24]),
+       (.I0(\arg_reg[31] [15]),
+        .I1(\card_type_reg[0] ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31] [24]),
         .I4(busy_reg_0),
         .I5(\arg[24]_i_2_n_0 ),
         .O(\read_sector_no_reg[22] [24]));
   LUT6 #(
-    .INIT(64'hF444444444444444)) 
+    .INIT(64'h4F44444444444444)) 
     \arg[24]_i_2 
        (.I0(\arg[30]_i_2_n_0 ),
-        .I1(\arg_reg[31] [24]),
+        .I1(\arg_reg[31]_0 [24]),
         .I2(\arg_reg[16] ),
-        .I3(\arg_reg[31]_0 [8]),
-        .I4(\rca_reg[0] [1]),
+        .I3(\arg_reg[31]_1 [8]),
+        .I4(\card_type_reg[1] [1]),
         .I5(\arg[31]_i_4_n_0 ),
         .O(\arg[24]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFEA2A0000)) 
     \arg[25]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [16]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [25]),
+       (.I0(\arg_reg[31] [16]),
+        .I1(\card_type_reg[0] ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31] [25]),
         .I4(busy_reg_0),
         .I5(\arg[25]_i_2_n_0 ),
         .O(\read_sector_no_reg[22] [25]));
   LUT6 #(
-    .INIT(64'hF444444444444444)) 
+    .INIT(64'h4F44444444444444)) 
     \arg[25]_i_2 
        (.I0(\arg[30]_i_2_n_0 ),
-        .I1(\arg_reg[31] [25]),
+        .I1(\arg_reg[31]_0 [25]),
         .I2(\arg_reg[16] ),
-        .I3(\arg_reg[31]_0 [9]),
-        .I4(\rca_reg[0] [1]),
+        .I3(\arg_reg[31]_1 [9]),
+        .I4(\card_type_reg[1] [1]),
         .I5(\arg[31]_i_4_n_0 ),
         .O(\arg[25]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFEA2A0000)) 
     \arg[26]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [17]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [26]),
+       (.I0(\arg_reg[31] [17]),
+        .I1(\card_type_reg[0] ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31] [26]),
         .I4(busy_reg_0),
         .I5(\arg[26]_i_2_n_0 ),
         .O(\read_sector_no_reg[22] [26]));
   LUT6 #(
-    .INIT(64'hF444444444444444)) 
+    .INIT(64'h4F44444444444444)) 
     \arg[26]_i_2 
        (.I0(\arg[30]_i_2_n_0 ),
-        .I1(\arg_reg[31] [26]),
+        .I1(\arg_reg[31]_0 [26]),
         .I2(\arg_reg[16] ),
-        .I3(\arg_reg[31]_0 [10]),
-        .I4(\rca_reg[0] [1]),
+        .I3(\arg_reg[31]_1 [10]),
+        .I4(\card_type_reg[1] [1]),
         .I5(\arg[31]_i_4_n_0 ),
         .O(\arg[26]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFEA2A0000)) 
     \arg[27]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [18]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [27]),
+       (.I0(\arg_reg[31] [18]),
+        .I1(\card_type_reg[0] ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31] [27]),
         .I4(busy_reg_0),
         .I5(\arg[27]_i_2_n_0 ),
         .O(\read_sector_no_reg[22] [27]));
   LUT6 #(
-    .INIT(64'hF444444444444444)) 
+    .INIT(64'h4F44444444444444)) 
     \arg[27]_i_2 
        (.I0(\arg[30]_i_2_n_0 ),
-        .I1(\arg_reg[31] [27]),
+        .I1(\arg_reg[31]_0 [27]),
         .I2(\arg_reg[16] ),
-        .I3(\arg_reg[31]_0 [11]),
-        .I4(\rca_reg[0] [1]),
+        .I3(\arg_reg[31]_1 [11]),
+        .I4(\card_type_reg[1] [1]),
         .I5(\arg[31]_i_4_n_0 ),
         .O(\arg[27]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFEA2A0000)) 
     \arg[28]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [19]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [28]),
+       (.I0(\arg_reg[31] [19]),
+        .I1(\card_type_reg[0] ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31] [28]),
         .I4(busy_reg_0),
         .I5(\arg[28]_i_2_n_0 ),
         .O(\read_sector_no_reg[22] [28]));
   LUT6 #(
-    .INIT(64'hF444444444444444)) 
+    .INIT(64'h4F44444444444444)) 
     \arg[28]_i_2 
        (.I0(\arg[30]_i_2_n_0 ),
-        .I1(\arg_reg[31] [28]),
+        .I1(\arg_reg[31]_0 [28]),
         .I2(\arg_reg[16] ),
-        .I3(\arg_reg[31]_0 [12]),
-        .I4(\rca_reg[0] [1]),
+        .I3(\arg_reg[31]_1 [12]),
+        .I4(\card_type_reg[1] [1]),
         .I5(\arg[31]_i_4_n_0 ),
         .O(\arg[28]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFEA2A0000)) 
     \arg[29]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [20]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [29]),
+       (.I0(\arg_reg[31] [20]),
+        .I1(\card_type_reg[0] ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31] [29]),
         .I4(busy_reg_0),
         .I5(\arg[29]_i_2_n_0 ),
         .O(\read_sector_no_reg[22] [29]));
   LUT6 #(
-    .INIT(64'hF444444444444444)) 
+    .INIT(64'h4F44444444444444)) 
     \arg[29]_i_2 
        (.I0(\arg[30]_i_2_n_0 ),
-        .I1(\arg_reg[31] [29]),
+        .I1(\arg_reg[31]_0 [29]),
         .I2(\arg_reg[16] ),
-        .I3(\arg_reg[31]_0 [13]),
-        .I4(\rca_reg[0] [1]),
+        .I3(\arg_reg[31]_1 [13]),
+        .I4(\card_type_reg[1] [1]),
         .I5(\arg[31]_i_4_n_0 ),
         .O(\arg[29]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'h8000FFFF80008000)) 
     \arg[2]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [2]),
-        .I1(sdv1_maybe_reg),
-        .I2(timeout_reg_0),
+       (.I0(\arg_reg[31] [2]),
+        .I1(\card_type_reg[1]_0 ),
+        .I2(\card_type_reg[0] ),
         .I3(busy_reg_0),
         .I4(\arg[30]_i_2_n_0 ),
-        .I5(\arg_reg[31] [2]),
+        .I5(\arg_reg[31]_0 [2]),
         .O(\read_sector_no_reg[22] [2]));
   LUT5 #(
     .INIT(32'hFFFF88F8)) 
     \arg[30]_i_1 
-       (.I0(\read_sector_no_reg[22]_0 [30]),
+       (.I0(\arg_reg[30] [6]),
         .I1(busy_reg_0),
-        .I2(\arg_reg[31] [30]),
+        .I2(\arg_reg[31]_0 [30]),
         .I3(\arg[30]_i_2_n_0 ),
         .I4(\arg[30]_i_3_n_0 ),
         .O(\read_sector_no_reg[22] [30]));
   LUT6 #(
-    .INIT(64'h03FFFFFF5555FFFF)) 
+    .INIT(64'hCFFFFFFF5555FFFF)) 
     \arg[30]_i_2 
        (.I0(Q[4]),
-        .I1(timeout_reg_0),
-        .I2(syntaxe),
-        .I3(\precnt[7]_i_2_n_0 ),
-        .I4(\rca_reg[0] [3]),
-        .I5(start_reg_0),
+        .I1(\sdcmd_stat[2]_i_3_n_0 ),
+        .I2(busy),
+        .I3(done),
+        .I4(\card_type_reg[1] [3]),
+        .I5(\precnt_reg[7] ),
         .O(\arg[30]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h0005000000400000)) 
+    .INIT(64'h0000004000005000)) 
     \arg[30]_i_3 
        (.I0(busy),
-        .I1(\arg_reg[31]_0 [14]),
-        .I2(\rca_reg[0] [2]),
-        .I3(\rca_reg[0] [3]),
-        .I4(\rca_reg[0] [1]),
-        .I5(\rca_reg[0] [0]),
+        .I1(\arg_reg[31]_1 [14]),
+        .I2(\card_type_reg[1] [1]),
+        .I3(\card_type_reg[1] [0]),
+        .I4(\card_type_reg[1] [3]),
+        .I5(\card_type_reg[1] [2]),
         .O(\arg[30]_i_3_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFEA2A0000)) 
     \arg[31]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [22]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [31]),
+       (.I0(\arg_reg[31] [22]),
+        .I1(\card_type_reg[0] ),
+        .I2(\card_type_reg[1]_0 ),
+        .I3(\arg_reg[31] [30]),
         .I4(busy_reg_0),
         .I5(\arg[31]_i_2_n_0 ),
         .O(\read_sector_no_reg[22] [31]));
   LUT6 #(
-    .INIT(64'hF444444444444444)) 
+    .INIT(64'h4F44444444444444)) 
     \arg[31]_i_2 
        (.I0(\arg[30]_i_2_n_0 ),
-        .I1(\arg_reg[31] [31]),
+        .I1(\arg_reg[31]_0 [31]),
         .I2(\arg_reg[16] ),
-        .I3(\arg_reg[31]_0 [15]),
-        .I4(\rca_reg[0] [1]),
+        .I3(\arg_reg[31]_1 [15]),
+        .I4(\card_type_reg[1] [1]),
         .I5(\arg[31]_i_4_n_0 ),
         .O(\arg[31]_i_2_n_0 ));
   (* SOFT_HLUTNM = "soft_lutpair35" *) 
   LUT5 #(
     .INIT(32'h000000F7)) 
     \arg[31]_i_4 
-       (.I0(\rca_reg[0] [3]),
-        .I1(\rca_reg[0] [1]),
-        .I2(\rca_reg[0] [2]),
+       (.I0(\card_type_reg[1] [3]),
+        .I1(\card_type_reg[1] [1]),
+        .I2(\card_type_reg[1] [2]),
         .I3(busy),
-        .I4(\rca_reg[0] [0]),
+        .I4(\card_type_reg[1] [0]),
         .O(\arg[31]_i_4_n_0 ));
   LUT6 #(
     .INIT(64'hEA00FFFFEA00EA00)) 
     \arg[3]_i_1 
-       (.I0(\rca_reg[0] [0]),
-        .I1(\read_sector_no_reg[22]_0 [3]),
+       (.I0(\card_type_reg[1] [0]),
+        .I1(\arg_reg[30] [1]),
         .I2(\arg_reg[1] ),
         .I3(\arg[8]_i_3_n_0 ),
         .I4(\arg[30]_i_2_n_0 ),
-        .I5(\arg_reg[31] [3]),
+        .I5(\arg_reg[31]_0 [3]),
         .O(\read_sector_no_reg[22] [3]));
   LUT6 #(
     .INIT(64'h8000FFFF80008000)) 
     \arg[4]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [4]),
-        .I1(sdv1_maybe_reg),
-        .I2(timeout_reg_0),
+       (.I0(\arg_reg[31] [4]),
+        .I1(\card_type_reg[1]_0 ),
+        .I2(\card_type_reg[0] ),
         .I3(busy_reg_0),
         .I4(\arg[30]_i_2_n_0 ),
-        .I5(\arg_reg[31] [4]),
+        .I5(\arg_reg[31]_0 [4]),
         .O(\read_sector_no_reg[22] [4]));
   LUT6 #(
     .INIT(64'hEA00FFFFEA00EA00)) 
     \arg[5]_i_1 
-       (.I0(\rca_reg[0] [0]),
-        .I1(\read_sector_no_reg[22]_0 [5]),
+       (.I0(\card_type_reg[1] [0]),
+        .I1(\arg_reg[30] [2]),
         .I2(\arg_reg[1] ),
         .I3(\arg[8]_i_3_n_0 ),
         .I4(\arg[30]_i_2_n_0 ),
-        .I5(\arg_reg[31] [5]),
+        .I5(\arg_reg[31]_0 [5]),
         .O(\read_sector_no_reg[22] [5]));
   LUT6 #(
     .INIT(64'h8000FFFF80008000)) 
     \arg[6]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [6]),
-        .I1(sdv1_maybe_reg),
-        .I2(timeout_reg_0),
+       (.I0(\arg_reg[31] [6]),
+        .I1(\card_type_reg[1]_0 ),
+        .I2(\card_type_reg[0] ),
         .I3(busy_reg_0),
         .I4(\arg[30]_i_2_n_0 ),
-        .I5(\arg_reg[31] [6]),
+        .I5(\arg_reg[31]_0 [6]),
         .O(\read_sector_no_reg[22] [6]));
   LUT6 #(
     .INIT(64'hEA00FFFFEA00EA00)) 
     \arg[7]_i_1 
-       (.I0(\rca_reg[0] [0]),
-        .I1(\read_sector_no_reg[22]_0 [7]),
+       (.I0(\card_type_reg[1] [0]),
+        .I1(\arg_reg[30] [3]),
         .I2(\arg_reg[1] ),
         .I3(\arg[8]_i_3_n_0 ),
         .I4(\arg[30]_i_2_n_0 ),
-        .I5(\arg_reg[31] [7]),
+        .I5(\arg_reg[31]_0 [7]),
         .O(\read_sector_no_reg[22] [7]));
   LUT6 #(
     .INIT(64'hEA00FFFFEA00EA00)) 
     \arg[8]_i_1 
-       (.I0(\rca_reg[0] [0]),
-        .I1(\read_sector_no_reg[22]_0 [8]),
+       (.I0(\card_type_reg[1] [0]),
+        .I1(\arg_reg[30] [4]),
         .I2(\arg_reg[1] ),
         .I3(\arg[8]_i_3_n_0 ),
         .I4(\arg[30]_i_2_n_0 ),
-        .I5(\arg_reg[31] [8]),
+        .I5(\arg_reg[31]_0 [8]),
         .O(\read_sector_no_reg[22] [8]));
-  (* SOFT_HLUTNM = "soft_lutpair31" *) 
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
   LUT5 #(
     .INIT(32'h00010101)) 
     \arg[8]_i_3 
        (.I0(busy),
-        .I1(\rca_reg[0] [2]),
-        .I2(\rca_reg[0] [1]),
-        .I3(\rca_reg[0] [3]),
-        .I4(\rca_reg[0] [0]),
+        .I1(\card_type_reg[1] [2]),
+        .I2(\card_type_reg[1] [1]),
+        .I3(\card_type_reg[1] [3]),
+        .I4(\card_type_reg[1] [0]),
         .O(\arg[8]_i_3_n_0 ));
   LUT5 #(
     .INIT(32'h40FF4040)) 
     \arg[9]_i_1 
        (.I0(\arg_reg[9] ),
         .I1(\arg[9]_i_3_n_0 ),
-        .I2(\arg[9]_i_4_n_0 ),
+        .I2(\arg_reg[9]_0 ),
         .I3(\arg[30]_i_2_n_0 ),
-        .I4(\arg_reg[31] [9]),
+        .I4(\arg_reg[31]_0 [9]),
         .O(\read_sector_no_reg[22] [9]));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
   LUT5 #(
     .INIT(32'h54555555)) 
     \arg[9]_i_3 
        (.I0(busy),
-        .I1(\rca_reg[0] [0]),
-        .I2(\rca_reg[0] [2]),
-        .I3(\rca_reg[0] [1]),
-        .I4(\rca_reg[0] [3]),
+        .I1(\card_type_reg[1] [0]),
+        .I2(\card_type_reg[1] [2]),
+        .I3(\card_type_reg[1] [1]),
+        .I4(\card_type_reg[1] [3]),
         .O(\arg[9]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h2C0C2C2C2C0C0C0C)) 
-    \arg[9]_i_4 
-       (.I0(\rsectoraddr_reg[31] ),
-        .I1(\rca_reg[0] [2]),
-        .I2(\rca_reg[0] [3]),
-        .I3(\rsectoraddr_reg[31]_0 [0]),
-        .I4(\arg[15]_i_2_n_0 ),
-        .I5(\rsectoraddr_reg[31]_0 [9]),
-        .O(\arg[9]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair44" *) 
+  (* SOFT_HLUTNM = "soft_lutpair60" *) 
   LUT3 #(
     .INIT(8'h74)) 
     busy_i_1
@@ -33501,6 +33587,43 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .CLR(reset_n_0),
         .D(busy_i_1_n_0),
         .Q(busy));
+  LUT4 #(
+    .INIT(16'hEFE0)) 
+    \card_type[0]_i_1 
+       (.I0(\resp_arg_reg[31]_0 [14]),
+        .I1(sdv1_maybe),
+        .I2(\card_type[0]_i_2_n_0 ),
+        .I3(\card_type_reg[0] ),
+        .O(\resp_arg_reg[30]_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+  LUT4 #(
+    .INIT(16'h0020)) 
+    \card_type[0]_i_2 
+       (.I0(busy),
+        .I1(\card_type_reg[1] [3]),
+        .I2(done),
+        .I3(\card_type[1]_i_2_n_0 ),
+        .O(\card_type[0]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFF7FF00000400)) 
+    \card_type[1]_i_1 
+       (.I0(sdv1_maybe),
+        .I1(busy),
+        .I2(\card_type_reg[1] [3]),
+        .I3(done),
+        .I4(\card_type[1]_i_2_n_0 ),
+        .I5(\card_type_reg[1]_0 ),
+        .O(sdv1_maybe_reg));
+  LUT6 #(
+    .INIT(64'hFFEFFFFFFFFFFFFF)) 
+    \card_type[1]_i_2 
+       (.I0(syntaxe),
+        .I1(timeout),
+        .I2(\resp_arg_reg[31]_0 [15]),
+        .I3(\card_type_reg[1] [2]),
+        .I4(\card_type_reg[1] [0]),
+        .I5(\card_type_reg[1] [1]),
+        .O(\card_type[1]_i_2_n_0 ));
   (* COMPARATOR_THRESHOLD = "11" *) 
   CARRY4 clkcnt2_carry
        (.CI(1'b0),
@@ -33951,7 +34074,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
     .INIT(64'hFFFFFFFF00004000)) 
     \clkdiv[2]_i_1 
        (.I0(\clkdiv_reg[6]_0 ),
-        .I1(\sdcmd_stat[2]_i_2_n_0 ),
+        .I1(\sdcmd_stat[2]_i_3_n_0 ),
         .I2(done),
         .I3(busy),
         .I4(\clkdiv_reg[6] ),
@@ -33963,7 +34086,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
        (.I0(\clkdiv_reg[6] ),
         .I1(busy),
         .I2(done),
-        .I3(\sdcmd_stat[2]_i_2_n_0 ),
+        .I3(\sdcmd_stat[2]_i_3_n_0 ),
         .I4(\clkdiv_reg[6]_0 ),
         .I5(clkdiv__0[1]),
         .O(busy_reg_1));
@@ -34010,7 +34133,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(clkcnt_reg[15]),
         .I3(clkcnt_reg[3]),
         .O(\clkdivr[16]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair74" *) 
+  (* SOFT_HLUTNM = "soft_lutpair58" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \clkdivr[2]_i_1 
@@ -34018,7 +34141,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I1(clkdivr_0),
         .I2(clkdivr[2]),
         .O(\clkdivr[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair74" *) 
+  (* SOFT_HLUTNM = "soft_lutpair58" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \clkdivr[7]_i_1 
@@ -34053,7 +34176,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
   LUT2 #(
     .INIT(4'h6)) 
     \cmd8_cnt[0]_i_1 
-       (.I0(sdv1_maybe_i_2_n_0),
+       (.I0(\cmd8_cnt[2]_i_2_n_0 ),
         .I1(cmd8_cnt__0[0]),
         .O(\cmd8_cnt_reg[0]_0 ));
   (* SOFT_HLUTNM = "soft_lutpair43" *) 
@@ -34061,7 +34184,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
     .INIT(8'h78)) 
     \cmd8_cnt[1]_i_1 
        (.I0(cmd8_cnt__0[0]),
-        .I1(sdv1_maybe_i_2_n_0),
+        .I1(\cmd8_cnt[2]_i_2_n_0 ),
         .I2(cmd8_cnt__0[1]),
         .O(\cmd8_cnt_reg[0] ));
   (* SOFT_HLUTNM = "soft_lutpair43" *) 
@@ -34070,78 +34193,95 @@ module design_1_top_system_0_1_sdcmd_ctrl
     \cmd8_cnt[2]_i_1 
        (.I0(cmd8_cnt__0[1]),
         .I1(cmd8_cnt__0[0]),
-        .I2(sdv1_maybe_i_2_n_0),
+        .I2(\cmd8_cnt[2]_i_2_n_0 ),
         .I3(cmd8_cnt__0[2]),
         .O(\cmd8_cnt_reg[1] ));
+  LUT6 #(
+    .INIT(64'h0000000000020000)) 
+    \cmd8_cnt[2]_i_2 
+       (.I0(\card_type_reg[1] [0]),
+        .I1(\card_type_reg[1] [1]),
+        .I2(\card_type_reg[1] [2]),
+        .I3(\card_type_reg[1] [3]),
+        .I4(\cmd8_cnt[2]_i_3_n_0 ),
+        .I5(\sdcmd_stat[3]_i_6_n_0 ),
+        .O(\cmd8_cnt[2]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \cmd8_cnt[2]_i_3 
+       (.I0(busy),
+        .I1(done),
+        .O(\cmd8_cnt[2]_i_3_n_0 ));
   LUT6 #(
     .INIT(64'hBFEAAAAAFFFFFFFF)) 
     \cmd[0]_i_1 
        (.I0(busy_reg_0),
-        .I1(\rca_reg[0] [0]),
-        .I2(\rca_reg[0] [2]),
-        .I3(\rca_reg[0] [1]),
+        .I1(\card_type_reg[1] [0]),
+        .I2(\card_type_reg[1] [2]),
+        .I3(\card_type_reg[1] [1]),
         .I4(\cmd[0]_i_2_n_0 ),
         .I5(\arg[30]_i_2_n_0 ),
-        .O(\sdcmd_stat_reg[1]_0 [0]));
-  (* SOFT_HLUTNM = "soft_lutpair54" *) 
+        .O(\sdcmd_stat_reg[1] [0]));
+  (* SOFT_HLUTNM = "soft_lutpair52" *) 
   LUT2 #(
     .INIT(4'h1)) 
     \cmd[0]_i_2 
        (.I0(busy),
-        .I1(\rca_reg[0] [3]),
+        .I1(\card_type_reg[1] [3]),
         .O(\cmd[0]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair35" *) 
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT5 #(
-    .INIT(32'h0000005C)) 
+    .INIT(32'h00020302)) 
     \cmd[1]_i_1 
-       (.I0(\rca_reg[0] [0]),
-        .I1(\rca_reg[0] [2]),
-        .I2(\rca_reg[0] [1]),
-        .I3(busy),
-        .I4(\rca_reg[0] [3]),
-        .O(\sdcmd_stat_reg[1]_0 [1]));
-  (* SOFT_HLUTNM = "soft_lutpair53" *) 
+       (.I0(\card_type_reg[1] [2]),
+        .I1(busy),
+        .I2(\card_type_reg[1] [3]),
+        .I3(\card_type_reg[1] [1]),
+        .I4(\card_type_reg[1] [0]),
+        .O(\sdcmd_stat_reg[1] [1]));
+  (* SOFT_HLUTNM = "soft_lutpair51" *) 
   LUT4 #(
     .INIT(16'h0004)) 
     \cmd[2]_i_1 
-       (.I0(\rca_reg[0] [0]),
-        .I1(\rca_reg[0] [1]),
-        .I2(\rca_reg[0] [3]),
+       (.I0(\card_type_reg[1] [0]),
+        .I1(\card_type_reg[1] [1]),
+        .I2(\card_type_reg[1] [3]),
         .I3(busy),
-        .O(\sdcmd_stat_reg[1]_0 [2]));
-  (* SOFT_HLUTNM = "soft_lutpair54" *) 
+        .O(\sdcmd_stat_reg[1] [2]));
+  (* SOFT_HLUTNM = "soft_lutpair52" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \cmd[3]_i_1 
-       (.I0(\rca_reg[0] [0]),
+       (.I0(\card_type_reg[1] [0]),
         .I1(busy),
-        .I2(\rca_reg[0] [3]),
-        .I3(\rca_reg[0] [2]),
-        .O(\sdcmd_stat_reg[1]_0 [3]));
+        .I2(\card_type_reg[1] [3]),
+        .I3(\card_type_reg[1] [2]),
+        .O(\sdcmd_stat_reg[1] [3]));
   LUT5 #(
-    .INIT(32'hA8888A88)) 
+    .INIT(32'hA88A8888)) 
     \cmd[4]_i_1 
        (.I0(\sdcmd_stat_reg[3] ),
-        .I1(\rca_reg[0] [3]),
-        .I2(\rca_reg[0] [0]),
-        .I3(\rca_reg[0] [1]),
-        .I4(\rca_reg[0] [2]),
-        .O(\sdcmd_stat_reg[1]_0 [4]));
-  (* SOFT_HLUTNM = "soft_lutpair53" *) 
+        .I1(\card_type_reg[1] [3]),
+        .I2(\card_type_reg[1] [2]),
+        .I3(\card_type_reg[1] [0]),
+        .I4(\card_type_reg[1] [1]),
+        .O(\sdcmd_stat_reg[1] [4]));
+  (* SOFT_HLUTNM = "soft_lutpair51" *) 
   LUT4 #(
     .INIT(16'h0002)) 
     \cmd[5]_i_1 
-       (.I0(\rca_reg[0] [1]),
+       (.I0(\card_type_reg[1] [1]),
         .I1(busy),
-        .I2(\rca_reg[0] [3]),
-        .I3(\rca_reg[0] [2]),
-        .O(\sdcmd_stat_reg[1]_0 [5]));
+        .I2(\card_type_reg[1] [3]),
+        .I3(\card_type_reg[1] [2]),
+        .O(\sdcmd_stat_reg[1] [5]));
   LUT4 #(
     .INIT(16'h40FF)) 
     \cnt1[0]_i_1 
        (.I0(done),
         .I1(syntaxe1_carry__0_n_2),
-        .I2(\req_crc[6]_i_3_n_0 ),
+        .I2(\req_crc[6]_i_4_n_0 ),
         .I3(busy),
         .O(\cnt1[0]_i_1_n_0 ));
   LUT2 #(
@@ -34410,22 +34550,22 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .CLR(reset_n_0),
         .D(\cnt1_reg[8]_i_1_n_6 ),
         .Q(cnt1_reg[9]));
-  (* SOFT_HLUTNM = "soft_lutpair73" *) 
+  (* SOFT_HLUTNM = "soft_lutpair55" *) 
   LUT2 #(
     .INIT(4'h7)) 
     \cnt2[0]_i_1 
        (.I0(busy),
         .I1(cnt2_reg[0]),
-        .O(p_0_in[0]));
-  (* SOFT_HLUTNM = "soft_lutpair73" *) 
+        .O(p_0_in__0[0]));
+  (* SOFT_HLUTNM = "soft_lutpair55" *) 
   LUT3 #(
     .INIT(8'hD7)) 
     \cnt2[1]_i_1 
        (.I0(busy),
         .I1(cnt2_reg[0]),
         .I2(cnt2_reg[1]),
-        .O(p_0_in[1]));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+        .O(p_0_in__0[1]));
+  (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT4 #(
     .INIT(16'hA802)) 
     \cnt2[2]_i_1 
@@ -34433,23 +34573,23 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I1(cnt2_reg[1]),
         .I2(cnt2_reg[0]),
         .I3(cnt2_reg[2]),
-        .O(p_0_in[2]));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+        .O(p_0_in__0[2]));
+  (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT5 #(
     .INIT(32'hAAA80002)) 
     \cnt2[3]_i_1 
        (.I0(busy),
-        .I1(cnt2_reg[2]),
-        .I2(cnt2_reg[0]),
-        .I3(cnt2_reg[1]),
+        .I1(cnt2_reg[0]),
+        .I2(cnt2_reg[1]),
+        .I3(cnt2_reg[2]),
         .I4(cnt2_reg[3]),
-        .O(p_0_in[3]));
+        .O(p_0_in__0[3]));
   LUT6 #(
     .INIT(64'hFFFE0001FFFFFFFF)) 
     \cnt2[4]_i_1 
-       (.I0(cnt2_reg[1]),
-        .I1(cnt2_reg[0]),
-        .I2(cnt2_reg[2]),
+       (.I0(cnt2_reg[2]),
+        .I1(cnt2_reg[1]),
+        .I2(cnt2_reg[0]),
         .I3(cnt2_reg[3]),
         .I4(cnt2_reg[4]),
         .I5(busy),
@@ -34463,24 +34603,23 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I3(busy),
         .O(\cnt2[5]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFE0001FFFFFFFF)) 
+    .INIT(64'hFFFB0004FFFFFFFF)) 
     \cnt2[5]_i_2 
        (.I0(cnt2_reg[3]),
-        .I1(cnt2_reg[2]),
-        .I2(\cnt2[5]_i_4_n_0 ),
+        .I1(\cnt2[5]_i_4_n_0 ),
+        .I2(cnt2_reg[2]),
         .I3(cnt2_reg[4]),
         .I4(cnt2_reg[5]),
         .I5(busy),
         .O(\cnt2[5]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair72" *) 
   LUT2 #(
     .INIT(4'h1)) 
     \cnt2[5]_i_3 
-       (.I0(\req_crc[6]_i_3_n_0 ),
+       (.I0(\req_crc[6]_i_4_n_0 ),
         .I1(\cnt3[15]_i_4_n_0 ),
         .O(sdcmdoe));
   LUT2 #(
-    .INIT(4'hE)) 
+    .INIT(4'h1)) 
     \cnt2[5]_i_4 
        (.I0(cnt2_reg[1]),
         .I1(cnt2_reg[0]),
@@ -34490,7 +34629,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
     \cnt2_reg[0] 
        (.C(clk_sd),
         .CE(\cnt2[5]_i_1_n_0 ),
-        .D(p_0_in[0]),
+        .D(p_0_in__0[0]),
         .PRE(reset_n_0),
         .Q(cnt2_reg[0]));
   FDPE #(
@@ -34498,7 +34637,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
     \cnt2_reg[1] 
        (.C(clk_sd),
         .CE(\cnt2[5]_i_1_n_0 ),
-        .D(p_0_in[1]),
+        .D(p_0_in__0[1]),
         .PRE(reset_n_0),
         .Q(cnt2_reg[1]));
   FDPE #(
@@ -34506,7 +34645,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
     \cnt2_reg[2] 
        (.C(clk_sd),
         .CE(\cnt2[5]_i_1_n_0 ),
-        .D(p_0_in[2]),
+        .D(p_0_in__0[2]),
         .PRE(reset_n_0),
         .Q(cnt2_reg[2]));
   FDPE #(
@@ -34514,7 +34653,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
     \cnt2_reg[3] 
        (.C(clk_sd),
         .CE(\cnt2[5]_i_1_n_0 ),
-        .D(p_0_in[3]),
+        .D(p_0_in__0[3]),
         .PRE(reset_n_0),
         .Q(cnt2_reg[3]));
   FDPE #(
@@ -34640,7 +34779,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
     cnt30_carry_i_4
        (.I0(cnt3[1]),
         .O(cnt30_carry_i_4_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
   LUT4 #(
     .INIT(16'h4440)) 
     \cnt3[0]_i_1 
@@ -34649,7 +34788,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(sd_cmd_in),
         .I3(sd_cmd_oe),
         .O(\cnt3[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
   LUT4 #(
     .INIT(16'hE0FF)) 
     \cnt3[10]_i_1 
@@ -34658,7 +34797,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(cnt30[10]),
         .I3(busy),
         .O(\cnt3[10]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
   LUT4 #(
     .INIT(16'hE0FF)) 
     \cnt3[11]_i_1 
@@ -34667,7 +34806,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(cnt30[11]),
         .I3(busy),
         .O(\cnt3[11]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  (* SOFT_HLUTNM = "soft_lutpair40" *) 
   LUT4 #(
     .INIT(16'hE0FF)) 
     \cnt3[12]_i_1 
@@ -34676,7 +34815,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(cnt30[12]),
         .I3(busy),
         .O(\cnt3[12]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair45" *) 
+  (* SOFT_HLUTNM = "soft_lutpair44" *) 
   LUT4 #(
     .INIT(16'h8880)) 
     \cnt3[13]_i_1 
@@ -34685,7 +34824,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(sd_cmd_in),
         .I3(sd_cmd_oe),
         .O(p_1_in__0[13]));
-  (* SOFT_HLUTNM = "soft_lutpair45" *) 
+  (* SOFT_HLUTNM = "soft_lutpair44" *) 
   LUT4 #(
     .INIT(16'h8880)) 
     \cnt3[14]_i_1 
@@ -34694,16 +34833,14 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(sd_cmd_in),
         .I3(sd_cmd_oe),
         .O(p_1_in__0[14]));
-  LUT5 #(
-    .INIT(32'h0100FFFF)) 
+  LUT3 #(
+    .INIT(8'h8F)) 
     \cnt3[15]_i_1 
-       (.I0(done),
-        .I1(syntaxe1_carry__0_n_2),
-        .I2(\cnt3[15]_i_3_n_0 ),
-        .I3(done_i_4_n_0),
-        .I4(busy),
+       (.I0(\cnt3[15]_i_3_n_0 ),
+        .I1(done_i_4_n_0),
+        .I2(busy),
         .O(\cnt3[15]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  (* SOFT_HLUTNM = "soft_lutpair40" *) 
   LUT4 #(
     .INIT(16'h8880)) 
     \cnt3[15]_i_2 
@@ -34712,13 +34849,15 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(sd_cmd_in),
         .I3(sd_cmd_oe),
         .O(p_1_in__0[15]));
-  (* SOFT_HLUTNM = "soft_lutpair72" *) 
-  LUT3 #(
-    .INIT(8'hBF)) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+  LUT5 #(
+    .INIT(32'h00001000)) 
     \cnt3[15]_i_3 
-       (.I0(\req_crc[6]_i_3_n_0 ),
-        .I1(\cnt3[15]_i_4_n_0 ),
+       (.I0(done),
+        .I1(syntaxe1_carry__0_n_2),
         .I2(syntaxe3),
+        .I3(\cnt3[15]_i_4_n_0 ),
+        .I4(\req_crc[6]_i_4_n_0 ),
         .O(\cnt3[15]_i_3_n_0 ));
   LUT6 #(
     .INIT(64'h8000000000000000)) 
@@ -34730,7 +34869,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I4(cnt2_reg[1]),
         .I5(cnt2_reg[0]),
         .O(\cnt3[15]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair48" *) 
+  (* SOFT_HLUTNM = "soft_lutpair47" *) 
   LUT4 #(
     .INIT(16'h8880)) 
     \cnt3[1]_i_1 
@@ -34739,7 +34878,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(sd_cmd_in),
         .I3(sd_cmd_oe),
         .O(p_1_in__0[1]));
-  (* SOFT_HLUTNM = "soft_lutpair48" *) 
+  (* SOFT_HLUTNM = "soft_lutpair47" *) 
   LUT4 #(
     .INIT(16'h8880)) 
     \cnt3[2]_i_1 
@@ -34748,7 +34887,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(sd_cmd_in),
         .I3(sd_cmd_oe),
         .O(p_1_in__0[2]));
-  (* SOFT_HLUTNM = "soft_lutpair47" *) 
+  (* SOFT_HLUTNM = "soft_lutpair46" *) 
   LUT4 #(
     .INIT(16'h8880)) 
     \cnt3[3]_i_1 
@@ -34757,7 +34896,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(sd_cmd_in),
         .I3(sd_cmd_oe),
         .O(p_1_in__0[3]));
-  (* SOFT_HLUTNM = "soft_lutpair47" *) 
+  (* SOFT_HLUTNM = "soft_lutpair46" *) 
   LUT4 #(
     .INIT(16'h8880)) 
     \cnt3[4]_i_1 
@@ -34766,7 +34905,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(sd_cmd_in),
         .I3(sd_cmd_oe),
         .O(p_1_in__0[4]));
-  (* SOFT_HLUTNM = "soft_lutpair46" *) 
+  (* SOFT_HLUTNM = "soft_lutpair45" *) 
   LUT4 #(
     .INIT(16'h8880)) 
     \cnt3[5]_i_1 
@@ -34775,7 +34914,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(sd_cmd_in),
         .I3(sd_cmd_oe),
         .O(p_1_in__0[5]));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
   LUT4 #(
     .INIT(16'hE0FF)) 
     \cnt3[6]_i_1 
@@ -34784,7 +34923,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(cnt30[6]),
         .I3(busy),
         .O(\cnt3[6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair46" *) 
+  (* SOFT_HLUTNM = "soft_lutpair45" *) 
   LUT4 #(
     .INIT(16'h8880)) 
     \cnt3[7]_i_1 
@@ -34793,7 +34932,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(sd_cmd_in),
         .I3(sd_cmd_oe),
         .O(p_1_in__0[7]));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
   LUT4 #(
     .INIT(16'hE0FF)) 
     \cnt3[8]_i_1 
@@ -34802,7 +34941,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(cnt30[8]),
         .I3(busy),
         .O(\cnt3[8]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
   LUT4 #(
     .INIT(16'hE0FF)) 
     \cnt3[9]_i_1 
@@ -34939,97 +35078,96 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .CLR(reset_n_0),
         .D(\cnt3[9]_i_1_n_0 ),
         .Q(cnt3[9]));
+  (* SOFT_HLUTNM = "soft_lutpair56" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \cnt4[0]_i_1 
        (.I0(busy),
         .I1(cnt4_reg[0]),
-        .O(p_0_in__0[0]));
-  (* SOFT_HLUTNM = "soft_lutpair52" *) 
+        .O(p_0_in__1[0]));
+  (* SOFT_HLUTNM = "soft_lutpair56" *) 
   LUT3 #(
     .INIT(8'hD7)) 
     \cnt4[1]_i_1 
        (.I0(busy),
         .I1(cnt4_reg[1]),
         .I2(cnt4_reg[0]),
-        .O(p_0_in__0[1]));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+        .O(p_0_in__1[1]));
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT4 #(
-    .INIT(16'hFD57)) 
+    .INIT(16'hE1FF)) 
     \cnt4[2]_i_1 
-       (.I0(busy),
-        .I1(cnt4_reg[0]),
-        .I2(cnt4_reg[1]),
-        .I3(cnt4_reg[2]),
-        .O(p_0_in__0[2]));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+       (.I0(cnt4_reg[0]),
+        .I1(cnt4_reg[1]),
+        .I2(cnt4_reg[2]),
+        .I3(busy),
+        .O(\cnt4[2]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT5 #(
     .INIT(32'hAAA80002)) 
     \cnt4[3]_i_1 
        (.I0(busy),
-        .I1(cnt4_reg[2]),
-        .I2(cnt4_reg[1]),
-        .I3(cnt4_reg[0]),
+        .I1(cnt4_reg[1]),
+        .I2(cnt4_reg[0]),
+        .I3(cnt4_reg[2]),
         .I4(cnt4_reg[3]),
-        .O(p_0_in__0[3]));
+        .O(p_0_in__1[3]));
   LUT6 #(
     .INIT(64'hAAAAAAA800000002)) 
     \cnt4[4]_i_1 
        (.I0(busy),
         .I1(cnt4_reg[3]),
-        .I2(cnt4_reg[0]),
-        .I3(cnt4_reg[1]),
-        .I4(cnt4_reg[2]),
+        .I2(cnt4_reg[2]),
+        .I3(cnt4_reg[0]),
+        .I4(cnt4_reg[1]),
         .I5(cnt4_reg[4]),
-        .O(p_0_in__0[4]));
-  (* SOFT_HLUTNM = "soft_lutpair51" *) 
+        .O(p_0_in__1[4]));
+  (* SOFT_HLUTNM = "soft_lutpair53" *) 
   LUT3 #(
-    .INIT(8'h82)) 
+    .INIT(8'h60)) 
     \cnt4[5]_i_1 
-       (.I0(busy),
-        .I1(\cnt4[7]_i_3_n_0 ),
-        .I2(cnt4_reg[5]),
-        .O(p_0_in__0[5]));
-  (* SOFT_HLUTNM = "soft_lutpair51" *) 
-  LUT4 #(
-    .INIT(16'hA802)) 
-    \cnt4[6]_i_1 
-       (.I0(busy),
+       (.I0(\cnt4[5]_i_2_n_0 ),
         .I1(cnt4_reg[5]),
-        .I2(\cnt4[7]_i_3_n_0 ),
-        .I3(cnt4_reg[6]),
-        .O(p_0_in__0[6]));
+        .I2(busy),
+        .O(\cnt4[5]_i_1_n_0 ));
+  LUT5 #(
+    .INIT(32'h00000001)) 
+    \cnt4[5]_i_2 
+       (.I0(cnt4_reg[4]),
+        .I1(cnt4_reg[1]),
+        .I2(cnt4_reg[0]),
+        .I3(cnt4_reg[2]),
+        .I4(cnt4_reg[3]),
+        .O(\cnt4[5]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  LUT3 #(
+    .INIT(8'h60)) 
+    \cnt4[6]_i_1 
+       (.I0(done_i_3_n_0),
+        .I1(cnt4_reg[6]),
+        .I2(busy),
+        .O(\cnt4[6]_i_1_n_0 ));
   LUT2 #(
     .INIT(4'hB)) 
     \cnt4[7]_i_1 
        (.I0(\resp_arg[31]_i_2_n_0 ),
         .I1(busy),
         .O(\cnt4[7]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
-  LUT5 #(
-    .INIT(32'hFE01FFFF)) 
+  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  LUT4 #(
+    .INIT(16'hD2FF)) 
     \cnt4[7]_i_2 
-       (.I0(\cnt4[7]_i_3_n_0 ),
+       (.I0(done_i_3_n_0),
         .I1(cnt4_reg[6]),
-        .I2(cnt4_reg[5]),
-        .I3(cnt4_reg[7]),
-        .I4(busy),
+        .I2(cnt4_reg[7]),
+        .I3(busy),
         .O(\cnt4[7]_i_2_n_0 ));
-  LUT5 #(
-    .INIT(32'hFFFFFFFE)) 
-    \cnt4[7]_i_3 
-       (.I0(cnt4_reg[4]),
-        .I1(cnt4_reg[2]),
-        .I2(cnt4_reg[1]),
-        .I3(cnt4_reg[0]),
-        .I4(cnt4_reg[3]),
-        .O(\cnt4[7]_i_3_n_0 ));
   FDPE #(
     .INIT(1'b1)) 
     \cnt4_reg[0] 
        (.C(clk_sd),
         .CE(\cnt4[7]_i_1_n_0 ),
-        .D(p_0_in__0[0]),
+        .D(p_0_in__1[0]),
         .PRE(reset_n_0),
         .Q(cnt4_reg[0]));
   FDPE #(
@@ -35037,7 +35175,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
     \cnt4_reg[1] 
        (.C(clk_sd),
         .CE(\cnt4[7]_i_1_n_0 ),
-        .D(p_0_in__0[1]),
+        .D(p_0_in__1[1]),
         .PRE(reset_n_0),
         .Q(cnt4_reg[1]));
   FDPE #(
@@ -35045,7 +35183,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
     \cnt4_reg[2] 
        (.C(clk_sd),
         .CE(\cnt4[7]_i_1_n_0 ),
-        .D(p_0_in__0[2]),
+        .D(\cnt4[2]_i_1_n_0 ),
         .PRE(reset_n_0),
         .Q(cnt4_reg[2]));
   FDPE #(
@@ -35053,7 +35191,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
     \cnt4_reg[3] 
        (.C(clk_sd),
         .CE(\cnt4[7]_i_1_n_0 ),
-        .D(p_0_in__0[3]),
+        .D(p_0_in__1[3]),
         .PRE(reset_n_0),
         .Q(cnt4_reg[3]));
   FDPE #(
@@ -35061,7 +35199,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
     \cnt4_reg[4] 
        (.C(clk_sd),
         .CE(\cnt4[7]_i_1_n_0 ),
-        .D(p_0_in__0[4]),
+        .D(p_0_in__1[4]),
         .PRE(reset_n_0),
         .Q(cnt4_reg[4]));
   FDPE #(
@@ -35069,7 +35207,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
     \cnt4_reg[5] 
        (.C(clk_sd),
         .CE(\cnt4[7]_i_1_n_0 ),
-        .D(p_0_in__0[5]),
+        .D(\cnt4[5]_i_1_n_0 ),
         .PRE(reset_n_0),
         .Q(cnt4_reg[5]));
   FDPE #(
@@ -35077,7 +35215,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
     \cnt4_reg[6] 
        (.C(clk_sd),
         .CE(\cnt4[7]_i_1_n_0 ),
-        .D(p_0_in__0[6]),
+        .D(\cnt4[6]_i_1_n_0 ),
         .PRE(reset_n_0),
         .Q(cnt4_reg[6]));
   FDPE #(
@@ -35089,42 +35227,52 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .PRE(reset_n_0),
         .Q(cnt4_reg[7]));
   LUT6 #(
-    .INIT(64'h1111111F00000000)) 
+    .INIT(64'h5555575500000000)) 
     done_i_1
-       (.I0(timeout_i_6_n_0),
-        .I1(done_i_2_n_0),
-        .I2(done_i_3_n_0),
-        .I3(cnt4_reg[7]),
+       (.I0(done_i_2_n_0),
+        .I1(cnt4_reg[6]),
+        .I2(cnt4_reg[7]),
+        .I3(done_i_3_n_0),
         .I4(done_i_4_n_0),
-        .I5(timeout_i_2_n_0),
+        .I5(done_i_5_n_0),
         .O(done13_out));
   LUT6 #(
-    .INIT(64'hFEFFFEFFFEFFFFFF)) 
+    .INIT(64'hFFFFFFFFFFFFFFEF)) 
     done_i_2
-       (.I0(timeout_i_3_n_0),
-        .I1(cnt3[3]),
-        .I2(cnt3[2]),
-        .I3(cnt3[0]),
-        .I4(sd_cmd_in),
-        .I5(sd_cmd_oe),
+       (.I0(timeout_i_5_n_0),
+        .I1(timeout_i_4_n_0),
+        .I2(cnt3[0]),
+        .I3(cnt3[3]),
+        .I4(cnt3[2]),
+        .I5(timeout_i_2_n_0),
         .O(done_i_2_n_0));
-  LUT3 #(
-    .INIT(8'hFE)) 
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
     done_i_3
-       (.I0(\cnt4[7]_i_3_n_0 ),
-        .I1(cnt4_reg[6]),
-        .I2(cnt4_reg[5]),
+       (.I0(cnt4_reg[3]),
+        .I1(cnt4_reg[2]),
+        .I2(cnt4_reg[0]),
+        .I3(cnt4_reg[1]),
+        .I4(cnt4_reg[4]),
+        .I5(cnt4_reg[5]),
         .O(done_i_3_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
   LUT5 #(
     .INIT(32'hFFFFFFFE)) 
     done_i_4
-       (.I0(timeout_i_6_n_0),
+       (.I0(timeout_i_5_n_0),
         .I1(cnt3[0]),
-        .I2(cnt3[3]),
-        .I3(cnt3[2]),
-        .I4(timeout_i_3_n_0),
+        .I2(cnt3[2]),
+        .I3(cnt3[3]),
+        .I4(timeout_i_2_n_0),
         .O(done_i_4_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair60" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    done_i_5
+       (.I0(\cnt3[15]_i_3_n_0 ),
+        .I1(busy),
+        .O(done_i_5_n_0));
   FDCE #(
     .INIT(1'b0)) 
     done_reg
@@ -35133,70 +35281,70 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .CLR(reset_n_0),
         .D(done13_out),
         .Q(done));
-  (* SOFT_HLUTNM = "soft_lutpair80" *) 
+  (* SOFT_HLUTNM = "soft_lutpair65" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outaddr[0]_i_1 
        (.I0(\outaddr_reg[8] [3]),
         .I1(outen2_out),
         .O(\ridx_reg[11] [0]));
-  (* SOFT_HLUTNM = "soft_lutpair80" *) 
+  (* SOFT_HLUTNM = "soft_lutpair65" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outaddr[1]_i_1 
        (.I0(\outaddr_reg[8] [4]),
         .I1(outen2_out),
         .O(\ridx_reg[11] [1]));
-  (* SOFT_HLUTNM = "soft_lutpair79" *) 
+  (* SOFT_HLUTNM = "soft_lutpair64" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outaddr[2]_i_1 
        (.I0(\outaddr_reg[8] [5]),
         .I1(outen2_out),
         .O(\ridx_reg[11] [2]));
-  (* SOFT_HLUTNM = "soft_lutpair79" *) 
+  (* SOFT_HLUTNM = "soft_lutpair64" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outaddr[3]_i_1 
        (.I0(\outaddr_reg[8] [6]),
         .I1(outen2_out),
         .O(\ridx_reg[11] [3]));
-  (* SOFT_HLUTNM = "soft_lutpair78" *) 
+  (* SOFT_HLUTNM = "soft_lutpair63" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outaddr[4]_i_1 
        (.I0(\outaddr_reg[8] [7]),
         .I1(outen2_out),
         .O(\ridx_reg[11] [4]));
-  (* SOFT_HLUTNM = "soft_lutpair78" *) 
+  (* SOFT_HLUTNM = "soft_lutpair63" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outaddr[5]_i_1 
        (.I0(\outaddr_reg[8] [8]),
         .I1(outen2_out),
         .O(\ridx_reg[11] [5]));
-  (* SOFT_HLUTNM = "soft_lutpair77" *) 
+  (* SOFT_HLUTNM = "soft_lutpair62" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outaddr[6]_i_1 
        (.I0(\outaddr_reg[8] [9]),
         .I1(outen2_out),
         .O(\ridx_reg[11] [6]));
-  (* SOFT_HLUTNM = "soft_lutpair77" *) 
+  (* SOFT_HLUTNM = "soft_lutpair62" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outaddr[7]_i_1 
        (.I0(\outaddr_reg[8] [10]),
         .I1(outen2_out),
         .O(\ridx_reg[11] [7]));
-  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+  (* SOFT_HLUTNM = "soft_lutpair54" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \outaddr[8]_i_1 
        (.I0(\outaddr_reg[8] [11]),
         .I1(outen2_out),
         .O(\ridx_reg[11] [8]));
-  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+  (* SOFT_HLUTNM = "soft_lutpair54" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \outbyte[0]_i_1 
@@ -35224,7 +35372,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I4(\outbyte[2]_i_2_n_0 ),
         .I5(\outbyte_reg[2] ),
         .O(sd_dat0_5));
-  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+  (* SOFT_HLUTNM = "soft_lutpair48" *) 
   LUT4 #(
     .INIT(16'hF7FF)) 
     \outbyte[2]_i_2 
@@ -35234,7 +35382,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I3(sdclk_reg_0),
         .O(\outbyte[2]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFBFFF00008000)) 
+    .INIT(64'hBFFFFFFF80000000)) 
     \outbyte[3]_i_1 
        (.I0(sd_dat0),
         .I1(Q[1]),
@@ -35244,16 +35392,16 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I5(\outbyte_reg[3] ),
         .O(sd_dat0_4));
   LUT6 #(
-    .INIT(64'hFBFFFFFF08000000)) 
+    .INIT(64'hFFBFFFFF00800000)) 
     \outbyte[4]_i_1 
        (.I0(sd_dat0),
         .I1(\outbyte[4]_i_2_n_0 ),
-        .I2(\outaddr_reg[8] [2]),
-        .I3(Q[1]),
-        .I4(\outbyte_reg[7] ),
+        .I2(\outbyte_reg[7] ),
+        .I3(\outaddr_reg[8] [2]),
+        .I4(Q[1]),
         .I5(\outbyte_reg[4] ),
         .O(sd_dat0_3));
-  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+  (* SOFT_HLUTNM = "soft_lutpair49" *) 
   LUT4 #(
     .INIT(16'h4000)) 
     \outbyte[4]_i_2 
@@ -35282,7 +35430,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I4(\outbyte_reg[7] ),
         .I5(\outbyte_reg[6] ),
         .O(sd_dat0_1));
-  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+  (* SOFT_HLUTNM = "soft_lutpair48" *) 
   LUT4 #(
     .INIT(16'h0040)) 
     \outbyte[6]_i_2 
@@ -35292,18 +35440,18 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I3(\outaddr_reg[8] [2]),
         .O(\outbyte[6]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFEFFF00002000)) 
+    .INIT(64'hFFBFFFFF00800000)) 
     \outbyte[7]_i_1 
        (.I0(sd_dat0),
-        .I1(\outaddr_reg[8] [2]),
-        .I2(Q[1]),
-        .I3(\outbyte_reg[7] ),
-        .I4(\outbyte[7]_i_2_n_0 ),
+        .I1(\outbyte[7]_i_2_n_0 ),
+        .I2(\outbyte_reg[7] ),
+        .I3(\outaddr_reg[8] [2]),
+        .I4(Q[1]),
         .I5(\outbyte_reg[7]_0 ),
         .O(sd_dat0_0));
-  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+  (* SOFT_HLUTNM = "soft_lutpair49" *) 
   LUT4 #(
-    .INIT(16'hFFFB)) 
+    .INIT(16'h0004)) 
     \outbyte[7]_i_2 
        (.I0(sdclkl),
         .I1(sdclk_reg_0),
@@ -35320,80 +35468,80 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I4(\outaddr_reg[8] [2]),
         .I5(\outbyte_reg[7] ),
         .O(outen2_out));
-  (* SOFT_HLUTNM = "soft_lutpair75" *) 
+  (* SOFT_HLUTNM = "soft_lutpair59" *) 
   LUT2 #(
     .INIT(4'h2)) 
     outen_i_2
        (.I0(sdclk_reg_0),
         .I1(sdclkl),
         .O(outen_i_2_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair31" *) 
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
   LUT5 #(
     .INIT(32'h10000001)) 
     \precnt[11]_i_1 
-       (.I0(\rca_reg[0] [3]),
+       (.I0(\card_type_reg[1] [3]),
         .I1(busy),
-        .I2(\rca_reg[0] [2]),
-        .I3(\rca_reg[0] [1]),
-        .I4(\rca_reg[0] [0]),
+        .I2(\card_type_reg[1] [2]),
+        .I3(\card_type_reg[1] [1]),
+        .I4(\card_type_reg[1] [0]),
         .O(D[4]));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
   LUT5 #(
-    .INIT(32'h01111100)) 
+    .INIT(32'h01111010)) 
     \precnt[4]_i_1 
        (.I0(busy),
-        .I1(\rca_reg[0] [3]),
-        .I2(\rca_reg[0] [0]),
-        .I3(\rca_reg[0] [1]),
-        .I4(\rca_reg[0] [2]),
+        .I1(\card_type_reg[1] [3]),
+        .I2(\card_type_reg[1] [2]),
+        .I3(\card_type_reg[1] [0]),
+        .I4(\card_type_reg[1] [1]),
         .O(D[0]));
   LUT6 #(
     .INIT(64'hAAAAAAEAAAAAAAAA)) 
     \precnt[5]_i_1 
        (.I0(busy_reg_0),
-        .I1(\rca_reg[0] [3]),
-        .I2(\rca_reg[0] [1]),
-        .I3(\rca_reg[0] [2]),
-        .I4(\rca_reg[0] [0]),
+        .I1(\card_type_reg[1] [3]),
+        .I2(\card_type_reg[1] [1]),
+        .I3(\card_type_reg[1] [2]),
+        .I4(\card_type_reg[1] [0]),
         .I5(Q[4]),
         .O(D[1]));
   LUT6 #(
-    .INIT(64'h00000000FD000000)) 
+    .INIT(64'h8000800080000000)) 
     \precnt[7]_i_1 
-       (.I0(\rca_reg[0] [1]),
-        .I1(\rca_reg[0] [2]),
-        .I2(\rca_reg[0] [0]),
-        .I3(\rca_reg[0] [3]),
-        .I4(\precnt[7]_i_2_n_0 ),
-        .I5(\sdcmd_stat[2]_i_2_n_0 ),
+       (.I0(\precnt_reg[7] ),
+        .I1(\card_type_reg[1] [3]),
+        .I2(done),
+        .I3(busy),
+        .I4(syntaxe),
+        .I5(timeout),
         .O(D[2]));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \precnt[7]_i_2 
-       (.I0(busy),
-        .I1(done),
-        .O(\precnt[7]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
   LUT5 #(
     .INIT(32'h02010001)) 
     \precnt[9]_i_1 
-       (.I0(\rca_reg[0] [2]),
+       (.I0(\card_type_reg[1] [2]),
         .I1(busy),
-        .I2(\rca_reg[0] [3]),
-        .I3(\rca_reg[0] [1]),
-        .I4(\rca_reg[0] [0]),
+        .I2(\card_type_reg[1] [3]),
+        .I3(\card_type_reg[1] [1]),
+        .I4(\card_type_reg[1] [0]),
         .O(D[3]));
   LUT6 #(
-    .INIT(64'h0000080000000000)) 
+    .INIT(64'h0000800000000000)) 
     \rca[15]_i_1 
-       (.I0(\sdcmd_stat[2]_i_2_n_0 ),
-        .I1(\precnt[7]_i_2_n_0 ),
-        .I2(\rca_reg[0] [1]),
-        .I3(\rca_reg[0] [2]),
-        .I4(\rca_reg[0] [3]),
-        .I5(\rca_reg[0] [0]),
-        .O(\sdcmd_stat_reg[1] ));
+       (.I0(\rca[15]_i_2_n_0 ),
+        .I1(done),
+        .I2(\sdcmd_stat[2]_i_3_n_0 ),
+        .I3(\card_type_reg[1] [0]),
+        .I4(\card_type_reg[1] [1]),
+        .I5(\card_type_reg[1] [2]),
+        .O(done_reg_2));
+  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \rca[15]_i_2 
+       (.I0(busy),
+        .I1(\card_type_reg[1] [3]),
+        .O(\rca[15]_i_2_n_0 ));
   LUT1 #(
     .INIT(2'h1)) 
     \req_arg[31]_i_1 
@@ -35717,7 +35865,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
        (.I0(busy),
         .I1(request[1]),
         .O(\req_crc[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair82" *) 
+  (* SOFT_HLUTNM = "soft_lutpair67" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \req_crc[2]_i_1 
@@ -35726,12 +35874,12 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .O(\req_crc[2]_i_1_n_0 ));
   (* SOFT_HLUTNM = "soft_lutpair42" *) 
   LUT4 #(
-    .INIT(16'h9060)) 
+    .INIT(16'h9600)) 
     \req_crc[3]_i_1 
        (.I0(request[7]),
         .I1(\req_crc_reg[3]_i_2_n_0 ),
-        .I2(busy),
-        .I3(request[3]),
+        .I2(request[3]),
+        .I3(busy),
         .O(\req_crc[3]_i_1_n_0 ));
   LUT6 #(
     .INIT(64'hAFA0CFCFAFA0C0C0)) 
@@ -35744,11 +35892,11 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I5(request[36]),
         .O(\req_crc[3]_i_10_n_0 ));
   LUT6 #(
-    .INIT(64'h33E2FFFF33E20000)) 
+    .INIT(64'h0FCAFFFF0FCA0000)) 
     \req_crc[3]_i_11 
        (.I0(request[44]),
-        .I1(cnt2_reg[0]),
-        .I2(request[45]),
+        .I1(request[45]),
+        .I2(cnt2_reg[0]),
         .I3(cnt2_reg[1]),
         .I4(cnt2_reg[2]),
         .I5(\req_crc[3]_i_20_n_0 ),
@@ -35872,14 +36020,14 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I4(cnt2_reg[0]),
         .I5(request[32]),
         .O(\req_crc[3]_i_9_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair82" *) 
+  (* SOFT_HLUTNM = "soft_lutpair67" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \req_crc[4]_i_1 
        (.I0(busy),
         .I1(request[4]),
         .O(\req_crc[4]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair81" *) 
+  (* SOFT_HLUTNM = "soft_lutpair66" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \req_crc[5]_i_1 
@@ -35887,38 +36035,38 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I1(request[5]),
         .O(\req_crc[5]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h00050504FFFFFFFF)) 
+    .INIT(64'h00001514FFFFFFFF)) 
     \req_crc[6]_i_1 
        (.I0(\req_crc[6]_i_3_n_0 ),
-        .I1(cnt2_reg[3]),
-        .I2(\req_crc[6]_i_4_n_0 ),
-        .I3(cnt2_reg[4]),
-        .I4(cnt2_reg[5]),
+        .I1(cnt2_reg[4]),
+        .I2(cnt2_reg[5]),
+        .I3(cnt2_reg[3]),
+        .I4(\req_crc[6]_i_4_n_0 ),
         .I5(busy),
         .O(\req_crc[6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair81" *) 
+  (* SOFT_HLUTNM = "soft_lutpair66" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \req_crc[6]_i_2 
        (.I0(busy),
         .I1(request[6]),
         .O(\req_crc[6]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \req_crc[6]_i_3 
-       (.I0(\req_crc[6]_i_5_n_0 ),
-        .I1(cnt1_reg[2]),
-        .I2(cnt1_reg[1]),
-        .I3(cnt1_reg[3]),
-        .I4(cnt1_reg[0]),
-        .I5(\req_crc[6]_i_6_n_0 ),
-        .O(\req_crc[6]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT2 #(
     .INIT(4'hB)) 
-    \req_crc[6]_i_4 
+    \req_crc[6]_i_3 
        (.I0(done),
         .I1(syntaxe1_carry__0_n_2),
+        .O(\req_crc[6]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFFFFFE)) 
+    \req_crc[6]_i_4 
+       (.I0(\req_crc[6]_i_5_n_0 ),
+        .I1(cnt1_reg[3]),
+        .I2(cnt1_reg[0]),
+        .I3(cnt1_reg[2]),
+        .I4(cnt1_reg[1]),
+        .I5(\req_crc[6]_i_6_n_0 ),
         .O(\req_crc[6]_i_4_n_0 ));
   LUT4 #(
     .INIT(16'hFFFE)) 
@@ -35940,9 +36088,9 @@ module design_1_top_system_0_1_sdcmd_ctrl
   LUT4 #(
     .INIT(16'hFFFE)) 
     \req_crc[6]_i_7 
-       (.I0(cnt1_reg[14]),
-        .I1(cnt1_reg[13]),
-        .I2(cnt1_reg[15]),
+       (.I0(cnt1_reg[15]),
+        .I1(cnt1_reg[14]),
+        .I2(cnt1_reg[13]),
         .I3(cnt1_reg[12]),
         .O(\req_crc[6]_i_7_n_0 ));
   FDCE #(
@@ -36026,7 +36174,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .CLR(reset_n_0),
         .D(\req_crc[6]_i_2_n_0 ),
         .Q(request[7]));
-  (* SOFT_HLUTNM = "soft_lutpair76" *) 
+  (* SOFT_HLUTNM = "soft_lutpair61" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \resp_arg[0]_i_1 
@@ -36042,33 +36190,30 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I3(cnt4_reg[6]),
         .I4(cnt4_reg[5]),
         .O(resp_arg));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
-  LUT5 #(
-    .INIT(32'h00000001)) 
+  LUT6 #(
+    .INIT(64'h000000002AAAAAAA)) 
     \resp_arg[31]_i_2 
        (.I0(\cnt3[15]_i_3_n_0 ),
-        .I1(done),
-        .I2(syntaxe1_carry__0_n_2),
-        .I3(\resp_arg[31]_i_3_n_0 ),
-        .I4(done_i_4_n_0),
+        .I1(\resp_arg[31]_i_3_n_0 ),
+        .I2(\resp_arg[31]_i_4_n_0 ),
+        .I3(cnt4_reg[0]),
+        .I4(cnt4_reg[1]),
+        .I5(done_i_4_n_0),
         .O(\resp_arg[31]_i_2_n_0 ));
-  LUT5 #(
-    .INIT(32'h00008000)) 
-    \resp_arg[31]_i_3 
-       (.I0(cnt4_reg[2]),
-        .I1(cnt4_reg[4]),
-        .I2(cnt4_reg[3]),
-        .I3(cnt4_reg[7]),
-        .I4(\resp_arg[31]_i_4_n_0 ),
-        .O(\resp_arg[31]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair52" *) 
   LUT4 #(
-    .INIT(16'h7FFF)) 
+    .INIT(16'h8000)) 
+    \resp_arg[31]_i_3 
+       (.I0(cnt4_reg[4]),
+        .I1(cnt4_reg[3]),
+        .I2(cnt4_reg[7]),
+        .I3(cnt4_reg[2]),
+        .O(\resp_arg[31]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair53" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \resp_arg[31]_i_4 
-       (.I0(cnt4_reg[1]),
-        .I1(cnt4_reg[0]),
-        .I2(cnt4_reg[6]),
-        .I3(cnt4_reg[5]),
+       (.I0(cnt4_reg[5]),
+        .I1(cnt4_reg[6]),
         .O(\resp_arg[31]_i_4_n_0 ));
   FDCE \resp_arg_reg[0] 
        (.C(clk_sd),
@@ -36314,293 +36459,16 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I4(sdclkl),
         .I5(\outbyte_reg[7] ),
         .O(E));
-  (* SOFT_HLUTNM = "soft_lutpair55" *) 
-  LUT3 #(
-    .INIT(8'h80)) 
-    \rsectoraddr[0]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [0]),
-        .I1(sdv1_maybe_reg),
-        .I2(timeout_reg_0),
-        .O(\read_sector_no_reg[22]_0 [0]));
-  (* SOFT_HLUTNM = "soft_lutpair56" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[10]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [1]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [10]),
-        .O(\read_sector_no_reg[22]_0 [10]));
-  (* SOFT_HLUTNM = "soft_lutpair57" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[11]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [2]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [11]),
-        .O(\read_sector_no_reg[22]_0 [11]));
-  (* SOFT_HLUTNM = "soft_lutpair58" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[12]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [3]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [12]),
-        .O(\read_sector_no_reg[22]_0 [12]));
-  (* SOFT_HLUTNM = "soft_lutpair59" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[13]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [4]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [13]),
-        .O(\read_sector_no_reg[22]_0 [13]));
-  (* SOFT_HLUTNM = "soft_lutpair60" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[14]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [5]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [14]),
-        .O(\read_sector_no_reg[22]_0 [14]));
-  (* SOFT_HLUTNM = "soft_lutpair61" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[15]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [6]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [15]),
-        .O(\read_sector_no_reg[22]_0 [15]));
-  (* SOFT_HLUTNM = "soft_lutpair62" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[16]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [7]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [16]),
-        .O(\read_sector_no_reg[22]_0 [16]));
-  (* SOFT_HLUTNM = "soft_lutpair63" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[17]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [8]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [17]),
-        .O(\read_sector_no_reg[22]_0 [17]));
-  (* SOFT_HLUTNM = "soft_lutpair64" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[18]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [9]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [18]),
-        .O(\read_sector_no_reg[22]_0 [18]));
-  (* SOFT_HLUTNM = "soft_lutpair65" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[19]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [10]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [19]),
-        .O(\read_sector_no_reg[22]_0 [19]));
-  (* SOFT_HLUTNM = "soft_lutpair56" *) 
-  LUT3 #(
-    .INIT(8'h80)) 
-    \rsectoraddr[1]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [1]),
-        .I1(sdv1_maybe_reg),
-        .I2(timeout_reg_0),
-        .O(\read_sector_no_reg[22]_0 [1]));
-  (* SOFT_HLUTNM = "soft_lutpair66" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[20]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [11]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [20]),
-        .O(\read_sector_no_reg[22]_0 [20]));
-  (* SOFT_HLUTNM = "soft_lutpair67" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[21]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [12]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [21]),
-        .O(\read_sector_no_reg[22]_0 [21]));
-  (* SOFT_HLUTNM = "soft_lutpair68" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[22]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [13]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [22]),
-        .O(\read_sector_no_reg[22]_0 [22]));
-  (* SOFT_HLUTNM = "soft_lutpair69" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[23]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [14]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [23]),
-        .O(\read_sector_no_reg[22]_0 [23]));
-  (* SOFT_HLUTNM = "soft_lutpair70" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[24]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [15]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [24]),
-        .O(\read_sector_no_reg[22]_0 [24]));
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[25]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [16]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [25]),
-        .O(\read_sector_no_reg[22]_0 [25]));
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[26]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [17]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [26]),
-        .O(\read_sector_no_reg[22]_0 [26]));
-  (* SOFT_HLUTNM = "soft_lutpair64" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[27]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [18]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [27]),
-        .O(\read_sector_no_reg[22]_0 [27]));
-  (* SOFT_HLUTNM = "soft_lutpair65" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[28]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [19]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [28]),
-        .O(\read_sector_no_reg[22]_0 [28]));
-  (* SOFT_HLUTNM = "soft_lutpair66" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[29]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [20]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [29]),
-        .O(\read_sector_no_reg[22]_0 [29]));
-  (* SOFT_HLUTNM = "soft_lutpair57" *) 
-  LUT3 #(
-    .INIT(8'h80)) 
-    \rsectoraddr[2]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [2]),
-        .I1(sdv1_maybe_reg),
-        .I2(timeout_reg_0),
-        .O(\read_sector_no_reg[22]_0 [2]));
-  (* SOFT_HLUTNM = "soft_lutpair67" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[30]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [21]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [30]),
-        .O(\read_sector_no_reg[22]_0 [30]));
   LUT6 #(
     .INIT(64'h0000010000000000)) 
     \rsectoraddr[31]_i_1 
        (.I0(busy),
-        .I1(\rca_reg[0] [1]),
-        .I2(\rca_reg[0] [2]),
+        .I1(\card_type_reg[1] [1]),
+        .I2(\card_type_reg[1] [2]),
         .I3(\rsectoraddr_reg[31] ),
-        .I4(\rca_reg[0] [0]),
-        .I5(\rca_reg[0] [3]),
+        .I4(\card_type_reg[1] [0]),
+        .I5(\card_type_reg[1] [3]),
         .O(busy_reg_0));
-  (* SOFT_HLUTNM = "soft_lutpair68" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[31]_i_2 
-       (.I0(\rsectoraddr_reg[31]_0 [22]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [31]),
-        .O(\read_sector_no_reg[22]_0 [31]));
-  (* SOFT_HLUTNM = "soft_lutpair58" *) 
-  LUT3 #(
-    .INIT(8'h80)) 
-    \rsectoraddr[3]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [3]),
-        .I1(sdv1_maybe_reg),
-        .I2(timeout_reg_0),
-        .O(\read_sector_no_reg[22]_0 [3]));
-  (* SOFT_HLUTNM = "soft_lutpair59" *) 
-  LUT3 #(
-    .INIT(8'h80)) 
-    \rsectoraddr[4]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [4]),
-        .I1(sdv1_maybe_reg),
-        .I2(timeout_reg_0),
-        .O(\read_sector_no_reg[22]_0 [4]));
-  (* SOFT_HLUTNM = "soft_lutpair60" *) 
-  LUT3 #(
-    .INIT(8'h80)) 
-    \rsectoraddr[5]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [5]),
-        .I1(sdv1_maybe_reg),
-        .I2(timeout_reg_0),
-        .O(\read_sector_no_reg[22]_0 [5]));
-  (* SOFT_HLUTNM = "soft_lutpair61" *) 
-  LUT3 #(
-    .INIT(8'h80)) 
-    \rsectoraddr[6]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [6]),
-        .I1(sdv1_maybe_reg),
-        .I2(timeout_reg_0),
-        .O(\read_sector_no_reg[22]_0 [6]));
-  (* SOFT_HLUTNM = "soft_lutpair62" *) 
-  LUT3 #(
-    .INIT(8'h80)) 
-    \rsectoraddr[7]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [7]),
-        .I1(sdv1_maybe_reg),
-        .I2(timeout_reg_0),
-        .O(\read_sector_no_reg[22]_0 [7]));
-  (* SOFT_HLUTNM = "soft_lutpair63" *) 
-  LUT3 #(
-    .INIT(8'h80)) 
-    \rsectoraddr[8]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [8]),
-        .I1(sdv1_maybe_reg),
-        .I2(timeout_reg_0),
-        .O(\read_sector_no_reg[22]_0 [8]));
-  (* SOFT_HLUTNM = "soft_lutpair55" *) 
-  LUT4 #(
-    .INIT(16'hEA2A)) 
-    \rsectoraddr[9]_i_1 
-       (.I0(\rsectoraddr_reg[31]_0 [0]),
-        .I1(timeout_reg_0),
-        .I2(sdv1_maybe_reg),
-        .I3(\rsectoraddr_reg[31]_0 [9]),
-        .O(\read_sector_no_reg[22]_0 [9]));
   LUT2 #(
     .INIT(4'h7)) 
     sclk_int_i_2
@@ -36612,7 +36480,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
     sd_cmd_iobuf_i_1
        (.I0(sd_cmd_oe),
         .O(T));
-  (* SOFT_HLUTNM = "soft_lutpair75" *) 
+  (* SOFT_HLUTNM = "soft_lutpair59" *) 
   LUT3 #(
     .INIT(8'h32)) 
     sdclk_i_1
@@ -36632,46 +36500,47 @@ module design_1_top_system_0_1_sdcmd_ctrl
     .INIT(64'h57575F5357575757)) 
     \sdcmd_stat[0]_i_1 
        (.I0(busy),
-        .I1(\rca_reg[0] [3]),
-        .I2(\rca_reg[0] [0]),
+        .I1(\card_type_reg[1] [3]),
+        .I2(\card_type_reg[1] [0]),
         .I3(Q[4]),
-        .I4(\rca_reg[0] [2]),
-        .I5(\rca_reg[0] [1]),
-        .O(\sdcmd_stat_reg[0] [0]));
+        .I4(\card_type_reg[1] [2]),
+        .I5(\card_type_reg[1] [1]),
+        .O(\sdcmd_stat_reg[2] [0]));
   LUT6 #(
     .INIT(64'hC0CCC4CCCCC00CC0)) 
     \sdcmd_stat[1]_i_1 
        (.I0(\sdcmd_stat[1]_i_2_n_0 ),
         .I1(busy),
-        .I2(\rca_reg[0] [3]),
-        .I3(\rca_reg[0] [1]),
-        .I4(\rca_reg[0] [2]),
-        .I5(\rca_reg[0] [0]),
-        .O(\sdcmd_stat_reg[0] [1]));
+        .I2(\card_type_reg[1] [3]),
+        .I3(\card_type_reg[1] [1]),
+        .I4(\card_type_reg[1] [2]),
+        .I5(\card_type_reg[1] [0]),
+        .O(\sdcmd_stat_reg[2] [1]));
+  (* SOFT_HLUTNM = "soft_lutpair57" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \sdcmd_stat[1]_i_2 
        (.I0(\resp_arg_reg[31]_0 [15]),
-        .I1(timeout_reg_0),
+        .I1(timeout),
         .I2(syntaxe),
         .O(\sdcmd_stat[1]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h4444000000004000)) 
+    .INIT(64'h0440004000400040)) 
     \sdcmd_stat[2]_i_1 
-       (.I0(\rca_reg[0] [3]),
+       (.I0(\card_type_reg[1] [3]),
         .I1(busy),
-        .I2(\resp_arg_reg[31]_0 [15]),
-        .I3(\sdcmd_stat[2]_i_2_n_0 ),
-        .I4(\rca_reg[0] [2]),
-        .I5(\sdcmd_stat_reg[2] ),
-        .O(\sdcmd_stat_reg[0] [2]));
-  (* SOFT_HLUTNM = "soft_lutpair70" *) 
+        .I2(\card_type_reg[1] [2]),
+        .I3(\sdcmd_stat_reg[2]_0 ),
+        .I4(\sdcmd_stat[2]_i_3_n_0 ),
+        .I5(\resp_arg_reg[31]_0 [15]),
+        .O(\sdcmd_stat_reg[2] [2]));
+  (* SOFT_HLUTNM = "soft_lutpair57" *) 
   LUT2 #(
     .INIT(4'h1)) 
-    \sdcmd_stat[2]_i_2 
+    \sdcmd_stat[2]_i_3 
        (.I0(syntaxe),
-        .I1(timeout_reg_0),
-        .O(\sdcmd_stat[2]_i_2_n_0 ));
+        .I1(timeout),
+        .O(\sdcmd_stat[2]_i_3_n_0 ));
   LUT5 #(
     .INIT(32'hFFFCEEFC)) 
     \sdcmd_stat[3]_i_1 
@@ -36681,37 +36550,56 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I3(\clkdiv_reg[6] ),
         .I4(Q[3]),
         .O(\FSM_onehot_sddat_stat_reg[4] ));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT5 #(
     .INIT(32'hFF80FFFF)) 
     \sdcmd_stat[3]_i_2 
-       (.I0(\rca_reg[0] [0]),
-        .I1(\rca_reg[0] [1]),
-        .I2(\rca_reg[0] [2]),
-        .I3(\rca_reg[0] [3]),
+       (.I0(\card_type_reg[1] [2]),
+        .I1(\card_type_reg[1] [0]),
+        .I2(\card_type_reg[1] [1]),
+        .I3(\card_type_reg[1] [3]),
         .I4(busy),
-        .O(\sdcmd_stat_reg[0] [3]));
+        .O(\sdcmd_stat_reg[2] [3]));
   LUT6 #(
     .INIT(64'h00000000FFFFEAAA)) 
     \sdcmd_stat[3]_i_3 
-       (.I0(\sdcmd_stat_reg[0]_0 ),
+       (.I0(\sdcmd_stat_reg[0] ),
         .I1(cmd8_cnt__0[0]),
         .I2(cmd8_cnt__0[1]),
         .I3(cmd8_cnt__0[2]),
-        .I4(sdv1_maybe_i_3_n_0),
-        .I5(\sdcmd_stat[3]_i_6_n_0 ),
+        .I4(\sdcmd_stat[3]_i_6_n_0 ),
+        .I5(\sdcmd_stat[3]_i_7_n_0 ),
         .O(\sdcmd_stat[3]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h55555555FDFFFDFD)) 
+  LUT5 #(
+    .INIT(32'h00000080)) 
     \sdcmd_stat[3]_i_6 
-       (.I0(\precnt[7]_i_2_n_0 ),
-        .I1(\rca_reg[0] [2]),
-        .I2(\rca_reg[0] [3]),
-        .I3(\rca_reg[0] [0]),
-        .I4(\rca_reg[0] [1]),
-        .I5(\sdcmd_stat[2]_i_2_n_0 ),
+       (.I0(\resp_arg_reg_n_0_[1] ),
+        .I1(\resp_arg_reg_n_0_[3] ),
+        .I2(\resp_arg_reg_n_0_[7] ),
+        .I3(\resp_arg_reg_n_0_[0] ),
+        .I4(\sdcmd_stat[3]_i_8_n_0 ),
         .O(\sdcmd_stat[3]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  LUT6 #(
+    .INIT(64'h55555555FFFFFF75)) 
+    \sdcmd_stat[3]_i_7 
+       (.I0(\cmd8_cnt[2]_i_3_n_0 ),
+        .I1(\card_type_reg[1] [0]),
+        .I2(\card_type_reg[1] [1]),
+        .I3(\card_type_reg[1] [2]),
+        .I4(\card_type_reg[1] [3]),
+        .I5(\sdcmd_stat[2]_i_3_n_0 ),
+        .O(\sdcmd_stat[3]_i_7_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFFFFFB)) 
+    \sdcmd_stat[3]_i_8 
+       (.I0(\resp_arg_reg_n_0_[4] ),
+        .I1(\resp_arg_reg_n_0_[5] ),
+        .I2(\resp_arg_reg_n_0_[2] ),
+        .I3(\resp_arg_reg_n_0_[6] ),
+        .I4(timeout),
+        .I5(syntaxe),
+        .O(\sdcmd_stat[3]_i_8_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
   LUT5 #(
     .INIT(32'hFFBF0080)) 
     sdcmdoe_i_1
@@ -36751,46 +36639,17 @@ module design_1_top_system_0_1_sdcmd_ctrl
     .INIT(64'hBFFFFFFF80000000)) 
     sdv1_maybe_i_1
        (.I0(done),
-        .I1(sdv1_maybe_i_2_n_0),
+        .I1(\cmd8_cnt[2]_i_2_n_0 ),
         .I2(cmd8_cnt__0[0]),
         .I3(cmd8_cnt__0[1]),
         .I4(cmd8_cnt__0[2]),
-        .I5(sdv1_maybe_reg),
+        .I5(sdv1_maybe),
         .O(done_reg_1));
-  LUT6 #(
-    .INIT(64'h0000000000020000)) 
-    sdv1_maybe_i_2
-       (.I0(\rca_reg[0] [0]),
-        .I1(\rca_reg[0] [3]),
-        .I2(\rca_reg[0] [1]),
-        .I3(\rca_reg[0] [2]),
-        .I4(\precnt[7]_i_2_n_0 ),
-        .I5(sdv1_maybe_i_3_n_0),
-        .O(sdv1_maybe_i_2_n_0));
-  LUT5 #(
-    .INIT(32'h00000080)) 
-    sdv1_maybe_i_3
-       (.I0(\resp_arg_reg_n_0_[1] ),
-        .I1(\resp_arg_reg_n_0_[3] ),
-        .I2(\resp_arg_reg_n_0_[7] ),
-        .I3(\resp_arg_reg_n_0_[0] ),
-        .I4(sdv1_maybe_i_4_n_0),
-        .O(sdv1_maybe_i_3_n_0));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFB)) 
-    sdv1_maybe_i_4
-       (.I0(\resp_arg_reg_n_0_[4] ),
-        .I1(\resp_arg_reg_n_0_[5] ),
-        .I2(\resp_arg_reg_n_0_[2] ),
-        .I3(\resp_arg_reg_n_0_[6] ),
-        .I4(timeout_reg_0),
-        .I5(syntaxe),
-        .O(sdv1_maybe_i_4_n_0));
   LUT6 #(
     .INIT(64'h00007555FFFFFFFF)) 
     start_i_1
-       (.I0(\rca_reg[0] [3]),
-        .I1(\rca_reg[0] [0]),
+       (.I0(\card_type_reg[1] [3]),
+        .I1(\card_type_reg[1] [0]),
         .I2(\rsectoraddr_reg[31] ),
         .I3(start_reg),
         .I4(busy),
@@ -36924,55 +36783,54 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .I2(clkcnt_reg[2]),
         .I3(clkdivr[16]),
         .O(syntaxe3_carry_i_4_n_0));
-  LUT6 #(
-    .INIT(64'h00000000FF0E0000)) 
+  LUT5 #(
+    .INIT(32'h8A8A8A88)) 
     syntaxe_i_1
        (.I0(syntaxe_i_2_n_0),
-        .I1(syntaxe_i_3_n_0),
-        .I2(syntaxe_i_4_n_0),
-        .I3(resp_st_reg_n_0),
-        .I4(\resp_arg[31]_i_2_n_0 ),
-        .I5(syntaxe_i_5_n_0),
+        .I1(resp_st_reg_n_0),
+        .I2(syntaxe_i_3_n_0),
+        .I3(syntaxe_i_4_n_0),
+        .I4(syntaxe_i_5_n_0),
         .O(syntaxe4_out));
   LUT6 #(
-    .INIT(64'h6FF6FFFFFFFF6FF6)) 
+    .INIT(64'h0000000000000800)) 
     syntaxe_i_2
-       (.I0(resp_cmd[0]),
-        .I1(request[40]),
-        .I2(request[41]),
-        .I3(resp_cmd[1]),
-        .I4(request[42]),
-        .I5(resp_cmd[2]),
+       (.I0(busy),
+        .I1(\cnt3[15]_i_3_n_0 ),
+        .I2(done_i_4_n_0),
+        .I3(done_i_3_n_0),
+        .I4(cnt4_reg[7]),
+        .I5(cnt4_reg[6]),
         .O(syntaxe_i_2_n_0));
   LUT6 #(
-    .INIT(64'h6FF6FFFFFFFF6FF6)) 
-    syntaxe_i_3
-       (.I0(resp_cmd[3]),
-        .I1(request[43]),
-        .I2(request[45]),
-        .I3(resp_cmd[5]),
-        .I4(request[44]),
-        .I5(resp_cmd[4]),
-        .O(syntaxe_i_3_n_0));
-  LUT6 #(
     .INIT(64'h8000000000000001)) 
-    syntaxe_i_4
+    syntaxe_i_3
        (.I0(resp_cmd[2]),
         .I1(resp_cmd[1]),
         .I2(resp_cmd[4]),
         .I3(resp_cmd[0]),
         .I4(resp_cmd[3]),
         .I5(resp_cmd[5]),
+        .O(syntaxe_i_3_n_0));
+  LUT6 #(
+    .INIT(64'h6FF6FFFFFFFF6FF6)) 
+    syntaxe_i_4
+       (.I0(resp_cmd[0]),
+        .I1(request[40]),
+        .I2(request[42]),
+        .I3(resp_cmd[2]),
+        .I4(request[41]),
+        .I5(resp_cmd[1]),
         .O(syntaxe_i_4_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
-  LUT5 #(
-    .INIT(32'hFFFFFFEF)) 
+  LUT6 #(
+    .INIT(64'h6FF6FFFFFFFF6FF6)) 
     syntaxe_i_5
-       (.I0(\cnt4[7]_i_3_n_0 ),
-        .I1(cnt4_reg[7]),
-        .I2(busy),
-        .I3(cnt4_reg[5]),
-        .I4(cnt4_reg[6]),
+       (.I0(request[45]),
+        .I1(resp_cmd[5]),
+        .I2(request[44]),
+        .I3(resp_cmd[4]),
+        .I4(resp_cmd[3]),
+        .I5(request[43]),
         .O(syntaxe_i_5_n_0));
   FDCE #(
     .INIT(1'b0)) 
@@ -36985,62 +36843,53 @@ module design_1_top_system_0_1_sdcmd_ctrl
   LUT6 #(
     .INIT(64'h0000000000000200)) 
     timeout_i_1
-       (.I0(timeout_i_2_n_0),
-        .I1(timeout_i_3_n_0),
-        .I2(timeout_i_4_n_0),
+       (.I0(done_i_5_n_0),
+        .I1(timeout_i_2_n_0),
+        .I2(timeout_i_3_n_0),
         .I3(cnt3[0]),
-        .I4(timeout_i_5_n_0),
-        .I5(timeout_i_6_n_0),
+        .I4(timeout_i_4_n_0),
+        .I5(timeout_i_5_n_0),
         .O(timeout_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair44" *) 
-  LUT4 #(
-    .INIT(16'h0002)) 
-    timeout_i_2
-       (.I0(busy),
-        .I1(\cnt3[15]_i_3_n_0 ),
-        .I2(syntaxe1_carry__0_n_2),
-        .I3(done),
-        .O(timeout_i_2_n_0));
   LUT5 #(
     .INIT(32'hFFFFFFFE)) 
-    timeout_i_3
-       (.I0(cnt3[6]),
-        .I1(cnt3[5]),
-        .I2(cnt3[1]),
-        .I3(cnt3[7]),
-        .I4(cnt3[4]),
-        .O(timeout_i_3_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
+    timeout_i_2
+       (.I0(cnt3[5]),
+        .I1(cnt3[6]),
+        .I2(cnt3[4]),
+        .I3(cnt3[1]),
+        .I4(cnt3[7]),
+        .O(timeout_i_2_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
   LUT2 #(
     .INIT(4'hE)) 
-    timeout_i_4
-       (.I0(cnt3[2]),
-        .I1(cnt3[3]),
-        .O(timeout_i_4_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair76" *) 
+    timeout_i_3
+       (.I0(cnt3[3]),
+        .I1(cnt3[2]),
+        .O(timeout_i_3_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair61" *) 
   LUT2 #(
     .INIT(4'h1)) 
-    timeout_i_5
+    timeout_i_4
        (.I0(sd_cmd_in),
         .I1(sd_cmd_oe),
-        .O(timeout_i_5_n_0));
+        .O(timeout_i_4_n_0));
   LUT5 #(
     .INIT(32'hFFFFFFFE)) 
-    timeout_i_6
-       (.I0(cnt3[9]),
-        .I1(cnt3[11]),
-        .I2(cnt3[13]),
-        .I3(cnt3[15]),
-        .I4(timeout_i_7_n_0),
-        .O(timeout_i_6_n_0));
+    timeout_i_5
+       (.I0(cnt3[8]),
+        .I1(cnt3[12]),
+        .I2(cnt3[9]),
+        .I3(cnt3[13]),
+        .I4(timeout_i_6_n_0),
+        .O(timeout_i_5_n_0));
   LUT4 #(
     .INIT(16'hFFFE)) 
-    timeout_i_7
-       (.I0(cnt3[14]),
-        .I1(cnt3[8]),
-        .I2(cnt3[12]),
-        .I3(cnt3[10]),
-        .O(timeout_i_7_n_0));
+    timeout_i_6
+       (.I0(cnt3[11]),
+        .I1(cnt3[10]),
+        .I2(cnt3[15]),
+        .I3(cnt3[14]),
+        .O(timeout_i_6_n_0));
   FDCE #(
     .INIT(1'b0)) 
     timeout_reg
@@ -37048,7 +36897,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
         .CE(1'b1),
         .CLR(reset_n_0),
         .D(timeout_i_1_n_0),
-        .Q(timeout_reg_0));
+        .Q(timeout));
 endmodule
 
 (* ORIG_REF_NAME = "tas2110_i2c_ctrl" *) 
@@ -37385,7 +37234,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\reg_cnt_reg_n_0_[0] ),
         .I5(\FSM_onehot_state[0]_i_3_n_0 ),
         .O(\FSM_onehot_state[0]_i_1__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair306" *) 
+  (* SOFT_HLUTNM = "soft_lutpair304" *) 
   LUT5 #(
     .INIT(32'h00800000)) 
     \FSM_onehot_state[0]_i_2 
@@ -37395,7 +37244,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I3(\reg_cnt_reg_n_0_[0] ),
         .I4(\FSM_onehot_state_reg_n_0_[5] ),
         .O(\FSM_onehot_state[0]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair309" *) 
+  (* SOFT_HLUTNM = "soft_lutpair307" *) 
   LUT4 #(
     .INIT(16'h4000)) 
     \FSM_onehot_state[0]_i_3 
@@ -37404,7 +37253,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I2(\reg_cnt_reg_n_0_[2] ),
         .I3(\reg_cnt_reg_n_0_[1] ),
         .O(\FSM_onehot_state[0]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair326" *) 
+  (* SOFT_HLUTNM = "soft_lutpair324" *) 
   LUT3 #(
     .INIT(8'hFE)) 
     \FSM_onehot_state[1]_i_1 
@@ -37412,7 +37261,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I1(\FSM_onehot_state_reg_n_0_[6] ),
         .I2(\FSM_onehot_state_reg_n_0_[0] ),
         .O(\FSM_onehot_state[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair322" *) 
+  (* SOFT_HLUTNM = "soft_lutpair320" *) 
   LUT3 #(
     .INIT(8'hF4)) 
     \FSM_onehot_state[2]_i_1__0 
@@ -37420,7 +37269,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I1(i2c_sda_t),
         .I2(\FSM_onehot_state_reg_n_0_[1] ),
         .O(\FSM_onehot_state[2]_i_1__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair322" *) 
+  (* SOFT_HLUTNM = "soft_lutpair320" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \FSM_onehot_state[4]_i_1 
@@ -37447,14 +37296,14 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\FSM_onehot_state[6]_i_5_n_0 ),
         .I5(\FSM_onehot_state[6]_i_6_n_0 ),
         .O(\FSM_onehot_state[6]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair329" *) 
+  (* SOFT_HLUTNM = "soft_lutpair327" *) 
   LUT2 #(
     .INIT(4'h7)) 
     \FSM_onehot_state[6]_i_3 
        (.I0(seq_len[2]),
         .I1(seq_len[4]),
         .O(\FSM_onehot_state[6]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair309" *) 
+  (* SOFT_HLUTNM = "soft_lutpair307" *) 
   LUT5 #(
     .INIT(32'h00000080)) 
     \FSM_onehot_state[6]_i_4 
@@ -37464,14 +37313,14 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I3(\reg_cnt_reg_n_0_[3] ),
         .I4(\reg_cnt_reg_n_0_[0] ),
         .O(\FSM_onehot_state[6]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair329" *) 
+  (* SOFT_HLUTNM = "soft_lutpair327" *) 
   LUT2 #(
     .INIT(4'h7)) 
     \FSM_onehot_state[6]_i_5 
        (.I0(seq_len[2]),
         .I1(\reg_cnt_reg_n_0_[0] ),
         .O(\FSM_onehot_state[6]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair310" *) 
+  (* SOFT_HLUTNM = "soft_lutpair308" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \FSM_onehot_state[6]_i_6 
@@ -37488,7 +37337,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\FSM_onehot_state[7]_i_6_n_0 ),
         .I5(\FSM_onehot_state[7]_i_7_n_0 ),
         .O(\FSM_onehot_state[7]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair308" *) 
+  (* SOFT_HLUTNM = "soft_lutpair306" *) 
   LUT3 #(
     .INIT(8'h7F)) 
     \FSM_onehot_state[7]_i_10 
@@ -37531,7 +37380,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\reg_cnt_reg_n_0_[1] ),
         .I5(\FSM_onehot_state_reg_n_0_[5] ),
         .O(\FSM_onehot_state[7]_i_14_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair310" *) 
+  (* SOFT_HLUTNM = "soft_lutpair308" *) 
   LUT5 #(
     .INIT(32'h00080000)) 
     \FSM_onehot_state[7]_i_15 
@@ -37561,7 +37410,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\FSM_onehot_state_reg_n_0_[4] ),
         .I5(\FSM_onehot_state[7]_i_12_n_0 ),
         .O(\FSM_onehot_state[7]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair301" *) 
+  (* SOFT_HLUTNM = "soft_lutpair299" *) 
   LUT5 #(
     .INIT(32'h10101000)) 
     \FSM_onehot_state[7]_i_4 
@@ -37581,7 +37430,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\clk_div_reg_n_0_[0] ),
         .I5(\clk_div_reg_n_0_[4] ),
         .O(\FSM_onehot_state[7]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair304" *) 
+  (* SOFT_HLUTNM = "soft_lutpair302" *) 
   LUT5 #(
     .INIT(32'h7FFFFFFF)) 
     \FSM_onehot_state[7]_i_6 
@@ -37591,7 +37440,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I3(p_0_in),
         .I4(\clk_div_reg_n_0_[9] ),
         .O(\FSM_onehot_state[7]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair326" *) 
+  (* SOFT_HLUTNM = "soft_lutpair324" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \FSM_onehot_state[7]_i_7 
@@ -37689,7 +37538,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .D(\FSM_onehot_state[7]_i_2_n_0 ),
         .Q(\FSM_onehot_state_reg_n_0_[7] ),
         .R(SR));
-  (* SOFT_HLUTNM = "soft_lutpair302" *) 
+  (* SOFT_HLUTNM = "soft_lutpair300" *) 
   LUT5 #(
     .INIT(32'hEEFFFE00)) 
     \bit_cnt[0]_i_1 
@@ -37719,7 +37568,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\bit_cnt[2]_i_3_n_0 ),
         .I5(\bit_cnt_reg_n_0_[2] ),
         .O(\bit_cnt[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair303" *) 
+  (* SOFT_HLUTNM = "soft_lutpair301" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \bit_cnt[2]_i_2 
@@ -37769,7 +37618,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .D(\bit_cnt[2]_i_1_n_0 ),
         .Q(\bit_cnt_reg_n_0_[2] ),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair325" *) 
+  (* SOFT_HLUTNM = "soft_lutpair323" *) 
   LUT3 #(
     .INIT(8'h02)) 
     \byte_cnt[0]_i_1 
@@ -37785,7 +37634,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I2(\FSM_onehot_state[7]_i_4_n_0 ),
         .I3(\byte_cnt[1]_i_3_n_0 ),
         .O(\byte_cnt[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair325" *) 
+  (* SOFT_HLUTNM = "soft_lutpair323" *) 
   LUT3 #(
     .INIT(8'hE0)) 
     \byte_cnt[1]_i_2 
@@ -37859,7 +37708,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\clk_div[9]_i_5_n_0 ),
         .I5(\clk_div_reg_n_0_[0] ),
         .O(clk_div[2]));
-  (* SOFT_HLUTNM = "soft_lutpair311" *) 
+  (* SOFT_HLUTNM = "soft_lutpair309" *) 
   LUT5 #(
     .INIT(32'h00100000)) 
     \clk_div[2]_i_2 
@@ -37888,7 +37737,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\clk_div[3]_i_4_n_0 ),
         .I5(\clk_div[3]_i_5_n_0 ),
         .O(clk_div[3]));
-  (* SOFT_HLUTNM = "soft_lutpair317" *) 
+  (* SOFT_HLUTNM = "soft_lutpair315" *) 
   LUT4 #(
     .INIT(16'h0080)) 
     \clk_div[3]_i_2 
@@ -37897,14 +37746,14 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I2(\clk_div_reg_n_0_[2] ),
         .I3(\clk_div_reg_n_0_[3] ),
         .O(\clk_div[3]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair312" *) 
+  (* SOFT_HLUTNM = "soft_lutpair310" *) 
   LUT2 #(
     .INIT(4'hB)) 
     \clk_div[3]_i_3 
        (.I0(\clk_div_reg_n_0_[1] ),
         .I1(\clk_div_reg_n_0_[3] ),
         .O(\clk_div[3]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair311" *) 
+  (* SOFT_HLUTNM = "soft_lutpair309" *) 
   LUT3 #(
     .INIT(8'hFE)) 
     \clk_div[3]_i_4 
@@ -38009,7 +37858,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\clk_div_reg_n_0_[6] ),
         .I5(p_0_in),
         .O(\clk_div[8]_i_3__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair317" *) 
+  (* SOFT_HLUTNM = "soft_lutpair315" *) 
   LUT2 #(
     .INIT(4'h7)) 
     \clk_div[8]_i_4 
@@ -38026,7 +37875,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\clk_div[9]_i_5_n_0 ),
         .I5(\FSM_onehot_state[7]_i_7_n_0 ),
         .O(\clk_div[9]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair328" *) 
+  (* SOFT_HLUTNM = "soft_lutpair326" *) 
   LUT2 #(
     .INIT(4'h7)) 
     \clk_div[9]_i_10 
@@ -38063,7 +37912,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(seq_len[4]),
         .I5(seq_len[2]),
         .O(\clk_div[9]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair314" *) 
+  (* SOFT_HLUTNM = "soft_lutpair312" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     \clk_div[9]_i_4 
@@ -38082,7 +37931,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\FSM_onehot_state[7]_i_6_n_0 ),
         .I5(\FSM_onehot_state_reg_n_0_[7] ),
         .O(\clk_div[9]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair305" *) 
+  (* SOFT_HLUTNM = "soft_lutpair303" *) 
   LUT3 #(
     .INIT(8'h7F)) 
     \clk_div[9]_i_6 
@@ -38220,7 +38069,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\seq_rom_reg[6]_11 ),
         .I5(\current_byte[0]_i_3_n_0 ),
         .O(\current_byte[0]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair323" *) 
+  (* SOFT_HLUTNM = "soft_lutpair321" *) 
   LUT3 #(
     .INIT(8'hFE)) 
     \current_byte[0]_i_3 
@@ -38327,7 +38176,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\current_byte[6]_i_5_n_0 ),
         .I5(\current_byte[6]_i_4_n_0 ),
         .O(\current_byte[1]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair321" *) 
+  (* SOFT_HLUTNM = "soft_lutpair319" *) 
   LUT3 #(
     .INIT(8'h40)) 
     \current_byte[1]_i_8 
@@ -38365,7 +38214,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\reg_cnt_reg_n_0_[2] ),
         .I5(\current_byte[4]_i_7_n_0 ),
         .O(\current_byte[2]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair323" *) 
+  (* SOFT_HLUTNM = "soft_lutpair321" *) 
   LUT3 #(
     .INIT(8'hEF)) 
     \current_byte[2]_i_4 
@@ -38453,7 +38302,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\reg_cnt_reg_n_0_[1] ),
         .I5(\FSM_onehot_state_reg_n_0_[5] ),
         .O(\current_byte[3]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair315" *) 
+  (* SOFT_HLUTNM = "soft_lutpair313" *) 
   LUT5 #(
     .INIT(32'h11100010)) 
     \current_byte[3]_i_6 
@@ -38463,7 +38312,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I3(\reg_cnt_reg_n_0_[2] ),
         .I4(\current_byte[7]_i_4_n_0 ),
         .O(\current_byte[3]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair316" *) 
+  (* SOFT_HLUTNM = "soft_lutpair314" *) 
   LUT5 #(
     .INIT(32'h00408000)) 
     \current_byte[3]_i_7 
@@ -38503,7 +38352,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\current_byte[5]_i_2_n_0 ),
         .I5(\current_byte[4]_i_4_n_0 ),
         .O(current_byte[4]));
-  (* SOFT_HLUTNM = "soft_lutpair307" *) 
+  (* SOFT_HLUTNM = "soft_lutpair305" *) 
   LUT5 #(
     .INIT(32'h00000400)) 
     \current_byte[4]_i_2 
@@ -38549,7 +38398,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
        (.I0(seq_len[2]),
         .I1(\reg_cnt_reg_n_0_[2] ),
         .O(\current_byte[4]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair320" *) 
+  (* SOFT_HLUTNM = "soft_lutpair318" *) 
   LUT4 #(
     .INIT(16'h0004)) 
     \current_byte[4]_i_7 
@@ -38558,7 +38407,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I2(\reg_cnt_reg_n_0_[3] ),
         .I3(\reg_cnt_reg_n_0_[1] ),
         .O(\current_byte[4]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair316" *) 
+  (* SOFT_HLUTNM = "soft_lutpair314" *) 
   LUT5 #(
     .INIT(32'h00002000)) 
     \current_byte[4]_i_8 
@@ -38588,7 +38437,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\reg_cnt_reg_n_0_[2] ),
         .I5(\current_byte[6]_i_4_n_0 ),
         .O(\current_byte[5]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair307" *) 
+  (* SOFT_HLUTNM = "soft_lutpair305" *) 
   LUT5 #(
     .INIT(32'h04000000)) 
     \current_byte[5]_i_3 
@@ -38618,7 +38467,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\reg_cnt_reg_n_0_[4] ),
         .I5(\seq_rom_reg[6]_11 ),
         .O(\current_byte[5]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair319" *) 
+  (* SOFT_HLUTNM = "soft_lutpair317" *) 
   LUT4 #(
     .INIT(16'h6000)) 
     \current_byte[5]_i_6 
@@ -38693,7 +38542,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\current_byte[7]_i_6_n_0 ),
         .I5(\current_byte[7]_i_7_n_0 ),
         .O(current_byte[7]));
-  (* SOFT_HLUTNM = "soft_lutpair324" *) 
+  (* SOFT_HLUTNM = "soft_lutpair322" *) 
   LUT3 #(
     .INIT(8'hAB)) 
     \current_byte[7]_i_10 
@@ -38721,7 +38570,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\reg_cnt_reg_n_0_[2] ),
         .I5(\current_byte[7]_i_10_n_0 ),
         .O(\current_byte[7]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair321" *) 
+  (* SOFT_HLUTNM = "soft_lutpair319" *) 
   LUT4 #(
     .INIT(16'h0800)) 
     \current_byte[7]_i_4 
@@ -38730,7 +38579,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I2(\reg_cnt_reg_n_0_[3] ),
         .I3(\reg_cnt_reg_n_0_[4] ),
         .O(\current_byte[7]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair319" *) 
+  (* SOFT_HLUTNM = "soft_lutpair317" *) 
   LUT4 #(
     .INIT(16'h0800)) 
     \current_byte[7]_i_5 
@@ -38739,7 +38588,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I2(\reg_cnt_reg_n_0_[4] ),
         .I3(\reg_cnt_reg_n_0_[3] ),
         .O(\current_byte[7]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair324" *) 
+  (* SOFT_HLUTNM = "soft_lutpair322" *) 
   LUT3 #(
     .INIT(8'hE0)) 
     \current_byte[7]_i_6 
@@ -38747,14 +38596,14 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I1(\byte_cnt_reg_n_0_[0] ),
         .I2(\reg_cnt_reg_n_0_[0] ),
         .O(\current_byte[7]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair328" *) 
+  (* SOFT_HLUTNM = "soft_lutpair326" *) 
   LUT2 #(
     .INIT(4'hB)) 
     \current_byte[7]_i_7 
        (.I0(\reg_cnt_reg_n_0_[2] ),
         .I1(\reg_cnt_reg_n_0_[1] ),
         .O(\current_byte[7]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair320" *) 
+  (* SOFT_HLUTNM = "soft_lutpair318" *) 
   LUT3 #(
     .INIT(8'h04)) 
     \current_byte[7]_i_8 
@@ -38762,7 +38611,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I1(i2c_sda_t),
         .I2(\reg_cnt_reg_n_0_[4] ),
         .O(\current_byte[7]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair315" *) 
+  (* SOFT_HLUTNM = "soft_lutpair313" *) 
   LUT3 #(
     .INIT(8'h7F)) 
     \current_byte[7]_i_9 
@@ -38974,7 +38823,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\FSM_onehot_state_reg_n_0_[0] ),
         .I5(\debounce_reg_n_0_[0] ),
         .O(debounce[0]));
-  (* SOFT_HLUTNM = "soft_lutpair313" *) 
+  (* SOFT_HLUTNM = "soft_lutpair311" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     \debounce[0]_i_2 
@@ -39033,7 +38882,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\FSM_onehot_state_reg_n_0_[0] ),
         .I5(in25[14]),
         .O(debounce[14]));
-  (* SOFT_HLUTNM = "soft_lutpair301" *) 
+  (* SOFT_HLUTNM = "soft_lutpair299" *) 
   LUT4 #(
     .INIT(16'hEEEF)) 
     \debounce[14]_i_2 
@@ -39102,7 +38951,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\debounce[18]_i_6_n_0 ),
         .I5(\debounce[18]_i_7_n_0 ),
         .O(\debounce[18]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair313" *) 
+  (* SOFT_HLUTNM = "soft_lutpair311" *) 
   LUT5 #(
     .INIT(32'hFFFFFFFE)) 
     \debounce[18]_i_4 
@@ -39112,7 +38961,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I3(\FSM_onehot_state_reg_n_0_[6] ),
         .I4(\FSM_onehot_state_reg_n_0_[0] ),
         .O(\debounce[18]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair314" *) 
+  (* SOFT_HLUTNM = "soft_lutpair312" *) 
   LUT5 #(
     .INIT(32'hFFFFFFFE)) 
     \debounce[18]_i_5 
@@ -39437,63 +39286,63 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .DI({1'b0,1'b0,1'b0,1'b0}),
         .O({NLW_pwr_wait_cnt0_carry__3_O_UNCONNECTED[3:2],in28[18:17]}),
         .S({1'b0,1'b0,\pwr_wait_cnt_reg_n_0_[18] ,\pwr_wait_cnt_reg_n_0_[17] }));
-  (* SOFT_HLUTNM = "soft_lutpair327" *) 
+  (* SOFT_HLUTNM = "soft_lutpair325" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \pwr_wait_cnt[0]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(\pwr_wait_cnt_reg_n_0_[0] ),
         .O(\pwr_wait_cnt[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair334" *) 
+  (* SOFT_HLUTNM = "soft_lutpair332" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[10]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[10]),
         .O(pwr_wait_cnt[10]));
-  (* SOFT_HLUTNM = "soft_lutpair334" *) 
+  (* SOFT_HLUTNM = "soft_lutpair332" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[11]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[11]),
         .O(pwr_wait_cnt[11]));
-  (* SOFT_HLUTNM = "soft_lutpair333" *) 
+  (* SOFT_HLUTNM = "soft_lutpair331" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[12]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[12]),
         .O(pwr_wait_cnt[12]));
-  (* SOFT_HLUTNM = "soft_lutpair333" *) 
+  (* SOFT_HLUTNM = "soft_lutpair331" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[13]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[13]),
         .O(pwr_wait_cnt[13]));
-  (* SOFT_HLUTNM = "soft_lutpair332" *) 
+  (* SOFT_HLUTNM = "soft_lutpair330" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[14]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[14]),
         .O(pwr_wait_cnt[14]));
-  (* SOFT_HLUTNM = "soft_lutpair332" *) 
+  (* SOFT_HLUTNM = "soft_lutpair330" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[15]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[15]),
         .O(pwr_wait_cnt[15]));
-  (* SOFT_HLUTNM = "soft_lutpair331" *) 
+  (* SOFT_HLUTNM = "soft_lutpair329" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[16]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[16]),
         .O(pwr_wait_cnt[16]));
-  (* SOFT_HLUTNM = "soft_lutpair331" *) 
+  (* SOFT_HLUTNM = "soft_lutpair329" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[17]_i_1 
@@ -39509,7 +39358,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I3(\pwr_wait_cnt[18]_i_4_n_0 ),
         .I4(\pwr_wait_cnt[18]_i_5_n_0 ),
         .O(\pwr_wait_cnt[18]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair327" *) 
+  (* SOFT_HLUTNM = "soft_lutpair325" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[18]_i_2 
@@ -39526,7 +39375,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\pwr_wait_cnt_reg_n_0_[18] ),
         .I5(\pwr_wait_cnt[18]_i_8_n_0 ),
         .O(\pwr_wait_cnt[18]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair308" *) 
+  (* SOFT_HLUTNM = "soft_lutpair306" *) 
   LUT5 #(
     .INIT(32'h00080000)) 
     \pwr_wait_cnt[18]_i_4 
@@ -39585,56 +39434,56 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[1]),
         .O(pwr_wait_cnt[1]));
-  (* SOFT_HLUTNM = "soft_lutpair338" *) 
+  (* SOFT_HLUTNM = "soft_lutpair336" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[2]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[2]),
         .O(pwr_wait_cnt[2]));
-  (* SOFT_HLUTNM = "soft_lutpair338" *) 
+  (* SOFT_HLUTNM = "soft_lutpair336" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[3]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[3]),
         .O(pwr_wait_cnt[3]));
-  (* SOFT_HLUTNM = "soft_lutpair337" *) 
+  (* SOFT_HLUTNM = "soft_lutpair335" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[4]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[4]),
         .O(pwr_wait_cnt[4]));
-  (* SOFT_HLUTNM = "soft_lutpair337" *) 
+  (* SOFT_HLUTNM = "soft_lutpair335" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[5]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[5]),
         .O(pwr_wait_cnt[5]));
-  (* SOFT_HLUTNM = "soft_lutpair336" *) 
+  (* SOFT_HLUTNM = "soft_lutpair334" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[6]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[6]),
         .O(pwr_wait_cnt[6]));
-  (* SOFT_HLUTNM = "soft_lutpair336" *) 
+  (* SOFT_HLUTNM = "soft_lutpair334" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[7]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[7]),
         .O(pwr_wait_cnt[7]));
-  (* SOFT_HLUTNM = "soft_lutpair335" *) 
+  (* SOFT_HLUTNM = "soft_lutpair333" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[8]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[8]),
         .O(pwr_wait_cnt[8]));
-  (* SOFT_HLUTNM = "soft_lutpair335" *) 
+  (* SOFT_HLUTNM = "soft_lutpair333" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[9]_i_1 
@@ -39799,7 +39648,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
        (.I0(\FSM_onehot_state_reg_n_0_[5] ),
         .I1(\reg_cnt_reg_n_0_[0] ),
         .O(reg_cnt[0]));
-  (* SOFT_HLUTNM = "soft_lutpair318" *) 
+  (* SOFT_HLUTNM = "soft_lutpair316" *) 
   LUT3 #(
     .INIT(8'h60)) 
     \reg_cnt[1]_i_1 
@@ -39807,7 +39656,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I1(\reg_cnt_reg_n_0_[0] ),
         .I2(\FSM_onehot_state_reg_n_0_[5] ),
         .O(reg_cnt[1]));
-  (* SOFT_HLUTNM = "soft_lutpair318" *) 
+  (* SOFT_HLUTNM = "soft_lutpair316" *) 
   LUT4 #(
     .INIT(16'h60C0)) 
     \reg_cnt[2]_i_1 
@@ -39816,7 +39665,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I2(\FSM_onehot_state_reg_n_0_[5] ),
         .I3(\reg_cnt_reg_n_0_[0] ),
         .O(reg_cnt[2]));
-  (* SOFT_HLUTNM = "soft_lutpair306" *) 
+  (* SOFT_HLUTNM = "soft_lutpair304" *) 
   LUT5 #(
     .INIT(32'h7F008000)) 
     \reg_cnt[3]_i_1 
@@ -39893,21 +39742,21 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\FSM_onehot_state_reg_n_0_[4] ),
         .I5(reset_n),
         .O(scl_out_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair330" *) 
+  (* SOFT_HLUTNM = "soft_lutpair328" *) 
   LUT2 #(
     .INIT(4'hE)) 
     scl_out_i_10
        (.I0(\clk_div_reg_n_0_[0] ),
         .I1(\clk_div_reg_n_0_[4] ),
         .O(scl_out_i_10_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair330" *) 
+  (* SOFT_HLUTNM = "soft_lutpair328" *) 
   LUT2 #(
     .INIT(4'h2)) 
     scl_out_i_11
        (.I0(\clk_div_reg_n_0_[4] ),
         .I1(\clk_div_reg_n_0_[0] ),
         .O(scl_out_i_11_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair302" *) 
+  (* SOFT_HLUTNM = "soft_lutpair300" *) 
   LUT2 #(
     .INIT(4'hE)) 
     scl_out_i_12
@@ -39954,7 +39803,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\FSM_onehot_state_reg_n_0_[1] ),
         .I5(\clk_div_reg_n_0_[9] ),
         .O(scl_out_i_5_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair304" *) 
+  (* SOFT_HLUTNM = "soft_lutpair302" *) 
   LUT4 #(
     .INIT(16'h7FFF)) 
     scl_out_i_6
@@ -39973,7 +39822,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\FSM_onehot_state_reg_n_0_[4] ),
         .I5(scl_out_i_12_n_0),
         .O(scl_out_i_7_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair305" *) 
+  (* SOFT_HLUTNM = "soft_lutpair303" *) 
   LUT5 #(
     .INIT(32'h80000000)) 
     scl_out_i_8
@@ -40012,7 +39861,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I3(sda_internal_i_4_n_0),
         .I4(reset_n),
         .O(sda_internal_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair303" *) 
+  (* SOFT_HLUTNM = "soft_lutpair301" *) 
   LUT5 #(
     .INIT(32'h00000008)) 
     sda_internal_i_10
@@ -40071,7 +39920,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\clk_div_reg_n_0_[4] ),
         .I5(\clk_div_reg_n_0_[0] ),
         .O(sda_internal_i_5_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair312" *) 
+  (* SOFT_HLUTNM = "soft_lutpair310" *) 
   LUT5 #(
     .INIT(32'hFFFFFFFE)) 
     sda_internal_i_6
@@ -40194,12 +40043,12 @@ endmodule
 module design_1_top_system_0_1_top_system
    (sdclk_reg,
     card_stat,
-    card_type,
     file_found,
     i2c_sda,
     dbg_sda_out,
     sd_reset,
-    sdv1_maybe_reg,
+    \card_type_reg[0] ,
+    \card_type_reg[1] ,
     fifo_wr_en,
     fifo_din,
     ws_int_reg,
@@ -40217,26 +40066,26 @@ module design_1_top_system_0_1_top_system
     fifo_prog_full,
     sw0_reset,
     btn_up_0,
-    fifo_valid,
+    fifo_empty,
     btn_right_0,
     reset_n,
     btn_center_0,
-    fifo_empty,
     clk_100Mhz,
     btn_left_0,
     btn_down_0,
     clk_sd,
     pll_locked,
-    fifo_dout,
-    clk_audio);
+    fifo_valid,
+    clk_audio,
+    fifo_dout);
   output sdclk_reg;
   output [3:0]card_stat;
-  output [0:0]card_type;
   output file_found;
   output i2c_sda;
   output dbg_sda_out;
   output sd_reset;
-  output sdv1_maybe_reg;
+  output \card_type_reg[0] ;
+  output \card_type_reg[1] ;
   output fifo_wr_en;
   output [7:0]fifo_din;
   output ws_int_reg;
@@ -40254,18 +40103,18 @@ module design_1_top_system_0_1_top_system
   input fifo_prog_full;
   input sw0_reset;
   input btn_up_0;
-  input fifo_valid;
+  input fifo_empty;
   input btn_right_0;
   input reset_n;
   input btn_center_0;
-  input fifo_empty;
   input clk_100Mhz;
   input btn_left_0;
   input btn_down_0;
   input clk_sd;
   input pll_locked;
-  input [7:0]fifo_dout;
+  input fifo_valid;
   input clk_audio;
+  input [7:0]fifo_dout;
 
   wire I;
   wire T;
@@ -40275,7 +40124,8 @@ module design_1_top_system_0_1_top_system
   wire btn_right_0;
   wire btn_up_0;
   wire [3:0]card_stat;
-  wire [0:0]card_type;
+  wire \card_type_reg[0] ;
+  wire \card_type_reg[1] ;
   wire clk_100Mhz;
   wire clk_audio;
   wire clk_sd;
@@ -40297,7 +40147,7 @@ module design_1_top_system_0_1_top_system
   wire file_found;
   wire i2c_scl;
   wire i2c_sda;
-  wire [23:0]i2s_audio_data;
+  wire [23:8]i2s_audio_data;
   wire i2s_dout;
   wire inst_apa102_ctrl_n_2;
   wire inst_apa102_ctrl_n_3;
@@ -40338,7 +40188,6 @@ module design_1_top_system_0_1_top_system
   wire sd_dat0;
   wire sd_reset;
   wire sdclk_reg;
-  wire sdv1_maybe_reg;
   wire [7:0]seg_an_0;
   wire \seg_an_0[0]_i_1_n_0 ;
   wire \seg_an_0[1]_i_1_n_0 ;
@@ -40355,14 +40204,14 @@ module design_1_top_system_0_1_top_system
   wire ws_int_reg;
   wire [3:3]NLW_refresh_counter0_carry__2_CO_UNCONNECTED;
 
-  (* SOFT_HLUTNM = "soft_lutpair344" *) 
+  (* SOFT_HLUTNM = "soft_lutpair342" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \digit_sel[0]_i_1 
        (.I0(digit_sel),
         .I1(\digit_sel_reg_n_0_[0] ),
         .O(\digit_sel[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair339" *) 
+  (* SOFT_HLUTNM = "soft_lutpair337" *) 
   LUT3 #(
     .INIT(8'h78)) 
     \digit_sel[1]_i_1 
@@ -40370,7 +40219,7 @@ module design_1_top_system_0_1_top_system
         .I1(digit_sel),
         .I2(\digit_sel_reg_n_0_[1] ),
         .O(\digit_sel[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair339" *) 
+  (* SOFT_HLUTNM = "soft_lutpair337" *) 
   LUT4 #(
     .INIT(16'h7F80)) 
     \digit_sel[2]_i_1 
@@ -40421,7 +40270,8 @@ module design_1_top_system_0_1_top_system
        (.I(I),
         .Q(card_stat),
         .T(T),
-        .card_type(card_type),
+        .\card_type_reg[0] (\card_type_reg[0] ),
+        .\card_type_reg[1] (\card_type_reg[1] ),
         .clk_sd(clk_sd),
         .fifo_din(fifo_din),
         .fifo_dout(fifo_dout),
@@ -40435,11 +40285,10 @@ module design_1_top_system_0_1_top_system
         .pll_locked(pll_locked),
         .reset_n(reset_n),
         .reset_n_0(inst_audio_player_n_0),
-        .\sample_reg_reg[23]_0 (i2s_audio_data),
+        .\sample_reg_reg[15]_0 (i2s_audio_data),
         .sd_cmd_in(sd_cmd_in),
         .sd_dat0(sd_dat0),
-        .sdclk_reg(sdclk_reg),
-        .sdv1_maybe_reg(sdv1_maybe_reg));
+        .sdclk_reg(sdclk_reg));
   design_1_top_system_0_1_i2s_transceiver inst_i2s_tx
        (.D(i2s_audio_data),
         .clk_audio(clk_audio),
@@ -40673,7 +40522,7 @@ module design_1_top_system_0_1_top_system
         .IO(sd_cmd),
         .O(sd_cmd_in),
         .T(T));
-  (* SOFT_HLUTNM = "soft_lutpair343" *) 
+  (* SOFT_HLUTNM = "soft_lutpair341" *) 
   LUT3 #(
     .INIT(8'hFE)) 
     \seg_an_0[0]_i_1 
@@ -40681,7 +40530,7 @@ module design_1_top_system_0_1_top_system
         .I1(\digit_sel_reg_n_0_[1] ),
         .I2(\digit_sel_reg_n_0_[2] ),
         .O(\seg_an_0[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair342" *) 
+  (* SOFT_HLUTNM = "soft_lutpair340" *) 
   LUT3 #(
     .INIT(8'hFB)) 
     \seg_an_0[1]_i_1 
@@ -40689,7 +40538,7 @@ module design_1_top_system_0_1_top_system
         .I1(\digit_sel_reg_n_0_[0] ),
         .I2(\digit_sel_reg_n_0_[1] ),
         .O(\seg_an_0[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair344" *) 
+  (* SOFT_HLUTNM = "soft_lutpair342" *) 
   LUT3 #(
     .INIT(8'hFB)) 
     \seg_an_0[2]_i_1 
@@ -40697,7 +40546,7 @@ module design_1_top_system_0_1_top_system
         .I1(\digit_sel_reg_n_0_[1] ),
         .I2(\digit_sel_reg_n_0_[0] ),
         .O(\seg_an_0[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair343" *) 
+  (* SOFT_HLUTNM = "soft_lutpair341" *) 
   LUT3 #(
     .INIT(8'hBF)) 
     \seg_an_0[3]_i_1 
@@ -40705,7 +40554,7 @@ module design_1_top_system_0_1_top_system
         .I1(\digit_sel_reg_n_0_[1] ),
         .I2(\digit_sel_reg_n_0_[0] ),
         .O(\seg_an_0[3]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair341" *) 
+  (* SOFT_HLUTNM = "soft_lutpair339" *) 
   LUT3 #(
     .INIT(8'hEF)) 
     \seg_an_0[4]_i_1 
@@ -40713,7 +40562,7 @@ module design_1_top_system_0_1_top_system
         .I1(\digit_sel_reg_n_0_[0] ),
         .I2(\digit_sel_reg_n_0_[2] ),
         .O(\seg_an_0[4]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair340" *) 
+  (* SOFT_HLUTNM = "soft_lutpair338" *) 
   LUT3 #(
     .INIT(8'hDF)) 
     \seg_an_0[5]_i_1 
@@ -40721,7 +40570,7 @@ module design_1_top_system_0_1_top_system
         .I1(\digit_sel_reg_n_0_[1] ),
         .I2(\digit_sel_reg_n_0_[2] ),
         .O(\seg_an_0[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair341" *) 
+  (* SOFT_HLUTNM = "soft_lutpair339" *) 
   LUT3 #(
     .INIT(8'hDF)) 
     \seg_an_0[6]_i_1 
@@ -40729,7 +40578,7 @@ module design_1_top_system_0_1_top_system
         .I1(\digit_sel_reg_n_0_[0] ),
         .I2(\digit_sel_reg_n_0_[2] ),
         .O(\seg_an_0[6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair342" *) 
+  (* SOFT_HLUTNM = "soft_lutpair340" *) 
   LUT3 #(
     .INIT(8'h7F)) 
     \seg_an_0[7]_i_1 
@@ -40791,7 +40640,7 @@ module design_1_top_system_0_1_top_system
         .D(inst_apa102_ctrl_n_9),
         .Q(seg_dp_0),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair340" *) 
+  (* SOFT_HLUTNM = "soft_lutpair338" *) 
   LUT3 #(
     .INIT(8'h01)) 
     \seg_out_0[4]_i_3 

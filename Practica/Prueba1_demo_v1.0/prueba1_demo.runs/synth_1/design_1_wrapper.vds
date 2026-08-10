@@ -3,8 +3,8 @@
 # SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
 # IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
 # SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-# Start of session at: Thu Aug  6 19:23:36 2026
-# Process ID         : 11420
+# Start of session at: Mon Aug 10 15:49:30 2026
+# Process ID         : 5260
 # Current directory  : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1
 # Command line       : vivado.exe -log design_1_wrapper.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_wrapper.tcl
 # Log file           : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/design_1_wrapper.vds
@@ -19,10 +19,10 @@
 # Host memory        : 8257 MB
 # Swap memory        : 18253 MB
 # Total Virtual      : 26511 MB
-# Available Virtual  : 11018 MB
+# Available Virtual  : 10090 MB
 #-----------------------------------------------------------
 source design_1_wrapper.tcl -notrace
-create_project: Time (s): cpu = 00:00:09 ; elapsed = 00:00:06 . Memory (MB): peak = 498.012 ; gain = 213.566
+create_project: Time (s): cpu = 00:00:08 ; elapsed = 00:00:05 . Memory (MB): peak = 502.301 ; gain = 216.074
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/AMD/2025.1/Vivado/data/ip'.
@@ -43,41 +43,41 @@ INFO: [Designutils 20-5440] No compile time benefit to using incremental synthes
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 7216
+INFO: [Synth 8-7075] Helper process launched with PID 2708
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1254.742 ; gain = 494.230
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1258.508 ; gain = 493.965
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'design_1_wrapper' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/hdl/design_1_wrapper.vhd:46]
 INFO: [Synth 8-3491] module 'design_1' declared at 'c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/synth/design_1.vhd:15' bound to instance 'design_1_i' of component 'design_1' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/hdl/design_1_wrapper.vhd:78]
 INFO: [Synth 8-638] synthesizing module 'design_1' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/synth/design_1.vhd:50]
-INFO: [Synth 8-3491] module 'design_1_clk_wiz_0_0' declared at 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-11420-Samsung_Book_3/realtime/design_1_clk_wiz_0_0_stub.vhdl:6' bound to instance 'clk_wiz_0' of component 'design_1_clk_wiz_0_0' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/synth/design_1.vhd:189]
-INFO: [Synth 8-638] synthesizing module 'design_1_clk_wiz_0_0' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-11420-Samsung_Book_3/realtime/design_1_clk_wiz_0_0_stub.vhdl:18]
-INFO: [Synth 8-3491] module 'design_1_fifo_generator_0_0' declared at 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-11420-Samsung_Book_3/realtime/design_1_fifo_generator_0_0_stub.vhdl:6' bound to instance 'fifo_generator_0' of component 'design_1_fifo_generator_0_0' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/synth/design_1.vhd:196]
-INFO: [Synth 8-638] synthesizing module 'design_1_fifo_generator_0_0' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-11420-Samsung_Book_3/realtime/design_1_fifo_generator_0_0_stub.vhdl:28]
-INFO: [Synth 8-3491] module 'design_1_system_ila_0_0' declared at 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-11420-Samsung_Book_3/realtime/design_1_system_ila_0_0_stub.vhdl:6' bound to instance 'system_ila_0' of component 'design_1_system_ila_0_0' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/synth/design_1.vhd:209]
-INFO: [Synth 8-638] synthesizing module 'design_1_system_ila_0_0' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-11420-Samsung_Book_3/realtime/design_1_system_ila_0_0_stub.vhdl:21]
-INFO: [Synth 8-3491] module 'design_1_system_ila_1_1' declared at 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-11420-Samsung_Book_3/realtime/design_1_system_ila_1_1_stub.vhdl:6' bound to instance 'system_ila_1' of component 'design_1_system_ila_1_1' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/synth/design_1.vhd:215]
-INFO: [Synth 8-638] synthesizing module 'design_1_system_ila_1_1' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-11420-Samsung_Book_3/realtime/design_1_system_ila_1_1_stub.vhdl:24]
-INFO: [Synth 8-3491] module 'design_1_top_system_0_1' declared at 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-11420-Samsung_Book_3/realtime/design_1_top_system_0_1_stub.vhdl:6' bound to instance 'top_system_0' of component 'design_1_top_system_0_1' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/synth/design_1.vhd:224]
-INFO: [Synth 8-638] synthesizing module 'design_1_top_system_0_1' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-11420-Samsung_Book_3/realtime/design_1_top_system_0_1_stub.vhdl:58]
-INFO: [Synth 8-3491] module 'design_1_util_vector_logic_0_0' declared at 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-11420-Samsung_Book_3/realtime/design_1_util_vector_logic_0_0_stub.vhdl:6' bound to instance 'util_vector_logic_0' of component 'design_1_util_vector_logic_0_0' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/synth/design_1.vhd:265]
-INFO: [Synth 8-638] synthesizing module 'design_1_util_vector_logic_0_0' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-11420-Samsung_Book_3/realtime/design_1_util_vector_logic_0_0_stub.vhdl:20]
+INFO: [Synth 8-3491] module 'design_1_clk_wiz_0_0' declared at 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-5260-Samsung_Book_3/realtime/design_1_clk_wiz_0_0_stub.vhdl:6' bound to instance 'clk_wiz_0' of component 'design_1_clk_wiz_0_0' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/synth/design_1.vhd:189]
+INFO: [Synth 8-638] synthesizing module 'design_1_clk_wiz_0_0' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-5260-Samsung_Book_3/realtime/design_1_clk_wiz_0_0_stub.vhdl:18]
+INFO: [Synth 8-3491] module 'design_1_fifo_generator_0_0' declared at 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-5260-Samsung_Book_3/realtime/design_1_fifo_generator_0_0_stub.vhdl:6' bound to instance 'fifo_generator_0' of component 'design_1_fifo_generator_0_0' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/synth/design_1.vhd:196]
+INFO: [Synth 8-638] synthesizing module 'design_1_fifo_generator_0_0' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-5260-Samsung_Book_3/realtime/design_1_fifo_generator_0_0_stub.vhdl:28]
+INFO: [Synth 8-3491] module 'design_1_system_ila_0_0' declared at 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-5260-Samsung_Book_3/realtime/design_1_system_ila_0_0_stub.vhdl:6' bound to instance 'system_ila_0' of component 'design_1_system_ila_0_0' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/synth/design_1.vhd:209]
+INFO: [Synth 8-638] synthesizing module 'design_1_system_ila_0_0' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-5260-Samsung_Book_3/realtime/design_1_system_ila_0_0_stub.vhdl:21]
+INFO: [Synth 8-3491] module 'design_1_system_ila_1_1' declared at 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-5260-Samsung_Book_3/realtime/design_1_system_ila_1_1_stub.vhdl:6' bound to instance 'system_ila_1' of component 'design_1_system_ila_1_1' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/synth/design_1.vhd:215]
+INFO: [Synth 8-638] synthesizing module 'design_1_system_ila_1_1' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-5260-Samsung_Book_3/realtime/design_1_system_ila_1_1_stub.vhdl:24]
+INFO: [Synth 8-3491] module 'design_1_top_system_0_1' declared at 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-5260-Samsung_Book_3/realtime/design_1_top_system_0_1_stub.vhdl:6' bound to instance 'top_system_0' of component 'design_1_top_system_0_1' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/synth/design_1.vhd:224]
+INFO: [Synth 8-638] synthesizing module 'design_1_top_system_0_1' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-5260-Samsung_Book_3/realtime/design_1_top_system_0_1_stub.vhdl:58]
+INFO: [Synth 8-3491] module 'design_1_util_vector_logic_0_0' declared at 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-5260-Samsung_Book_3/realtime/design_1_util_vector_logic_0_0_stub.vhdl:6' bound to instance 'util_vector_logic_0' of component 'design_1_util_vector_logic_0_0' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/synth/design_1.vhd:265]
+INFO: [Synth 8-638] synthesizing module 'design_1_util_vector_logic_0_0' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/.Xil/Vivado-5260-Samsung_Book_3/realtime/design_1_util_vector_logic_0_0_stub.vhdl:20]
 INFO: [Synth 8-256] done synthesizing module 'design_1' (0#1) [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/synth/design_1.vhd:50]
 INFO: [Synth 8-256] done synthesizing module 'design_1_wrapper' (0#1) [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/hdl/design_1_wrapper.vhd:46]
 INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'design_1_i'. This will prevent further optimization [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/hdl/design_1_wrapper.vhd:78]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1375.098 ; gain = 614.586
+Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1378.484 ; gain = 613.941
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1375.098 ; gain = 614.586
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1378.484 ; gain = 613.941
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1375.098 ; gain = 614.586
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1378.484 ; gain = 613.941
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1375.098 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1378.484 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -102,31 +102,31 @@ Parsing XDC File [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_
 Finished Parsing XDC File [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/dont_touch.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1375.098 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1378.484 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 1375.098 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1378.484 ; gain = 0.000
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 1375.098 ; gain = 614.586
+Finished Constraint Validation : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1378.484 ; gain = 613.941
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 1375.098 ; gain = 614.586
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1378.484 ; gain = 613.941
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 1375.098 ; gain = 614.586
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1378.484 ; gain = 613.941
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 1375.098 ; gain = 614.586
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:11 ; elapsed = 00:00:13 . Memory (MB): peak = 1378.484 ; gain = 613.941
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -149,25 +149,25 @@ Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1378.863 ; gain = 618.352
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 1379.168 ; gain = 614.625
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 1553.562 ; gain = 793.051
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1551.898 ; gain = 787.355
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 1553.562 ; gain = 793.051
+Finished Timing Optimization : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1551.973 ; gain = 787.430
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 1563.152 ; gain = 802.641
+Finished Technology Mapping : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1561.820 ; gain = 797.277
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -185,37 +185,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 1798.230 ; gain = 1037.719
+Finished IO Insertion : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 1797.141 ; gain = 1032.598
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 1798.230 ; gain = 1037.719
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 1797.141 ; gain = 1032.598
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 1798.230 ; gain = 1037.719
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 1797.141 ; gain = 1032.598
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 1798.230 ; gain = 1037.719
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 1797.141 ; gain = 1032.598
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 1798.230 ; gain = 1037.719
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 1797.141 ; gain = 1032.598
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 1798.230 ; gain = 1037.719
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 1797.141 ; gain = 1032.598
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -247,25 +247,25 @@ Report Cell Usage:
 |8     |OBUF                                |    43|
 +------+------------------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 1798.230 ; gain = 1037.719
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 1797.141 ; gain = 1032.598
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:14 ; elapsed = 00:00:22 . Memory (MB): peak = 1798.230 ; gain = 1037.719
-Synthesis Optimization Complete : Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 1798.230 ; gain = 1037.719
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:12 ; elapsed = 00:00:20 . Memory (MB): peak = 1797.141 ; gain = 1032.598
+Synthesis Optimization Complete : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 1797.141 ; gain = 1032.598
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1807.445 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1797.141 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1811.105 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1797.141 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Synth Design complete | Checksum: e8a1eac3
+Synth Design complete | Checksum: 83c69a0d
 INFO: [Common 17-83] Releasing license: Synthesis
 41 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:25 ; elapsed = 00:00:32 . Memory (MB): peak = 1811.105 ; gain = 1249.922
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1811.105 ; gain = 0.000
+synth_design: Time (s): cpu = 00:00:22 ; elapsed = 00:00:28 . Memory (MB): peak = 1797.141 ; gain = 1232.648
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1797.141 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.runs/synth_1/design_1_wrapper.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file design_1_wrapper_utilization_synth.rpt -pb design_1_wrapper_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu Aug  6 19:24:21 2026...
+INFO: [Common 17-206] Exiting Vivado at Mon Aug 10 15:50:10 2026...

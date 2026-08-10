@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Aug  6 19:22:27 2026" VIVADOVERSION="2025.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Aug 10 15:47:55 2026" VIVADOVERSION="2025.1">
 
   <SYSTEMINFO ARCH="artix7" DEVICE="7a100t" NAME="design_1" PACKAGE="csg324" SPEEDGRADE="-1"/>
 
@@ -38,10 +38,9 @@
     </PORT>
     <PORT DIR="I" NAME="clk_100Mhz_0" SIGIS="undef" SIGNAME="External_Ports_clk_100Mhz_0">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="system_ila_0" PORT="clk"/>
-        <CONNECTION INSTANCE="system_ila_1" PORT="clk"/>
         <CONNECTION INSTANCE="clk_wiz_0" PORT="clk_in1"/>
-        <CONNECTION INSTANCE="fifo_generator_0" PORT="clk"/>
+        <CONNECTION INSTANCE="system_ila_1" PORT="clk"/>
+        <CONNECTION INSTANCE="system_ila_0" PORT="clk"/>
         <CONNECTION INSTANCE="top_system_0" PORT="clk_100Mhz"/>
       </CONNECTIONS>
     </PORT>
@@ -738,6 +737,7 @@
         </PORT>
         <PORT CLKFREQUENCY="50000000" DIR="O" NAME="clk_out2" SIGIS="clk" SIGNAME="clk_wiz_0_clk_out2">
           <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_generator_0" PORT="clk"/>
             <CONNECTION INSTANCE="top_system_0" PORT="clk_sd"/>
           </CONNECTIONS>
         </PORT>
@@ -1126,9 +1126,9 @@
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk_100Mhz_0">
+        <PORT CLKFREQUENCY="50000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="clk_wiz_0_clk_out2">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="External_Ports" PORT="clk_100Mhz_0"/>
+            <CONNECTION INSTANCE="clk_wiz_0" PORT="clk_out2"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="7" NAME="din" RIGHT="0" SIGIS="undef" SIGNAME="top_system_0_fifo_din">

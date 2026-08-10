@@ -27,7 +27,7 @@ module sd_reader # (
     input  wire         sddat0,            // FPGA only read SDDAT signal but never drive it
     // show card status
     output wire [ 3:0]  card_stat,         // show the sdcard initialize status
-    output wire [ 1:0]  card_type,         // DEBUG: {sdv1_maybe, timeout}
+    output reg  [ 1:0]  card_type,         // 0=UNKNOWN    , 1=SDv1    , 2=SDv2  , 3=SDHCv2
     output wire [ 1:0]  filesystem_type,   // 0=UNASSIGNED , 1=UNKNOWN , 2=FAT16 , 3=FAT32
     input  wire         rstart, 
     input  wire [31:0]  rsector,
@@ -59,7 +59,6 @@ reg [31:0] rsectoraddr = 0;
 
 wire       busy, done, timeout, syntaxe;
 wire[31:0] resparg;
-assign card_type = {sdv1_maybe, timeout}; // Debug assignment
 
 reg        sdv1_maybe = 1'b0;
 reg [ 2:0] cmd8_cnt   = 0;
@@ -144,7 +143,7 @@ always @ (posedge clk or negedge rstn)
         rsectoraddr <= 0;
         rca         <= 0;
         sdv1_maybe  <= 1'b0;
-        // card_type removed for debug assignment
+        card_type   <= UNKNOWN;
         sdcmd_stat  <= CMD0;
         cmd8_cnt    <= 0;
     end else begin
@@ -186,7 +185,7 @@ always @ (posedge clk or negedge rstn)
                 CMD55_41:   if(~timeout && ~syntaxe)
                                 sdcmd_stat <= ACMD41;
                 ACMD41  :   if(~timeout && ~syntaxe && resparg[31]) begin
-                                // card_type update removed, used for debug
+                                card_type <= sdv1_maybe ? SDv1 : (resparg[30] ? SDHCv2 : SDv2);
                                 sdcmd_stat <= CMD2;
                             end else if(~syntaxe) begin // Timeout OR card busy (resparg[31]==0) -> retry CMD55
                                 sdcmd_stat <= CMD55_41;
@@ -237,7 +236,7 @@ always @ (posedge clk or negedge rstn)
                         sddat_stat <= RDURING;
                         ridx   <= 0;
                     end else begin
-                        if(ridx > 1000000)      // according to SD datasheet, 1ms is enough to wait for DAT result, here, we set timeout to 1000000 clock cycles = 80ms (when SDCLK=12.5MHz)
+                        if(ridx > 10000000)      // according to SD datasheet, 1ms is enough to wait for DAT result, here, we set timeout to 10000000 clock cycles = 800ms (when SDCLK=12.5MHz)
                             sddat_stat <= RTIMEOUT;
                         ridx   <= ridx + 1;
                     end

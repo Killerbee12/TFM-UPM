@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1786036949" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/top_system.dcp">
+<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1786369708" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/top_system.dcp">
   <File Type="PA-TCL" Name="design_1_wrapper.tcl"/>
   <File Type="REPORTS-TCL" Name="design_1_wrapper_reports.tcl"/>
   <File Type="RDS-RDS" Name="design_1_wrapper.vds"/>
@@ -123,6 +123,7 @@
     <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
     <Step Id="synth_design"/>
   </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_fifo_generator_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="design_1_system_ila_1_1"/>
   <BlockFileSet Type="BlockSrcs" Name="design_1_clk_wiz_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="design_1_top_system_0_1"/>

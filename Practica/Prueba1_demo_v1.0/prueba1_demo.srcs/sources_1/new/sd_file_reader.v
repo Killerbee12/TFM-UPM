@@ -290,14 +290,14 @@ always @ (posedge clk or negedge rstn)
                                 cluster_sector_offset_t = 8'h0;
                                 if(filesystem==FAT16) begin
                                     if(target_cluster_fat16>=16'hFFF0 || target_cluster_fat16<16'h2) begin
-                                        filesystem_state <= DONE;   // read to the end of file, done
+                                        filesystem_state <= RESET;   // loop audio back to beginning
                                     end else begin
                                         curr_cluster_t = {16'h0,target_cluster_fat16};
                                         read_sector_no <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;
                                     end
                                 end else begin
                                     if(target_cluster=='h0FFF_FFFF || target_cluster=='h0FFF_FFF8 || target_cluster=='hFFFF_FFFF || target_cluster<2) begin
-                                        filesystem_state <= DONE;   // read to the end of file, done
+                                        filesystem_state <= RESET;   // loop audio back to beginning
                                     end else begin
                                         curr_cluster_t = target_cluster;
                                         read_sector_no <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;

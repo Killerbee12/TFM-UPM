@@ -2,7 +2,7 @@
 --Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
---Date        : Thu Aug  6 19:22:27 2026
+--Date        : Mon Aug 10 15:47:54 2026
 --Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 --Command     : generate_target design_1.bd
 --Design      : design_1
@@ -195,7 +195,7 @@ clk_wiz_0: component design_1_clk_wiz_0_0
     );
 fifo_generator_0: component design_1_fifo_generator_0_0
      port map (
-      clk => clk_100Mhz_0_1,
+      clk => clk_wiz_0_clk_out2,
       din(7 downto 0) => top_system_0_fifo_din(7 downto 0),
       dout(7 downto 0) => fifo_generator_0_dout(7 downto 0),
       empty => fifo_generator_0_empty,

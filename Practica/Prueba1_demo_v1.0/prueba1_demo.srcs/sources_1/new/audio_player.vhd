@@ -98,10 +98,10 @@ begin
 
     -- (La IP xpm_fifo_sync ha sido eliminada por petición del usuario para usar el IP Catalog)
 
-    -- Enviar al DAC
-    audio_data <= sample_reg;
+    -- Enviar al DAC (16 bits PCM Mono alineados a la izquierda en los 24 bits del I2S)
+    audio_data <= sample_reg(15 downto 0) & "00000000";
     
-    -- Extractor de 3 bytes (24 bits) cada vez que el I2S pide muestra (flanco bajada lrclk)
+    -- Extractor de 2 bytes (16 bits) cada vez que el I2S pide muestra (flanco bajada lrclk)
     process(clk, reset_n)
     begin
         if reset_n = '0' then
@@ -115,7 +115,13 @@ begin
             case state is
                 when IDLE =>
                     if lrclk_prev = '0' and i2s_lrclk = '1' then
-                        state <= REQ_B1;
+                        if fifo_empty = '1' then
+                            -- Si la FIFO está vacía (cargando siguiente cluster), enviar silencio (0) 
+                            -- para evitar que el amplificador TAS2110 detecte un voltaje DC constante y se proteja.
+                            sample_reg <= (others => '0');
+                        else
+                            state <= REQ_B1;
+                        end if;
                     end if;
                     
                 when REQ_B1 =>
@@ -138,21 +144,12 @@ begin
                     
                 when WAIT_B2 =>
                     if fifo_valid = '1' then
-                        sample_reg(15 downto 8) <= fifo_dout;
-                        state <= REQ_B3;
-                    end if;
-                    
-                when REQ_B3 =>
-                    if fifo_empty = '0' then
-                        fifo_rd_en <= '1';
-                        state <= WAIT_B3;
-                    end if;
-                    
-                when WAIT_B3 =>
-                    if fifo_valid = '1' then
-                        sample_reg(23 downto 16) <= fifo_dout; -- MSB last
+                        sample_reg(15 downto 8) <= fifo_dout; -- MSB of 16-bit PCM
                         state <= IDLE;
                     end if;
+                    
+                when others =>
+                    state <= IDLE;
             end case;
             
             lrclk_prev <= i2s_lrclk;

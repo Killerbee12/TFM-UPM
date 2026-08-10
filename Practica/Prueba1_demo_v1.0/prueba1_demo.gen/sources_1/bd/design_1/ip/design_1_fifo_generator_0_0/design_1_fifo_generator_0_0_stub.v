@@ -2,10 +2,10 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-// Date        : Wed Aug  5 18:31:42 2026
+// Date        : Mon Aug 10 15:07:45 2026
 // Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub -rename_top design_1_fifo_generator_0_0 -prefix
-//               design_1_fifo_generator_0_0_ design_1_fifo_generator_0_0_stub.v
+// Command     : write_verilog -force -mode synth_stub
+//               c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.0/prueba1_demo.gen/sources_1/bd/design_1/ip/design_1_fifo_generator_0_0/design_1_fifo_generator_0_0_stub.v
 // Design      : design_1_fifo_generator_0_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a100tcsg324-1
@@ -20,7 +20,7 @@ module design_1_fifo_generator_0_0(clk, srst, din, wr_en, rd_en, dout, full, emp
   prog_full)
 /* synthesis syn_black_box black_box_pad_pin="srst,din[7:0],wr_en,rd_en,dout[7:0],full,empty,valid,prog_full" */
 /* synthesis syn_force_seq_prim="clk" */;
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 core_clk CLK" *) (* x_interface_mode = "slave core_clk" *) (* x_interface_parameter = "XIL_INTERFACENAME core_clk, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, INSERT_VIP 0" *) input clk /* synthesis syn_isclock = 1 */;
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 core_clk CLK" *) (* x_interface_mode = "slave core_clk" *) (* x_interface_parameter = "XIL_INTERFACENAME core_clk, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN /clk_wiz_0_clk_out1, INSERT_VIP 0" *) input clk /* synthesis syn_isclock = 1 */;
   input srst;
   (* x_interface_info = "xilinx.com:interface:fifo_write:1.0 FIFO_WRITE WR_DATA" *) (* x_interface_mode = "slave FIFO_WRITE" *) input [7:0]din;
   (* x_interface_info = "xilinx.com:interface:fifo_write:1.0 FIFO_WRITE WR_EN" *) input wr_en;
