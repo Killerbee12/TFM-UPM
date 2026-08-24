@@ -26,7 +26,9 @@ module sd_file_reader #(
     input  wire       clk,
     // SDcard signals (sdclk and sdcmd)
     output wire       sdclk,
-    inout             sdcmd,
+    input  wire       sdcmd_in,
+    output wire       sdcmd_out,
+    output wire       sdcmd_oe,
     input  wire       sddat0,            // FPGA only read SDDAT signal but never drive it
     // status output (optional for user)
     output wire [3:0] card_stat,         // show the sdcard initialize status
@@ -364,7 +366,9 @@ sd_reader #(
     .rstn        ( rstn         ),
     .clk         ( clk          ),
     .sdclk       ( sdclk        ),
-    .sdcmd       ( sdcmd        ),
+    .sdcmd_in    ( sdcmd_in     ),
+    .sdcmd_out   ( sdcmd_out    ),
+    .sdcmd_oe    ( sdcmd_oe     ),
     .sddat0      ( sddat0       ),
     .card_type  ( card_type      ),
     .card_stat  ( card_stat      ),
