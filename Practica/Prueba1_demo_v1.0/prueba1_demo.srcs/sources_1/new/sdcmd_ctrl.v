@@ -12,9 +12,7 @@ module sdcmd_ctrl (
     input  wire         clk,
     // SDcard signals (sdclk and sdcmd)
     output reg          sdclk,
-    input  wire         sdcmd_in,
-    output wire         sdcmd_out,
-    output wire         sdcmd_oe,
+    inout               sdcmd,
     // config clk freq
     input  wire  [15:0] clkdiv,
     // user input signal
@@ -39,10 +37,9 @@ localparam [15:0] TIMEOUT = 16'd8000; // Increased drastically for SDXC cards (S
 reg sdcmdoe  = 1'b0;
 reg sdcmdout = 1'b1;
 
-// Export tri-state control to top module
-assign sdcmd_oe  = sdcmdoe;
-assign sdcmd_out = sdcmdout;
-wire sdcmdin     = sdcmdoe ? 1'b1 : sdcmd_in;
+// sdcmd tri-state driver
+assign sdcmd   = sdcmdoe ? sdcmdout : 1'bz;
+wire   sdcmdin = sdcmdoe ? 1'b1 : sdcmd;
 
 function  [6:0] CalcCrc7;
     input [6:0] crc;

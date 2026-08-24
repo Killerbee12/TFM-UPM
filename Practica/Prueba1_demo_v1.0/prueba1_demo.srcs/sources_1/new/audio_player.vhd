@@ -14,9 +14,7 @@ entity audio_player is
         
         -- Interfaz de la Tarjeta SD
         sd_clk      : out STD_LOGIC;
-        sd_cmd_in   : in  STD_LOGIC;
-        sd_cmd_out  : out STD_LOGIC;
-        sd_cmd_oe   : out STD_LOGIC;
+        sd_cmd      : inout STD_LOGIC;
         sd_dat0     : in  STD_LOGIC;
         
         -- Puertos de la FIFO externa (Block Design)
@@ -48,9 +46,7 @@ architecture Behavioral of audio_player is
             rstn            : in  std_logic;
             clk             : in  std_logic;
             sdclk           : out std_logic;
-            sdcmd_in        : in  std_logic;
-            sdcmd_out       : out std_logic;
-            sdcmd_oe        : out std_logic;
+            sdcmd           : inout std_logic;
             sddat0          : in  std_logic;
             card_stat       : out std_logic_vector(3 downto 0);
             card_type       : out std_logic_vector(1 downto 0);
@@ -83,9 +79,7 @@ begin
         rstn            => reset_n,
         clk             => clk,
         sdclk           => sd_clk,
-        sdcmd_in        => sd_cmd_in,
-        sdcmd_out       => sd_cmd_out,
-        sdcmd_oe        => sd_cmd_oe,
+        sdcmd           => sd_cmd,
         sddat0          => sd_dat0,
         card_stat       => debug_sd_card_stat,
         card_type       => debug_sd_card_type,

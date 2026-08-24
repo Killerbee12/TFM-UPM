@@ -69,11 +69,6 @@ architecture Behavioral of top_system is
     -- Reset limpio: solo se libera cuando PLL está locked Y botón no pulsado
     signal sd_rstn      : STD_LOGIC;
     
-    -- Señales tri-estado internas de la SD
-    signal sd_cmd_in    : STD_LOGIC;
-    signal sd_cmd_out   : STD_LOGIC;
-    signal sd_cmd_oe    : STD_LOGIC;
-
     -- Señales para el audio I2S
     signal i2s_lrclk_internal : STD_LOGIC;
     
@@ -235,16 +230,6 @@ begin
     -- Reset limpio: PLL estable + botón no pulsado
     sd_rstn <= pll_locked and reset_n;
     
-    -- Buffer tri-estado para sd_cmd (Instancia directa de IOBUF para forzar el hardware)
-    -- Evita que Vivado OOC synthesis convierta la Z en lógica
-    sd_cmd_iobuf : IOBUF
-    port map (
-        O  => sd_cmd_in,   -- Salida del buffer (hacia la FPGA)
-        IO => sd_cmd,      -- Puerto bidireccional físico
-        I  => sd_cmd_out,  -- Entrada al buffer (desde la FPGA)
-        T  => not sd_cmd_oe -- Enable (0 = conduce 'I' a 'IO', 1 = alta impedancia/lee 'IO' a 'O')
-    );
-
     inst_audio_player: entity work.audio_player
         port map(
             clk        => clk_sd,  -- 50 MHz para SD reader (igual que el ejemplo)
@@ -252,9 +237,7 @@ begin
             i2s_lrclk  => i2s_lrclk_internal,
             audio_data => i2s_audio_data,
             sd_clk     => sd_clk,
-            sd_cmd_in  => sd_cmd_in,
-            sd_cmd_out => sd_cmd_out,
-            sd_cmd_oe  => sd_cmd_oe,
+            sd_cmd     => sd_cmd,
             sd_dat0    => sd_dat0,
             
             -- Puertos hacia el Block Design (FIFO Generator IP)
