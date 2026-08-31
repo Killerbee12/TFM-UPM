@@ -149,8 +149,8 @@ begin
                             seq_rom(4) <= x"0702"; -- TDM_CFG1: RX_OFFSET=1 (I2S standard)
                             seq_rom(5) <= x"080A"; -- TDM_CFG2: Slot 0, 24-bit word, 32-bit slot
                             
-                            -- === Paso 4: Volumen Limpio con Margen Seguro (-24 dB) ===
-                            seq_rom(6) <= x"0330"; -- PB_CFG1 = 0x30 (-24 dB: elimina saturación y caídas de corriente)
+                            -- === Paso 4: Ganancia Analógica Mínima Exacta (Table 107: 8.5 dBV / 3.76 Vpeak) ===
+                            seq_rom(6) <= x"0302"; -- PB_CFG1: HPF_EN=0 (DC Blocker ON), AMP_LEVEL=01h (3.76 Vpk)
                             
                             -- === Paso 5: Encender el amplificador (5ms wait automático) ===
                             seq_rom(7) <= x"020C"; -- PWR_CTL = 0x0C (Active) -> POWER_WAIT
