@@ -140,21 +140,25 @@ begin
                             -- === Paso 1: Configurar Page 0 ===
                             seq_rom(0) <= x"0000"; 
                             
-                            -- === Paso 2: Configurar formato I2S Explícito ===
-                            seq_rom(1) <= x"0601"; -- TDM_CFG0: 48kHz, AUTO RATE DISABLED (Bit 3=0), RX_EDGE=0
-                            seq_rom(2) <= x"0702"; -- TDM_CFG1: RX_OFFSET=1 (I2S standard)
-                            seq_rom(3) <= x"080A"; -- TDM_CFG2: Slot 0, 24-bit word, 32-bit slot
+                            -- === Paso 2: Robustez y Auto-Recovery de Hardware ===
+                            seq_rom(1) <= x"04F6"; -- MISC_CFG1: Auto-Recovery en OCP, BOP y Clock Fault
+                            seq_rom(2) <= x"3D18"; -- MISC_CFG4: Estabilidad de filtros de reloj
                             
-                            -- === Paso 3: Configurar Volumen I2S ===
-                            seq_rom(4) <= x"0314"; -- PB_CFG1 = 0x14
+                            -- === Paso 3: Configurar formato I2S Explícito ===
+                            seq_rom(3) <= x"0601"; -- TDM_CFG0: 48kHz, RX_EDGE=0
+                            seq_rom(4) <= x"0702"; -- TDM_CFG1: RX_OFFSET=1 (I2S standard)
+                            seq_rom(5) <= x"080A"; -- TDM_CFG2: Slot 0, 24-bit word, 32-bit slot
                             
-                            -- === Paso 4: Encender el amplificador (5ms wait automático) ===
-                            seq_rom(5) <= x"020C"; -- PWR_CTL = 0x0C (Active) -> POWER_WAIT
+                            -- === Paso 4: Volumen Limpio con Headroom (Elimina la Saturación de Graves) ===
+                            seq_rom(6) <= x"0320"; -- PB_CFG1 = 0x20 (-16 dB: sonido cristalino sin distorsión)
                             
-                            -- === Paso 5: DESPUÉS del wait, deshabilitar el Tone Gen ===
-                            seq_rom(6) <= x"3F00"; -- TG1_EN = 0x00 (escuchar I2S)
+                            -- === Paso 5: Encender el amplificador (5ms wait automático) ===
+                            seq_rom(7) <= x"020C"; -- PWR_CTL = 0x0C (Active) -> POWER_WAIT
                             
-                            seq_len <= 7;
+                            -- === Paso 6: DESPUÉS del wait, deshabilitar el Tone Gen ===
+                            seq_rom(8) <= x"3F00"; -- TG1_EN = 0x00 (escuchar I2S)
+                            
+                            seq_len <= 9;
                             reg_cnt <= 0;
                             byte_cnt <= 0;
                             current_byte <= SLAVE_ADDR;
