@@ -470,13 +470,13 @@
         "has_run_ip_tcl": "true",
         "parameters": {
           "Full_Threshold_Assert_Value": {
-            "value": "1500"
+            "value": "15000"
           },
           "Input_Data_Width": {
             "value": "8"
           },
           "Input_Depth": {
-            "value": "2048"
+            "value": "16384"
           },
           "Programmable_Full_Type": {
             "value": "Single_Programmable_Full_Threshold_Constant"

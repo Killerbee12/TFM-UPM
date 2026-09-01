@@ -1,0 +1,38 @@
+#-----------------------------------------------------------
+# Vivado v2025.1 (64-bit)
+# SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
+# IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
+# SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
+# Start of session at: Mon Aug 31 05:22:55 2026
+# Process ID         : 10300
+# Current directory  : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.1
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent5368 C:\Users\kille\Documents\GitHub\TFM-UPM\Practica\Prueba1_demo_v1.1\Prueba1_demo_v1_1.xpr
+# Log file           : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.1/vivado.log
+# Journal file       : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.1\vivado.jou
+# Running On         : Samsung_Book_3
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : 13th Gen Intel(R) Core(TM) i5-1335U
+# CPU Frequency      : 2496 MHz
+# CPU Physical cores : 10
+# CPU Logical cores  : 12
+# Host memory        : 8257 MB
+# Swap memory        : 17179 MB
+# Total Virtual      : 25437 MB
+# Available Virtual  : 16474 MB
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.1/Prueba1_demo_v1_1.xpr
+open_hw_manager
+connect_hw_server -allow_non_jtag
+update_compile_order -fileset sources_1
+disconnect_hw_server localhost:3121
+connect_hw_server -allow_non_jtag
+disconnect_hw_server localhost:3121
+connect_hw_server -allow_non_jtag
+disconnect_hw_server localhost:3121
+connect_hw_server -allow_non_jtag
+disconnect_hw_server localhost:3121
+connect_hw_server -allow_non_jtag
+disconnect_hw_server localhost:3121
+connect_hw_server -allow_non_jtag

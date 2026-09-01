@@ -9,8 +9,7 @@
       "scoped": "true",
       "synth_flow_mode": "None",
       "tool_version": "2025.1",
-      "validated": "true",
-      "gen_directory": "."
+      "validated": "true"
     },
     "design_tree": {
       "ila_lib": ""
@@ -20,10 +19,6 @@
         "type": "clk",
         "direction": "I",
         "parameters": {
-          "CLK_DOMAIN": {
-            "value": "bd_f60c_clk",
-            "value_src": "default_prop"
-          },
           "FREQ_HZ": {
             "value": "100000000",
             "value_src": "default"
