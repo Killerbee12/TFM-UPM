@@ -135,7 +135,8 @@ localparam [2:0] RESET         = 3'd0,
                  LS_ROOT_FAT16 = 3'd3,
                  LS_ROOT_FAT32 = 3'd4,
                  READ_A_FILE   = 3'd5,
-                 SONG_DONE     = 3'd6;
+                 SONG_DONE     = 3'd6,
+                 DONE          = 3'd6;
 
 reg        [2:0] filesystem_state = RESET;
 reg              change_song_pending = 1'b0;
@@ -401,7 +402,7 @@ generate if (SIMULATE) begin
     always @ (posedge clk)
         if (read_done) begin
         end else begin
-            if (filesystem_state == DONE) $finish;   // only for finish simulation, will be ignore when synthesize
+            if (filesystem_state == SONG_DONE || filesystem_state == DONE) $finish;   // only for finish simulation, will be ignore when synthesize
         end
 end endgenerate
 
