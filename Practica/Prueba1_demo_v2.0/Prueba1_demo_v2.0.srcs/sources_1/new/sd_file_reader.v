@@ -126,6 +126,8 @@ reg  [31:0] file_size = 0;
 reg  [ 7:0] cluster_size = 0 , cluster_size_t;
 reg  [31:0] first_fat_sector_no = 0 , first_fat_sector_no_t;
 reg  [31:0] first_data_sector_no= 0 , first_data_sector_no_t;
+reg  [31:0] root_dir_cluster = 0 , root_dir_cluster_t;
+reg  [31:0] root_dir_sector_fat32 = 0 , root_dir_sector_fat32_t;
 
 reg         search_fat = 1'b0;
 
@@ -217,6 +219,8 @@ always @ (posedge clk or negedge rstn)
         cluster_size <= 8'h0;
         first_fat_sector_no   <= 0;
         first_data_sector_no  <= 0;
+        root_dir_cluster      <= 0;
+        root_dir_sector_fat32 <= 0;
         curr_cluster          <= 0;
         cluster_sector_offset <= 8'h0;
         rootdir_sector        <= 0;
@@ -227,6 +231,8 @@ always @ (posedge clk or negedge rstn)
         cluster_size_t = cluster_size;
         first_fat_sector_no_t  = first_fat_sector_no;
         first_data_sector_no_t = first_data_sector_no;
+        root_dir_cluster_t     = root_dir_cluster;
+        root_dir_sector_fat32_t= root_dir_sector_fat32;
         curr_cluster_t = curr_cluster;
         cluster_sector_offset_t = cluster_sector_offset;
         rootdir_sector_t = rootdir_sector;
@@ -244,8 +250,8 @@ always @ (posedge clk or negedge rstn)
                     read_sector_no <= rootdir_sector_t;
                     filesystem_state <= LS_ROOT_FAT16;
                 end else begin
-                    curr_cluster_t = root_cluster;
-                    read_sector_no <= first_data_sector_no_t + cluster_size_t * root_cluster;
+                    curr_cluster_t = root_dir_cluster_t;
+                    read_sector_no <= root_dir_sector_fat32_t;
                     filesystem_state <= LS_ROOT_FAT32;
                 end
             end else begin
@@ -278,9 +284,12 @@ always @ (posedge clk or negedge rstn)
                                             
                                             first_data_sector_no_t= first_fat_sector_no_t + sectors_per_fat * number_of_fat - cluster_size_t * 2;
                                             
+                                            root_dir_cluster_t      = root_cluster;
+                                            root_dir_sector_fat32_t = first_data_sector_no_t + cluster_size_t * root_cluster;
+                                            
                                             curr_cluster_t        = root_cluster;
                                             cluster_sector_offset_t = 8'h0;
-                                            read_sector_no      <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;
+                                            read_sector_no      <= root_dir_sector_fat32_t;
                                             filesystem_state <= LS_ROOT_FAT32;
                                         end else begin
                                             filesystem_state <= SONG_DONE;
@@ -368,8 +377,8 @@ always @ (posedge clk or negedge rstn)
                         read_sector_no <= rootdir_sector;
                         filesystem_state <= LS_ROOT_FAT16;
                     end else begin
-                        curr_cluster_t = root_cluster;
-                        read_sector_no <= first_data_sector_no + cluster_size * root_cluster;
+                        curr_cluster_t = root_dir_cluster;
+                        read_sector_no <= root_dir_sector_fat32;
                         filesystem_state <= LS_ROOT_FAT32;
                     end
                 end else begin
@@ -391,6 +400,8 @@ always @ (posedge clk or negedge rstn)
         cluster_size <= cluster_size_t;
         first_fat_sector_no <= first_fat_sector_no_t;
         first_data_sector_no <= first_data_sector_no_t;
+        root_dir_cluster <= root_dir_cluster_t;
+        root_dir_sector_fat32 <= root_dir_sector_fat32_t;
         curr_cluster <= curr_cluster_t;
         cluster_sector_offset <= cluster_sector_offset_t;
         rootdir_sector <= rootdir_sector_t;
@@ -500,6 +511,14 @@ always @ (posedge clk or negedge rstn) begin
         fready<=1'b0;  fnamelen<=8'h0;
         for(i=0;i<52;i=i+1) fname[i]<=8'h0;
         fcluster<=16'h0;  fsize<=0;
+
+        if (change_song || change_song_pending) begin
+            {isshort_t, islongok_t, islong_t, longvalid_t} = 4'b0000;
+            longno_t = 6'h0;
+            fdtnamelen_t = 8'h0;
+            sdtnamelen_t = 8'h0;
+            file_namelen <= 8'h0;
+        end
         
         if( rvalid && (filesystem_state==LS_ROOT_FAT16||filesystem_state==LS_ROOT_FAT32) && ~search_fat ) begin
             case (raddr[4:0])
@@ -575,7 +594,7 @@ always @ (posedge clk or negedge rstn) begin
             if(isshort_t) begin
                 if(raddr[4:0]<5'h8) begin
                     if(rdata!=8'h20) begin
-                        file_name[sdtnamelen_t] <= rdata;
+                        file_name[sdtnamelen_t] <= toUpperCase(rdata);
                         sdtnamelen_t = sdtnamelen_t + 8'd1;
                     end
                 end else if(raddr[4:0]<5'hB) begin
@@ -584,7 +603,7 @@ always @ (posedge clk or negedge rstn) begin
                         sdtnamelen_t = sdtnamelen_t + 8'd1;
                     end
                     if(rdata!=8'h20) begin
-                        file_name[sdtnamelen_t] <= rdata;
+                        file_name[sdtnamelen_t] <= toUpperCase(rdata);
                         sdtnamelen_t = sdtnamelen_t + 8'd1;
                     end
                 end else if(raddr[4:0]==5'hB) begin

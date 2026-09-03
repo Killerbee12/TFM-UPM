@@ -286,8 +286,10 @@ begin
 
     -- Asignación de los LEDs de depuración y estado de pistas (Demo v2.0)
     LED_out(15 downto 14) <= current_song_internal; -- 00: Chill, 01: Bianche, 10: Starwars
-    LED_out(13)           <= song_done_internal;    -- 1: Fin de pista alcanzado (EOF)
-    LED_out(12 downto 7)  <= (others => '0');
+    LED_out(13)           <= fifo_prog_full;        -- 1: FIFO casi llena (prog_full)
+    LED_out(12)           <= fifo_empty;            -- 1: FIFO completamente vacía
+    LED_out(11)           <= song_done_internal;    -- 1: Fin de pista alcanzado (EOF)
+    LED_out(10 downto 7)  <= (others => '0');
     LED_out(6 downto 5)   <= debug_sd_card_type;
     LED_out(4)            <= debug_sd_file_found;
     LED_out(3 downto 0)   <= debug_sd_card_stat;
