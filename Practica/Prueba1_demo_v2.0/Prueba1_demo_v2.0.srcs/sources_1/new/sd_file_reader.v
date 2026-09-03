@@ -97,7 +97,7 @@ initial {outen,outbyte} = 0;
 
 reg         read_start     = 1'b0;
 reg  [31:0] read_sector_no = 0;
-wire        read_done;
+wire        read_done, rbusy;
 
 wire        rvalid;
 wire [ 8:0] raddr;
@@ -368,8 +368,22 @@ always @ (posedge clk or negedge rstn)
                 endcase
             end
         end else begin
-            if (change_song) begin
-                if (filesystem_state == SONG_DONE) begin
+            if (change_song_pending && ~rbusy) begin
+                change_song_pending <= 1'b0;
+                song_finished <= 1'b0;
+                search_fat <= 1'b0;
+                cluster_sector_offset_t = 8'h0;
+                if (filesystem == FAT16) begin
+                    read_sector_no <= rootdir_sector;
+                    filesystem_state <= LS_ROOT_FAT16;
+                end else begin
+                    curr_cluster_t = root_dir_cluster;
+                    read_sector_no <= root_dir_sector_fat32;
+                    filesystem_state <= LS_ROOT_FAT32;
+                end
+            end else if (change_song) begin
+                if (~rbusy || filesystem_state == SONG_DONE) begin
+                    change_song_pending <= 1'b0;
                     song_finished <= 1'b0;
                     search_fat <= 1'b0;
                     cluster_sector_offset_t = 8'h0;
@@ -456,7 +470,7 @@ sd_reader #(
     .card_stat  ( card_stat      ),
     .rstart     ( read_start     ),
     .rsector    ( read_sector_no ),
-    .rbusy      (                ),
+    .rbusy      ( rbusy          ),
     .rdone      ( read_done      ),
     .outen      ( rvalid         ),
     .outaddr    ( raddr          ),
@@ -559,7 +573,7 @@ always @ (posedge clk or negedge rstn) begin
             end else if(raddr[4:0]==5'hB) begin
                 if(rdata!=8'h0F)
                     islong_t = 1'b0;
-                if(rdata!=8'h20)
+                if(rdata[4] || rdata[3])
                     {isshort_t, islongok_t} = 2'b00;
             end else if(raddr[4:0]==5'h1F) begin
                 if(islongok_t && longvalid_t || isshort_t) begin
@@ -600,9 +614,9 @@ always @ (posedge clk or negedge rstn) begin
                 end else if(raddr[4:0]<5'hB) begin
                     if(raddr[4:0]==5'h8) begin
                         file_name[sdtnamelen_t] <= 8'h2E;
-                        sdtnamelen_t = sdtnamelen_t + 8'd1;
-                    end
-                    if(rdata!=8'h20) begin
+                        file_name[sdtnamelen_t + 8'd1] <= toUpperCase(rdata);
+                        sdtnamelen_t = sdtnamelen_t + 8'd2;
+                    end else if(rdata!=8'h20) begin
                         file_name[sdtnamelen_t] <= toUpperCase(rdata);
                         sdtnamelen_t = sdtnamelen_t + 8'd1;
                     end
