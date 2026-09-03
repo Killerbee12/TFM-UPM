@@ -90,51 +90,54 @@ begin
                         sda_internal <= '1';
                         scl_out <= '1';
                         
-                        if btn_tone = '1' and debounce = 0 then
-                            amp_active_reg <= '0';
-                            is_audio_seq   <= '0';
-                            -- SECUENCIA START TONE (1000Hz, -24dB)
-                            -- === Paso 1: Configurar Page 0 (reloj y misc) PRIMERO ===
-                            seq_rom(0) <= x"0000"; 
-                            seq_rom(1) <= x"04F6"; -- MISC_CFG1
-                            seq_rom(2) <= x"305D"; -- INT_CLK
-                            seq_rom(3) <= x"3D18"; -- MISC_CFG4
-                            
-                            -- === Paso 2: Configurar Tone Generator en Page 2 ===
-                            seq_rom(4) <= x"0002"; 
-                            seq_rom(5) <= x"3C3F"; 
-                            seq_rom(6) <= x"3D78"; 
-                            seq_rom(7) <= x"3E8A"; 
-                            seq_rom(8) <= x"3F4F"; 
-                            
-                            seq_rom(9)  <= x"4010"; 
-                            seq_rom(10) <= x"416C"; 
-                            seq_rom(11) <= x"42F2"; 
-                            seq_rom(12) <= x"4380"; 
-                            
-                            seq_rom(13) <= x"4400"; 
-                            seq_rom(14) <= x"4500"; 
-                            seq_rom(15) <= x"460C"; 
-                            seq_rom(16) <= x"4734"; 
-                            
-                            seq_rom(17) <= x"4840"; 
-                            seq_rom(18) <= x"4926"; 
-                            seq_rom(19) <= x"4AE7"; 
-                            seq_rom(20) <= x"4B3D"; 
-                            
-                            -- === Paso 3: Volver a Page 0, activar y habilitar tone ===
-                            seq_rom(21) <= x"0000"; 
-                            seq_rom(22) <= x"020C"; -- PWR_CTL (Active mode) [idx 22]
-                            seq_rom(23) <= x"3F40"; -- TG1_EN = 0x40
-                            
-                            seq_len <= 24;
-                            reg_cnt <= 0;
-                            byte_cnt <= 0;
-                            current_byte <= SLAVE_ADDR;
-                            state <= START_COND;
-                            debounce <= 500_000;
-                            
-                        elsif btn_i2s = '1' and debounce = 0 then
+                        -- [MODIFICACIÓN DEMO V2.0]: Secuencia del Generador de Tono desvinculada del hardware.
+                        -- Se preserva íntegramente en comentarios para consulta histórica/depuración.
+                        -- if btn_tone = '1' and debounce = 0 then
+                        --     amp_active_reg <= '0';
+                        --     is_audio_seq   <= '0';
+                        --     -- SECUENCIA START TONE (1000Hz, -24dB)
+                        --     -- === Paso 1: Configurar Page 0 (reloj y misc) PRIMERO ===
+                        --     seq_rom(0) <= x"0000"; 
+                        --     seq_rom(1) <= x"04F6"; -- MISC_CFG1
+                        --     seq_rom(2) <= x"305D"; -- INT_CLK
+                        --     seq_rom(3) <= x"3D18"; -- MISC_CFG4
+                        --     
+                        --     -- === Paso 2: Configurar Tone Generator en Page 2 ===
+                        --     seq_rom(4) <= x"0002"; 
+                        --     seq_rom(5) <= x"3C3F"; 
+                        --     seq_rom(6) <= x"3D78"; 
+                        --     seq_rom(7) <= x"3E8A"; 
+                        --     seq_rom(8) <= x"3F4F"; 
+                        --     
+                        --     seq_rom(9)  <= x"4010"; 
+                        --     seq_rom(10) <= x"416C"; 
+                        --     seq_rom(11) <= x"42F2"; 
+                        --     seq_rom(12) <= x"4380"; 
+                        --     
+                        --     seq_rom(13) <= x"4400"; 
+                        --     seq_rom(14) <= x"4500"; 
+                        --     seq_rom(15) <= x"460C"; 
+                        --     seq_rom(16) <= x"4734"; 
+                        --     
+                        --     seq_rom(17) <= x"4840"; 
+                        --     seq_rom(18) <= x"4926"; 
+                        --     seq_rom(19) <= x"4AE7"; 
+                        --     seq_rom(20) <= x"4B3D"; 
+                        --     
+                        --     -- === Paso 3: Volver a Page 0, activar y habilitar tone ===
+                        --     seq_rom(21) <= x"0000"; 
+                        --     seq_rom(22) <= x"020C"; -- PWR_CTL (Active mode) [idx 22]
+                        --     seq_rom(23) <= x"3F40"; -- TG1_EN = 0x40
+                        --     
+                        --     seq_len <= 24;
+                        --     reg_cnt <= 0;
+                        --     byte_cnt <= 0;
+                        --     current_byte <= SLAVE_ADDR;
+                        --     state <= START_COND;
+                        --     debounce <= 500_000;
+                        -- end if;
+
+                        if btn_i2s = '1' and debounce = 0 then
                             is_audio_seq <= '1';
                             -- SECUENCIA I2S AUDIO (ROM)
                             -- === Paso 1: Configurar Page 0 ===

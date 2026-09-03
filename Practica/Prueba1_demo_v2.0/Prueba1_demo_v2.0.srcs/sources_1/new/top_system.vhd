@@ -52,6 +52,7 @@ entity top_system is
         fifo_dout      : in  STD_LOGIC_VECTOR(7 downto 0);
         fifo_empty     : in  STD_LOGIC;
         fifo_valid     : in  STD_LOGIC;
+        fifo_srst      : out STD_LOGIC; -- Pulso síncrono para purgar la FIFO externa (Demo v2.0)
         
         dbg_sda_out: out STD_LOGIC;
         dbg_scl_out: out STD_LOGIC;
@@ -84,7 +85,9 @@ architecture Behavioral of top_system is
 
     signal i2s_audio_data : STD_LOGIC_VECTOR(23 downto 0);
 
-    -- signal i2c_busy : STD_LOGIC;
+    -- Señales de estado de canciones (Demo v2.0)
+    signal current_song_internal : STD_LOGIC_VECTOR(1 downto 0);
+    signal song_done_internal    : STD_LOGIC;
     -- signal i2c_ack_err : STD_LOGIC;
 
     -- Señales I2C
@@ -209,7 +212,7 @@ begin
         port map(
             clk_100MHz => clk_100Mhz,
             reset_n    => reset_n,
-            btn_tone   => btn_right_0,
+            btn_tone   => '0', -- Desvinculado del hardware para Demo v2.0
             btn_i2s    => btn_center_0,
             sda_out    => i2c_sda_out,
             sda_t      => i2c_sda_t,
@@ -253,6 +256,13 @@ begin
             reset_n    => sd_rstn,
             i2s_lrclk  => i2s_lrclk_internal,
             audio_data => i2s_audio_data,
+            
+            -- Control de cambio de pista (Demo v2.0)
+            btn_next_song    => btn_right_0,
+            fifo_srst        => fifo_srst,
+            current_song_out => current_song_internal,
+            song_done_out    => song_done_internal,
+            
             sd_clk     => sd_clk,
             sd_cmd_in  => sd_cmd_in,
             sd_cmd_out => sd_cmd_out,
@@ -274,11 +284,13 @@ begin
             debug_sd_card_type  => debug_sd_card_type
         );
 
-    -- Asignación de los LEDs de depuración
-    LED_out(15 downto 7) <= (others => '0');
-    LED_out(6 downto 5) <= debug_sd_card_type;
-    LED_out(4) <= debug_sd_file_found;
-    LED_out(3 downto 0) <= debug_sd_card_stat;
+    -- Asignación de los LEDs de depuración y estado de pistas (Demo v2.0)
+    LED_out(15 downto 14) <= current_song_internal; -- 00: Chill, 01: Bianche, 10: Starwars
+    LED_out(13)           <= song_done_internal;    -- 1: Fin de pista alcanzado (EOF)
+    LED_out(12 downto 7)  <= (others => '0');
+    LED_out(6 downto 5)   <= debug_sd_card_type;
+    LED_out(4)            <= debug_sd_file_found;
+    LED_out(3 downto 0)   <= debug_sd_card_stat;
 
     inst_i2s_tx: entity work.i2s_transceiver
         generic map(

@@ -38,7 +38,11 @@ module sd_file_reader #(
     // file content data output (sync with clk)
     output reg        outen,             // when outen=1, a byte of file content is read out from outbyte
     output reg  [7:0] outbyte,           // a byte of file content
-    input  wire       fifo_full          // Flow control to pause reading
+    input  wire       fifo_full,         // Flow control to pause reading
+    // [DEMO V2.0]: Control dinámico de pistas de audio
+    input  wire [1:0] song_sel,          // 0: CHILL.WAV, 1: BIANCHE.WAV, 2: STARWARS.WAV
+    input  wire       change_song,       // Pulso de solicitud para cambiar de pista
+    output reg        song_finished      // Bandera activa cuando el archivo termina (EOF)
 );
 
 
@@ -52,11 +56,36 @@ endfunction
 
 
 
-wire [52*8-1:0] FILE_NAME_UPPER;
+// [DEMO V2.0]: Buffer dinámico de nombres de archivo
+reg [52*8-1:0] target_filename;
+reg [7:0]      target_namelen;
+
+always @(*) begin
+    case (song_sel)
+        2'd0: begin
+            target_filename = "CHILL.WAV";
+            target_namelen  = 8'd9;
+        end
+        2'd1: begin
+            target_filename = "BIANCHE.WAV";
+            target_namelen  = 8'd11;
+        end
+        2'd2: begin
+            target_filename = "STARWARS.WAV";
+            target_namelen  = 8'd12;
+        end
+        default: begin
+            target_filename = "CHILL.WAV";
+            target_namelen  = 8'd9;
+        end
+    endcase
+end
+
+wire [52*8-1:0] target_filename_upper;
 
 generate genvar k;
     for (k=0; k<52; k=k+1) begin : convert_fname_to_upper
-        assign FILE_NAME_UPPER[k*8 +: 8] = toUpperCase( FILE_NAME[k*8 +: 8] );
+        assign target_filename_upper[k*8 +: 8] = toUpperCase( target_filename[k*8 +: 8] );
     end
 endgenerate
 
@@ -106,9 +135,10 @@ localparam [2:0] RESET         = 3'd0,
                  LS_ROOT_FAT16 = 3'd3,
                  LS_ROOT_FAT32 = 3'd4,
                  READ_A_FILE   = 3'd5,
-                 DONE          = 3'd6;
+                 SONG_DONE     = 3'd6;
 
 reg        [2:0] filesystem_state = RESET;
+reg              change_song_pending = 1'b0;
 
 localparam [1:0] UNASSIGNED = 2'd0,
                  UNKNOWN    = 2'd1,
@@ -190,6 +220,8 @@ always @ (posedge clk or negedge rstn)
         cluster_sector_offset <= 8'h0;
         rootdir_sector        <= 0;
         rootdir_sectorcount   <= 16'h0;
+        change_song_pending   <= 1'b0;
+        song_finished         <= 1'b0;
     end else begin
         cluster_size_t = cluster_size;
         first_fat_sector_no_t  = first_fat_sector_no;
@@ -202,118 +234,156 @@ always @ (posedge clk or negedge rstn)
         read_start <= 1'b0;
         
         if (read_done) begin
-            case(filesystem_state)
-            SEARCH_MBR :    if(is_boot_sector) begin
-                                filesystem_state <= SEARCH_DBR;
-                                if(~is_dbr) read_sector_no <= dbr_sector_no;
-                            end else begin
-                                read_sector_no <= read_sector_no + 1;
-                            end
-            SEARCH_DBR :    if(is_boot_sector && is_dbr ) begin
-                                if(bytes_per_sector!=16'd512) begin
-                                    filesystem_state <= DONE;
+            if (change_song_pending) begin
+                change_song_pending <= 1'b0;
+                song_finished <= 1'b0;
+                search_fat <= 1'b0;
+                cluster_sector_offset_t = 8'h0;
+                if (filesystem == FAT16) begin
+                    read_sector_no <= rootdir_sector_t;
+                    filesystem_state <= LS_ROOT_FAT16;
+                end else begin
+                    curr_cluster_t = root_cluster;
+                    read_sector_no <= first_data_sector_no_t + cluster_size_t * root_cluster;
+                    filesystem_state <= LS_ROOT_FAT32;
+                end
+            end else begin
+                case(filesystem_state)
+                SEARCH_MBR :    if(is_boot_sector) begin
+                                    filesystem_state <= SEARCH_DBR;
+                                    if(~is_dbr) read_sector_no <= dbr_sector_no;
                                 end else begin
-                                    filesystem <= filesystem_parsed;
-                                    if(filesystem_parsed==FAT16) begin
-                                        cluster_size_t        = sector_per_cluster;
-                                        first_fat_sector_no_t = read_sector_no + resv_sectors;
-                                        
-                                        rootdir_sectorcount_t = rootdir_itemcount / (16'd512/16'd32);
-                                        rootdir_sector_t      = first_fat_sector_no_t + sectors_per_fat * number_of_fat;
-                                        first_data_sector_no_t= rootdir_sector_t + rootdir_sectorcount_t - cluster_size_t*2;
-                                        
-                                        cluster_sector_offset_t = 8'h0;
-                                        read_sector_no      <= rootdir_sector_t + cluster_sector_offset_t;
-                                        filesystem_state <= LS_ROOT_FAT16;
-                                    end else if(filesystem_parsed==FAT32) begin
-                                        cluster_size_t        = sector_per_cluster;
-                                        first_fat_sector_no_t = read_sector_no + resv_sectors;
-                                        
-                                        first_data_sector_no_t= first_fat_sector_no_t + sectors_per_fat * number_of_fat - cluster_size_t * 2;
-                                        
-                                        curr_cluster_t        = root_cluster;
-                                        cluster_sector_offset_t = 8'h0;
-                                        read_sector_no      <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;
-                                        filesystem_state <= LS_ROOT_FAT32;
+                                    read_sector_no <= read_sector_no + 1;
+                                end
+                SEARCH_DBR :    if(is_boot_sector && is_dbr ) begin
+                                    if(bytes_per_sector!=16'd512) begin
+                                        filesystem_state <= SONG_DONE;
                                     end else begin
-                                        filesystem_state <= DONE;
+                                        filesystem <= filesystem_parsed;
+                                        if(filesystem_parsed==FAT16) begin
+                                            cluster_size_t        = sector_per_cluster;
+                                            first_fat_sector_no_t = read_sector_no + resv_sectors;
+                                            
+                                            rootdir_sectorcount_t = rootdir_itemcount / (16'd512/16'd32);
+                                            rootdir_sector_t      = first_fat_sector_no_t + sectors_per_fat * number_of_fat;
+                                            first_data_sector_no_t= rootdir_sector_t + rootdir_sectorcount_t - cluster_size_t*2;
+                                            
+                                            cluster_sector_offset_t = 8'h0;
+                                            read_sector_no      <= rootdir_sector_t + cluster_sector_offset_t;
+                                            filesystem_state <= LS_ROOT_FAT16;
+                                        end else if(filesystem_parsed==FAT32) begin
+                                            cluster_size_t        = sector_per_cluster;
+                                            first_fat_sector_no_t = read_sector_no + resv_sectors;
+                                            
+                                            first_data_sector_no_t= first_fat_sector_no_t + sectors_per_fat * number_of_fat - cluster_size_t * 2;
+                                            
+                                            curr_cluster_t        = root_cluster;
+                                            cluster_sector_offset_t = 8'h0;
+                                            read_sector_no      <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;
+                                            filesystem_state <= LS_ROOT_FAT32;
+                                        end else begin
+                                            filesystem_state <= SONG_DONE;
+                                        end
                                     end
                                 end
-                            end
-            LS_ROOT_FAT16 :     if(file_found) begin
-                                    curr_cluster_t = file_cluster;
-                                    cluster_sector_offset_t = 8'h0;
-                                    read_sector_no <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;
-                                    filesystem_state <= READ_A_FILE;
-                                end else if(cluster_sector_offset_t<rootdir_sectorcount_t) begin
-                                    cluster_sector_offset_t = cluster_sector_offset_t + 8'd1;
-                                    read_sector_no <= rootdir_sector_t + cluster_sector_offset_t;
-                                end else begin
-                                    filesystem_state <= DONE;   // cant find target file
-                                end
-            LS_ROOT_FAT32 : if(~search_fat) begin
-                                if(file_found) begin
-                                    curr_cluster_t = file_cluster;
-                                    cluster_sector_offset_t = 8'h0;
-                                    read_sector_no <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;
-                                    filesystem_state <= READ_A_FILE;
-                                end else if(cluster_sector_offset_t<(cluster_size_t-1)) begin
-                                    cluster_sector_offset_t = cluster_sector_offset_t + 8'd1;
-                                    read_sector_no <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;
-                                end else begin   // read FAT to get next cluster
-                                    search_fat <= 1'b1;
-                                    cluster_sector_offset_t = 8'h0;
-                                    read_sector_no <= first_fat_sector_no_t + curr_cluster_fat_no;
-                                end
-                            end else begin
-                                search_fat <= 1'b0;
-                                cluster_sector_offset_t = 8'h0;
-                                if(target_cluster=='h0FFF_FFFF || target_cluster=='h0FFF_FFF8 || target_cluster=='hFFFF_FFFF || target_cluster<2) begin
-                                    filesystem_state <= DONE;   // cant find target file
-                                end else begin
-                                    curr_cluster_t = target_cluster;
-                                    read_sector_no <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;
-                                end
-                            end
-            READ_A_FILE  : 
-                            if(~search_fat) begin
-                                if(cluster_sector_offset_t<(cluster_size_t-1)) begin
-                                    cluster_sector_offset_t = cluster_sector_offset_t + 8'd1;
-                                    read_sector_no <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;
-                                end else begin   // read FAT to get next cluster
-                                    search_fat <= 1'b1;
-                                    cluster_sector_offset_t = 8'h0;
-                                    read_sector_no <= first_fat_sector_no_t + (filesystem==FAT16 ? curr_cluster_fat_no_fat16 : curr_cluster_fat_no);
-                                end
-                            end else begin
-                                search_fat <= 1'b0;
-                                cluster_sector_offset_t = 8'h0;
-                                if(filesystem==FAT16) begin
-                                    if(target_cluster_fat16>=16'hFFF0 || target_cluster_fat16<16'h2) begin
-                                        filesystem_state <= RESET;   // loop audio back to beginning
-                                    end else begin
-                                        curr_cluster_t = {16'h0,target_cluster_fat16};
+                LS_ROOT_FAT16 :     if(file_found) begin
+                                        curr_cluster_t = file_cluster;
+                                        cluster_sector_offset_t = 8'h0;
                                         read_sector_no <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;
+                                        filesystem_state <= READ_A_FILE;
+                                    end else if(cluster_sector_offset_t<rootdir_sectorcount_t) begin
+                                        cluster_sector_offset_t = cluster_sector_offset_t + 8'd1;
+                                        read_sector_no <= rootdir_sector_t + cluster_sector_offset_t;
+                                    end else begin
+                                        filesystem_state <= SONG_DONE;   // cant find target file
+                                    end
+                LS_ROOT_FAT32 : if(~search_fat) begin
+                                    if(file_found) begin
+                                        curr_cluster_t = file_cluster;
+                                        cluster_sector_offset_t = 8'h0;
+                                        read_sector_no <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;
+                                        filesystem_state <= READ_A_FILE;
+                                    end else if(cluster_sector_offset_t<(cluster_size_t-1)) begin
+                                        cluster_sector_offset_t = cluster_sector_offset_t + 8'd1;
+                                        read_sector_no <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;
+                                    end else begin   // read FAT to get next cluster
+                                        search_fat <= 1'b1;
+                                        cluster_sector_offset_t = 8'h0;
+                                        read_sector_no <= first_fat_sector_no_t + curr_cluster_fat_no;
                                     end
                                 end else begin
+                                    search_fat <= 1'b0;
+                                    cluster_sector_offset_t = 8'h0;
                                     if(target_cluster=='h0FFF_FFFF || target_cluster=='h0FFF_FFF8 || target_cluster=='hFFFF_FFFF || target_cluster<2) begin
-                                        filesystem_state <= RESET;   // loop audio back to beginning
+                                        filesystem_state <= SONG_DONE;   // cant find target file
                                     end else begin
                                         curr_cluster_t = target_cluster;
                                         read_sector_no <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;
                                     end
                                 end
+                READ_A_FILE  : 
+                                if(~search_fat) begin
+                                    if(cluster_sector_offset_t<(cluster_size_t-1)) begin
+                                        cluster_sector_offset_t = cluster_sector_offset_t + 8'd1;
+                                        read_sector_no <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;
+                                    end else begin   // read FAT to get next cluster
+                                        search_fat <= 1'b1;
+                                        cluster_sector_offset_t = 8'h0;
+                                        read_sector_no <= first_fat_sector_no_t + (filesystem==FAT16 ? curr_cluster_fat_no_fat16 : curr_cluster_fat_no);
+                                    end
+                                end else begin
+                                    search_fat <= 1'b0;
+                                    cluster_sector_offset_t = 8'h0;
+                                    if(filesystem==FAT16) begin
+                                        if(target_cluster_fat16>=16'hFFF0 || target_cluster_fat16<16'h2) begin
+                                            filesystem_state <= SONG_DONE;   // fin de canción
+                                            song_finished    <= 1'b1;
+                                        end else begin
+                                            curr_cluster_t = {16'h0,target_cluster_fat16};
+                                            read_sector_no <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;
+                                        end
+                                    end else begin
+                                        if(target_cluster=='h0FFF_FFFF || target_cluster=='h0FFF_FFF8 || target_cluster=='hFFFF_FFFF || target_cluster<2) begin
+                                            filesystem_state <= SONG_DONE;   // fin de canción
+                                            song_finished    <= 1'b1;
+                                        end else begin
+                                            curr_cluster_t = target_cluster;
+                                            read_sector_no <= first_data_sector_no_t + cluster_size_t * curr_cluster_t + cluster_sector_offset_t;
+                                        end
+                                    end
+                                end
+                SONG_DONE : begin
+                                read_start <= 1'b0;
                             end
-            endcase
+                endcase
+            end
         end else begin
+            if (change_song) begin
+                if (filesystem_state == SONG_DONE) begin
+                    song_finished <= 1'b0;
+                    search_fat <= 1'b0;
+                    cluster_sector_offset_t = 8'h0;
+                    if (filesystem == FAT16) begin
+                        read_sector_no <= rootdir_sector;
+                        filesystem_state <= LS_ROOT_FAT16;
+                    end else begin
+                        curr_cluster_t = root_cluster;
+                        read_sector_no <= first_data_sector_no + cluster_size * root_cluster;
+                        filesystem_state <= LS_ROOT_FAT32;
+                    end
+                end else begin
+                    change_song_pending <= 1'b1;
+                end
+            end
+
             case (filesystem_state)
                 RESET         : filesystem_state  <= SEARCH_MBR;
                 SEARCH_MBR    : read_start <= 1'b1;
                 SEARCH_DBR    : read_start <= 1'b1;
                 LS_ROOT_FAT16 : read_start <= 1'b1;
                 LS_ROOT_FAT32 : read_start <= 1'b1;
-                READ_A_FILE   : if (!fifo_full) read_start <= 1'b1;
-                //DONE          : $finish;
+                READ_A_FILE   : if (!fifo_full && !change_song_pending) read_start <= 1'b1;
+                SONG_DONE     : read_start <= 1'b0;
             endcase
         end
         
@@ -543,15 +613,21 @@ always @ (posedge clk or negedge rstn)
         file_cluster <= 0;
         file_size <= 0;
     end else begin
-        if (fready && fnamelen==FILE_NAME_LEN) begin
+        if (change_song || change_song_pending) begin
+            file_found <= 1'b0;
+            file_cluster <= 0;
+            file_size <= 0;
+        end else if (fready && fnamelen==target_namelen) begin
             file_found <= 1'b1;
             file_cluster <= fcluster;
             file_size <= fsize;
-            for (ii=0; ii<FILE_NAME_LEN; ii=ii+1) begin
-                if( fname[FILE_NAME_LEN-1-ii] != FILE_NAME_UPPER[ii*8+:8] ) begin
-                    file_found <= 1'b0;
-                    file_cluster <= 0;
-                    file_size <= 0;
+            for (ii=0; ii<52; ii=ii+1) begin
+                if (ii < target_namelen) begin
+                    if( fname[target_namelen-1-ii] != target_filename_upper[ii*8+:8] ) begin
+                        file_found <= 1'b0;
+                        file_cluster <= 0;
+                        file_size <= 0;
+                    end
                 end
             end
         end
@@ -569,7 +645,10 @@ always @ (posedge clk or negedge rstn)
         fptr <= 0;
         {outen,outbyte} <= 0;
     end else begin
-        if(rvalid && filesystem_state==READ_A_FILE && ~search_fat && fptr<file_size) begin
+        if (change_song || change_song_pending) begin
+            fptr <= 0;
+            {outen,outbyte} <= 0;
+        end else if(rvalid && filesystem_state==READ_A_FILE && ~search_fat && fptr<file_size) begin
             fptr <= fptr + 1;
             {outen,outbyte} <= {1'b1,rdata};
         end else
