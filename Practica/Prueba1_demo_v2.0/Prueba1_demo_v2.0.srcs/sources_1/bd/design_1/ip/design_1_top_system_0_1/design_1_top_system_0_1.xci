@@ -71,6 +71,7 @@
         "fifo_dout": [ { "direction": "in", "size_left": "7", "size_right": "0" } ],
         "fifo_empty": [ { "direction": "in" } ],
         "fifo_valid": [ { "direction": "in" } ],
+        "fifo_srst": [ { "direction": "out" } ],
         "dbg_sda_out": [ { "direction": "out" } ],
         "dbg_scl_out": [ { "direction": "out" } ],
         "LED_out": [ { "direction": "out", "size_left": "15", "size_right": "0" } ]

@@ -2,10 +2,10 @@
 -- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
--- Date        : Mon Aug 31 06:38:51 2026
+-- Date        : Fri Sep  4 06:54:12 2026
 -- Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
---               c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v1.1/Prueba1_demo_v1_1.gen/sources_1/bd/design_1/ip/design_1_top_system_0_1/design_1_top_system_0_1_stub.vhdl
+--               c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.0/Prueba1_demo_v2.0.gen/sources_1/bd/design_1/ip/design_1_top_system_0_1/design_1_top_system_0_1_stub.vhdl
 -- Design      : design_1_top_system_0_1
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7a100tcsg324-1
@@ -50,6 +50,7 @@ entity design_1_top_system_0_1 is
     fifo_dout : in STD_LOGIC_VECTOR ( 7 downto 0 );
     fifo_empty : in STD_LOGIC;
     fifo_valid : in STD_LOGIC;
+    fifo_srst : out STD_LOGIC;
     dbg_sda_out : out STD_LOGIC;
     dbg_scl_out : out STD_LOGIC;
     LED_out : out STD_LOGIC_VECTOR ( 15 downto 0 )
@@ -69,7 +70,7 @@ architecture stub of design_1_top_system_0_1 is
   attribute syn_black_box : boolean;
   attribute black_box_pad_pin : string;
   attribute syn_black_box of stub : architecture is true;
-  attribute black_box_pad_pin of stub : architecture is "clk_100Mhz,clk_audio,clk_sd,reset_n,pll_locked,sw0_reset,btn_left_0,btn_right_0,btn_up_0,btn_down_0,btn_center_0,seg_out_0[6:0],seg_an_0[7:0],seg_dp_0,led_clk,led_data,i2c_sda,i2c_scl,i2s_bclk,i2s_lrclk,i2s_dout,sd_reset,sd_clk,sd_cmd,sd_dat0,sd_dat1,sd_dat2,sd_dat3,fifo_wr_en,fifo_din[7:0],fifo_prog_full,fifo_rd_en,fifo_dout[7:0],fifo_empty,fifo_valid,dbg_sda_out,dbg_scl_out,LED_out[15:0]";
+  attribute black_box_pad_pin of stub : architecture is "clk_100Mhz,clk_audio,clk_sd,reset_n,pll_locked,sw0_reset,btn_left_0,btn_right_0,btn_up_0,btn_down_0,btn_center_0,seg_out_0[6:0],seg_an_0[7:0],seg_dp_0,led_clk,led_data,i2c_sda,i2c_scl,i2s_bclk,i2s_lrclk,i2s_dout,sd_reset,sd_clk,sd_cmd,sd_dat0,sd_dat1,sd_dat2,sd_dat3,fifo_wr_en,fifo_din[7:0],fifo_prog_full,fifo_rd_en,fifo_dout[7:0],fifo_empty,fifo_valid,fifo_srst,dbg_sda_out,dbg_scl_out,LED_out[15:0]";
   attribute x_interface_info : string;
   attribute x_interface_info of reset_n : signal is "xilinx.com:signal:reset:1.0 reset_n RST";
   attribute x_interface_mode : string;

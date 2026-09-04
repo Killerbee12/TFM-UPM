@@ -90,6 +90,7 @@ ENTITY design_1_top_system_0_1 IS
     fifo_dout : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
     fifo_empty : IN STD_LOGIC;
     fifo_valid : IN STD_LOGIC;
+    fifo_srst : OUT STD_LOGIC;
     dbg_sda_out : OUT STD_LOGIC;
     dbg_scl_out : OUT STD_LOGIC;
     LED_out : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
@@ -136,6 +137,7 @@ ARCHITECTURE design_1_top_system_0_1_arch OF design_1_top_system_0_1 IS
       fifo_dout : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
       fifo_empty : IN STD_LOGIC;
       fifo_valid : IN STD_LOGIC;
+      fifo_srst : OUT STD_LOGIC;
       dbg_sda_out : OUT STD_LOGIC;
       dbg_scl_out : OUT STD_LOGIC;
       LED_out : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
@@ -197,6 +199,7 @@ BEGIN
       fifo_dout => fifo_dout,
       fifo_empty => fifo_empty,
       fifo_valid => fifo_valid,
+      fifo_srst => fifo_srst,
       dbg_sda_out => dbg_sda_out,
       dbg_scl_out => dbg_scl_out,
       LED_out => LED_out
