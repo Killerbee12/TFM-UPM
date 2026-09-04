@@ -159,7 +159,7 @@ always @ (posedge clk or negedge rstn)
                 CMD0    :   set_cmd(1, (SIMULATE?512:64000),  0,  'h00000000);
                 CMD8    :   set_cmd(1,                 512 ,  8,  'h000001aa);
                 CMD55_41:   set_cmd(1,                  16 , 55,  'h00000000);
-                ACMD41  :   set_cmd(1,                  16 , 41,  'h40100000);  // Restored to WangXuan95 original (3.2-3.3V)
+                ACMD41  :   set_cmd(1,                  16 , 41,  'h40100000);  
                 CMD2    :   set_cmd(1,                  16 ,  2,  'h00000000);
                 CMD3    :   set_cmd(1,                  16 ,  3,  'h00000000);
                 CMD7    :   set_cmd(1,                  16 ,  7, {rca,16'h0});
@@ -236,7 +236,7 @@ always @ (posedge clk or negedge rstn)
                         sddat_stat <= RDURING;
                         ridx   <= 0;
                     end else begin
-                        if(ridx > 10000000)      // according to SD datasheet, 1ms is enough to wait for DAT result, here, we set timeout to 10000000 clock cycles = 800ms (when SDCLK=12.5MHz)
+                        if(ridx > 10000000)      
                             sddat_stat <= RTIMEOUT;
                         ridx   <= ridx + 1;
                     end

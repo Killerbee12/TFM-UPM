@@ -252,7 +252,7 @@ begin
 
     inst_audio_player: entity work.audio_player
         port map(
-            clk        => clk_sd,  -- 50 MHz para SD reader (igual que el ejemplo)
+            clk        => clk_sd,  -- 50 MHz para SD reader 
             reset_n    => sd_rstn,
             i2s_lrclk  => i2s_lrclk_internal,
             audio_data => i2s_audio_data,
@@ -314,4 +314,4 @@ begin
         );
 
 end behavioral;
--- Force Vivado module refresh update
+-- Force Vivado module refresh update

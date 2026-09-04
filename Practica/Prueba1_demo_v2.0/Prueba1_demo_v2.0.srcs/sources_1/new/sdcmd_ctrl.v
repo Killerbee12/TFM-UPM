@@ -34,7 +34,7 @@ module sdcmd_ctrl (
 initial {busy, done, timeout, syntaxe} = 0;
 initial sdclk = 1'b0;
 
-localparam [15:0] TIMEOUT = 16'd8000; // Increased drastically for SDXC cards (SanDisk 128GB)
+localparam [15:0] TIMEOUT = 16'd8000; 
 
 reg sdcmdoe  = 1'b0;
 reg sdcmdout = 1'b1;
