@@ -16,7 +16,8 @@
       "system_ila_1": "",
       "clk_wiz_0": "",
       "fifo_generator_0": "",
-      "util_vector_logic_0": ""
+      "util_vector_logic_0": "",
+      "util_vector_logic_1": ""
     },
     "ports": {
       "clk_100Mhz_0": {
@@ -349,6 +350,9 @@
           "fifo_valid": {
             "direction": "I"
           },
+          "fifo_srst": {
+            "direction": "O"
+          },
           "dbg_sda_out": {
             "direction": "O"
           },
@@ -496,6 +500,19 @@
         "parameters": {
           "C_OPERATION": {
             "value": "not"
+          }
+        }
+      },
+      "util_vector_logic_1": {
+        "vlnv": "xilinx.com:ip:util_vector_logic:2.0",
+        "ip_revision": "5",
+        "xci_name": "design_1_util_vector_logic_1_0",
+        "xci_path": "ip\\design_1_util_vector_logic_1_0\\design_1_util_vector_logic_1_0.xci",
+        "inst_hier_path": "util_vector_logic_1",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "C_OPERATION": {
+            "value": "or"
           }
         }
       }
@@ -670,6 +687,12 @@
           "fifo_generator_0/rd_en"
         ]
       },
+      "top_system_0_fifo_srst": {
+        "ports": [
+          "top_system_0/fifo_srst",
+          "util_vector_logic_1/Op2"
+        ]
+      },
       "top_system_0_fifo_wr_en": {
         "ports": [
           "top_system_0/fifo_wr_en",
@@ -782,6 +805,12 @@
       "util_vector_logic_0_Res": {
         "ports": [
           "util_vector_logic_0/Res",
+          "util_vector_logic_1/Op1"
+        ]
+      },
+      "util_vector_logic_1_Res": {
+        "ports": [
+          "util_vector_logic_1/Res",
           "fifo_generator_0/srst"
         ]
       }

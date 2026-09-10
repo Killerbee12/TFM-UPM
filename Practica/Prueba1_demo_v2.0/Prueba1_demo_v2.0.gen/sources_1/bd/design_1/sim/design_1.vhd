@@ -2,7 +2,7 @@
 --Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
---Date        : Mon Aug 31 05:11:21 2026
+--Date        : Fri Sep  4 06:52:59 2026
 --Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 --Command     : generate_target design_1.bd
 --Design      : design_1
@@ -42,7 +42,7 @@ entity design_1 is
     sw0_reset_0 : in STD_LOGIC
   );
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of design_1 : entity is "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=6,numReposBlks=6,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,da_board_cnt=4,da_clkrst_cnt=3,synth_mode=Hierarchical}";
+  attribute CORE_GENERATION_INFO of design_1 : entity is "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=7,numReposBlks=7,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,da_board_cnt=4,da_clkrst_cnt=3,synth_mode=Hierarchical}";
   attribute HW_HANDOFF : string;
   attribute HW_HANDOFF of design_1 : entity is "design_1.hwdef";
 end design_1;
@@ -85,6 +85,7 @@ architecture STRUCTURE of design_1 is
     fifo_dout : in STD_LOGIC_VECTOR ( 7 downto 0 );
     fifo_empty : in STD_LOGIC;
     fifo_valid : in STD_LOGIC;
+    fifo_srst : out STD_LOGIC;
     dbg_sda_out : out STD_LOGIC;
     dbg_scl_out : out STD_LOGIC;
     LED_out : out STD_LOGIC_VECTOR ( 15 downto 0 )
@@ -135,6 +136,13 @@ architecture STRUCTURE of design_1 is
     Res : out STD_LOGIC_VECTOR ( 7 downto 0 )
   );
   end component design_1_util_vector_logic_0_0;
+  component design_1_util_vector_logic_1_0 is
+  port (
+    Op1 : in STD_LOGIC_VECTOR ( 7 downto 0 );
+    Op2 : in STD_LOGIC_VECTOR ( 7 downto 0 );
+    Res : out STD_LOGIC_VECTOR ( 7 downto 0 )
+  );
+  end component design_1_util_vector_logic_1_0;
   signal btn_center_0_0_1 : STD_LOGIC;
   attribute DEBUG : string;
   attribute DEBUG of btn_center_0_0_1 : signal is "true";
@@ -157,6 +165,7 @@ architecture STRUCTURE of design_1 is
   attribute MARK_DEBUG of top_system_0_dbg_sda_out : signal is std.standard.true;
   signal top_system_0_fifo_din : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal top_system_0_fifo_rd_en : STD_LOGIC;
+  signal top_system_0_fifo_srst : STD_LOGIC;
   signal top_system_0_fifo_wr_en : STD_LOGIC;
   signal top_system_0_i2s_dout : STD_LOGIC;
   attribute DEBUG of top_system_0_i2s_dout : signal is "true";
@@ -166,6 +175,7 @@ architecture STRUCTURE of design_1 is
   attribute DEBUG of top_system_0_led_data : signal is "true";
   attribute MARK_DEBUG of top_system_0_led_data : signal is std.standard.true;
   signal util_vector_logic_0_Res : STD_LOGIC_VECTOR ( 7 downto 0 );
+  signal util_vector_logic_1_Res : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal NLW_fifo_generator_0_full_UNCONNECTED : STD_LOGIC;
   attribute X_INTERFACE_INFO : string;
   attribute X_INTERFACE_INFO of led_clk_0 : signal is "xilinx.com:signal:clock:1.0 CLK.LED_CLK_0 CLK";
@@ -202,7 +212,7 @@ fifo_generator_0: component design_1_fifo_generator_0_0
       full => NLW_fifo_generator_0_full_UNCONNECTED,
       prog_full => fifo_generator_0_prog_full,
       rd_en => top_system_0_fifo_rd_en,
-      srst => util_vector_logic_0_Res(0),
+      srst => util_vector_logic_1_Res(0),
       valid => fifo_generator_0_valid,
       wr_en => top_system_0_fifo_wr_en
     );
@@ -239,6 +249,7 @@ top_system_0: component design_1_top_system_0_1
       fifo_empty => fifo_generator_0_empty,
       fifo_prog_full => fifo_generator_0_prog_full,
       fifo_rd_en => top_system_0_fifo_rd_en,
+      fifo_srst => top_system_0_fifo_srst,
       fifo_valid => fifo_generator_0_valid,
       fifo_wr_en => top_system_0_fifo_wr_en,
       i2c_scl => i2c_scl_0,
@@ -273,5 +284,18 @@ util_vector_logic_0: component design_1_util_vector_logic_0_0
       Op1(1) => reset_n_0,
       Op1(0) => reset_n_0,
       Res(7 downto 0) => util_vector_logic_0_Res(7 downto 0)
+    );
+util_vector_logic_1: component design_1_util_vector_logic_1_0
+     port map (
+      Op1(7 downto 0) => util_vector_logic_0_Res(7 downto 0),
+      Op2(7) => top_system_0_fifo_srst,
+      Op2(6) => top_system_0_fifo_srst,
+      Op2(5) => top_system_0_fifo_srst,
+      Op2(4) => top_system_0_fifo_srst,
+      Op2(3) => top_system_0_fifo_srst,
+      Op2(2) => top_system_0_fifo_srst,
+      Op2(1) => top_system_0_fifo_srst,
+      Op2(0) => top_system_0_fifo_srst,
+      Res(7 downto 0) => util_vector_logic_1_Res(7 downto 0)
     );
 end STRUCTURE;
