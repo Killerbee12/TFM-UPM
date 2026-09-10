@@ -1,11 +1,4 @@
 # TFM: Sistema de Comunicación Digital de Audio en FPGA
-
-**Autor:** Nizar El Azeouzi Amine  
-**Tutor:** Dr. Juan Antonio López Martín  
-**Titulación:** Máster Universitario en Ingeniería de Sistemas Electrónicos (MUISE)  
-**Centro:** Escuela Técnica Superior de Ingenieros de Telecomunicación (ETSIT) – Universidad Politécnica de Madrid (UPM)  
-**Plataforma:** Digilent Nexys 4 DDR (AMD/Xilinx Artix-7 XC7A100T-1CSG324C)  
-
 ---
 
 ## 📌 Descripción del Proyecto
