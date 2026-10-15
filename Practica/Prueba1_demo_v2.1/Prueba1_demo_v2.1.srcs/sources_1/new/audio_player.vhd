@@ -46,7 +46,7 @@ architecture Behavioral of audio_player is
 
     component sd_file_reader is
         generic (
-            FILE_NAME_LEN : integer := 9;
+            FILE_NAME_LEN : integer := 11;
             CLK_DIV       : std_logic_vector(2 downto 0) := "011";
             SIMULATE      : integer := 0
         );
@@ -83,7 +83,7 @@ architecture Behavioral of audio_player is
     constant DEBOUNCE_TIME : integer := 12_500_000;
     signal debounce_cnt    : integer range 0 to DEBOUNCE_TIME := 0;
     
-    signal song_idx_reg    : unsigned(1 downto 0) := "00";
+    signal song_idx_reg    : unsigned(1 downto 0) := "01"; -- Pista inicial por defecto: Nuvole Bianche (BIANCHE.WAV)
     signal change_song_reg : std_logic := '0';
     signal song_done_sig   : std_logic := '0';
     signal fifo_srst_reg   : std_logic := '0';
@@ -100,7 +100,7 @@ begin
     begin
         if reset_n = '0' then
             debounce_cnt    <= 0;
-            song_idx_reg    <= "00";
+            song_idx_reg    <= "01"; -- Pista por defecto al resetear: Nuvole Bianche (BIANCHE.WAV)
             change_song_reg <= '0';
             fifo_srst_reg   <= '1'; -- Purga continua en reset
             flush_timer     <= 0;
