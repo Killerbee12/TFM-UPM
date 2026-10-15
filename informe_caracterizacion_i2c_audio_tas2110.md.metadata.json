@@ -1,0 +1,5 @@
+{
+  "summary":  "Informe exhaustivo de caracterización experimental para TFM que documenta la Prueba 1 (Bus I2C, señal SCL, topología Push-Pull e integridad de señal) y la Prueba 2 (Etapa de potencia de audio BTL con amplificador TAS2110, caracterización con osciloscopio Hanmatek DOS1102, análisis de saturación y justificación del registro PB_CFG1). Incluye modelos matemáticos, procedimientos de laboratorio, configuraciones de osciloscopio, tablas comparativas y argumentario para la defensa.",
+  "updatedAt":  "2026-10-15T05:14:02.824805200Z",
+  "userFacing":  true
+}

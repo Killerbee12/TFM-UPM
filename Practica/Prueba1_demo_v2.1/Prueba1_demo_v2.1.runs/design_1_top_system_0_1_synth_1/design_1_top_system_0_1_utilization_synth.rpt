@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Thu Oct 15 04:01:30 2026
+| Date         : Thu Oct 15 05:19:18 2026
 | Host         : Samsung_Book_3 running 64-bit major release  (build 9200)
 | Command      : report_utilization -file design_1_top_system_0_1_utilization_synth.rpt -pb design_1_top_system_0_1_utilization_synth.pb
 | Design       : design_1_top_system_0_1
@@ -57,8 +57,8 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 | 0     |            _ |         Set |            - |
 | 0     |            _ |       Reset |            - |
 | 0     |          Yes |           - |            - |
-| 34    |          Yes |           - |          Set |
-| 1171  |          Yes |           - |        Reset |
+| 35    |          Yes |           - |          Set |
+| 1170  |          Yes |           - |        Reset |
 | 3     |          Yes |         Set |            - |
 | 333   |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
@@ -150,16 +150,16 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| FDCE     | 1171 |        Flop & Latch |
+| FDCE     | 1170 |        Flop & Latch |
 | LUT6     |  854 |                 LUT |
-| LUT2     |  629 |                 LUT |
-| LUT4     |  462 |                 LUT |
-| LUT5     |  420 |                 LUT |
+| LUT2     |  630 |                 LUT |
+| LUT4     |  465 |                 LUT |
+| LUT5     |  416 |                 LUT |
 | FDRE     |  333 |        Flop & Latch |
-| LUT3     |  300 |                 LUT |
+| LUT3     |  299 |                 LUT |
 | CARRY4   |  173 |          CarryLogic |
 | LUT1     |   43 |                 LUT |
-| FDPE     |   34 |        Flop & Latch |
+| FDPE     |   35 |        Flop & Latch |
 | MUXF7    |   12 |               MuxFx |
 | DSP48E1  |   11 |    Block Arithmetic |
 | FDSE     |    3 |        Flop & Latch |
