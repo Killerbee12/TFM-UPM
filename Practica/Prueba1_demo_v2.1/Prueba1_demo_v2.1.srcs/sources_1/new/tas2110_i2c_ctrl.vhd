@@ -35,8 +35,17 @@ architecture Behavioral of tas2110_i2c_ctrl is
     type state_t is (IDLE, START_COND, SEND_BIT, CHECK_ACK, STOP_COND, NEXT_REG, DELAY, POWER_WAIT);
     signal state : state_t := IDLE;
     
+    -- Parámetros de velocidad del bus I2C (Fast-Mode 400 kHz @ 100 MHz clk)
+    -- Periodo T = 2.5 µs (250 ciclos de reloj a 100 MHz)
+    -- Norma NXP UM10204 Fast-Mode: t_LOW >= 1.3 µs, t_HIGH >= 0.6 µs
+    constant CLK_DIV_MAX   : integer := 250; -- Periodo total (250 ciclos = 2.5 µs = 400 kHz)
+    constant SCL_HIGH_TICK : integer := 75;  -- SCL pasa a '1' (permanece alto 100 ciclos = 1.0 µs >= 0.6 µs)
+    constant SCL_LOW_TICK  : integer := 175; -- SCL pasa a '0' (permanece bajo 150 ciclos = 1.5 µs >= 1.3 µs)
+    constant START_HOLD    : integer := 125; -- Hold time START (1.25 µs >= 0.6 µs)
+    constant STOP_SETUP    : integer := 175; -- Setup time STOP (1.0 µs >= 0.6 µs)
+
     -- Contadores y Registros
-    signal clk_div : integer range 0 to 1000 := 0; -- 100MHz / 1000 = 100kHz I2C
+    signal clk_div : integer range 0 to 1000 := 0; -- Contador de división de reloj
     signal bit_cnt : integer range 0 to 7 := 7;
     signal byte_cnt: integer range 0 to 2 := 0; -- 0: Addr_I2C, 1: Addr_Reg, 2: Data
     signal reg_cnt : integer range 0 to 31 := 0;
@@ -173,25 +182,25 @@ begin
                         -- Secuencia de START: SDA baja mientras SCL está alto
                         if clk_div = 0 then
                             sda_internal <= '0';
-                        elsif clk_div = 500 then
+                        elsif clk_div = START_HOLD then
                             scl_out <= '0';
-                        elsif clk_div = 999 then
+                        elsif clk_div = CLK_DIV_MAX - 1 then
                             state <= SEND_BIT;
                             bit_cnt <= 7;
                             clk_div <= 0;
                         end if;
-                        if clk_div < 999 then clk_div <= clk_div + 1; end if;
+                        if clk_div < CLK_DIV_MAX - 1 then clk_div <= clk_div + 1; end if;
 
                     when SEND_BIT =>
                         -- Ponemos el bit en SDA, luego damos un pulso de SCL
                         if clk_div = 0 then
                             -- Cambiamos sda_internal en el flanco de bajada de SCL (con un poco de margen)
                             sda_internal <= current_byte(bit_cnt);
-                        elsif clk_div = 250 then
+                        elsif clk_div = SCL_HIGH_TICK then
                             scl_out <= '1';
-                        elsif clk_div = 750 then
+                        elsif clk_div = SCL_LOW_TICK then
                             scl_out <= '0';
-                        elsif clk_div = 999 then
+                        elsif clk_div = CLK_DIV_MAX - 1 then
                             if bit_cnt = 0 then
                                 state <= CHECK_ACK;
                             else
@@ -199,17 +208,17 @@ begin
                             end if;
                             clk_div <= 0;
                         end if;
-                        if clk_div < 999 then clk_div <= clk_div + 1; end if;
+                        if clk_div < CLK_DIV_MAX - 1 then clk_div <= clk_div + 1; end if;
 
                     when CHECK_ACK =>
                         -- Liberamos SDA (se encarga sda_t) y damos un pulso en SCL. Ignoramos si es NACK por simplicidad.
                         if clk_div = 0 then
                             sda_internal <= '1'; 
-                        elsif clk_div = 250 then
+                        elsif clk_div = SCL_HIGH_TICK then
                             scl_out <= '1';
-                        elsif clk_div = 750 then
+                        elsif clk_div = SCL_LOW_TICK then
                             scl_out <= '0';
-                        elsif clk_div = 999 then
+                        elsif clk_div = CLK_DIV_MAX - 1 then
                             if byte_cnt = 0 then
                                 -- Toca mandar la Dirección del Registro
                                 current_byte <= seq_rom(reg_cnt)(15 downto 8);
@@ -228,21 +237,21 @@ begin
                             end if;
                             clk_div <= 0;
                         end if;
-                        if clk_div < 999 then clk_div <= clk_div + 1; end if;
+                        if clk_div < CLK_DIV_MAX - 1 then clk_div <= clk_div + 1; end if;
 
                     when STOP_COND =>
                         -- Secuencia de STOP: SDA sube mientras SCL está alto
                         if clk_div = 0 then
                             sda_internal <= '0';
-                        elsif clk_div = 250 then
+                        elsif clk_div = SCL_HIGH_TICK then
                             scl_out <= '1'; 
-                        elsif clk_div = 750 then
+                        elsif clk_div = STOP_SETUP then
                             sda_internal <= '1'; 
-                        elsif clk_div = 999 then
+                        elsif clk_div = CLK_DIV_MAX - 1 then
                             state <= NEXT_REG;
                             clk_div <= 0;
                         end if;
-                        if clk_div < 999 then clk_div <= clk_div + 1; end if;
+                        if clk_div < CLK_DIV_MAX - 1 then clk_div <= clk_div + 1; end if;
 
                     when NEXT_REG =>
                         -- Comprobamos si quedan más registros por mandar en la secuencia
@@ -268,7 +277,7 @@ begin
                         
                     when DELAY =>
                         -- Pequeño respiro entre transacciones I2C consecutivas
-                        if clk_div = 1000 then
+                        if clk_div = CLK_DIV_MAX then
                             state <= START_COND;
                             clk_div <= 0;
                         else
