@@ -3,8 +3,8 @@
 # SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
 # IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
 # SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-# Start of session at: Thu Oct 15 05:19:20 2026
-# Process ID         : 4912
+# Start of session at: Tue Oct 20 04:09:31 2026
+# Process ID         : 25564
 # Current directory  : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.runs/synth_1
 # Command line       : vivado.exe -log design_1_wrapper.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_wrapper.tcl
 # Log file           : C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.runs/synth_1/design_1_wrapper.vds
@@ -19,6 +19,6 @@
 # Host memory        : 8257 MB
 # Swap memory        : 16642 MB
 # Total Virtual      : 24900 MB
-# Available Virtual  : 15646 MB
+# Available Virtual  : 7622 MB
 #-----------------------------------------------------------
 source design_1_wrapper.tcl -notrace

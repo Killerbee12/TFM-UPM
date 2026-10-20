@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Thu Oct 15 05:25:40 2026
+| Date         : Tue Oct 20 04:13:09 2026
 | Host         : Samsung_Book_3 running 64-bit major release  (build 9200)
 | Command      : report_methodology -file design_1_wrapper_methodology_drc_routed.rpt -pb design_1_wrapper_methodology_drc_routed.pb -rpx design_1_wrapper_methodology_drc_routed.rpx
 | Design       : design_1_wrapper
@@ -23,7 +23,7 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max checks: <unlimited>
-             Checks found: 283
+             Checks found: 280
 +-----------+------------------+----------------------------------------------------+--------+
 | Rule      | Severity         | Description                                        | Checks |
 +-----------+------------------+----------------------------------------------------+--------+
@@ -32,8 +32,6 @@ Table of Contents
 | TIMING-7  | Critical Warning | No common node between related clocks              | 2      |
 | TIMING-27 | Critical Warning | Invalid primary clock on hierarchical pin          | 1      |
 | DPIR-1    | Warning          | Asynchronous driver check                          | 184    |
-| HPDR-1    | Warning          | Port pin direction inconsistency                   | 1      |
-| HPDR-2    | Warning          | Port pin INOUT inconsistency                       | 2      |
 | LUTAR-1   | Warning          | LUT drives async reset alert                       | 6      |
 | TIMING-16 | Warning          | Large setup violation                              | 53     |
 | TIMING-18 | Warning          | Missing input or output delay                      | 27     |
@@ -992,21 +990,6 @@ Asynchronous driver check
 DSP design_1_i/top_system_0/U0/inst_audio_player/sd_reader_inst/read_sector_no2__0 input pin design_1_i/top_system_0/U0/inst_audio_player/sd_reader_inst/read_sector_no2__0/B[7] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
 Related violations: <none>
 
-HPDR-1#1 Warning
-Port pin direction inconsistency  
-Hierarchical port(pin) i2c_sda_0 direction INOUT is not consistent with the directions of the cell pins/ports found at that level of the netlist hierarchy. Please review the design and consider changing the port(pin) direction. Both drivers and loads were expected for the net (i2c_sda_0) connected to this Port, but both were not found.
-Related violations: <none>
-
-HPDR-2#1 Warning
-Port pin INOUT inconsistency  
-Hierarchical port(pin) design_1_i/i2c_sda_0 direction INOUT is not consistent with the directions of the cell pins/ports found at that level of the netlist hierarchy. Please review the design and consider changing the port(pin) direction. Both drivers and loads were expected for the net (i2c_sda_0_OBUF) connected to this hierarchical pin/port, but both were not found.
-Related violations: <none>
-
-HPDR-2#2 Warning
-Port pin INOUT inconsistency  
-Hierarchical port(pin) design_1_i/top_system_0/i2c_sda direction INOUT is not consistent with the directions of the cell pins/ports found at that level of the netlist hierarchy. Please review the design and consider changing the port(pin) direction. Both drivers and loads were expected for the net (design_1_i/top_system_0/i2c_sda) connected to this hierarchical pin/port, but both were not found.
-Related violations: <none>
-
 LUTAR-1#1 Warning
 LUT drives async reset alert  
 LUT cell dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_4_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[2].rrst_inst/ngwrdrst.grst.g7serrst.rd_rst_reg[2]_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_4_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_reg_reg[0]/PRE,
@@ -1052,7 +1035,7 @@ design_1_i/top_system_0/U0/inst_i2s_tx/ws_cnt_reg[3]/CLR,
 design_1_i/top_system_0/U0/inst_i2s_tx/ws_cnt_reg[4]/CLR,
 design_1_i/top_system_0/U0/inst_i2s_tx/ws_cnt_reg[5]/CLR,
 design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg/CLR
- (the first 15 of 49 listed). The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+ (the first 15 of 48 listed). The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
 Related violations: <none>
 
 LUTAR-1#6 Warning
@@ -1077,267 +1060,267 @@ Related violations: <none>
 
 TIMING-16#1 Warning
 Large setup violation  
-There is a large setup violation of -2.179 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[8]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[16]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.975 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[2]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[10]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#2 Warning
 Large setup violation  
-There is a large setup violation of -2.196 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[6]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[14]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.993 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[6]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[14]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#3 Warning
 Large setup violation  
-There is a large setup violation of -2.203 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[14]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[22]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.066 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[9]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[17]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#4 Warning
 Large setup violation  
-There is a large setup violation of -2.225 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[6]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[14]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.109 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[6]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[14]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#5 Warning
 Large setup violation  
-There is a large setup violation of -2.231 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[8]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[16]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.116 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[2]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[10]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#6 Warning
 Large setup violation  
-There is a large setup violation of -2.247 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[10]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[18]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.156 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[3]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[11]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#7 Warning
 Large setup violation  
-There is a large setup violation of -2.261 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[15]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[23]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.199 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[11]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[19]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#8 Warning
 Large setup violation  
-There is a large setup violation of -2.261 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica_1/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/FSM_sequential_state_reg[1]/D (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.226 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[9]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[17]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#9 Warning
 Large setup violation  
-There is a large setup violation of -2.262 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[3]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[11]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.249 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[8]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[16]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#10 Warning
 Large setup violation  
-There is a large setup violation of -2.263 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[12]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[20]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.259 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[13]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[21]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#11 Warning
 Large setup violation  
-There is a large setup violation of -2.266 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[2]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[10]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.271 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[12]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[20]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#12 Warning
 Large setup violation  
-There is a large setup violation of -2.266 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[4]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[12]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.279 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[0]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[8]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#13 Warning
 Large setup violation  
-There is a large setup violation of -2.266 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica_1/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/FSM_sequential_state_reg[0]/D (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.282 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[10]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[18]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#14 Warning
 Large setup violation  
-There is a large setup violation of -2.268 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[1]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[9]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.287 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[5]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[13]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#15 Warning
 Large setup violation  
-There is a large setup violation of -2.270 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[7]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[15]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.288 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[15]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[23]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#16 Warning
 Large setup violation  
-There is a large setup violation of -2.271 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[10]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[18]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.294 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[10]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[18]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#17 Warning
 Large setup violation  
-There is a large setup violation of -2.271 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/lrclk_prev_reg/D (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.297 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[10]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#18 Warning
 Large setup violation  
-There is a large setup violation of -2.276 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[7]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[15]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.297 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[11]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#19 Warning
 Large setup violation  
-There is a large setup violation of -2.278 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[2]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[10]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.297 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[12]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#20 Warning
 Large setup violation  
-There is a large setup violation of -2.279 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[12]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[20]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.297 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[13]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#21 Warning
 Large setup violation  
-There is a large setup violation of -2.285 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[11]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[19]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.297 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[14]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#22 Warning
 Large setup violation  
-There is a large setup violation of -2.288 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[4]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[12]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.297 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[15]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#23 Warning
 Large setup violation  
-There is a large setup violation of -2.288 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[5]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[13]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.297 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[8]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#24 Warning
 Large setup violation  
-There is a large setup violation of -2.290 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[11]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[19]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.297 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[9]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#25 Warning
 Large setup violation  
-There is a large setup violation of -2.295 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[1]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[9]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.298 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[11]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[19]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#26 Warning
 Large setup violation  
-There is a large setup violation of -2.299 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[14]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[22]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.298 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[4]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[12]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#27 Warning
 Large setup violation  
-There is a large setup violation of -2.307 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[0]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[8]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.305 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[14]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[22]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#28 Warning
 Large setup violation  
-There is a large setup violation of -2.322 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[0]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[8]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.308 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[0]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[8]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#29 Warning
 Large setup violation  
-There is a large setup violation of -2.323 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[10]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.311 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[3]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[11]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#30 Warning
 Large setup violation  
-There is a large setup violation of -2.323 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[11]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.320 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/lrclk_prev_reg/D (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#31 Warning
 Large setup violation  
-There is a large setup violation of -2.323 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[12]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.331 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[14]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[22]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#32 Warning
 Large setup violation  
-There is a large setup violation of -2.323 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[13]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.337 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[15]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[23]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#33 Warning
 Large setup violation  
-There is a large setup violation of -2.323 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[14]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.349 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[1]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[9]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#34 Warning
 Large setup violation  
-There is a large setup violation of -2.323 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[15]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.349 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[7]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[15]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#35 Warning
 Large setup violation  
-There is a large setup violation of -2.323 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[8]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.350 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[5]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[13]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#36 Warning
 Large setup violation  
-There is a large setup violation of -2.323 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[9]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.389 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[7]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[15]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#37 Warning
 Large setup violation  
-There is a large setup violation of -2.325 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[9]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[17]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.390 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[1]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[9]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#38 Warning
 Large setup violation  
-There is a large setup violation of -2.334 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[13]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[21]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.411 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[8]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[16]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#39 Warning
 Large setup violation  
-There is a large setup violation of -2.340 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[13]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[21]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.412 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[4]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[12]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#40 Warning
 Large setup violation  
-There is a large setup violation of -2.341 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[5]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[13]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.425 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[0]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#41 Warning
 Large setup violation  
-There is a large setup violation of -2.355 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[9]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[17]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.425 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[1]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#42 Warning
 Large setup violation  
-There is a large setup violation of -2.364 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[15]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[23]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.425 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[2]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#43 Warning
 Large setup violation  
-There is a large setup violation of -2.373 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica_1/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[3]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.425 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[3]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#44 Warning
 Large setup violation  
-There is a large setup violation of -2.373 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica_1/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[6]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.425 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[4]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#45 Warning
 Large setup violation  
-There is a large setup violation of -2.373 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica_1/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[7]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.425 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[5]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#46 Warning
 Large setup violation  
-There is a large setup violation of -2.424 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[3]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[11]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.425 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[6]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#47 Warning
 Large setup violation  
-There is a large setup violation of -2.470 ns between design_1_i/top_system_0/U0/inst_i2s_tx/sd_tx_reg/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/system_ila_1/U0/ila_lib/U0/ila_core_inst/u_trig/U_TM/N_DDR_MODE.G_NMU[3].U_M/allx_typeA_match_detection.ltlib_v1_0_3_allx_typeA_inst/probeDelay1_reg[0]/D (clocked by sys_clk_pin). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.425 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[7]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#48 Warning
 Large setup violation  
-There is a large setup violation of -2.481 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica_1/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[0]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.455 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[13]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/r_tx_shift_reg[21]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#49 Warning
 Large setup violation  
-There is a large setup violation of -2.481 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica_1/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[1]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.463 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/FSM_sequential_state_reg[0]/D (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#50 Warning
 Large setup violation  
-There is a large setup violation of -2.481 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica_1/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[2]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.465 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/FSM_sequential_state_reg[1]/D (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#51 Warning
 Large setup violation  
-There is a large setup violation of -2.481 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica_1/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[4]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.477 ns between design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[12]/C (clocked by clk_out2_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_i2s_tx/l_tx_shift_reg[20]/D (clocked by clk_out1_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#52 Warning
 Large setup violation  
-There is a large setup violation of -2.481 ns between design_1_i/top_system_0/U0/inst_i2s_tx/ws_int_reg_replica_1/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/top_system_0/U0/inst_audio_player/sample_reg_reg[5]/CE (clocked by clk_out2_design_1_clk_wiz_0_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -2.910 ns between design_1_i/top_system_0/U0/inst_i2s_tx/sd_tx_reg/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/system_ila_1/U0/ila_lib/U0/ila_core_inst/shifted_data_in_reg[7][3]_srl8/D (clocked by sys_clk_pin). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#53 Warning
 Large setup violation  
-There is a large setup violation of -3.222 ns between design_1_i/top_system_0/U0/inst_i2s_tx/sd_tx_reg/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/system_ila_1/U0/ila_lib/U0/ila_core_inst/shifted_data_in_reg[7][3]_srl8/D (clocked by sys_clk_pin). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -3.129 ns between design_1_i/top_system_0/U0/inst_i2s_tx/sd_tx_reg/C (clocked by clk_out1_design_1_clk_wiz_0_0) and design_1_i/system_ila_1/U0/ila_lib/U0/ila_core_inst/u_trig/U_TM/N_DDR_MODE.G_NMU[3].U_M/allx_typeA_match_detection.ltlib_v1_0_3_allx_typeA_inst/probeDelay1_reg[0]/D (clocked by sys_clk_pin). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-18#1 Warning

@@ -2,7 +2,7 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-// Date        : Thu Oct 15 05:19:18 2026
+// Date        : Tue Oct 20 04:09:26 2026
 // Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.gen/sources_1/bd/design_1/ip/design_1_top_system_0_1/design_1_top_system_0_1_sim_netlist.v
@@ -107,6 +107,7 @@ module design_1_top_system_0_1
   wire clk_100Mhz;
   wire clk_audio;
   wire clk_sd;
+  (* DRIVE = "12" *) (* SLEW = "SLOW" *) wire dbg_scl_out;
   wire dbg_sda_out;
   wire [7:0]fifo_din;
   wire [7:0]fifo_dout;
@@ -116,8 +117,8 @@ module design_1_top_system_0_1
   wire fifo_srst;
   wire fifo_valid;
   wire fifo_wr_en;
-  wire i2c_scl;
-  wire i2c_sda;
+  (* DRIVE = "12" *) (* SLEW = "SLOW" *) wire i2c_scl;
+  (* DRIVE = "12" *) (* IBUF_LOW_PWR *) (* SLEW = "SLOW" *) wire i2c_sda;
   wire i2s_bclk;
   wire i2s_dout;
   wire i2s_lrclk;
@@ -143,7 +144,6 @@ module design_1_top_system_0_1
   assign LED_out[8] = \<const0> ;
   assign LED_out[7] = \<const0> ;
   assign LED_out[6:0] = \^LED_out [6:0];
-  assign dbg_scl_out = i2c_scl;
   assign sd_dat1 = \<const1> ;
   assign sd_dat2 = \<const1> ;
   assign sd_dat3 = \<const1> ;
@@ -162,6 +162,7 @@ module design_1_top_system_0_1
         .clk_100Mhz(clk_100Mhz),
         .clk_audio(clk_audio),
         .clk_sd(clk_sd),
+        .dbg_scl_out(dbg_scl_out),
         .dbg_sda_out(dbg_sda_out),
         .fifo_din(fifo_din),
         .fifo_dout(fifo_dout),
@@ -261,7 +262,7 @@ module design_1_top_system_0_1_apa102_ctrl
   wire \clk_div[4]_i_1__0_n_0 ;
   wire \clk_div[5]_i_1__0_n_0 ;
   wire \clk_div[6]_i_1__0_n_0 ;
-  wire \clk_div[6]_i_2__0_n_0 ;
+  wire \clk_div[6]_i_2_n_0 ;
   wire \clk_div[6]_i_3_n_0 ;
   wire \clk_div[7]_i_2_n_0 ;
   wire \clk_div[8]_i_3_n_0 ;
@@ -789,13 +790,13 @@ module design_1_top_system_0_1_apa102_ctrl
   (* SOFT_HLUTNM = "soft_lutpair3" *) 
   LUT5 #(
     .INIT(32'hA6AAAAAA)) 
-    \clk_div[6]_i_2__0 
+    \clk_div[6]_i_2 
        (.I0(\clk_div_reg_n_0_[6] ),
         .I1(\clk_div_reg_n_0_[5] ),
         .I2(\clk_div[6]_i_3_n_0 ),
         .I3(\clk_div_reg_n_0_[3] ),
         .I4(\clk_div_reg_n_0_[4] ),
-        .O(\clk_div[6]_i_2__0_n_0 ));
+        .O(\clk_div[6]_i_2_n_0 ));
   (* SOFT_HLUTNM = "soft_lutpair22" *) 
   LUT3 #(
     .INIT(8'h7F)) 
@@ -910,7 +911,7 @@ module design_1_top_system_0_1_apa102_ctrl
     \clk_div_reg[6] 
        (.C(clk_100Mhz),
         .CE(clk_div0),
-        .D(\clk_div[6]_i_2__0_n_0 ),
+        .D(\clk_div[6]_i_2_n_0 ),
         .Q(\clk_div_reg_n_0_[6] ),
         .R(\clk_div[6]_i_1__0_n_0 ));
   FDRE #(
@@ -2468,7 +2469,7 @@ module design_1_top_system_0_1_audio_player
     \song_idx_reg_reg[1]_0 ,
     \song_idx_reg_reg[0]_0 ,
     LED_out,
-    T,
+    sdcmdoe_reg,
     \card_type_reg[0] ,
     \card_type_reg[1] ,
     fifo_din,
@@ -2479,8 +2480,8 @@ module design_1_top_system_0_1_audio_player
     sd_cmd_in,
     sd_dat0,
     btn_right_0,
-    fifo_valid,
     fifo_empty,
+    fifo_valid,
     fifo_dout,
     fifo_prog_full);
   output sdclk_reg;
@@ -2493,7 +2494,7 @@ module design_1_top_system_0_1_audio_player
   output \song_idx_reg_reg[1]_0 ;
   output \song_idx_reg_reg[0]_0 ;
   output [0:0]LED_out;
-  output T;
+  output sdcmdoe_reg;
   output \card_type_reg[0] ;
   output \card_type_reg[1] ;
   output [7:0]fifo_din;
@@ -2504,8 +2505,8 @@ module design_1_top_system_0_1_audio_player
   input sd_cmd_in;
   input sd_dat0;
   input btn_right_0;
-  input fifo_valid;
   input fifo_empty;
+  input fifo_valid;
   input [7:0]fifo_dout;
   input fifo_prog_full;
 
@@ -2513,7 +2514,6 @@ module design_1_top_system_0_1_audio_player
   wire I;
   wire [0:0]LED_out;
   wire [3:0]Q;
-  wire T;
   wire btn_right_0;
   wire \card_type_reg[0] ;
   wire \card_type_reg[1] ;
@@ -2636,6 +2636,7 @@ module design_1_top_system_0_1_audio_player
   wire sd_reader_inst_n_8;
   wire sd_reader_inst_n_9;
   wire sdclk_reg;
+  wire sdcmdoe_reg;
   wire \song_idx_reg[0]_i_1_n_0 ;
   wire \song_idx_reg[1]_i_1_n_0 ;
   wire \song_idx_reg_reg[0]_0 ;
@@ -2645,13 +2646,13 @@ module design_1_top_system_0_1_audio_player
 
   (* SOFT_HLUTNM = "soft_lutpair309" *) 
   LUT5 #(
-    .INIT(32'hF0D0FCD0)) 
+    .INIT(32'hFC40FF40)) 
     \FSM_sequential_state[2]_i_1 
-       (.I0(fifo_valid),
+       (.I0(fifo_empty),
         .I1(state__0[1]),
-        .I2(state__0[2]),
-        .I3(state__0[0]),
-        .I4(fifo_empty),
+        .I2(state__0[0]),
+        .I3(state__0[2]),
+        .I4(fifo_valid),
         .O(\FSM_sequential_state[2]_i_1_n_0 ));
   (* FSM_ENCODED_STATES = "idle:000,req_b1:001,wait_b1:010,req_b2:011,wait_b2:100," *) 
   FDCE #(
@@ -3177,54 +3178,54 @@ module design_1_top_system_0_1_audio_player
     .INIT(64'h0000000000000001)) 
     fifo_srst_reg_i_2
        (.I0(fifo_srst_reg_i_3_n_0),
-        .I1(debounce_cnt_reg[6]),
-        .I2(debounce_cnt_reg[7]),
-        .I3(debounce_cnt_reg[5]),
-        .I4(debounce_cnt_reg[8]),
+        .I1(debounce_cnt_reg[17]),
+        .I2(debounce_cnt_reg[20]),
+        .I3(debounce_cnt_reg[9]),
+        .I4(debounce_cnt_reg[16]),
         .I5(fifo_srst_reg_i_4_n_0),
         .O(fifo_srst_reg_i_2_n_0));
   LUT4 #(
     .INIT(16'hFFFE)) 
     fifo_srst_reg_i_3
-       (.I0(debounce_cnt_reg[3]),
-        .I1(debounce_cnt_reg[4]),
-        .I2(debounce_cnt_reg[1]),
-        .I3(debounce_cnt_reg[2]),
+       (.I0(debounce_cnt_reg[12]),
+        .I1(debounce_cnt_reg[21]),
+        .I2(debounce_cnt_reg[10]),
+        .I3(debounce_cnt_reg[15]),
         .O(fifo_srst_reg_i_3_n_0));
   LUT6 #(
     .INIT(64'hFFFFFFFFFFFFFFFE)) 
     fifo_srst_reg_i_4
        (.I0(fifo_srst_reg_i_5_n_0),
-        .I1(debounce_cnt_reg[14]),
-        .I2(debounce_cnt_reg[15]),
-        .I3(debounce_cnt_reg[13]),
-        .I4(debounce_cnt_reg[16]),
+        .I1(debounce_cnt_reg[4]),
+        .I2(debounce_cnt_reg[11]),
+        .I3(debounce_cnt_reg[3]),
+        .I4(debounce_cnt_reg[19]),
         .I5(fifo_srst_reg_i_6_n_0),
         .O(fifo_srst_reg_i_4_n_0));
   LUT4 #(
     .INIT(16'hFFFE)) 
     fifo_srst_reg_i_5
-       (.I0(debounce_cnt_reg[11]),
-        .I1(debounce_cnt_reg[12]),
-        .I2(debounce_cnt_reg[9]),
-        .I3(debounce_cnt_reg[10]),
+       (.I0(debounce_cnt_reg[23]),
+        .I1(debounce_cnt_reg[0]),
+        .I2(debounce_cnt_reg[1]),
+        .I3(debounce_cnt_reg[22]),
         .O(fifo_srst_reg_i_5_n_0));
   LUT5 #(
     .INIT(32'hFFFFFFFE)) 
     fifo_srst_reg_i_6
-       (.I0(debounce_cnt_reg[22]),
-        .I1(debounce_cnt_reg[21]),
-        .I2(debounce_cnt_reg[0]),
-        .I3(debounce_cnt_reg[23]),
+       (.I0(debounce_cnt_reg[13]),
+        .I1(debounce_cnt_reg[6]),
+        .I2(debounce_cnt_reg[8]),
+        .I3(debounce_cnt_reg[7]),
         .I4(fifo_srst_reg_i_7_n_0),
         .O(fifo_srst_reg_i_6_n_0));
   LUT4 #(
     .INIT(16'hFFFE)) 
     fifo_srst_reg_i_7
-       (.I0(debounce_cnt_reg[19]),
-        .I1(debounce_cnt_reg[20]),
-        .I2(debounce_cnt_reg[17]),
-        .I3(debounce_cnt_reg[18]),
+       (.I0(debounce_cnt_reg[2]),
+        .I1(debounce_cnt_reg[18]),
+        .I2(debounce_cnt_reg[5]),
+        .I3(debounce_cnt_reg[14]),
         .O(fifo_srst_reg_i_7_n_0));
   FDPE #(
     .INIT(1'b0)) 
@@ -3570,11 +3571,9 @@ module design_1_top_system_0_1_audio_player
         .Q(\sample_reg_reg[15]_0 [9]));
   design_1_top_system_0_1_sd_file_reader sd_reader_inst
        (.E({sample_reg[8],sample_reg[0]}),
-        .\FSM_sequential_state_reg[1] (sd_reader_inst_n_9),
         .I(I),
         .LED_out(LED_out),
         .Q(Q),
-        .T(T),
         .\card_type_reg[0] (\card_type_reg[0] ),
         .\card_type_reg[1] (\card_type_reg[1] ),
         .change_song(change_song),
@@ -3582,9 +3581,10 @@ module design_1_top_system_0_1_audio_player
         .\cnt4_reg[7] (\cnt4_reg[7] ),
         .fifo_din(fifo_din),
         .fifo_empty(fifo_empty),
+        .fifo_empty_0(sd_reader_inst_n_8),
+        .fifo_empty_1(sd_reader_inst_n_9),
         .fifo_prog_full(fifo_prog_full),
         .fifo_valid(fifo_valid),
-        .fifo_valid_0(sd_reader_inst_n_8),
         .fifo_wr_en(fifo_wr_en),
         .\file_cluster_reg[15]_0 (\song_idx_reg_reg[1]_0 ),
         .file_found_reg_0(file_found_reg),
@@ -3595,6 +3595,7 @@ module design_1_top_system_0_1_audio_player
         .sd_cmd_in(sd_cmd_in),
         .sd_dat0(sd_dat0),
         .sdclk_reg(sdclk_reg),
+        .sdcmdoe_reg(sdcmdoe_reg),
         .state__0(state__0));
   LUT4 #(
     .INIT(16'h3F40)) 
@@ -4177,42 +4178,42 @@ module design_1_top_system_0_1_i2s_transceiver
   LUT6 #(
     .INIT(64'hFACF0ACFFAC00AC0)) 
     sd_tx_i_10
-       (.I0(\r_tx_shift_reg_n_0_[8] ),
-        .I1(\r_tx_shift_reg_n_0_[9] ),
-        .I2(\bit_cnt_reg_n_0_[1] ),
-        .I3(\bit_cnt_reg_n_0_[0] ),
-        .I4(\r_tx_shift_reg_n_0_[10] ),
-        .I5(\r_tx_shift_reg_n_0_[11] ),
-        .O(sd_tx_i_10_n_0));
-  LUT6 #(
-    .INIT(64'hFACF0ACFFAC00AC0)) 
-    sd_tx_i_11
-       (.I0(\r_tx_shift_reg_n_0_[12] ),
-        .I1(\r_tx_shift_reg_n_0_[13] ),
-        .I2(\bit_cnt_reg_n_0_[1] ),
-        .I3(\bit_cnt_reg_n_0_[0] ),
-        .I4(\r_tx_shift_reg_n_0_[14] ),
-        .I5(\r_tx_shift_reg_n_0_[15] ),
-        .O(sd_tx_i_11_n_0));
-  LUT6 #(
-    .INIT(64'hFACF0ACFFAC00AC0)) 
-    sd_tx_i_12
        (.I0(\l_tx_shift_reg_n_0_[8] ),
         .I1(\l_tx_shift_reg_n_0_[9] ),
         .I2(\bit_cnt_reg_n_0_[1] ),
         .I3(\bit_cnt_reg_n_0_[0] ),
         .I4(\l_tx_shift_reg_n_0_[10] ),
         .I5(\l_tx_shift_reg_n_0_[11] ),
-        .O(sd_tx_i_12_n_0));
+        .O(sd_tx_i_10_n_0));
   LUT6 #(
     .INIT(64'hFACF0ACFFAC00AC0)) 
-    sd_tx_i_13
+    sd_tx_i_11
        (.I0(\l_tx_shift_reg_n_0_[12] ),
         .I1(\l_tx_shift_reg_n_0_[13] ),
         .I2(\bit_cnt_reg_n_0_[1] ),
         .I3(\bit_cnt_reg_n_0_[0] ),
         .I4(\l_tx_shift_reg_n_0_[14] ),
         .I5(\l_tx_shift_reg_n_0_[15] ),
+        .O(sd_tx_i_11_n_0));
+  LUT6 #(
+    .INIT(64'hFACF0ACFFAC00AC0)) 
+    sd_tx_i_12
+       (.I0(\r_tx_shift_reg_n_0_[8] ),
+        .I1(\r_tx_shift_reg_n_0_[9] ),
+        .I2(\bit_cnt_reg_n_0_[1] ),
+        .I3(\bit_cnt_reg_n_0_[0] ),
+        .I4(\r_tx_shift_reg_n_0_[10] ),
+        .I5(\r_tx_shift_reg_n_0_[11] ),
+        .O(sd_tx_i_12_n_0));
+  LUT6 #(
+    .INIT(64'hFACF0ACFFAC00AC0)) 
+    sd_tx_i_13
+       (.I0(\r_tx_shift_reg_n_0_[12] ),
+        .I1(\r_tx_shift_reg_n_0_[13] ),
+        .I2(\bit_cnt_reg_n_0_[1] ),
+        .I3(\bit_cnt_reg_n_0_[0] ),
+        .I4(\r_tx_shift_reg_n_0_[14] ),
+        .I5(\r_tx_shift_reg_n_0_[15] ),
         .O(sd_tx_i_13_n_0));
   LUT6 #(
     .INIT(64'hFACF0ACFFAC00AC0)) 
@@ -4255,7 +4256,7 @@ module design_1_top_system_0_1_i2s_transceiver
         .I5(\l_tx_shift_reg_n_0_[23] ),
         .O(sd_tx_i_17_n_0));
   LUT6 #(
-    .INIT(64'hBEA6BEBEBEA6A6A6)) 
+    .INIT(64'hBEBEBEA6A6A6BEA6)) 
     sd_tx_i_2
        (.I0(\bit_cnt_reg_n_0_[4] ),
         .I1(sd_tx_i_4_n_0),
@@ -4454,11 +4455,11 @@ module design_1_top_system_0_1_sd_file_reader
     file_found_reg_0,
     fifo_wr_en,
     Q,
-    fifo_valid_0,
-    \FSM_sequential_state_reg[1] ,
+    fifo_empty_0,
+    fifo_empty_1,
     E,
     LED_out,
-    T,
+    sdcmdoe_reg,
     \card_type_reg[0] ,
     \card_type_reg[1] ,
     fifo_din,
@@ -4469,9 +4470,9 @@ module design_1_top_system_0_1_sd_file_reader
     change_song,
     \file_cluster_reg[15]_0 ,
     file_found_reg_1,
-    fifo_valid,
-    state__0,
     fifo_empty,
+    state__0,
+    fifo_valid,
     \sample_reg_reg[15] ,
     lrclk_prev,
     flush_timer,
@@ -4481,11 +4482,11 @@ module design_1_top_system_0_1_sd_file_reader
   output file_found_reg_0;
   output fifo_wr_en;
   output [3:0]Q;
-  output fifo_valid_0;
-  output \FSM_sequential_state_reg[1] ;
+  output fifo_empty_0;
+  output fifo_empty_1;
   output [1:0]E;
   output [0:0]LED_out;
-  output T;
+  output sdcmdoe_reg;
   output \card_type_reg[0] ;
   output \card_type_reg[1] ;
   output [7:0]fifo_din;
@@ -4496,9 +4497,9 @@ module design_1_top_system_0_1_sd_file_reader
   input change_song;
   input \file_cluster_reg[15]_0 ;
   input file_found_reg_1;
-  input fifo_valid;
-  input [2:0]state__0;
   input fifo_empty;
+  input [2:0]state__0;
+  input fifo_valid;
   input \sample_reg_reg[15] ;
   input lrclk_prev;
   input [2:0]flush_timer;
@@ -4507,11 +4508,9 @@ module design_1_top_system_0_1_sd_file_reader
   wire [1:0]E;
   wire \FSM_sequential_state[1]_i_2_n_0 ;
   wire \FSM_sequential_state[1]_i_3_n_0 ;
-  wire \FSM_sequential_state_reg[1] ;
   wire I;
   wire [0:0]LED_out;
   wire [3:0]Q;
-  wire T;
   wire [15:0]bytes_per_sector;
   wire \card_type_reg[0] ;
   wire \card_type_reg[1] ;
@@ -4561,9 +4560,10 @@ module design_1_top_system_0_1_sd_file_reader
   wire [7:0]fdtnamelen;
   wire [7:0]fifo_din;
   wire fifo_empty;
+  wire fifo_empty_0;
+  wire fifo_empty_1;
   wire fifo_prog_full;
   wire fifo_valid;
-  wire fifo_valid_0;
   wire fifo_wr_en;
   wire [15:0]file_1st_cluster;
   wire \file_cluster[0]_i_1_n_0 ;
@@ -6966,6 +6966,7 @@ module design_1_top_system_0_1_sd_file_reader
   wire sd_cmd_in;
   wire sd_dat0;
   wire sdclk_reg;
+  wire sdcmdoe_reg;
   wire [7:0]sdtnamelen;
   wire search_fat;
   wire search_fat_i_10_n_0;
@@ -7775,24 +7776,24 @@ module design_1_top_system_0_1_sd_file_reader
   wire [3:0]NLW_search_fat_reg_i_7_O_UNCONNECTED;
 
   LUT6 #(
-    .INIT(64'hFFF500CAFF0500CA)) 
+    .INIT(64'hFF00C5FAFF00C50A)) 
     \FSM_sequential_state[0]_i_1 
        (.I0(\FSM_sequential_state[1]_i_2_n_0 ),
-        .I1(fifo_valid),
+        .I1(fifo_empty),
         .I2(state__0[1]),
-        .I3(state__0[2]),
-        .I4(state__0[0]),
-        .I5(fifo_empty),
-        .O(fifo_valid_0));
+        .I3(state__0[0]),
+        .I4(state__0[2]),
+        .I5(fifo_valid),
+        .O(fifo_empty_0));
   LUT5 #(
-    .INIT(32'hCECCC2CC)) 
+    .INIT(32'hF0F0CAF0)) 
     \FSM_sequential_state[1]_i_1 
        (.I0(\FSM_sequential_state[1]_i_2_n_0 ),
-        .I1(state__0[1]),
-        .I2(state__0[2]),
+        .I1(fifo_empty),
+        .I2(state__0[1]),
         .I3(state__0[0]),
-        .I4(fifo_empty),
-        .O(\FSM_sequential_state_reg[1] ));
+        .I4(state__0[2]),
+        .O(fifo_empty_1));
   LUT5 #(
     .INIT(32'h0404FF04)) 
     \FSM_sequential_state[1]_i_2 
@@ -24064,7 +24065,6 @@ module design_1_top_system_0_1_sd_file_reader
         .LED_out(LED_out),
         .O({\read_sector_no_reg[3]_i_7_n_4 ,\read_sector_no_reg[3]_i_7_n_5 ,\read_sector_no_reg[3]_i_7_n_6 ,\read_sector_no_reg[3]_i_7_n_7 }),
         .Q(Q),
-        .T(T),
         .\card_type_reg[0]_0 (\card_type_reg[0] ),
         .\card_type_reg[1]_0 (\card_type_reg[1] ),
         .change_song(change_song),
@@ -24291,6 +24291,7 @@ module design_1_top_system_0_1_sd_file_reader
         .sd_cmd_in(sd_cmd_in),
         .sd_dat0(sd_dat0),
         .sdclk_reg(sdclk_reg),
+        .sdcmdoe_reg(sdcmdoe_reg),
         .\sdtnamelen_reg[1] (u_sd_reader_n_248),
         .\sdtnamelen_reg[1]_0 (u_sd_reader_n_249),
         .\sdtnamelen_reg[6] ({u_sd_reader_n_412,u_sd_reader_n_413,u_sd_reader_n_414,u_sd_reader_n_415,u_sd_reader_n_416,u_sd_reader_n_417,u_sd_reader_n_418,u_sd_reader_n_419}),
@@ -24326,7 +24327,7 @@ module design_1_top_system_0_1_sd_reader
     \file_namelen_reg[1]_3 ,
     \file_namelen_reg[2]_1 ,
     E,
-    T,
+    sdcmdoe_reg,
     change_song_pending_reg,
     search_fat_reg,
     \filesystem_state_reg[0] ,
@@ -24573,7 +24574,7 @@ module design_1_top_system_0_1_sd_reader
   output [7:0]\file_namelen_reg[1]_3 ;
   output [7:0]\file_namelen_reg[2]_1 ;
   output [0:0]E;
-  output T;
+  output sdcmdoe_reg;
   output change_song_pending_reg;
   output search_fat_reg;
   output \filesystem_state_reg[0] ;
@@ -24838,7 +24839,6 @@ module design_1_top_system_0_1_sd_reader
   wire [3:0]O;
   wire [7:2]PCOUT;
   wire [3:0]Q;
-  wire T;
   wire [31:0]_arg;
   wire \arg[15]_i_2_n_0 ;
   wire \arg[16]_i_2_n_0 ;
@@ -25685,6 +25685,7 @@ module design_1_top_system_0_1_sd_reader
   wire sdclkl;
   wire \sdcmd_stat[3]_i_5_n_0 ;
   wire \sdcmd_stat[3]_i_8_n_0 ;
+  wire sdcmdoe_reg;
   wire \sdtnamelen[0]_i_2_n_0 ;
   wire \sdtnamelen[0]_i_3_n_0 ;
   wire \sdtnamelen[0]_i_4_n_0 ;
@@ -36864,7 +36865,6 @@ module design_1_top_system_0_1_sd_reader
         .\FSM_onehot_sddat_stat_reg[4]_1 (\FSM_onehot_sddat_stat[4]_i_4_n_0 ),
         .I(I),
         .Q({start,\FSM_onehot_sddat_stat_reg_n_0_[3] ,\FSM_onehot_sddat_stat_reg_n_0_[2] ,\FSM_onehot_sddat_stat_reg_n_0_[1] ,\FSM_onehot_sddat_stat_reg_n_0_[0] }),
-        .T(T),
         .\arg_reg[10] (\arg[15]_i_2_n_0 ),
         .\arg_reg[16] (\arg[16]_i_2_n_0 ),
         .\arg_reg[19] (\arg[19]_i_2_n_0 ),
@@ -36932,6 +36932,7 @@ module design_1_top_system_0_1_sd_reader
         .\sdcmd_stat_reg[0]_0 (\sdcmd_stat[3]_i_8_n_0 ),
         .\sdcmd_stat_reg[2] ({u_sdcmd_ctrl_n_77,u_sdcmd_ctrl_n_78,u_sdcmd_ctrl_n_79,u_sdcmd_ctrl_n_80,u_sdcmd_ctrl_n_81,u_sdcmd_ctrl_n_82}),
         .\sdcmd_stat_reg[2]_0 ({u_sdcmd_ctrl_n_94,u_sdcmd_ctrl_n_95,u_sdcmd_ctrl_n_96,u_sdcmd_ctrl_n_97}),
+        .sdcmdoe_reg_0(sdcmdoe_reg),
         .sdv1_maybe(sdv1_maybe),
         .sdv1_maybe_reg(u_sdcmd_ctrl_n_29),
         .start_reg(start_i_2_n_0),
@@ -36945,7 +36946,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
     sdclk_reg_0,
     \FSM_onehot_sddat_stat_reg[0] ,
     D,
-    T,
+    sdcmdoe_reg_0,
     busy_reg_0,
     done_reg_0,
     \resp_arg_reg[30]_0 ,
@@ -37025,7 +37026,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
   output sdclk_reg_0;
   output [0:0]\FSM_onehot_sddat_stat_reg[0] ;
   output [4:0]D;
-  output T;
+  output sdcmdoe_reg_0;
   output busy_reg_0;
   output done_reg_0;
   output \resp_arg_reg[30]_0 ;
@@ -37109,7 +37110,6 @@ module design_1_top_system_0_1_sdcmd_ctrl
   wire \FSM_onehot_sddat_stat_reg[4]_1 ;
   wire I;
   wire [4:0]Q;
-  wire T;
   wire \arg[20]_i_2_n_0 ;
   wire \arg[29]_i_2_n_0 ;
   wire \arg[30]_i_2_n_0 ;
@@ -37466,6 +37466,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
   wire sdcmdin;
   wire sdcmdoe;
   wire sdcmdoe_i_1_n_0;
+  wire sdcmdoe_reg_0;
   wire sdcmdout_i_1_n_0;
   wire sdv1_maybe;
   wire sdv1_maybe_reg;
@@ -40845,7 +40846,7 @@ module design_1_top_system_0_1_sdcmd_ctrl
     .INIT(2'h1)) 
     sd_cmd_iobuf_i_1
        (.I0(sd_cmd_oe),
-        .O(T));
+        .O(sdcmdoe_reg_0));
   (* SOFT_HLUTNM = "soft_lutpair59" *) 
   LUT3 #(
     .INIT(8'h32)) 
@@ -41255,18 +41256,18 @@ endmodule
 module design_1_top_system_0_1_tas2110_i2c_ctrl
    (SR,
     dbg_sda_out,
-    i2c_scl,
-    i2c_sda,
+    dbg_scl_out,
     reset_n_0,
+    \FSM_onehot_state_reg[3]_0 ,
     clk_100Mhz,
     reset_n,
     pll_locked,
     btn_center_0);
   output [0:0]SR;
   output dbg_sda_out;
-  output i2c_scl;
-  output i2c_sda;
+  output dbg_scl_out;
   output reset_n_0;
+  output \FSM_onehot_state_reg[3]_0 ;
   input clk_100Mhz;
   input reset_n;
   input pll_locked;
@@ -41278,6 +41279,8 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
   wire \FSM_onehot_state[4]_i_1_n_0 ;
   wire \FSM_onehot_state[6]_i_1_n_0 ;
   wire \FSM_onehot_state[7]_i_10_n_0 ;
+  wire \FSM_onehot_state[7]_i_11_n_0 ;
+  wire \FSM_onehot_state[7]_i_12_n_0 ;
   wire \FSM_onehot_state[7]_i_1_n_0 ;
   wire \FSM_onehot_state[7]_i_2_n_0 ;
   wire \FSM_onehot_state[7]_i_4_n_0 ;
@@ -41286,6 +41289,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
   wire \FSM_onehot_state[7]_i_7_n_0 ;
   wire \FSM_onehot_state[7]_i_8_n_0 ;
   wire \FSM_onehot_state[7]_i_9_n_0 ;
+  wire \FSM_onehot_state_reg[3]_0 ;
   wire \FSM_onehot_state_reg_n_0_[0] ;
   wire \FSM_onehot_state_reg_n_0_[1] ;
   wire \FSM_onehot_state_reg_n_0_[2] ;
@@ -41302,7 +41306,6 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
   wire \bit_cnt[2]_i_2_n_0 ;
   wire \bit_cnt[2]_i_3_n_0 ;
   wire \bit_cnt[2]_i_4_n_0 ;
-  wire \bit_cnt[2]_i_5_n_0 ;
   wire \bit_cnt_reg_n_0_[0] ;
   wire \bit_cnt_reg_n_0_[1] ;
   wire \bit_cnt_reg_n_0_[2] ;
@@ -41312,16 +41315,18 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
   wire \byte_cnt[1]_i_3_n_0 ;
   wire \byte_cnt[1]_i_4_n_0 ;
   wire \byte_cnt[1]_i_5_n_0 ;
+  wire \byte_cnt[1]_i_6_n_0 ;
   wire \byte_cnt_reg_n_0_[0] ;
   wire \byte_cnt_reg_n_0_[1] ;
   wire clk_100Mhz;
   wire [9:0]clk_div;
   wire \clk_div[0]_i_2_n_0 ;
   wire \clk_div[0]_i_3_n_0 ;
+  wire \clk_div[0]_i_4_n_0 ;
   wire \clk_div[2]_i_2_n_0 ;
-  wire \clk_div[2]_i_3_n_0 ;
-  wire \clk_div[6]_i_2_n_0 ;
+  wire \clk_div[6]_i_2__0_n_0 ;
   wire \clk_div[9]_i_10_n_0 ;
+  wire \clk_div[9]_i_11_n_0 ;
   wire \clk_div[9]_i_1_n_0 ;
   wire \clk_div[9]_i_3_n_0 ;
   wire \clk_div[9]_i_4_n_0 ;
@@ -41348,7 +41353,6 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
   wire \current_byte[2]_i_3_n_0 ;
   wire \current_byte[3]_i_2_n_0 ;
   wire \current_byte[3]_i_3_n_0 ;
-  wire \current_byte[3]_i_4_n_0 ;
   wire \current_byte[4]_i_2_n_0 ;
   wire \current_byte[4]_i_3_n_0 ;
   wire \current_byte[5]_i_2_n_0 ;
@@ -41361,6 +41365,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
   wire \current_byte_reg_n_0_[5] ;
   wire \current_byte_reg_n_0_[6] ;
   wire \current_byte_reg_n_0_[7] ;
+  wire dbg_scl_out;
   wire dbg_sda_out;
   wire [14:0]debounce;
   wire debounce0_carry__0_i_1_n_0;
@@ -41433,11 +41438,10 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
   wire \debounce_reg_n_0_[7] ;
   wire \debounce_reg_n_0_[8] ;
   wire \debounce_reg_n_0_[9] ;
-  wire i2c_scl;
-  wire i2c_sda;
   wire i2c_sda_t;
   wire [18:1]in25;
   wire [18:1]in28;
+  wire is_audio_seq;
   wire is_audio_seq_i_1_n_0;
   wire is_audio_seq_reg_n_0;
   wire [1:1]p_0_in;
@@ -41485,10 +41489,13 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
   wire \pwr_wait_cnt_reg_n_0_[7] ;
   wire \pwr_wait_cnt_reg_n_0_[8] ;
   wire \pwr_wait_cnt_reg_n_0_[9] ;
-  wire [4:0]reg_cnt;
+  wire \reg_cnt[0]_i_1_n_0 ;
   wire \reg_cnt[1]_i_1_n_0 ;
+  wire \reg_cnt[2]_i_1_n_0 ;
   wire \reg_cnt[3]_i_1_n_0 ;
   wire \reg_cnt[4]_i_1_n_0 ;
+  wire \reg_cnt[4]_i_2_n_0 ;
+  wire \reg_cnt[4]_i_3_n_0 ;
   wire \reg_cnt_reg_n_0_[0] ;
   wire \reg_cnt_reg_n_0_[1] ;
   wire \reg_cnt_reg_n_0_[2] ;
@@ -41499,11 +41506,6 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
   wire scl_out;
   wire scl_out_i_10_n_0;
   wire scl_out_i_11_n_0;
-  wire scl_out_i_12_n_0;
-  wire scl_out_i_13_n_0;
-  wire scl_out_i_14_n_0;
-  wire scl_out_i_15_n_0;
-  wire scl_out_i_16_n_0;
   wire scl_out_i_1_n_0;
   wire scl_out_i_3_n_0;
   wire scl_out_i_4_n_0;
@@ -41513,12 +41515,15 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
   wire scl_out_i_8_n_0;
   wire scl_out_i_9_n_0;
   wire sda_internal;
+  wire sda_internal_i_10_n_0;
+  wire sda_internal_i_11_n_0;
   wire sda_internal_i_1_n_0;
   wire sda_internal_i_3_n_0;
   wire sda_internal_i_4_n_0;
   wire sda_internal_i_6_n_0;
   wire sda_internal_i_7_n_0;
   wire sda_internal_i_8_n_0;
+  wire sda_internal_i_9_n_0;
   wire sda_internal_reg_i_5_n_0;
   wire [3:3]seq_len;
   wire \seq_len[3]_i_1_n_0 ;
@@ -41528,13 +41533,14 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
   wire [3:1]NLW_pwr_wait_cnt0_carry__3_CO_UNCONNECTED;
   wire [3:2]NLW_pwr_wait_cnt0_carry__3_O_UNCONNECTED;
 
+  (* SOFT_HLUTNM = "soft_lutpair340" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \FSM_onehot_state[0]_i_1__0 
-       (.I0(\FSM_onehot_state[7]_i_6_n_0 ),
+       (.I0(\FSM_onehot_state[7]_i_7_n_0 ),
         .I1(\FSM_onehot_state_reg_n_0_[5] ),
         .O(\FSM_onehot_state[0]_i_1__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair336" *) 
+  (* SOFT_HLUTNM = "soft_lutpair338" *) 
   LUT3 #(
     .INIT(8'hFE)) 
     \FSM_onehot_state[1]_i_1 
@@ -41542,7 +41548,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I1(\FSM_onehot_state_reg_n_0_[7] ),
         .I2(\FSM_onehot_state_reg_n_0_[6] ),
         .O(\FSM_onehot_state[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair348" *) 
+  (* SOFT_HLUTNM = "soft_lutpair345" *) 
   LUT3 #(
     .INIT(8'hAE)) 
     \FSM_onehot_state[2]_i_1__0 
@@ -41550,108 +41556,132 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I1(i2c_sda_t),
         .I2(\byte_cnt_reg_n_0_[1] ),
         .O(\FSM_onehot_state[2]_i_1__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair348" *) 
+  (* SOFT_HLUTNM = "soft_lutpair359" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \FSM_onehot_state[4]_i_1 
        (.I0(\byte_cnt_reg_n_0_[1] ),
         .I1(i2c_sda_t),
         .O(\FSM_onehot_state[4]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair349" *) 
+  (* SOFT_HLUTNM = "soft_lutpair352" *) 
   LUT3 #(
     .INIT(8'h40)) 
     \FSM_onehot_state[6]_i_1 
-       (.I0(\FSM_onehot_state[7]_i_6_n_0 ),
+       (.I0(\FSM_onehot_state[7]_i_7_n_0 ),
         .I1(\FSM_onehot_state_reg_n_0_[5] ),
-        .I2(\FSM_onehot_state[7]_i_7_n_0 ),
+        .I2(\FSM_onehot_state[7]_i_8_n_0 ),
         .O(\FSM_onehot_state[6]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'hF8F8F8F8FFFFFFF8)) 
+  LUT5 #(
+    .INIT(32'hFFFFFFFE)) 
     \FSM_onehot_state[7]_i_1 
-       (.I0(\FSM_onehot_state_reg_n_0_[0] ),
-        .I1(state0),
-        .I2(\FSM_onehot_state[7]_i_4_n_0 ),
-        .I3(\FSM_onehot_state_reg_n_0_[4] ),
-        .I4(i2c_sda_t),
-        .I5(\FSM_onehot_state[7]_i_5_n_0 ),
+       (.I0(is_audio_seq),
+        .I1(\FSM_onehot_state[7]_i_4_n_0 ),
+        .I2(\FSM_onehot_state[7]_i_5_n_0 ),
+        .I3(\FSM_onehot_state_reg_n_0_[5] ),
+        .I4(\FSM_onehot_state[7]_i_6_n_0 ),
         .O(\FSM_onehot_state[7]_i_1_n_0 ));
-  LUT2 #(
-    .INIT(4'h8)) 
+  LUT6 #(
+    .INIT(64'hF7FFFFFFFFFFFFFF)) 
     \FSM_onehot_state[7]_i_10 
-       (.I0(\clk_div_reg_n_0_[0] ),
-        .I1(\clk_div_reg_n_0_[1] ),
+       (.I0(\clk_div_reg_n_0_[9] ),
+        .I1(p_0_in),
+        .I2(\clk_div_reg_n_0_[4] ),
+        .I3(\clk_div_reg_n_0_[7] ),
+        .I4(\clk_div_reg_n_0_[5] ),
+        .I5(\clk_div_reg_n_0_[6] ),
         .O(\FSM_onehot_state[7]_i_10_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair349" *) 
+  LUT6 #(
+    .INIT(64'h0000000000020000)) 
+    \FSM_onehot_state[7]_i_11 
+       (.I0(\clk_div[9]_i_10_n_0 ),
+        .I1(\clk_div_reg_n_0_[2] ),
+        .I2(\clk_div_reg_n_0_[0] ),
+        .I3(\clk_div_reg_n_0_[1] ),
+        .I4(\clk_div_reg_n_0_[3] ),
+        .I5(\clk_div_reg_n_0_[4] ),
+        .O(\FSM_onehot_state[7]_i_11_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFDFFFFFFFFFFFFF)) 
+    \FSM_onehot_state[7]_i_12 
+       (.I0(\FSM_onehot_state_reg_n_0_[2] ),
+        .I1(\clk_div_reg_n_0_[4] ),
+        .I2(\clk_div_reg_n_0_[6] ),
+        .I3(\clk_div_reg_n_0_[3] ),
+        .I4(\clk_div_reg_n_0_[1] ),
+        .I5(\clk_div_reg_n_0_[0] ),
+        .O(\FSM_onehot_state[7]_i_12_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair352" *) 
   LUT3 #(
     .INIT(8'h04)) 
     \FSM_onehot_state[7]_i_2 
-       (.I0(\FSM_onehot_state[7]_i_6_n_0 ),
+       (.I0(\FSM_onehot_state[7]_i_7_n_0 ),
         .I1(\FSM_onehot_state_reg_n_0_[5] ),
-        .I2(\FSM_onehot_state[7]_i_7_n_0 ),
+        .I2(\FSM_onehot_state[7]_i_8_n_0 ),
         .O(\FSM_onehot_state[7]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair353" *) 
   LUT2 #(
-    .INIT(4'h2)) 
+    .INIT(4'h8)) 
     \FSM_onehot_state[7]_i_3 
-       (.I0(btn_center_0),
-        .I1(\debounce[18]_i_4_n_0 ),
-        .O(state0));
+       (.I0(\FSM_onehot_state_reg_n_0_[0] ),
+        .I1(state0),
+        .O(is_audio_seq));
+  (* SOFT_HLUTNM = "soft_lutpair334" *) 
   LUT5 #(
-    .INIT(32'hFFFFFFBA)) 
+    .INIT(32'hFFFF0001)) 
     \FSM_onehot_state[7]_i_4 
-       (.I0(\FSM_onehot_state_reg_n_0_[5] ),
-        .I1(\FSM_onehot_state[7]_i_5_n_0 ),
-        .I2(\FSM_onehot_state_reg_n_0_[1] ),
-        .I3(\clk_div[9]_i_4_n_0 ),
-        .I4(\FSM_onehot_state[7]_i_8_n_0 ),
+       (.I0(\FSM_onehot_state[7]_i_9_n_0 ),
+        .I1(\bit_cnt_reg_n_0_[2] ),
+        .I2(\bit_cnt_reg_n_0_[1] ),
+        .I3(\bit_cnt_reg_n_0_[0] ),
+        .I4(\clk_div[9]_i_7_n_0 ),
         .O(\FSM_onehot_state[7]_i_4_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFBFFFFF)) 
+    .INIT(64'h0000000020002020)) 
     \FSM_onehot_state[7]_i_5 
-       (.I0(\FSM_onehot_state[7]_i_9_n_0 ),
-        .I1(\FSM_onehot_state[7]_i_10_n_0 ),
-        .I2(\clk_div_reg_n_0_[2] ),
-        .I3(\clk_div_reg_n_0_[3] ),
-        .I4(\clk_div_reg_n_0_[5] ),
-        .I5(\clk_div_reg_n_0_[4] ),
+       (.I0(\FSM_onehot_state_reg_n_0_[1] ),
+        .I1(\clk_div[6]_i_2__0_n_0 ),
+        .I2(\clk_div_reg_n_0_[5] ),
+        .I3(\clk_div_reg_n_0_[4] ),
+        .I4(\clk_div_reg_n_0_[3] ),
+        .I5(\FSM_onehot_state[7]_i_10_n_0 ),
         .O(\FSM_onehot_state[7]_i_5_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000000040000)) 
+  LUT5 #(
+    .INIT(32'hFF545454)) 
     \FSM_onehot_state[7]_i_6 
-       (.I0(\reg_cnt_reg_n_0_[1] ),
-        .I1(seq_len),
-        .I2(\reg_cnt_reg_n_0_[2] ),
-        .I3(\reg_cnt_reg_n_0_[0] ),
-        .I4(\reg_cnt_reg_n_0_[3] ),
-        .I5(\reg_cnt_reg_n_0_[4] ),
+       (.I0(\clk_div[9]_i_6_n_0 ),
+        .I1(i2c_sda_t),
+        .I2(\FSM_onehot_state_reg_n_0_[4] ),
+        .I3(\FSM_onehot_state_reg_n_0_[7] ),
+        .I4(\FSM_onehot_state[7]_i_11_n_0 ),
         .O(\FSM_onehot_state[7]_i_6_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000008000)) 
+    .INIT(64'h0000010000000000)) 
     \FSM_onehot_state[7]_i_7 
-       (.I0(seq_len),
-        .I1(\reg_cnt_reg_n_0_[1] ),
-        .I2(\reg_cnt_reg_n_0_[0] ),
-        .I3(\reg_cnt_reg_n_0_[2] ),
-        .I4(\reg_cnt_reg_n_0_[3] ),
-        .I5(\reg_cnt_reg_n_0_[4] ),
+       (.I0(\reg_cnt_reg_n_0_[1] ),
+        .I1(\reg_cnt_reg_n_0_[0] ),
+        .I2(\reg_cnt_reg_n_0_[4] ),
+        .I3(\reg_cnt_reg_n_0_[3] ),
+        .I4(\reg_cnt_reg_n_0_[2] ),
+        .I5(seq_len),
         .O(\FSM_onehot_state[7]_i_7_n_0 ));
   LUT6 #(
-    .INIT(64'h888888888888888F)) 
+    .INIT(64'h0000008000000000)) 
     \FSM_onehot_state[7]_i_8 
-       (.I0(\FSM_onehot_state_reg_n_0_[7] ),
-        .I1(\clk_div[9]_i_10_n_0 ),
-        .I2(\bit_cnt[2]_i_5_n_0 ),
-        .I3(\bit_cnt_reg_n_0_[2] ),
-        .I4(\bit_cnt_reg_n_0_[1] ),
-        .I5(\bit_cnt_reg_n_0_[0] ),
+       (.I0(\reg_cnt_reg_n_0_[0] ),
+        .I1(\reg_cnt_reg_n_0_[1] ),
+        .I2(seq_len),
+        .I3(\reg_cnt_reg_n_0_[4] ),
+        .I4(\reg_cnt_reg_n_0_[3] ),
+        .I5(\reg_cnt_reg_n_0_[2] ),
         .O(\FSM_onehot_state[7]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair342" *) 
-  LUT4 #(
-    .INIT(16'h7FFF)) 
+  LUT5 #(
+    .INIT(32'hEFFFFFFF)) 
     \FSM_onehot_state[7]_i_9 
-       (.I0(\clk_div_reg_n_0_[6] ),
-        .I1(\clk_div_reg_n_0_[7] ),
+       (.I0(\byte_cnt[1]_i_4_n_0 ),
+        .I1(\FSM_onehot_state[7]_i_12_n_0 ),
         .I2(\clk_div_reg_n_0_[9] ),
         .I3(p_0_in),
+        .I4(\clk_div_reg_n_0_[7] ),
         .O(\FSM_onehot_state[7]_i_9_n_0 ));
   (* FSM_ENCODED_STATES = "start_cond:00000010,check_ack:00001000,next_reg:00100000,stop_cond:00010000,send_bit:00000100,idle:00000001,delay:10000000,power_wait:01000000" *) 
   FDSE #(
@@ -41725,13 +41755,12 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .D(\FSM_onehot_state[7]_i_2_n_0 ),
         .Q(\FSM_onehot_state_reg_n_0_[7] ),
         .R(SR));
-  (* SOFT_HLUTNM = "soft_lutpair346" *) 
   LUT4 #(
     .INIT(16'hFF80)) 
     amp_active_reg_i_1
        (.I0(is_audio_seq_reg_n_0),
         .I1(\FSM_onehot_state_reg_n_0_[5] ),
-        .I2(\FSM_onehot_state[7]_i_6_n_0 ),
+        .I2(\FSM_onehot_state[7]_i_7_n_0 ),
         .I3(amp_is_on_internal),
         .O(amp_active_reg_i_1_n_0));
   FDRE #(
@@ -41742,7 +41771,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .D(amp_active_reg_i_1_n_0),
         .Q(amp_is_on_internal),
         .R(SR));
-  (* SOFT_HLUTNM = "soft_lutpair337" *) 
+  (* SOFT_HLUTNM = "soft_lutpair339" *) 
   LUT5 #(
     .INIT(32'hEEFFFE00)) 
     \bit_cnt[0]_i_1 
@@ -41772,23 +41801,23 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\bit_cnt[2]_i_3_n_0 ),
         .I5(\bit_cnt_reg_n_0_[2] ),
         .O(\bit_cnt[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair337" *) 
+  (* SOFT_HLUTNM = "soft_lutpair339" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \bit_cnt[2]_i_2 
        (.I0(i2c_sda_t),
         .I1(\FSM_onehot_state_reg_n_0_[1] ),
         .O(\bit_cnt[2]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h20AA20AA20AAAAAA)) 
+  LUT5 #(
+    .INIT(32'h8A8A8AAA)) 
     \bit_cnt[2]_i_3 
        (.I0(reset_n),
         .I1(\FSM_onehot_state[7]_i_5_n_0 ),
-        .I2(\FSM_onehot_state_reg_n_0_[1] ),
-        .I3(\byte_cnt[1]_i_3_n_0 ),
-        .I4(\bit_cnt[2]_i_4_n_0 ),
-        .I5(\bit_cnt[2]_i_5_n_0 ),
+        .I2(\byte_cnt[1]_i_3_n_0 ),
+        .I3(\bit_cnt[2]_i_4_n_0 ),
+        .I4(\FSM_onehot_state[7]_i_9_n_0 ),
         .O(\bit_cnt[2]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair334" *) 
   LUT3 #(
     .INIT(8'h01)) 
     \bit_cnt[2]_i_4 
@@ -41796,16 +41825,6 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I1(\bit_cnt_reg_n_0_[1] ),
         .I2(\bit_cnt_reg_n_0_[0] ),
         .O(\bit_cnt[2]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFBFFFF)) 
-    \bit_cnt[2]_i_5 
-       (.I0(\byte_cnt[1]_i_4_n_0 ),
-        .I1(\FSM_onehot_state_reg_n_0_[2] ),
-        .I2(\clk_div_reg_n_0_[4] ),
-        .I3(\clk_div_reg_n_0_[3] ),
-        .I4(\FSM_onehot_state[7]_i_10_n_0 ),
-        .I5(\FSM_onehot_state[7]_i_9_n_0 ),
-        .O(\bit_cnt[2]_i_5_n_0 ));
   FDRE #(
     .INIT(1'b1)) 
     \bit_cnt_reg[0] 
@@ -41830,7 +41849,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .D(\bit_cnt[2]_i_1_n_0 ),
         .Q(\bit_cnt_reg_n_0_[2] ),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair345" *) 
+  (* SOFT_HLUTNM = "soft_lutpair327" *) 
   LUT3 #(
     .INIT(8'h04)) 
     \byte_cnt[0]_i_1 
@@ -41838,54 +41857,61 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I1(i2c_sda_t),
         .I2(\byte_cnt_reg_n_0_[1] ),
         .O(byte_cnt[0]));
-  LUT6 #(
-    .INIT(64'h8080F080F0F0F0F0)) 
+  LUT5 #(
+    .INIT(32'h88A8AAAA)) 
     \byte_cnt[1]_i_1 
-       (.I0(\FSM_onehot_state_reg_n_0_[0] ),
-        .I1(state0),
-        .I2(reset_n),
-        .I3(\FSM_onehot_state_reg_n_0_[5] ),
-        .I4(\FSM_onehot_state[7]_i_6_n_0 ),
-        .I5(\byte_cnt[1]_i_3_n_0 ),
+       (.I0(reset_n),
+        .I1(is_audio_seq),
+        .I2(\FSM_onehot_state_reg_n_0_[5] ),
+        .I3(\FSM_onehot_state[7]_i_7_n_0 ),
+        .I4(\byte_cnt[1]_i_3_n_0 ),
         .O(\byte_cnt[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair350" *) 
+  (* SOFT_HLUTNM = "soft_lutpair328" *) 
   LUT3 #(
     .INIT(8'hA8)) 
     \byte_cnt[1]_i_2 
        (.I0(i2c_sda_t),
-        .I1(\byte_cnt_reg_n_0_[1] ),
-        .I2(\byte_cnt_reg_n_0_[0] ),
+        .I1(\byte_cnt_reg_n_0_[0] ),
+        .I2(\byte_cnt_reg_n_0_[1] ),
         .O(byte_cnt[1]));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFBFFFF)) 
+    .INIT(64'hFFFFFFFFFBFFFFFF)) 
     \byte_cnt[1]_i_3 
        (.I0(\byte_cnt[1]_i_4_n_0 ),
-        .I1(\FSM_onehot_state[7]_i_10_n_0 ),
-        .I2(\clk_div_reg_n_0_[4] ),
-        .I3(\clk_div_reg_n_0_[3] ),
+        .I1(\byte_cnt[1]_i_5_n_0 ),
+        .I2(\byte_cnt_reg_n_0_[1] ),
+        .I3(i2c_sda_t),
         .I4(p_0_in),
-        .I5(\byte_cnt[1]_i_5_n_0 ),
+        .I5(\byte_cnt[1]_i_6_n_0 ),
         .O(\byte_cnt[1]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'h8A8AFF8AFF8AFF8A)) 
+    .INIT(64'hB0B0FFB0FFB0FFB0)) 
     \byte_cnt[1]_i_4 
-       (.I0(\clk_div_reg_n_0_[9] ),
-        .I1(\clk_div_reg_n_0_[3] ),
-        .I2(\clk_div_reg_n_0_[2] ),
+       (.I0(\clk_div_reg_n_0_[3] ),
+        .I1(\clk_div_reg_n_0_[2] ),
+        .I2(\clk_div_reg_n_0_[9] ),
         .I3(\clk_div_reg_n_0_[7] ),
         .I4(\clk_div_reg_n_0_[5] ),
         .I5(\clk_div_reg_n_0_[6] ),
         .O(\byte_cnt[1]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'hF7FFFFFFFFFFFFFF)) 
+  (* SOFT_HLUTNM = "soft_lutpair351" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
     \byte_cnt[1]_i_5 
+       (.I0(\clk_div_reg_n_0_[4] ),
+        .I1(\clk_div_reg_n_0_[0] ),
+        .I2(\clk_div_reg_n_0_[1] ),
+        .O(\byte_cnt[1]_i_5_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFF7FFFFFFFFFFFF)) 
+    \byte_cnt[1]_i_6 
        (.I0(\clk_div_reg_n_0_[1] ),
         .I1(\clk_div_reg_n_0_[9] ),
-        .I2(\byte_cnt_reg_n_0_[1] ),
-        .I3(i2c_sda_t),
+        .I2(\clk_div_reg_n_0_[4] ),
+        .I3(\clk_div_reg_n_0_[3] ),
         .I4(\clk_div_reg_n_0_[7] ),
         .I5(\clk_div_reg_n_0_[6] ),
-        .O(\byte_cnt[1]_i_5_n_0 ));
+        .O(\byte_cnt[1]_i_6_n_0 ));
   FDRE #(
     .INIT(1'b0)) 
     \byte_cnt_reg[0] 
@@ -41903,47 +41929,53 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .Q(\byte_cnt_reg_n_0_[1] ),
         .R(1'b0));
   LUT6 #(
-    .INIT(64'h000000000000FFFE)) 
+    .INIT(64'h000000000000FFEF)) 
     \clk_div[0]_i_1__0 
        (.I0(\clk_div[0]_i_2_n_0 ),
-        .I1(\clk_div_reg_n_0_[2] ),
-        .I2(\clk_div_reg_n_0_[1] ),
-        .I3(\clk_div[0]_i_3_n_0 ),
+        .I1(\clk_div[0]_i_3_n_0 ),
+        .I2(\clk_div_reg_n_0_[7] ),
+        .I3(\clk_div_reg_n_0_[4] ),
         .I4(\clk_div[2]_i_2_n_0 ),
         .I5(\clk_div_reg_n_0_[0] ),
         .O(clk_div[0]));
-  (* SOFT_HLUTNM = "soft_lutpair332" *) 
+  LUT5 #(
+    .INIT(32'hFEFFFFFF)) 
+    \clk_div[0]_i_2 
+       (.I0(\clk_div[0]_i_4_n_0 ),
+        .I1(\clk_div_reg_n_0_[1] ),
+        .I2(\clk_div_reg_n_0_[2] ),
+        .I3(p_0_in),
+        .I4(\clk_div_reg_n_0_[9] ),
+        .O(\clk_div[0]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair336" *) 
+  LUT2 #(
+    .INIT(4'h7)) 
+    \clk_div[0]_i_3 
+       (.I0(\clk_div_reg_n_0_[5] ),
+        .I1(\clk_div_reg_n_0_[6] ),
+        .O(\clk_div[0]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair331" *) 
   LUT3 #(
     .INIT(8'h8A)) 
-    \clk_div[0]_i_2 
+    \clk_div[0]_i_4 
        (.I0(\clk_div_reg_n_0_[5] ),
         .I1(\clk_div_reg_n_0_[4] ),
         .I2(\clk_div_reg_n_0_[3] ),
-        .O(\clk_div[0]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFF7FFFFFFF)) 
-    \clk_div[0]_i_3 
-       (.I0(p_0_in),
-        .I1(\clk_div_reg_n_0_[9] ),
-        .I2(\clk_div_reg_n_0_[7] ),
-        .I3(\clk_div_reg_n_0_[6] ),
-        .I4(\clk_div_reg_n_0_[5] ),
-        .I5(\clk_div_reg_n_0_[4] ),
-        .O(\clk_div[0]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair341" *) 
+        .O(\clk_div[0]_i_4_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair351" *) 
   LUT3 #(
     .INIT(8'h06)) 
     \clk_div[1]_i_1__0 
-       (.I0(\clk_div_reg_n_0_[1] ),
-        .I1(\clk_div_reg_n_0_[0] ),
+       (.I0(\clk_div_reg_n_0_[0] ),
+        .I1(\clk_div_reg_n_0_[1] ),
         .I2(\clk_div[2]_i_2_n_0 ),
         .O(clk_div[1]));
   (* SOFT_HLUTNM = "soft_lutpair341" *) 
   LUT4 #(
     .INIT(16'h0078)) 
     \clk_div[2]_i_1 
-       (.I0(\clk_div_reg_n_0_[0] ),
-        .I1(\clk_div_reg_n_0_[1] ),
+       (.I0(\clk_div_reg_n_0_[1] ),
+        .I1(\clk_div_reg_n_0_[0] ),
         .I2(\clk_div_reg_n_0_[2] ),
         .I3(\clk_div[2]_i_2_n_0 ),
         .O(clk_div[2]));
@@ -41951,177 +41983,179 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
     .INIT(64'h4444444444444445)) 
     \clk_div[2]_i_2 
        (.I0(\FSM_onehot_state_reg_n_0_[7] ),
-        .I1(\clk_div[2]_i_3_n_0 ),
+        .I1(\clk_div[9]_i_5_n_0 ),
         .I2(\FSM_onehot_state_reg_n_0_[1] ),
         .I3(i2c_sda_t),
         .I4(\FSM_onehot_state_reg_n_0_[4] ),
         .I5(\FSM_onehot_state_reg_n_0_[2] ),
         .O(\clk_div[2]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair332" *) 
-  LUT5 #(
-    .INIT(32'h0000FE00)) 
-    \clk_div[2]_i_3 
-       (.I0(\clk_div[6]_i_2_n_0 ),
-        .I1(\clk_div_reg_n_0_[4] ),
-        .I2(\clk_div_reg_n_0_[3] ),
-        .I3(\clk_div_reg_n_0_[5] ),
-        .I4(\FSM_onehot_state[7]_i_9_n_0 ),
-        .O(\clk_div[2]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair328" *) 
+  (* SOFT_HLUTNM = "soft_lutpair330" *) 
   LUT5 #(
     .INIT(32'h2AAA8000)) 
     \clk_div[3]_i_1 
-       (.I0(\clk_div[9]_i_7_n_0 ),
+       (.I0(\clk_div[9]_i_9_n_0 ),
         .I1(\clk_div_reg_n_0_[0] ),
-        .I2(\clk_div_reg_n_0_[2] ),
-        .I3(\clk_div_reg_n_0_[1] ),
+        .I2(\clk_div_reg_n_0_[1] ),
+        .I3(\clk_div_reg_n_0_[2] ),
         .I4(\clk_div_reg_n_0_[3] ),
         .O(clk_div[3]));
   LUT6 #(
     .INIT(64'h2AAAAAAA80000000)) 
     \clk_div[4]_i_1 
-       (.I0(\clk_div[9]_i_7_n_0 ),
-        .I1(\clk_div_reg_n_0_[3] ),
+       (.I0(\clk_div[9]_i_9_n_0 ),
+        .I1(\clk_div_reg_n_0_[2] ),
         .I2(\clk_div_reg_n_0_[1] ),
-        .I3(\clk_div_reg_n_0_[2] ),
-        .I4(\clk_div_reg_n_0_[0] ),
+        .I3(\clk_div_reg_n_0_[0] ),
+        .I4(\clk_div_reg_n_0_[3] ),
         .I5(\clk_div_reg_n_0_[4] ),
         .O(clk_div[4]));
-  (* SOFT_HLUTNM = "soft_lutpair329" *) 
+  (* SOFT_HLUTNM = "soft_lutpair331" *) 
   LUT5 #(
-    .INIT(32'h2AAA8000)) 
+    .INIT(32'hAA2A0080)) 
     \clk_div[5]_i_1 
-       (.I0(\clk_div[9]_i_7_n_0 ),
+       (.I0(\clk_div[9]_i_9_n_0 ),
         .I1(\clk_div_reg_n_0_[4] ),
-        .I2(\clk_div[6]_i_2_n_0 ),
-        .I3(\clk_div_reg_n_0_[3] ),
+        .I2(\clk_div_reg_n_0_[3] ),
+        .I3(\clk_div[6]_i_2__0_n_0 ),
         .I4(\clk_div_reg_n_0_[5] ),
         .O(clk_div[5]));
   LUT6 #(
-    .INIT(64'h2AAAAAAA80000000)) 
+    .INIT(64'h8AAAAAAA20000000)) 
     \clk_div[6]_i_1 
-       (.I0(\clk_div[9]_i_7_n_0 ),
-        .I1(\clk_div[6]_i_2_n_0 ),
-        .I2(\clk_div_reg_n_0_[4] ),
-        .I3(\clk_div_reg_n_0_[3] ),
-        .I4(\clk_div_reg_n_0_[5] ),
+       (.I0(\clk_div[9]_i_9_n_0 ),
+        .I1(\clk_div[6]_i_2__0_n_0 ),
+        .I2(\clk_div_reg_n_0_[5] ),
+        .I3(\clk_div_reg_n_0_[4] ),
+        .I4(\clk_div_reg_n_0_[3] ),
         .I5(\clk_div_reg_n_0_[6] ),
         .O(clk_div[6]));
-  (* SOFT_HLUTNM = "soft_lutpair335" *) 
+  (* SOFT_HLUTNM = "soft_lutpair329" *) 
   LUT3 #(
-    .INIT(8'h80)) 
-    \clk_div[6]_i_2 
+    .INIT(8'h7F)) 
+    \clk_div[6]_i_2__0 
        (.I0(\clk_div_reg_n_0_[0] ),
-        .I1(\clk_div_reg_n_0_[2] ),
-        .I2(\clk_div_reg_n_0_[1] ),
-        .O(\clk_div[6]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair330" *) 
+        .I1(\clk_div_reg_n_0_[1] ),
+        .I2(\clk_div_reg_n_0_[2] ),
+        .O(\clk_div[6]_i_2__0_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair332" *) 
   LUT4 #(
     .INIT(16'hA208)) 
     \clk_div[7]_i_1__0 
-       (.I0(\clk_div[9]_i_7_n_0 ),
+       (.I0(\clk_div[9]_i_9_n_0 ),
         .I1(\clk_div_reg_n_0_[6] ),
         .I2(\clk_div[9]_i_8_n_0 ),
         .I3(\clk_div_reg_n_0_[7] ),
         .O(clk_div[7]));
-  (* SOFT_HLUTNM = "soft_lutpair330" *) 
+  (* SOFT_HLUTNM = "soft_lutpair332" *) 
   LUT5 #(
     .INIT(32'hAA2A0080)) 
     \clk_div[8]_i_1__0 
-       (.I0(\clk_div[9]_i_7_n_0 ),
+       (.I0(\clk_div[9]_i_9_n_0 ),
         .I1(\clk_div_reg_n_0_[6] ),
         .I2(\clk_div_reg_n_0_[7] ),
         .I3(\clk_div[9]_i_8_n_0 ),
         .I4(p_0_in),
         .O(clk_div[8]));
   LUT6 #(
-    .INIT(64'hFFFCFFFCFFFFFFFE)) 
+    .INIT(64'hFFFFFFFFAAFEFAFE)) 
     \clk_div[9]_i_1 
        (.I0(\clk_div[9]_i_3_n_0 ),
-        .I1(\clk_div[9]_i_4_n_0 ),
-        .I2(\clk_div[9]_i_5_n_0 ),
-        .I3(\FSM_onehot_state_reg_n_0_[7] ),
-        .I4(\FSM_onehot_state_reg_n_0_[1] ),
-        .I5(\clk_div[9]_i_6_n_0 ),
+        .I1(\FSM_onehot_state_reg_n_0_[1] ),
+        .I2(\clk_div[9]_i_4_n_0 ),
+        .I3(\clk_div[9]_i_5_n_0 ),
+        .I4(\clk_div[9]_i_6_n_0 ),
+        .I5(\clk_div[9]_i_7_n_0 ),
         .O(\clk_div[9]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair335" *) 
+  (* SOFT_HLUTNM = "soft_lutpair336" *) 
   LUT5 #(
-    .INIT(32'h00010000)) 
+    .INIT(32'h80000000)) 
     \clk_div[9]_i_10 
-       (.I0(\clk_div[0]_i_3_n_0 ),
-        .I1(\clk_div_reg_n_0_[0] ),
-        .I2(\clk_div_reg_n_0_[2] ),
-        .I3(\clk_div_reg_n_0_[1] ),
-        .I4(\clk_div_reg_n_0_[3] ),
-        .O(\clk_div[9]_i_10_n_0 ));
-  LUT6 #(
-    .INIT(64'h8AAAAAAA20000000)) 
-    \clk_div[9]_i_2 
-       (.I0(\clk_div[9]_i_7_n_0 ),
-        .I1(\clk_div[9]_i_8_n_0 ),
+       (.I0(\clk_div_reg_n_0_[6] ),
+        .I1(\clk_div_reg_n_0_[5] ),
         .I2(\clk_div_reg_n_0_[7] ),
-        .I3(\clk_div_reg_n_0_[6] ),
-        .I4(p_0_in),
-        .I5(\clk_div_reg_n_0_[9] ),
-        .O(clk_div[9]));
-  (* SOFT_HLUTNM = "soft_lutpair334" *) 
-  LUT3 #(
-    .INIT(8'hFE)) 
-    \clk_div[9]_i_3 
-       (.I0(\FSM_onehot_state_reg_n_0_[2] ),
-        .I1(\FSM_onehot_state_reg_n_0_[4] ),
-        .I2(i2c_sda_t),
-        .O(\clk_div[9]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair356" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \clk_div[9]_i_4 
-       (.I0(\FSM_onehot_state_reg_n_0_[6] ),
-        .I1(\pwr_wait_cnt[18]_i_3_n_0 ),
-        .O(\clk_div[9]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair346" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
-    \clk_div[9]_i_5 
-       (.I0(\FSM_onehot_state_reg_n_0_[5] ),
-        .I1(\FSM_onehot_state[7]_i_6_n_0 ),
-        .O(\clk_div[9]_i_5_n_0 ));
-  LUT6 #(
-    .INIT(64'h2020202020202000)) 
-    \clk_div[9]_i_6 
-       (.I0(\FSM_onehot_state[7]_i_5_n_0 ),
-        .I1(\FSM_onehot_state[7]_i_9_n_0 ),
-        .I2(\clk_div_reg_n_0_[5] ),
-        .I3(\clk_div_reg_n_0_[3] ),
-        .I4(\clk_div_reg_n_0_[4] ),
-        .I5(\clk_div[6]_i_2_n_0 ),
-        .O(\clk_div[9]_i_6_n_0 ));
-  LUT3 #(
-    .INIT(8'hBA)) 
-    \clk_div[9]_i_7 
-       (.I0(\clk_div[9]_i_9_n_0 ),
-        .I1(\clk_div[9]_i_10_n_0 ),
-        .I2(\FSM_onehot_state_reg_n_0_[7] ),
-        .O(\clk_div[9]_i_7_n_0 ));
-  LUT6 #(
-    .INIT(64'h7FFFFFFFFFFFFFFF)) 
-    \clk_div[9]_i_8 
-       (.I0(\clk_div_reg_n_0_[1] ),
-        .I1(\clk_div_reg_n_0_[2] ),
-        .I2(\clk_div_reg_n_0_[0] ),
-        .I3(\clk_div_reg_n_0_[4] ),
-        .I4(\clk_div_reg_n_0_[3] ),
-        .I5(\clk_div_reg_n_0_[5] ),
-        .O(\clk_div[9]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair331" *) 
+        .I3(p_0_in),
+        .I4(\clk_div_reg_n_0_[9] ),
+        .O(\clk_div[9]_i_10_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair333" *) 
   LUT5 #(
     .INIT(32'h0000FFFE)) 
-    \clk_div[9]_i_9 
+    \clk_div[9]_i_11 
        (.I0(\FSM_onehot_state_reg_n_0_[2] ),
         .I1(\FSM_onehot_state_reg_n_0_[4] ),
         .I2(i2c_sda_t),
         .I3(\FSM_onehot_state_reg_n_0_[1] ),
-        .I4(\clk_div[2]_i_3_n_0 ),
+        .I4(\clk_div[9]_i_5_n_0 ),
+        .O(\clk_div[9]_i_11_n_0 ));
+  LUT6 #(
+    .INIT(64'hBFFF400000000000)) 
+    \clk_div[9]_i_2 
+       (.I0(\clk_div[9]_i_8_n_0 ),
+        .I1(\clk_div_reg_n_0_[7] ),
+        .I2(\clk_div_reg_n_0_[6] ),
+        .I3(p_0_in),
+        .I4(\clk_div_reg_n_0_[9] ),
+        .I5(\clk_div[9]_i_9_n_0 ),
+        .O(clk_div[9]));
+  (* SOFT_HLUTNM = "soft_lutpair340" *) 
+  LUT4 #(
+    .INIT(16'hFFAE)) 
+    \clk_div[9]_i_3 
+       (.I0(\FSM_onehot_state[7]_i_5_n_0 ),
+        .I1(\FSM_onehot_state_reg_n_0_[5] ),
+        .I2(\FSM_onehot_state[7]_i_7_n_0 ),
+        .I3(\FSM_onehot_state_reg_n_0_[7] ),
+        .O(\clk_div[9]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair335" *) 
+  LUT3 #(
+    .INIT(8'hFE)) 
+    \clk_div[9]_i_4 
+       (.I0(\FSM_onehot_state_reg_n_0_[2] ),
+        .I1(\FSM_onehot_state_reg_n_0_[4] ),
+        .I2(i2c_sda_t),
+        .O(\clk_div[9]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'hAAA8A8A8A8A8A8A8)) 
+    \clk_div[9]_i_5 
+       (.I0(\clk_div[9]_i_10_n_0 ),
+        .I1(\clk_div_reg_n_0_[4] ),
+        .I2(\clk_div_reg_n_0_[3] ),
+        .I3(\clk_div_reg_n_0_[0] ),
+        .I4(\clk_div_reg_n_0_[1] ),
+        .I5(\clk_div_reg_n_0_[2] ),
+        .O(\clk_div[9]_i_5_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair329" *) 
+  LUT5 #(
+    .INIT(32'hFFFFBFFF)) 
+    \clk_div[9]_i_6 
+       (.I0(\FSM_onehot_state[7]_i_10_n_0 ),
+        .I1(\clk_div_reg_n_0_[0] ),
+        .I2(\clk_div_reg_n_0_[1] ),
+        .I3(\clk_div_reg_n_0_[2] ),
+        .I4(\clk_div_reg_n_0_[3] ),
+        .O(\clk_div[9]_i_6_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair360" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \clk_div[9]_i_7 
+       (.I0(\FSM_onehot_state_reg_n_0_[6] ),
+        .I1(\pwr_wait_cnt[18]_i_3_n_0 ),
+        .O(\clk_div[9]_i_7_n_0 ));
+  LUT6 #(
+    .INIT(64'h7FFFFFFFFFFFFFFF)) 
+    \clk_div[9]_i_8 
+       (.I0(\clk_div_reg_n_0_[2] ),
+        .I1(\clk_div_reg_n_0_[1] ),
+        .I2(\clk_div_reg_n_0_[0] ),
+        .I3(\clk_div_reg_n_0_[5] ),
+        .I4(\clk_div_reg_n_0_[4] ),
+        .I5(\clk_div_reg_n_0_[3] ),
+        .O(\clk_div[9]_i_8_n_0 ));
+  LUT3 #(
+    .INIT(8'hBA)) 
+    \clk_div[9]_i_9 
+       (.I0(\clk_div[9]_i_11_n_0 ),
+        .I1(\FSM_onehot_state[7]_i_11_n_0 ),
+        .I2(\FSM_onehot_state_reg_n_0_[7] ),
         .O(\clk_div[9]_i_9_n_0 ));
   FDRE #(
     .INIT(1'b0)) 
@@ -42204,74 +42238,74 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .Q(\clk_div_reg_n_0_[9] ),
         .R(SR));
   LUT6 #(
-    .INIT(64'h300030003000AA00)) 
+    .INIT(64'hCCCA0000000A0000)) 
     \current_byte[0]_i_1 
        (.I0(\current_byte[0]_i_2_n_0 ),
-        .I1(\current_byte[0]_i_3_n_0 ),
-        .I2(\reg_cnt_reg_n_0_[0] ),
-        .I3(i2c_sda_t),
-        .I4(\byte_cnt_reg_n_0_[1] ),
-        .I5(\byte_cnt_reg_n_0_[0] ),
+        .I1(\reg_cnt_reg_n_0_[0] ),
+        .I2(\byte_cnt_reg_n_0_[1] ),
+        .I3(\byte_cnt_reg_n_0_[0] ),
+        .I4(i2c_sda_t),
+        .I5(\current_byte[0]_i_3_n_0 ),
         .O(current_byte[0]));
   LUT6 #(
-    .INIT(64'h0002000200020200)) 
+    .INIT(64'h0011000000140000)) 
     \current_byte[0]_i_2 
-       (.I0(seq_len),
-        .I1(\reg_cnt_reg_n_0_[0] ),
-        .I2(\reg_cnt_reg_n_0_[4] ),
-        .I3(\reg_cnt_reg_n_0_[3] ),
-        .I4(\reg_cnt_reg_n_0_[1] ),
-        .I5(\reg_cnt_reg_n_0_[2] ),
-        .O(\current_byte[0]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair327" *) 
-  LUT5 #(
-    .INIT(32'hFFFFFFF7)) 
-    \current_byte[0]_i_3 
-       (.I0(seq_len),
-        .I1(\reg_cnt_reg_n_0_[1] ),
+       (.I0(\reg_cnt_reg_n_0_[4] ),
+        .I1(\reg_cnt_reg_n_0_[3] ),
         .I2(\reg_cnt_reg_n_0_[2] ),
-        .I3(\reg_cnt_reg_n_0_[4] ),
-        .I4(\reg_cnt_reg_n_0_[3] ),
+        .I3(\reg_cnt_reg_n_0_[0] ),
+        .I4(seq_len),
+        .I5(\reg_cnt_reg_n_0_[1] ),
+        .O(\current_byte[0]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair337" *) 
+  LUT5 #(
+    .INIT(32'h00001000)) 
+    \current_byte[0]_i_3 
+       (.I0(\reg_cnt_reg_n_0_[3] ),
+        .I1(\reg_cnt_reg_n_0_[4] ),
+        .I2(\reg_cnt_reg_n_0_[1] ),
+        .I3(seq_len),
+        .I4(\reg_cnt_reg_n_0_[2] ),
         .O(\current_byte[0]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h5070507050705040)) 
+  (* SOFT_HLUTNM = "soft_lutpair328" *) 
+  LUT5 #(
+    .INIT(32'h50705040)) 
     \current_byte[1]_i_1 
        (.I0(\current_byte[1]_i_2_n_0 ),
         .I1(\byte_cnt_reg_n_0_[0] ),
         .I2(i2c_sda_t),
         .I3(\byte_cnt_reg_n_0_[1] ),
-        .I4(\FSM_onehot_state[7]_i_6_n_0 ),
-        .I5(\current_byte[1]_i_3_n_0 ),
+        .I4(\current_byte[1]_i_3_n_0 ),
         .O(current_byte[1]));
   LUT6 #(
-    .INIT(64'hFFEEFFFFFFCFFFFF)) 
+    .INIT(64'hFFFBFFFBFFF3FFFF)) 
     \current_byte[1]_i_2 
        (.I0(\reg_cnt_reg_n_0_[1] ),
-        .I1(\reg_cnt_reg_n_0_[3] ),
-        .I2(\reg_cnt_reg_n_0_[2] ),
-        .I3(\reg_cnt_reg_n_0_[4] ),
-        .I4(seq_len),
+        .I1(seq_len),
+        .I2(\reg_cnt_reg_n_0_[4] ),
+        .I3(\reg_cnt_reg_n_0_[3] ),
+        .I4(\reg_cnt_reg_n_0_[2] ),
         .I5(\reg_cnt_reg_n_0_[0] ),
         .O(\current_byte[1]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000008A80)) 
+    .INIT(64'h1110001400000000)) 
     \current_byte[1]_i_3 
-       (.I0(seq_len),
-        .I1(\reg_cnt_reg_n_0_[1] ),
-        .I2(\reg_cnt_reg_n_0_[0] ),
-        .I3(\reg_cnt_reg_n_0_[2] ),
-        .I4(\reg_cnt_reg_n_0_[3] ),
-        .I5(\reg_cnt_reg_n_0_[4] ),
+       (.I0(\reg_cnt_reg_n_0_[4] ),
+        .I1(\reg_cnt_reg_n_0_[3] ),
+        .I2(\reg_cnt_reg_n_0_[2] ),
+        .I3(\reg_cnt_reg_n_0_[0] ),
+        .I4(\reg_cnt_reg_n_0_[1] ),
+        .I5(seq_len),
         .O(\current_byte[1]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hF88888888888F888)) 
+    .INIT(64'hF88888888F888888)) 
     \current_byte[2]_i_1 
        (.I0(byte_cnt[0]),
         .I1(\current_byte[2]_i_2_n_0 ),
-        .I2(\current_byte[2]_i_3_n_0 ),
-        .I3(seq_len),
-        .I4(\reg_cnt_reg_n_0_[1] ),
-        .I5(\reg_cnt_reg_n_0_[2] ),
+        .I2(\reg_cnt_reg_n_0_[2] ),
+        .I3(\current_byte[2]_i_3_n_0 ),
+        .I4(seq_len),
+        .I5(\reg_cnt_reg_n_0_[1] ),
         .O(current_byte[2]));
   LUT6 #(
     .INIT(64'h0101000001140000)) 
@@ -42284,52 +42318,44 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I5(\reg_cnt_reg_n_0_[0] ),
         .O(\current_byte[2]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h000000000000E000)) 
+    .INIT(64'h1010100000000000)) 
     \current_byte[2]_i_3 
-       (.I0(\byte_cnt_reg_n_0_[0] ),
-        .I1(\byte_cnt_reg_n_0_[1] ),
+       (.I0(\reg_cnt_reg_n_0_[4] ),
+        .I1(\reg_cnt_reg_n_0_[3] ),
         .I2(i2c_sda_t),
-        .I3(\reg_cnt_reg_n_0_[0] ),
-        .I4(\reg_cnt_reg_n_0_[4] ),
-        .I5(\reg_cnt_reg_n_0_[3] ),
+        .I3(\byte_cnt_reg_n_0_[0] ),
+        .I4(\byte_cnt_reg_n_0_[1] ),
+        .I5(\reg_cnt_reg_n_0_[0] ),
         .O(\current_byte[2]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFF88888F88)) 
+    .INIT(64'hFFFFFFFF8F888888)) 
     \current_byte[3]_i_1 
        (.I0(byte_cnt[0]),
         .I1(\current_byte[3]_i_2_n_0 ),
         .I2(\current_byte[3]_i_3_n_0 ),
-        .I3(\reg_cnt_reg_n_0_[0] ),
-        .I4(\current_byte[3]_i_4_n_0 ),
+        .I3(byte_cnt[1]),
+        .I4(\reg_cnt_reg_n_0_[0] ),
         .I5(\current_byte[4]_i_2_n_0 ),
         .O(current_byte[3]));
   LUT6 #(
-    .INIT(64'h0002000000000028)) 
+    .INIT(64'h0010000001040000)) 
     \current_byte[3]_i_2 
-       (.I0(seq_len),
-        .I1(\reg_cnt_reg_n_0_[1] ),
-        .I2(\reg_cnt_reg_n_0_[3] ),
-        .I3(\reg_cnt_reg_n_0_[4] ),
-        .I4(\reg_cnt_reg_n_0_[0] ),
+       (.I0(\reg_cnt_reg_n_0_[4] ),
+        .I1(\reg_cnt_reg_n_0_[3] ),
+        .I2(\reg_cnt_reg_n_0_[0] ),
+        .I3(\reg_cnt_reg_n_0_[1] ),
+        .I4(seq_len),
         .I5(\reg_cnt_reg_n_0_[2] ),
         .O(\current_byte[3]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair333" *) 
-  LUT3 #(
-    .INIT(8'h1F)) 
-    \current_byte[3]_i_3 
-       (.I0(\byte_cnt_reg_n_0_[0] ),
-        .I1(\byte_cnt_reg_n_0_[1] ),
-        .I2(i2c_sda_t),
-        .O(\current_byte[3]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair327" *) 
+  (* SOFT_HLUTNM = "soft_lutpair337" *) 
   LUT4 #(
-    .INIT(16'hFBFF)) 
-    \current_byte[3]_i_4 
-       (.I0(\reg_cnt_reg_n_0_[3] ),
-        .I1(\reg_cnt_reg_n_0_[2] ),
-        .I2(\reg_cnt_reg_n_0_[4] ),
-        .I3(seq_len),
-        .O(\current_byte[3]_i_4_n_0 ));
+    .INIT(16'hFDFF)) 
+    \current_byte[3]_i_3 
+       (.I0(seq_len),
+        .I1(\reg_cnt_reg_n_0_[4] ),
+        .I2(\reg_cnt_reg_n_0_[3] ),
+        .I3(\reg_cnt_reg_n_0_[2] ),
+        .O(\current_byte[3]_i_3_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFFFFF0020)) 
     \current_byte[4]_i_1 
@@ -42341,26 +42367,26 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I5(\current_byte[4]_i_2_n_0 ),
         .O(current_byte[4]));
   LUT6 #(
-    .INIT(64'hFFFEEEEEEEEEEEEE)) 
+    .INIT(64'hFEFEFEEEEEEEEEEE)) 
     \current_byte[4]_i_2 
        (.I0(\FSM_onehot_state_reg_n_0_[0] ),
         .I1(\FSM_onehot_state_reg_n_0_[5] ),
-        .I2(\byte_cnt_reg_n_0_[0] ),
-        .I3(\byte_cnt_reg_n_0_[1] ),
-        .I4(i2c_sda_t),
+        .I2(i2c_sda_t),
+        .I3(\byte_cnt_reg_n_0_[0] ),
+        .I4(\byte_cnt_reg_n_0_[1] ),
         .I5(\current_byte[4]_i_3_n_0 ),
         .O(\current_byte[4]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h0001000000000000)) 
+    .INIT(64'h0000000000000040)) 
     \current_byte[4]_i_3 
-       (.I0(\reg_cnt_reg_n_0_[0] ),
-        .I1(\reg_cnt_reg_n_0_[3] ),
-        .I2(\reg_cnt_reg_n_0_[4] ),
-        .I3(\reg_cnt_reg_n_0_[2] ),
-        .I4(\reg_cnt_reg_n_0_[1] ),
-        .I5(seq_len),
+       (.I0(\reg_cnt_reg_n_0_[2] ),
+        .I1(seq_len),
+        .I2(\reg_cnt_reg_n_0_[1] ),
+        .I3(\reg_cnt_reg_n_0_[4] ),
+        .I4(\reg_cnt_reg_n_0_[3] ),
+        .I5(\reg_cnt_reg_n_0_[0] ),
         .O(\current_byte[4]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair333" *) 
+  (* SOFT_HLUTNM = "soft_lutpair327" *) 
   LUT5 #(
     .INIT(32'hAABAAAAA)) 
     \current_byte[5]_i_1 
@@ -42371,34 +42397,35 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\current_byte[5]_i_2_n_0 ),
         .O(current_byte[5]));
   LUT6 #(
-    .INIT(64'h0000000000020008)) 
+    .INIT(64'h0000000001040000)) 
     \current_byte[5]_i_2 
-       (.I0(seq_len),
-        .I1(\reg_cnt_reg_n_0_[1] ),
-        .I2(\reg_cnt_reg_n_0_[2] ),
-        .I3(\reg_cnt_reg_n_0_[4] ),
-        .I4(\reg_cnt_reg_n_0_[3] ),
-        .I5(\reg_cnt_reg_n_0_[0] ),
-        .O(\current_byte[5]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000000100000)) 
-    \current_byte[6]_i_1 
-       (.I0(\reg_cnt_reg_n_0_[3] ),
-        .I1(\reg_cnt_reg_n_0_[4] ),
-        .I2(\current_byte[6]_i_2_n_0 ),
+       (.I0(\reg_cnt_reg_n_0_[0] ),
+        .I1(\reg_cnt_reg_n_0_[3] ),
+        .I2(\reg_cnt_reg_n_0_[4] ),
         .I3(\reg_cnt_reg_n_0_[1] ),
         .I4(seq_len),
         .I5(\reg_cnt_reg_n_0_[2] ),
+        .O(\current_byte[5]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000000000010000)) 
+    \current_byte[6]_i_1 
+       (.I0(\current_byte[6]_i_2_n_0 ),
+        .I1(\reg_cnt_reg_n_0_[3] ),
+        .I2(\reg_cnt_reg_n_0_[4] ),
+        .I3(\reg_cnt_reg_n_0_[2] ),
+        .I4(seq_len),
+        .I5(\reg_cnt_reg_n_0_[1] ),
         .O(current_byte[6]));
   (* SOFT_HLUTNM = "soft_lutpair345" *) 
   LUT4 #(
-    .INIT(16'h8880)) 
+    .INIT(16'h57FF)) 
     \current_byte[6]_i_2 
        (.I0(\reg_cnt_reg_n_0_[0] ),
-        .I1(i2c_sda_t),
-        .I2(\byte_cnt_reg_n_0_[1] ),
-        .I3(\byte_cnt_reg_n_0_[0] ),
+        .I1(\byte_cnt_reg_n_0_[1] ),
+        .I2(\byte_cnt_reg_n_0_[0] ),
+        .I3(i2c_sda_t),
         .O(\current_byte[6]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair353" *) 
   LUT3 #(
     .INIT(8'hFE)) 
     \current_byte[7]_i_1 
@@ -42600,42 +42627,41 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
     debounce0_carry_i_4
        (.I0(\debounce_reg_n_0_[1] ),
         .O(debounce0_carry_i_4_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair343" *) 
+  (* SOFT_HLUTNM = "soft_lutpair342" *) 
   LUT2 #(
     .INIT(4'h1)) 
     \debounce[0]_i_1 
        (.I0(\debounce_reg_n_0_[0] ),
         .I1(\debounce[14]_i_2_n_0 ),
         .O(debounce[0]));
-  (* SOFT_HLUTNM = "soft_lutpair354" *) 
+  (* SOFT_HLUTNM = "soft_lutpair357" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \debounce[10]_i_1 
        (.I0(in25[10]),
         .I1(\debounce[14]_i_2_n_0 ),
         .O(debounce[10]));
-  (* SOFT_HLUTNM = "soft_lutpair355" *) 
+  (* SOFT_HLUTNM = "soft_lutpair358" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \debounce[11]_i_1 
        (.I0(in25[11]),
         .I1(\debounce[14]_i_2_n_0 ),
         .O(debounce[11]));
-  (* SOFT_HLUTNM = "soft_lutpair355" *) 
+  (* SOFT_HLUTNM = "soft_lutpair358" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \debounce[12]_i_1 
        (.I0(in25[12]),
         .I1(\debounce[14]_i_2_n_0 ),
         .O(debounce[12]));
-  (* SOFT_HLUTNM = "soft_lutpair339" *) 
-  LUT4 #(
-    .INIT(16'h0F08)) 
+  (* SOFT_HLUTNM = "soft_lutpair348" *) 
+  LUT3 #(
+    .INIT(8'h54)) 
     \debounce[13]_i_1 
-       (.I0(\FSM_onehot_state_reg_n_0_[0] ),
-        .I1(state0),
-        .I2(\debounce[18]_i_3_n_0 ),
-        .I3(in25[13]),
+       (.I0(\debounce[18]_i_3_n_0 ),
+        .I1(is_audio_seq),
+        .I2(in25[13]),
         .O(\debounce[13]_i_1_n_0 ));
   LUT2 #(
     .INIT(4'h2)) 
@@ -42653,32 +42679,29 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I4(\FSM_onehot_state_reg_n_0_[5] ),
         .I5(state0),
         .O(\debounce[14]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair339" *) 
-  LUT4 #(
-    .INIT(16'h0F08)) 
+  (* SOFT_HLUTNM = "soft_lutpair347" *) 
+  LUT3 #(
+    .INIT(8'h54)) 
     \debounce[15]_i_1 
-       (.I0(\FSM_onehot_state_reg_n_0_[0] ),
-        .I1(state0),
-        .I2(\debounce[18]_i_3_n_0 ),
-        .I3(in25[15]),
+       (.I0(\debounce[18]_i_3_n_0 ),
+        .I1(is_audio_seq),
+        .I2(in25[15]),
         .O(\debounce[15]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair340" *) 
-  LUT4 #(
-    .INIT(16'h0F08)) 
+  (* SOFT_HLUTNM = "soft_lutpair347" *) 
+  LUT3 #(
+    .INIT(8'h54)) 
     \debounce[16]_i_1 
-       (.I0(\FSM_onehot_state_reg_n_0_[0] ),
-        .I1(state0),
-        .I2(\debounce[18]_i_3_n_0 ),
-        .I3(in25[16]),
+       (.I0(\debounce[18]_i_3_n_0 ),
+        .I1(is_audio_seq),
+        .I2(in25[16]),
         .O(\debounce[16]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair340" *) 
-  LUT4 #(
-    .INIT(16'h0F08)) 
+  (* SOFT_HLUTNM = "soft_lutpair346" *) 
+  LUT3 #(
+    .INIT(8'h54)) 
     \debounce[17]_i_1 
-       (.I0(\FSM_onehot_state_reg_n_0_[0] ),
-        .I1(state0),
-        .I2(\debounce[18]_i_3_n_0 ),
-        .I3(in25[17]),
+       (.I0(\debounce[18]_i_3_n_0 ),
+        .I1(is_audio_seq),
+        .I2(in25[17]),
         .O(\debounce[17]_i_1_n_0 ));
   LUT4 #(
     .INIT(16'h0F88)) 
@@ -42688,15 +42711,15 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I2(\debounce[18]_i_3_n_0 ),
         .I3(\debounce[18]_i_4_n_0 ),
         .O(\debounce[18]_i_1_n_0 ));
-  LUT4 #(
-    .INIT(16'h0F08)) 
+  (* SOFT_HLUTNM = "soft_lutpair346" *) 
+  LUT3 #(
+    .INIT(8'h54)) 
     \debounce[18]_i_2 
-       (.I0(\FSM_onehot_state_reg_n_0_[0] ),
-        .I1(state0),
-        .I2(\debounce[18]_i_3_n_0 ),
-        .I3(in25[18]),
+       (.I0(\debounce[18]_i_3_n_0 ),
+        .I1(is_audio_seq),
+        .I2(in25[18]),
         .O(\debounce[18]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair336" *) 
+  (* SOFT_HLUTNM = "soft_lutpair338" *) 
   LUT5 #(
     .INIT(32'h00000001)) 
     \debounce[18]_i_3 
@@ -42715,7 +42738,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I3(\debounce_reg_n_0_[3] ),
         .I4(\debounce_reg_n_0_[1] ),
         .O(\debounce[18]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair331" *) 
+  (* SOFT_HLUTNM = "soft_lutpair333" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     \debounce[18]_i_5 
@@ -42742,7 +42765,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I3(\debounce_reg_n_0_[6] ),
         .I4(\debounce[18]_i_9_n_0 ),
         .O(\debounce[18]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair343" *) 
+  (* SOFT_HLUTNM = "soft_lutpair342" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     \debounce[18]_i_8 
@@ -42759,67 +42782,64 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I2(\debounce_reg_n_0_[11] ),
         .I3(\debounce_reg_n_0_[10] ),
         .O(\debounce[18]_i_9_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair351" *) 
+  (* SOFT_HLUTNM = "soft_lutpair354" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \debounce[1]_i_1 
        (.I0(in25[1]),
         .I1(\debounce[14]_i_2_n_0 ),
         .O(debounce[1]));
-  (* SOFT_HLUTNM = "soft_lutpair351" *) 
+  (* SOFT_HLUTNM = "soft_lutpair354" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \debounce[2]_i_1 
        (.I0(in25[2]),
         .I1(\debounce[14]_i_2_n_0 ),
         .O(debounce[2]));
-  (* SOFT_HLUTNM = "soft_lutpair352" *) 
+  (* SOFT_HLUTNM = "soft_lutpair355" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \debounce[3]_i_1 
        (.I0(in25[3]),
         .I1(\debounce[14]_i_2_n_0 ),
         .O(debounce[3]));
-  (* SOFT_HLUTNM = "soft_lutpair352" *) 
+  (* SOFT_HLUTNM = "soft_lutpair355" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \debounce[4]_i_1 
        (.I0(in25[4]),
         .I1(\debounce[14]_i_2_n_0 ),
         .O(debounce[4]));
-  (* SOFT_HLUTNM = "soft_lutpair338" *) 
-  LUT4 #(
-    .INIT(16'h0F08)) 
+  LUT3 #(
+    .INIT(8'h54)) 
     \debounce[5]_i_1 
-       (.I0(\FSM_onehot_state_reg_n_0_[0] ),
-        .I1(state0),
-        .I2(\debounce[18]_i_3_n_0 ),
-        .I3(in25[5]),
+       (.I0(\debounce[18]_i_3_n_0 ),
+        .I1(is_audio_seq),
+        .I2(in25[5]),
         .O(\debounce[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair353" *) 
+  (* SOFT_HLUTNM = "soft_lutpair356" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \debounce[6]_i_1 
        (.I0(in25[6]),
         .I1(\debounce[14]_i_2_n_0 ),
         .O(debounce[6]));
-  (* SOFT_HLUTNM = "soft_lutpair353" *) 
+  (* SOFT_HLUTNM = "soft_lutpair356" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \debounce[7]_i_1 
        (.I0(in25[7]),
         .I1(\debounce[14]_i_2_n_0 ),
         .O(debounce[7]));
-  (* SOFT_HLUTNM = "soft_lutpair338" *) 
-  LUT4 #(
-    .INIT(16'h0F08)) 
+  (* SOFT_HLUTNM = "soft_lutpair348" *) 
+  LUT3 #(
+    .INIT(8'h54)) 
     \debounce[8]_i_1 
-       (.I0(\FSM_onehot_state_reg_n_0_[0] ),
-        .I1(state0),
-        .I2(\debounce[18]_i_3_n_0 ),
-        .I3(in25[8]),
+       (.I0(\debounce[18]_i_3_n_0 ),
+        .I1(is_audio_seq),
+        .I2(in25[8]),
         .O(\debounce[8]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair354" *) 
+  (* SOFT_HLUTNM = "soft_lutpair357" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \debounce[9]_i_1 
@@ -42978,13 +42998,6 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .D(debounce[9]),
         .Q(\debounce_reg_n_0_[9] ),
         .R(SR));
-  (* SOFT_HLUTNM = "soft_lutpair350" *) 
-  LUT2 #(
-    .INIT(4'h4)) 
-    i2c_sda_INST_0
-       (.I0(i2c_sda_t),
-        .I1(dbg_sda_out),
-        .O(i2c_sda));
   LUT3 #(
     .INIT(8'hF8)) 
     is_audio_seq_i_1
@@ -42992,6 +43005,12 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I1(state0),
         .I2(is_audio_seq_reg_n_0),
         .O(is_audio_seq_i_1_n_0));
+  LUT2 #(
+    .INIT(4'h2)) 
+    is_audio_seq_i_2
+       (.I0(btn_center_0),
+        .I1(\debounce[18]_i_4_n_0 ),
+        .O(state0));
   FDRE #(
     .INIT(1'b0)) 
     is_audio_seq_reg
@@ -43040,63 +43059,63 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .DI({1'b0,1'b0,1'b0,1'b0}),
         .O({NLW_pwr_wait_cnt0_carry__3_O_UNCONNECTED[3:2],in28[18:17]}),
         .S({1'b0,1'b0,\pwr_wait_cnt_reg_n_0_[18] ,\pwr_wait_cnt_reg_n_0_[17] }));
-  (* SOFT_HLUTNM = "soft_lutpair344" *) 
+  (* SOFT_HLUTNM = "soft_lutpair343" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \pwr_wait_cnt[0]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(\pwr_wait_cnt_reg_n_0_[0] ),
         .O(pwr_wait_cnt[0]));
-  (* SOFT_HLUTNM = "soft_lutpair360" *) 
+  (* SOFT_HLUTNM = "soft_lutpair364" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[10]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[10]),
         .O(pwr_wait_cnt[10]));
-  (* SOFT_HLUTNM = "soft_lutpair360" *) 
+  (* SOFT_HLUTNM = "soft_lutpair364" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[11]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[11]),
         .O(pwr_wait_cnt[11]));
-  (* SOFT_HLUTNM = "soft_lutpair359" *) 
+  (* SOFT_HLUTNM = "soft_lutpair363" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[12]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[12]),
         .O(pwr_wait_cnt[12]));
-  (* SOFT_HLUTNM = "soft_lutpair359" *) 
+  (* SOFT_HLUTNM = "soft_lutpair363" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[13]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[13]),
         .O(pwr_wait_cnt[13]));
-  (* SOFT_HLUTNM = "soft_lutpair358" *) 
+  (* SOFT_HLUTNM = "soft_lutpair362" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[14]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[14]),
         .O(pwr_wait_cnt[14]));
-  (* SOFT_HLUTNM = "soft_lutpair358" *) 
+  (* SOFT_HLUTNM = "soft_lutpair362" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[15]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[15]),
         .O(pwr_wait_cnt[15]));
-  (* SOFT_HLUTNM = "soft_lutpair357" *) 
+  (* SOFT_HLUTNM = "soft_lutpair361" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[16]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[16]),
         .O(pwr_wait_cnt[16]));
-  (* SOFT_HLUTNM = "soft_lutpair357" *) 
+  (* SOFT_HLUTNM = "soft_lutpair361" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[17]_i_1 
@@ -43108,11 +43127,11 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
     \pwr_wait_cnt[18]_i_1 
        (.I0(\pwr_wait_cnt[18]_i_3_n_0 ),
         .I1(\FSM_onehot_state_reg_n_0_[6] ),
-        .I2(\FSM_onehot_state[7]_i_7_n_0 ),
+        .I2(\FSM_onehot_state[7]_i_8_n_0 ),
         .I3(\FSM_onehot_state_reg_n_0_[5] ),
-        .I4(\FSM_onehot_state[7]_i_6_n_0 ),
+        .I4(\FSM_onehot_state[7]_i_7_n_0 ),
         .O(\pwr_wait_cnt[18]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair356" *) 
+  (* SOFT_HLUTNM = "soft_lutpair360" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[18]_i_2 
@@ -43146,7 +43165,7 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I3(\pwr_wait_cnt_reg_n_0_[18] ),
         .I4(\pwr_wait_cnt[18]_i_7_n_0 ),
         .O(\pwr_wait_cnt[18]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair344" *) 
+  (* SOFT_HLUTNM = "soft_lutpair343" *) 
   LUT4 #(
     .INIT(16'hFFDF)) 
     \pwr_wait_cnt[18]_i_6 
@@ -43169,56 +43188,56 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[1]),
         .O(pwr_wait_cnt[1]));
-  (* SOFT_HLUTNM = "soft_lutpair364" *) 
+  (* SOFT_HLUTNM = "soft_lutpair368" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[2]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[2]),
         .O(pwr_wait_cnt[2]));
-  (* SOFT_HLUTNM = "soft_lutpair364" *) 
+  (* SOFT_HLUTNM = "soft_lutpair368" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[3]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[3]),
         .O(pwr_wait_cnt[3]));
-  (* SOFT_HLUTNM = "soft_lutpair363" *) 
+  (* SOFT_HLUTNM = "soft_lutpair367" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[4]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[4]),
         .O(pwr_wait_cnt[4]));
-  (* SOFT_HLUTNM = "soft_lutpair363" *) 
+  (* SOFT_HLUTNM = "soft_lutpair367" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[5]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[5]),
         .O(pwr_wait_cnt[5]));
-  (* SOFT_HLUTNM = "soft_lutpair362" *) 
+  (* SOFT_HLUTNM = "soft_lutpair366" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[6]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[6]),
         .O(pwr_wait_cnt[6]));
-  (* SOFT_HLUTNM = "soft_lutpair362" *) 
+  (* SOFT_HLUTNM = "soft_lutpair366" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[7]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[7]),
         .O(pwr_wait_cnt[7]));
-  (* SOFT_HLUTNM = "soft_lutpair361" *) 
+  (* SOFT_HLUTNM = "soft_lutpair365" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[8]_i_1 
        (.I0(\FSM_onehot_state_reg_n_0_[6] ),
         .I1(in28[8]),
         .O(pwr_wait_cnt[8]));
-  (* SOFT_HLUTNM = "soft_lutpair361" *) 
+  (* SOFT_HLUTNM = "soft_lutpair365" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \pwr_wait_cnt[9]_i_1 
@@ -43377,72 +43396,77 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .D(pwr_wait_cnt[9]),
         .Q(\pwr_wait_cnt_reg_n_0_[9] ),
         .R(SR));
-  (* SOFT_HLUTNM = "soft_lutpair347" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
+  (* SOFT_HLUTNM = "soft_lutpair349" *) 
+  LUT1 #(
+    .INIT(2'h1)) 
     \reg_cnt[0]_i_1 
-       (.I0(\FSM_onehot_state_reg_n_0_[5] ),
-        .I1(\reg_cnt_reg_n_0_[0] ),
-        .O(reg_cnt[0]));
-  (* SOFT_HLUTNM = "soft_lutpair347" *) 
-  LUT3 #(
-    .INIT(8'h60)) 
+       (.I0(\reg_cnt_reg_n_0_[0] ),
+        .O(\reg_cnt[0]_i_1_n_0 ));
+  LUT6 #(
+    .INIT(64'h7757F7F780A00000)) 
     \reg_cnt[1]_i_1 
-       (.I0(\reg_cnt_reg_n_0_[1] ),
-        .I1(\reg_cnt_reg_n_0_[0] ),
+       (.I0(reset_n),
+        .I1(is_audio_seq),
         .I2(\FSM_onehot_state_reg_n_0_[5] ),
+        .I3(\FSM_onehot_state[7]_i_7_n_0 ),
+        .I4(\reg_cnt_reg_n_0_[0] ),
+        .I5(\reg_cnt_reg_n_0_[1] ),
         .O(\reg_cnt[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair326" *) 
-  LUT4 #(
-    .INIT(16'h2A80)) 
+  (* SOFT_HLUTNM = "soft_lutpair349" *) 
+  LUT3 #(
+    .INIT(8'h6A)) 
     \reg_cnt[2]_i_1 
-       (.I0(\FSM_onehot_state_reg_n_0_[5] ),
-        .I1(\reg_cnt_reg_n_0_[0] ),
-        .I2(\reg_cnt_reg_n_0_[1] ),
-        .I3(\reg_cnt_reg_n_0_[2] ),
-        .O(reg_cnt[2]));
-  (* SOFT_HLUTNM = "soft_lutpair326" *) 
-  LUT5 #(
-    .INIT(32'h7F800000)) 
-    \reg_cnt[3]_i_1 
        (.I0(\reg_cnt_reg_n_0_[2] ),
         .I1(\reg_cnt_reg_n_0_[1] ),
         .I2(\reg_cnt_reg_n_0_[0] ),
-        .I3(\reg_cnt_reg_n_0_[3] ),
-        .I4(\FSM_onehot_state_reg_n_0_[5] ),
+        .O(\reg_cnt[2]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair326" *) 
+  LUT4 #(
+    .INIT(16'h6AAA)) 
+    \reg_cnt[3]_i_1 
+       (.I0(\reg_cnt_reg_n_0_[3] ),
+        .I1(\reg_cnt_reg_n_0_[0] ),
+        .I2(\reg_cnt_reg_n_0_[1] ),
+        .I3(\reg_cnt_reg_n_0_[2] ),
         .O(\reg_cnt[3]_i_1_n_0 ));
-  LUT5 #(
-    .INIT(32'h8080F080)) 
+  LUT3 #(
+    .INIT(8'h08)) 
     \reg_cnt[4]_i_1 
-       (.I0(\FSM_onehot_state_reg_n_0_[0] ),
-        .I1(state0),
-        .I2(reset_n),
-        .I3(\FSM_onehot_state_reg_n_0_[5] ),
-        .I4(\FSM_onehot_state[7]_i_6_n_0 ),
+       (.I0(reset_n),
+        .I1(is_audio_seq),
+        .I2(\FSM_onehot_state_reg_n_0_[5] ),
         .O(\reg_cnt[4]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'h2AAAAAAA80000000)) 
+  LUT4 #(
+    .INIT(16'h88A8)) 
     \reg_cnt[4]_i_2 
-       (.I0(\FSM_onehot_state_reg_n_0_[5] ),
+       (.I0(reset_n),
+        .I1(is_audio_seq),
+        .I2(\FSM_onehot_state_reg_n_0_[5] ),
+        .I3(\FSM_onehot_state[7]_i_7_n_0 ),
+        .O(\reg_cnt[4]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair326" *) 
+  LUT5 #(
+    .INIT(32'h6AAAAAAA)) 
+    \reg_cnt[4]_i_3 
+       (.I0(\reg_cnt_reg_n_0_[4] ),
         .I1(\reg_cnt_reg_n_0_[3] ),
-        .I2(\reg_cnt_reg_n_0_[0] ),
+        .I2(\reg_cnt_reg_n_0_[2] ),
         .I3(\reg_cnt_reg_n_0_[1] ),
-        .I4(\reg_cnt_reg_n_0_[2] ),
-        .I5(\reg_cnt_reg_n_0_[4] ),
-        .O(reg_cnt[4]));
+        .I4(\reg_cnt_reg_n_0_[0] ),
+        .O(\reg_cnt[4]_i_3_n_0 ));
   FDRE #(
     .INIT(1'b0)) 
     \reg_cnt_reg[0] 
        (.C(clk_100Mhz),
-        .CE(\reg_cnt[4]_i_1_n_0 ),
-        .D(reg_cnt[0]),
+        .CE(\reg_cnt[4]_i_2_n_0 ),
+        .D(\reg_cnt[0]_i_1_n_0 ),
         .Q(\reg_cnt_reg_n_0_[0] ),
-        .R(1'b0));
+        .R(\reg_cnt[4]_i_1_n_0 ));
   FDRE #(
     .INIT(1'b0)) 
     \reg_cnt_reg[1] 
        (.C(clk_100Mhz),
-        .CE(\reg_cnt[4]_i_1_n_0 ),
+        .CE(1'b1),
         .D(\reg_cnt[1]_i_1_n_0 ),
         .Q(\reg_cnt_reg_n_0_[1] ),
         .R(1'b0));
@@ -43450,164 +43474,122 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
     .INIT(1'b0)) 
     \reg_cnt_reg[2] 
        (.C(clk_100Mhz),
-        .CE(\reg_cnt[4]_i_1_n_0 ),
-        .D(reg_cnt[2]),
+        .CE(\reg_cnt[4]_i_2_n_0 ),
+        .D(\reg_cnt[2]_i_1_n_0 ),
         .Q(\reg_cnt_reg_n_0_[2] ),
-        .R(1'b0));
+        .R(\reg_cnt[4]_i_1_n_0 ));
   FDRE #(
     .INIT(1'b0)) 
     \reg_cnt_reg[3] 
        (.C(clk_100Mhz),
-        .CE(\reg_cnt[4]_i_1_n_0 ),
+        .CE(\reg_cnt[4]_i_2_n_0 ),
         .D(\reg_cnt[3]_i_1_n_0 ),
         .Q(\reg_cnt_reg_n_0_[3] ),
-        .R(1'b0));
+        .R(\reg_cnt[4]_i_1_n_0 ));
   FDRE #(
     .INIT(1'b0)) 
     \reg_cnt_reg[4] 
        (.C(clk_100Mhz),
-        .CE(\reg_cnt[4]_i_1_n_0 ),
-        .D(reg_cnt[4]),
+        .CE(\reg_cnt[4]_i_2_n_0 ),
+        .D(\reg_cnt[4]_i_3_n_0 ),
         .Q(\reg_cnt_reg_n_0_[4] ),
-        .R(1'b0));
+        .R(\reg_cnt[4]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'hAAAABBABAAAA88A8)) 
+    .INIT(64'hAAAAAAFBAAAAAA08)) 
     scl_out_i_1
        (.I0(scl_out),
         .I1(scl_out_i_3_n_0),
         .I2(scl_out_i_4_n_0),
         .I3(scl_out_i_5_n_0),
         .I4(scl_out_i_6_n_0),
-        .I5(i2c_scl),
+        .I5(dbg_scl_out),
         .O(scl_out_i_1_n_0));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFF7FFFFF)) 
+    .INIT(64'hFFFFFFFDFFFFFFFF)) 
     scl_out_i_10
-       (.I0(\clk_div_reg_n_0_[4] ),
-        .I1(\clk_div_reg_n_0_[3] ),
-        .I2(\clk_div_reg_n_0_[5] ),
-        .I3(p_0_in),
-        .I4(\clk_div_reg_n_0_[7] ),
-        .I5(\clk_div_reg_n_0_[9] ),
-        .O(scl_out_i_10_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair342" *) 
-  LUT2 #(
-    .INIT(4'h7)) 
-    scl_out_i_11
        (.I0(\clk_div_reg_n_0_[7] ),
-        .I1(\clk_div_reg_n_0_[6] ),
+        .I1(p_0_in),
+        .I2(\clk_div_reg_n_0_[9] ),
+        .I3(\clk_div_reg_n_0_[2] ),
+        .I4(\clk_div_reg_n_0_[0] ),
+        .I5(\clk_div_reg_n_0_[1] ),
+        .O(scl_out_i_10_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair330" *) 
+  LUT2 #(
+    .INIT(4'hE)) 
+    scl_out_i_11
+       (.I0(\clk_div_reg_n_0_[1] ),
+        .I1(\clk_div_reg_n_0_[0] ),
         .O(scl_out_i_11_n_0));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFEFFFFFF)) 
-    scl_out_i_12
-       (.I0(\clk_div_reg_n_0_[0] ),
-        .I1(\clk_div_reg_n_0_[1] ),
-        .I2(scl_out_i_15_n_0),
-        .I3(p_0_in),
-        .I4(\clk_div_reg_n_0_[7] ),
-        .I5(scl_out_i_16_n_0),
-        .O(scl_out_i_12_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair328" *) 
-  LUT3 #(
-    .INIT(8'h01)) 
-    scl_out_i_13
-       (.I0(\clk_div_reg_n_0_[0] ),
-        .I1(\clk_div_reg_n_0_[2] ),
-        .I2(\clk_div_reg_n_0_[1] ),
-        .O(scl_out_i_13_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair329" *) 
-  LUT3 #(
-    .INIT(8'hFE)) 
-    scl_out_i_14
-       (.I0(\clk_div_reg_n_0_[5] ),
-        .I1(\clk_div_reg_n_0_[3] ),
-        .I2(\clk_div_reg_n_0_[4] ),
-        .O(scl_out_i_14_n_0));
-  LUT2 #(
-    .INIT(4'hB)) 
-    scl_out_i_15
-       (.I0(\clk_div_reg_n_0_[3] ),
-        .I1(\clk_div_reg_n_0_[2] ),
-        .O(scl_out_i_15_n_0));
-  LUT2 #(
-    .INIT(4'h7)) 
-    scl_out_i_16
-       (.I0(\clk_div_reg_n_0_[5] ),
-        .I1(\clk_div_reg_n_0_[6] ),
-        .O(scl_out_i_16_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair334" *) 
   LUT5 #(
-    .INIT(32'hFFFFFF54)) 
+    .INIT(32'hFBFBFBFA)) 
     scl_out_i_2
-       (.I0(scl_out_i_5_n_0),
-        .I1(i2c_sda_t),
-        .I2(\FSM_onehot_state_reg_n_0_[2] ),
-        .I3(\FSM_onehot_state_reg_n_0_[4] ),
-        .I4(\FSM_onehot_state_reg_n_0_[0] ),
+       (.I0(\FSM_onehot_state_reg_n_0_[0] ),
+        .I1(scl_out_i_4_n_0),
+        .I2(\FSM_onehot_state_reg_n_0_[4] ),
+        .I3(\FSM_onehot_state_reg_n_0_[2] ),
+        .I4(i2c_sda_t),
         .O(scl_out));
+  LUT2 #(
+    .INIT(4'h2)) 
+    scl_out_i_3
+       (.I0(\FSM_onehot_state_reg_n_0_[4] ),
+        .I1(sda_internal_i_6_n_0),
+        .O(scl_out_i_3_n_0));
+  LUT4 #(
+    .INIT(16'h15FF)) 
+    scl_out_i_4
+       (.I0(p_0_in),
+        .I1(\clk_div_reg_n_0_[7] ),
+        .I2(\clk_div_reg_n_0_[6] ),
+        .I3(scl_out_i_7_n_0),
+        .O(scl_out_i_4_n_0));
+  LUT5 #(
+    .INIT(32'hAAAABAAA)) 
+    scl_out_i_5
+       (.I0(\FSM_onehot_state_reg_n_0_[0] ),
+        .I1(scl_out_i_8_n_0),
+        .I2(\clk_div_reg_n_0_[7] ),
+        .I3(\FSM_onehot_state_reg_n_0_[1] ),
+        .I4(\clk_div_reg_n_0_[9] ),
+        .O(scl_out_i_5_n_0));
   LUT5 #(
     .INIT(32'h00E0EEEE)) 
-    scl_out_i_3
+    scl_out_i_6
        (.I0(\FSM_onehot_state_reg_n_0_[2] ),
         .I1(i2c_sda_t),
         .I2(scl_out_i_7_n_0),
-        .I3(scl_out_i_8_n_0),
-        .I4(sda_internal_i_3_n_0),
-        .O(scl_out_i_3_n_0));
-  LUT2 #(
-    .INIT(4'h2)) 
-    scl_out_i_4
-       (.I0(\FSM_onehot_state_reg_n_0_[4] ),
-        .I1(scl_out_i_9_n_0),
-        .O(scl_out_i_4_n_0));
-  LUT6 #(
-    .INIT(64'hFFEFFFEFFFFFFFEF)) 
-    scl_out_i_5
-       (.I0(scl_out_i_10_n_0),
-        .I1(\clk_div_reg_n_0_[0] ),
-        .I2(\clk_div_reg_n_0_[1] ),
-        .I3(\clk_div_reg_n_0_[2] ),
-        .I4(scl_out_i_11_n_0),
-        .I5(p_0_in),
-        .O(scl_out_i_5_n_0));
-  LUT5 #(
-    .INIT(32'hABAAAAAA)) 
-    scl_out_i_6
-       (.I0(\FSM_onehot_state_reg_n_0_[0] ),
-        .I1(scl_out_i_12_n_0),
-        .I2(\clk_div_reg_n_0_[9] ),
-        .I3(\FSM_onehot_state_reg_n_0_[1] ),
-        .I4(\clk_div_reg_n_0_[4] ),
+        .I3(scl_out_i_9_n_0),
+        .I4(sda_internal_i_4_n_0),
         .O(scl_out_i_6_n_0));
-  LUT6 #(
-    .INIT(64'h1000000000000000)) 
+  (* SOFT_HLUTNM = "soft_lutpair344" *) 
+  LUT4 #(
+    .INIT(16'h0080)) 
     scl_out_i_7
-       (.I0(\clk_div_reg_n_0_[2] ),
-        .I1(\clk_div_reg_n_0_[0] ),
-        .I2(\clk_div_reg_n_0_[1] ),
-        .I3(\clk_div_reg_n_0_[3] ),
-        .I4(\clk_div_reg_n_0_[7] ),
-        .I5(\clk_div_reg_n_0_[6] ),
-        .O(scl_out_i_7_n_0));
-  LUT6 #(
-    .INIT(64'hFFFFBFFFFFFFFFFE)) 
-    scl_out_i_8
-       (.I0(scl_out_i_10_n_0),
+       (.I0(\clk_div_reg_n_0_[5] ),
         .I1(\clk_div_reg_n_0_[4] ),
         .I2(\clk_div_reg_n_0_[3] ),
-        .I3(\clk_div_reg_n_0_[5] ),
-        .I4(\clk_div_reg_n_0_[0] ),
-        .I5(\clk_div_reg_n_0_[6] ),
+        .I3(scl_out_i_10_n_0),
+        .O(scl_out_i_7_n_0));
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFFF7FF)) 
+    scl_out_i_8
+       (.I0(p_0_in),
+        .I1(\clk_div_reg_n_0_[4] ),
+        .I2(\clk_div_reg_n_0_[3] ),
+        .I3(\clk_div_reg_n_0_[2] ),
+        .I4(scl_out_i_11_n_0),
+        .I5(\clk_div[0]_i_3_n_0 ),
         .O(scl_out_i_8_n_0));
   LUT6 #(
-    .INIT(64'h0000000000000002)) 
+    .INIT(64'hDFFFFFFFFFFFDFFF)) 
     scl_out_i_9
-       (.I0(scl_out_i_13_n_0),
-        .I1(\clk_div_reg_n_0_[9] ),
-        .I2(p_0_in),
-        .I3(\clk_div_reg_n_0_[6] ),
-        .I4(\clk_div_reg_n_0_[7] ),
-        .I5(scl_out_i_14_n_0),
+       (.I0(\clk_div_reg_n_0_[5] ),
+        .I1(\clk_div_reg_n_0_[0] ),
+        .I2(\clk_div_reg_n_0_[6] ),
+        .I3(\clk_div_reg_n_0_[7] ),
+        .I4(\clk_div_reg_n_0_[1] ),
+        .I5(\clk_div_reg_n_0_[3] ),
         .O(scl_out_i_9_n_0));
   FDSE #(
     .INIT(1'b1)) 
@@ -43615,82 +43597,108 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
        (.C(clk_100Mhz),
         .CE(1'b1),
         .D(scl_out_i_1_n_0),
-        .Q(i2c_scl),
+        .Q(dbg_scl_out),
         .S(SR));
   LUT1 #(
     .INIT(2'h1)) 
     sd_reset_INST_0
        (.I0(reset_n),
         .O(SR));
-  LUT5 #(
-    .INIT(32'hAAEFAA20)) 
+  LUT6 #(
+    .INIT(64'hAAAABBABAAAA88A8)) 
     sda_internal_i_1
        (.I0(sda_internal),
         .I1(sda_internal_i_3_n_0),
         .I2(\FSM_onehot_state_reg_n_0_[4] ),
         .I3(sda_internal_i_4_n_0),
-        .I4(dbg_sda_out),
+        .I4(\FSM_onehot_state_reg_n_0_[0] ),
+        .I5(dbg_sda_out),
         .O(sda_internal_i_1_n_0));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFF88F8)) 
+    .INIT(64'hFFFFFFFFFFFFFFFE)) 
+    sda_internal_i_10
+       (.I0(p_0_in),
+        .I1(\clk_div_reg_n_0_[9] ),
+        .I2(\clk_div_reg_n_0_[7] ),
+        .I3(\clk_div_reg_n_0_[5] ),
+        .I4(\clk_div_reg_n_0_[6] ),
+        .I5(sda_internal_i_11_n_0),
+        .O(sda_internal_i_10_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair344" *) 
+  LUT2 #(
+    .INIT(4'hE)) 
+    sda_internal_i_11
+       (.I0(\clk_div_reg_n_0_[4] ),
+        .I1(\clk_div_reg_n_0_[3] ),
+        .O(sda_internal_i_11_n_0));
+  LUT5 #(
+    .INIT(32'hFFFFFFF8)) 
     sda_internal_i_2
        (.I0(\FSM_onehot_state_reg_n_0_[2] ),
         .I1(sda_internal_reg_i_5_n_0),
-        .I2(\FSM_onehot_state_reg_n_0_[4] ),
-        .I3(scl_out_i_9_n_0),
-        .I4(i2c_sda_t),
-        .I5(\FSM_onehot_state_reg_n_0_[0] ),
+        .I2(scl_out_i_3_n_0),
+        .I3(i2c_sda_t),
+        .I4(\FSM_onehot_state_reg_n_0_[0] ),
         .O(sda_internal));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFF7FFF)) 
+  (* SOFT_HLUTNM = "soft_lutpair335" *) 
+  LUT5 #(
+    .INIT(32'hAAAAAAA8)) 
     sda_internal_i_3
-       (.I0(\clk_div_reg_n_0_[6] ),
-        .I1(\clk_div_reg_n_0_[7] ),
-        .I2(\clk_div_reg_n_0_[2] ),
-        .I3(\clk_div_reg_n_0_[5] ),
-        .I4(p_0_in),
-        .I5(sda_internal_i_6_n_0),
+       (.I0(sda_internal_i_6_n_0),
+        .I1(\FSM_onehot_state_reg_n_0_[2] ),
+        .I2(\FSM_onehot_state_reg_n_0_[4] ),
+        .I3(i2c_sda_t),
+        .I4(\FSM_onehot_state_reg_n_0_[1] ),
         .O(sda_internal_i_3_n_0));
   LUT6 #(
-    .INIT(64'hFFFFFFFEAAAAAAAA)) 
+    .INIT(64'hFEEEFEEEFFFFFEEE)) 
     sda_internal_i_4
-       (.I0(\FSM_onehot_state_reg_n_0_[0] ),
-        .I1(\FSM_onehot_state_reg_n_0_[1] ),
-        .I2(i2c_sda_t),
-        .I3(\FSM_onehot_state_reg_n_0_[4] ),
-        .I4(\FSM_onehot_state_reg_n_0_[2] ),
-        .I5(scl_out_i_9_n_0),
-        .O(sda_internal_i_4_n_0));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFF7FF)) 
-    sda_internal_i_6
-       (.I0(\clk_div_reg_n_0_[2] ),
-        .I1(\clk_div_reg_n_0_[9] ),
-        .I2(\clk_div_reg_n_0_[4] ),
+       (.I0(sda_internal_i_7_n_0),
+        .I1(\clk_div_reg_n_0_[4] ),
+        .I2(\clk_div_reg_n_0_[0] ),
         .I3(\clk_div_reg_n_0_[1] ),
-        .I4(\clk_div_reg_n_0_[0] ),
-        .I5(\clk_div[0]_i_2_n_0 ),
+        .I4(\clk_div_reg_n_0_[5] ),
+        .I5(\clk_div_reg_n_0_[3] ),
+        .O(sda_internal_i_4_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair341" *) 
+  LUT4 #(
+    .INIT(16'h0001)) 
+    sda_internal_i_6
+       (.I0(\clk_div_reg_n_0_[1] ),
+        .I1(\clk_div_reg_n_0_[0] ),
+        .I2(\clk_div_reg_n_0_[2] ),
+        .I3(sda_internal_i_10_n_0),
         .O(sda_internal_i_6_n_0));
   LUT6 #(
-    .INIT(64'hAFA0CFCFAFA0C0C0)) 
+    .INIT(64'hFFFFFFFFFF7FFFFF)) 
     sda_internal_i_7
+       (.I0(\clk_div_reg_n_0_[2] ),
+        .I1(\clk_div_reg_n_0_[9] ),
+        .I2(\clk_div_reg_n_0_[1] ),
+        .I3(p_0_in),
+        .I4(\clk_div_reg_n_0_[7] ),
+        .I5(\clk_div[0]_i_3_n_0 ),
+        .O(sda_internal_i_7_n_0));
+  LUT6 #(
+    .INIT(64'hAFA0CFCFAFA0C0C0)) 
+    sda_internal_i_8
        (.I0(\current_byte_reg_n_0_[3] ),
         .I1(\current_byte_reg_n_0_[2] ),
         .I2(\bit_cnt_reg_n_0_[1] ),
         .I3(\current_byte_reg_n_0_[1] ),
         .I4(\bit_cnt_reg_n_0_[0] ),
         .I5(\current_byte_reg_n_0_[0] ),
-        .O(sda_internal_i_7_n_0));
+        .O(sda_internal_i_8_n_0));
   LUT6 #(
     .INIT(64'hAFA0CFCFAFA0C0C0)) 
-    sda_internal_i_8
+    sda_internal_i_9
        (.I0(\current_byte_reg_n_0_[7] ),
         .I1(\current_byte_reg_n_0_[6] ),
         .I2(\bit_cnt_reg_n_0_[1] ),
         .I3(\current_byte_reg_n_0_[5] ),
         .I4(\bit_cnt_reg_n_0_[0] ),
         .I5(\current_byte_reg_n_0_[4] ),
-        .O(sda_internal_i_8_n_0));
+        .O(sda_internal_i_9_n_0));
   FDSE #(
     .INIT(1'b1)) 
     sda_internal_reg
@@ -43700,10 +43708,18 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .Q(dbg_sda_out),
         .S(SR));
   MUXF7 sda_internal_reg_i_5
-       (.I0(sda_internal_i_7_n_0),
-        .I1(sda_internal_i_8_n_0),
+       (.I0(sda_internal_i_8_n_0),
+        .I1(sda_internal_i_9_n_0),
         .O(sda_internal_reg_i_5_n_0),
         .S(\bit_cnt_reg_n_0_[2] ));
+  (* SOFT_HLUTNM = "soft_lutpair359" *) 
+  LUT2 #(
+    .INIT(4'hE)) 
+    sda_iobuf_inst_i_1
+       (.I0(i2c_sda_t),
+        .I1(dbg_sda_out),
+        .O(\FSM_onehot_state_reg[3]_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair350" *) 
   LUT3 #(
     .INIT(8'h7F)) 
     sdclk_i_2
@@ -43711,13 +43727,13 @@ module design_1_top_system_0_1_tas2110_i2c_ctrl
         .I1(pll_locked),
         .I2(amp_is_on_internal),
         .O(reset_n_0));
-  LUT4 #(
-    .INIT(16'hFF80)) 
+  (* SOFT_HLUTNM = "soft_lutpair350" *) 
+  LUT3 #(
+    .INIT(8'hF8)) 
     \seq_len[3]_i_1 
-       (.I0(\FSM_onehot_state_reg_n_0_[0] ),
-        .I1(state0),
-        .I2(reset_n),
-        .I3(seq_len),
+       (.I0(reset_n),
+        .I1(is_audio_seq),
+        .I2(seq_len),
         .O(\seq_len[3]_i_1_n_0 ));
   FDRE #(
     .INIT(1'b0)) 
@@ -43735,8 +43751,6 @@ module design_1_top_system_0_1_top_system
     card_stat,
     \song_idx_reg_reg[1] ,
     \song_idx_reg_reg[0] ,
-    i2c_sda,
-    dbg_sda_out,
     sd_reset,
     \card_type_reg[0] ,
     \card_type_reg[1] ,
@@ -43747,22 +43761,25 @@ module design_1_top_system_0_1_top_system
     ws_int_reg,
     fifo_srst,
     fifo_rd_en,
+    i2c_scl,
+    dbg_scl_out,
     seg_out_0,
     seg_an_0,
     sclk_int_reg,
+    dbg_sda_out,
     led_clk,
     led_data,
-    i2c_scl,
     i2s_dout,
     seg_dp_0,
+    i2c_sda,
     sd_cmd,
     sd_dat0,
     sw0_reset,
     btn_up_0,
     btn_right_0,
     reset_n,
-    fifo_valid,
     fifo_empty,
+    fifo_valid,
     clk_100Mhz,
     btn_left_0,
     btn_down_0,
@@ -43776,8 +43793,6 @@ module design_1_top_system_0_1_top_system
   output [3:0]card_stat;
   output \song_idx_reg_reg[1] ;
   output \song_idx_reg_reg[0] ;
-  output i2c_sda;
-  output dbg_sda_out;
   output sd_reset;
   output \card_type_reg[0] ;
   output \card_type_reg[1] ;
@@ -43788,22 +43803,25 @@ module design_1_top_system_0_1_top_system
   output ws_int_reg;
   output fifo_srst;
   output fifo_rd_en;
+  output i2c_scl;
+  output dbg_scl_out;
   output [6:0]seg_out_0;
   output [7:0]seg_an_0;
   output sclk_int_reg;
+  output dbg_sda_out;
   output led_clk;
   output led_data;
-  output i2c_scl;
   output i2s_dout;
   output seg_dp_0;
+  inout i2c_sda;
   inout sd_cmd;
   input sd_dat0;
   input sw0_reset;
   input btn_up_0;
   input btn_right_0;
   input reset_n;
-  input fifo_valid;
   input fifo_empty;
+  input fifo_valid;
   input clk_100Mhz;
   input btn_left_0;
   input btn_down_0;
@@ -43816,7 +43834,6 @@ module design_1_top_system_0_1_top_system
 
   wire I;
   wire [0:0]LED_out;
-  wire T;
   wire btn_center_0;
   wire btn_down_0;
   wire btn_left_0;
@@ -43828,6 +43845,7 @@ module design_1_top_system_0_1_top_system
   wire clk_100Mhz;
   wire clk_audio;
   wire clk_sd;
+  wire dbg_scl_out;
   wire dbg_sda_out;
   wire digit_sel;
   wire \digit_sel[0]_i_1_n_0 ;
@@ -43857,6 +43875,8 @@ module design_1_top_system_0_1_top_system
   wire inst_apa102_ctrl_n_7;
   wire inst_apa102_ctrl_n_8;
   wire inst_apa102_ctrl_n_9;
+  wire inst_audio_player_n_13;
+  wire inst_tas2110_i2c_n_3;
   wire inst_tas2110_i2c_n_4;
   wire led_clk;
   wire led_data;
@@ -43905,15 +43925,16 @@ module design_1_top_system_0_1_top_system
   wire sw0_reset;
   wire ws_int_reg;
   wire [3:3]NLW_refresh_counter0_carry__2_CO_UNCONNECTED;
+  wire NLW_sda_iobuf_inst_O_UNCONNECTED;
 
-  (* SOFT_HLUTNM = "soft_lutpair370" *) 
+  (* SOFT_HLUTNM = "soft_lutpair374" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \digit_sel[0]_i_1 
        (.I0(digit_sel),
         .I1(\digit_sel_reg_n_0_[0] ),
         .O(\digit_sel[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair365" *) 
+  (* SOFT_HLUTNM = "soft_lutpair369" *) 
   LUT3 #(
     .INIT(8'h78)) 
     \digit_sel[1]_i_1 
@@ -43921,7 +43942,7 @@ module design_1_top_system_0_1_top_system
         .I1(digit_sel),
         .I2(\digit_sel_reg_n_0_[1] ),
         .O(\digit_sel[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair365" *) 
+  (* SOFT_HLUTNM = "soft_lutpair369" *) 
   LUT4 #(
     .INIT(16'h7F80)) 
     \digit_sel[2]_i_1 
@@ -43972,12 +43993,11 @@ module design_1_top_system_0_1_top_system
        (.I(I),
         .LED_out(LED_out),
         .Q(card_stat),
-        .T(T),
         .btn_right_0(btn_right_0),
         .\card_type_reg[0] (\card_type_reg[0] ),
         .\card_type_reg[1] (\card_type_reg[1] ),
         .clk_sd(clk_sd),
-        .\cnt4_reg[7] (inst_tas2110_i2c_n_4),
+        .\cnt4_reg[7] (inst_tas2110_i2c_n_3),
         .fifo_din(fifo_din),
         .fifo_dout(fifo_dout),
         .fifo_empty(fifo_empty),
@@ -43992,6 +44012,7 @@ module design_1_top_system_0_1_top_system
         .sd_cmd_in(sd_cmd_in),
         .sd_dat0(sd_dat0),
         .sdclk_reg(sdclk_reg),
+        .sdcmdoe_reg(inst_audio_player_n_13),
         .\song_idx_reg_reg[0]_0 (\song_idx_reg_reg[0] ),
         .\song_idx_reg_reg[1]_0 (\song_idx_reg_reg[1] ));
   design_1_top_system_0_1_i2s_transceiver inst_i2s_tx
@@ -44003,15 +44024,15 @@ module design_1_top_system_0_1_top_system
         .sclk_int_reg_0(sclk_int_reg),
         .ws_int_reg_0(ws_int_reg));
   design_1_top_system_0_1_tas2110_i2c_ctrl inst_tas2110_i2c
-       (.SR(sd_reset),
+       (.\FSM_onehot_state_reg[3]_0 (inst_tas2110_i2c_n_4),
+        .SR(sd_reset),
         .btn_center_0(btn_center_0),
         .clk_100Mhz(clk_100Mhz),
+        .dbg_scl_out(dbg_scl_out),
         .dbg_sda_out(dbg_sda_out),
-        .i2c_scl(i2c_scl),
-        .i2c_sda(i2c_sda),
         .pll_locked(pll_locked),
         .reset_n(reset_n),
-        .reset_n_0(inst_tas2110_i2c_n_4));
+        .reset_n_0(inst_tas2110_i2c_n_3));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 refresh_counter0_carry
        (.CI(1'b0),
@@ -44221,6 +44242,14 @@ module design_1_top_system_0_1_top_system
         .D(p_1_in[9]),
         .Q(refresh_counter[9]),
         .R(digit_sel));
+  (* CAPACITANCE = "DONT_CARE" *) 
+  (* box_type = "PRIMITIVE" *) 
+  OBUFT #(
+    .IOSTANDARD("DEFAULT")) 
+    scl_obuft_inst
+       (.I(1'b0),
+        .O(i2c_scl),
+        .T(dbg_scl_out));
   (* box_type = "PRIMITIVE" *) 
   IOBUF #(
     .IOSTANDARD("DEFAULT")) 
@@ -44228,8 +44257,16 @@ module design_1_top_system_0_1_top_system
        (.I(I),
         .IO(sd_cmd),
         .O(sd_cmd_in),
-        .T(T));
-  (* SOFT_HLUTNM = "soft_lutpair369" *) 
+        .T(inst_audio_player_n_13));
+  (* box_type = "PRIMITIVE" *) 
+  IOBUF #(
+    .IOSTANDARD("DEFAULT")) 
+    sda_iobuf_inst
+       (.I(1'b0),
+        .IO(i2c_sda),
+        .O(NLW_sda_iobuf_inst_O_UNCONNECTED),
+        .T(inst_tas2110_i2c_n_4));
+  (* SOFT_HLUTNM = "soft_lutpair373" *) 
   LUT3 #(
     .INIT(8'hFE)) 
     \seg_an_0[0]_i_1 
@@ -44237,7 +44274,7 @@ module design_1_top_system_0_1_top_system
         .I1(\digit_sel_reg_n_0_[1] ),
         .I2(\digit_sel_reg_n_0_[2] ),
         .O(\seg_an_0[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair368" *) 
+  (* SOFT_HLUTNM = "soft_lutpair372" *) 
   LUT3 #(
     .INIT(8'hFB)) 
     \seg_an_0[1]_i_1 
@@ -44245,7 +44282,7 @@ module design_1_top_system_0_1_top_system
         .I1(\digit_sel_reg_n_0_[0] ),
         .I2(\digit_sel_reg_n_0_[1] ),
         .O(\seg_an_0[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair370" *) 
+  (* SOFT_HLUTNM = "soft_lutpair374" *) 
   LUT3 #(
     .INIT(8'hFB)) 
     \seg_an_0[2]_i_1 
@@ -44253,7 +44290,7 @@ module design_1_top_system_0_1_top_system
         .I1(\digit_sel_reg_n_0_[1] ),
         .I2(\digit_sel_reg_n_0_[0] ),
         .O(\seg_an_0[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair369" *) 
+  (* SOFT_HLUTNM = "soft_lutpair373" *) 
   LUT3 #(
     .INIT(8'hBF)) 
     \seg_an_0[3]_i_1 
@@ -44261,7 +44298,7 @@ module design_1_top_system_0_1_top_system
         .I1(\digit_sel_reg_n_0_[1] ),
         .I2(\digit_sel_reg_n_0_[0] ),
         .O(\seg_an_0[3]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair367" *) 
+  (* SOFT_HLUTNM = "soft_lutpair371" *) 
   LUT3 #(
     .INIT(8'hEF)) 
     \seg_an_0[4]_i_1 
@@ -44269,7 +44306,7 @@ module design_1_top_system_0_1_top_system
         .I1(\digit_sel_reg_n_0_[0] ),
         .I2(\digit_sel_reg_n_0_[2] ),
         .O(\seg_an_0[4]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair366" *) 
+  (* SOFT_HLUTNM = "soft_lutpair370" *) 
   LUT3 #(
     .INIT(8'hDF)) 
     \seg_an_0[5]_i_1 
@@ -44277,7 +44314,7 @@ module design_1_top_system_0_1_top_system
         .I1(\digit_sel_reg_n_0_[1] ),
         .I2(\digit_sel_reg_n_0_[2] ),
         .O(\seg_an_0[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair367" *) 
+  (* SOFT_HLUTNM = "soft_lutpair371" *) 
   LUT3 #(
     .INIT(8'hDF)) 
     \seg_an_0[6]_i_1 
@@ -44285,7 +44322,7 @@ module design_1_top_system_0_1_top_system
         .I1(\digit_sel_reg_n_0_[0] ),
         .I2(\digit_sel_reg_n_0_[2] ),
         .O(\seg_an_0[6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair368" *) 
+  (* SOFT_HLUTNM = "soft_lutpair372" *) 
   LUT3 #(
     .INIT(8'h7F)) 
     \seg_an_0[7]_i_1 
@@ -44347,7 +44384,7 @@ module design_1_top_system_0_1_top_system
         .D(inst_apa102_ctrl_n_9),
         .Q(seg_dp_0),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair366" *) 
+  (* SOFT_HLUTNM = "soft_lutpair370" *) 
   LUT3 #(
     .INIT(8'h01)) 
     \seg_out_0[4]_i_3 

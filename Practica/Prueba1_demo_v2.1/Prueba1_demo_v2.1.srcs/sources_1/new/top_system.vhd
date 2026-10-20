@@ -93,6 +93,7 @@ architecture Behavioral of top_system is
     -- Señales I2C
     signal i2c_sda_out : STD_LOGIC;
     signal i2c_sda_t   : STD_LOGIC;
+    signal i2c_sda_tri : STD_LOGIC;
     signal i2c_scl_internal : STD_LOGIC;
     signal amp_is_on_internal : STD_LOGIC;
 
@@ -224,12 +225,30 @@ begin
             amp_is_on  => amp_is_on_internal
         );
 
-    -- Lógica de salida I2C en Drenador Abierto (Open-Drain):
-    -- La FPGA solo conduce activamente '0' a masa (NMOS activo).
-    -- En nivel alto ('1'), pone alta impedancia 'Z' (PMOS apagado),
-    -- dejando que la línea suba exclusivamente por la resistencia de pull-up interna de la FPGA.
-    i2c_scl <= '0' when i2c_scl_internal = '0' else 'Z';
-    i2c_sda <= '0' when (i2c_sda_out = '0' and i2c_sda_t = '0') else 'Z';
+    -- Lógica de salida I2C en Drenador Abierto (Open-Drain) mediante primitivas UNISIM:
+    -- Se instancian explícitamente OBUFT e IOBUF para evitar que la síntesis Out-of-Context (OOC)
+    -- del Block Design de Vivado convierta la alta impedancia 'Z' en lógica '0' constante.
+
+    -- SCL Open-Drain:
+    -- Cuando i2c_scl_internal = '0' -> T = '0' -> Conduce I='0' a masa (GND).
+    -- Cuando i2c_scl_internal = '1' -> T = '1' -> Alta impedancia 'Z' (sube por pull-up interno).
+    scl_obuft_inst : OBUFT
+    port map (
+        O => i2c_scl,             -- Conectado al pin físico de salida (D14)
+        I => '0',                 -- Conduce nivel bajo activo
+        T => i2c_scl_internal     -- '1' = High-Z ('Z'), '0' = Conduce a masa
+    );
+
+    -- SDA Open-Drain:
+    i2c_sda_tri <= '0' when (i2c_sda_out = '0' and i2c_sda_t = '0') else '1';
+
+    sda_iobuf_inst : IOBUF
+    port map (
+        O  => open,               -- No se usa lectura de SDA en el controlador del TAS2110
+        IO => i2c_sda,            -- Puerto bidireccional físico (F16)
+        I  => '0',                -- Conduce nivel bajo activo
+        T  => i2c_sda_tri         -- '0' = Conduce a masa, '1' = High-Z ('Z')
+    );
 
     -- Asignar las señales internas a los puertos de salida del Block Design
     dbg_sda_out <= dbg_sda_out_internal;
