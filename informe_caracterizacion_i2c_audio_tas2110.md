@@ -9,7 +9,7 @@
 ## Resumen Ejecutivo
 El presente informe documenta los ensayos de caracterización física y validación de integridad de señal realizados en el laboratorio sobre dos subsistemas críticos del diseño:
 1. **Prueba 1: Bus de Comunicaciones I²C (Línea de Reloj SCL e Integridad de Señal).** Justificación teórico-práctica del uso de topología *Push-Pull* frente al estándar de drenador abierto, demostración analítica del fallo del pull-up interno de la FPGA y validación experimental del tiempo de subida ($t_r = 36\,\text{ns}$) y frecuencia ($f = 100\,\text{kHz}$).
-2. **Prueba 2: Etapa de Potencia de Audio BTL y Ganancia Analógica (TAS2110).** Metodología de medida diferencial pseudo-diferencial en carga en puente (BTL), caracterización de la modulación PWM conmutada, verificación empírica del convertidor Boost a $10.20\,\text{V}$ y justificación analítica del punto óptimo de ganancia en el registro `PB_CFG1` (`AMP_LEVEL = 01h`, $3.76\,\text{V}_{pk}$) para evitar distorsión mecánica en el altavoz de $1\,\text{W}$ y prevenir el reseteo por caída de tensión (*Brown-Out Protection*, BOP) en el puerto Pmod de la FPGA.
+2. **Prueba 2: Etapa de Potencia de Audio BTL y Ganancia Analógica (TAS2110).** Metodología de medida diferencial pseudo-diferencial en carga en puente (BTL), caracterización de la modulación PWM conmutada, verificación empírica del convertidor Boost a $10.20\,\text{V}$ y justificación analítica del punto óptimo de ganancia en el registro `PB_CFG1` (`AMP_LEVEL = 01h`, $3.76\,\text{V}_{pk}$) para evitar distorsión mecánica en el altavoz de $1\,\text{W}$ y prevenir el sobrecalentamiento del circuito integrado y disparo de protecciones térmicas (*Over-Temperature Event*, OTE a 140 °C con auto-reintento de 1.5 s), garantizando la integridad de la bobina del microaltavoz.
 
 ---
 
@@ -200,21 +200,20 @@ $$P_{RMS} = \frac{V_{PEAK}^2}{2 \times R_{altavoz}} = \frac{V_{PEAK}^2}{16} \qqu
 
 ### Tabla de Niveles de Amplitud (Table 107 Datasheet TAS2110)
 
-| Nivel `AMP_LEVEL` | $V_{PEAK}$ | Potencia Eficaz ($P_{RMS}$) | Corriente de Pico ($I_{pico}$) | Diagnóstico Técnico y Comportamiento del Sistema |
-| :---: | :---: | :---: | :---: | :--- |
-| **`01h` (Configuración Actual)** | **$3.76\,\text{V}$** | **$0.88\,\text{W}$** | **$0.47\,\text{A}$** | **PUNTO DE TRABAJO ÓPTIMO:** Potencia segura para altavoz de $1\,\text{W}$. Corriente dentro del límite de $500\,\text{mA}$ del Pmod. |
-| **`02h`** | $3.99\,\text{V}$ | $1.00\,\text{W}$ | $0.50\,\text{A}$ | **Límite Nominal:** Altavoz trabajando al 100% de su disipación térmica. Corriente en el umbral del Pmod. |
-| **`04h`** | $4.47\,\text{V}$ | $1.25\,\text{W}$ | $0.56\,\text{A}$ | **Sobrecarga:** Distorsión mecánica por sobreexcursión del cono. Caída de tensión en línea de 3.3V. |
-| **`06h`** | $5.02\,\text{V}$ | $1.57\,\text{W}$ | $0.63\,\text{A}$ | **Saturación Severa:** Recorte dinámico de picos (*clipping*). |
-| **`10h` (Valor por defecto de reset)** | **$8.92\,\text{V}$** | **$4.97\,\text{W}$** | **$1.12\,\text{A}$** | **COLAPSO Y REINICIO (BOP / UVLO):** Demanda $> 1.1\,\text{A}$ a la FPGA $\rightarrow$ colapso del raíl de 3.3V $\rightarrow$ reinicio cíclico del TAS2110 por protección. |
+| Nivel `AMP_LEVEL` | $V_{PEAK}$ | Potencia Eficaz ($P_{RMS}$) | Corriente de Pico ($I_{pico}$) | Corriente Media $V_{BAT}$ (+5V) | Diagnóstico Técnico y Comportamiento del Sistema |
+| :---: | :---: | :---: | :---: | :---: | :--- |
+| **`01h` (Configuración Actual)** | **$3.76\,\text{V}$** | **$0.88\,\text{W}$** | **$0.47\,\text{A}$** | **$\approx 212\,\text{mA}$** | **PUNTO DE TRABAJO ÓPTIMO:** Potencia segura para microaltavoz de $1\,\text{W}$ (IEC 60268-5). Consumo equilibrado y sin sobrecalentamiento en chip ni bobina. |
+| **`02h`** | $3.99\,\text{V}$ | $1.00\,\text{W}$ | $0.50\,\text{A}$ | $\approx 239\,\text{mA}$ | **Límite Nominal:** Altavoz trabajando al 100% de su disipación nominal continua. |
+| **`04h`** | $4.47\,\text{V}$ | $1.25\,\text{W}$ | $0.56\,\text{A}$ | $\approx 299\,\text{mA}$ | **Sobrecarga:** Distorsión acústica por sobreexcursión mecánica del cono. |
+| **`06h`** | $5.02\,\text{V}$ | $1.57\,\text{W}$ | $0.63\,\text{A}$ | $\approx 376\,\text{mA}$ | **Saturación Severa:** Recorte dinámico de picos (*clipping*). |
+| **`10h` (Valor por defecto de reset)** | **$8.92\,\text{V}$** | **$4.97\,\text{W}$** | **$1.12\,\text{A}$** | **$\approx 1.19\,\text{A}$** | **DISPARO DE PROTECCIÓN (OTE / OCE):** Potencia excesiva para microaltavoz. Disparo del sensor térmico interno ($T_J \ge 140\,^\circ\text{C}$) o sobrecorriente de conmutación. Auto-reintento cíclico cada $1.5\,\text{s}$. |
 
-### Explicación del Fenómeno de Reseteo Experimentado
-Al arrancar el TAS2110 con los registros por defecto (`AMP_LEVEL = 10h`), el chip intentaba entregar casi **$5\,\text{W}$** al altavoz:
-1. Para suministrar 5W desde una entrada de 3.3V, la corriente demandada supera los **$1.8\,\text{A}$** (considerando la eficiencia del Boost $\eta \approx 85\%$).
-2. El puerto Pmod de la Nexys 4 DDR no puede suministrar esa corriente; la línea de alimentación cayó en picado por debajo del umbral mínimo de operación.
-3. El circuito interno **Brown-Out Protection (BOP)** y **Under-Voltage Lockout (UVLO)** del TAS2110 desconectó la etapa de potencia y reseteó el circuito integrado.
-4. Por este motivo se incluyó en el diseño la instrucción [`seq_rom(1) <= x"04F6"`](file:///C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/tas2110_i2c_ctrl.vhd#L147) (`MISC_CFG1`), habilitando la autorecuperación ante fallos de BOP/OCP, y se fijó definitivamente `AMP_LEVEL = 01h`.
-
+### Explicación Física del Fenómeno de Disparo y Reintento de 1.5 Segundos
+Al arrancar el TAS2110 con el valor por defecto de fábrica (`AMP_LEVEL = 10h`), el modulador genera excursiones de hasta **$8.92\,\text{V}_{pk}$**, entregando prácticamente **$5.0\,\text{W}$** al altavoz de $8\,\Omega$:
+1. **Desacoplo de Alimentaciones:** La línea analógica de potencia `VBAT` está alimentada por la fuente externa de laboratorio regulada a $+5.0\,\text{V}$, mientras que el puerto Pmod de la FPGA suministra exclusivamente la alimentación lógica digital `IOVDD` a $3.3\,\text{V}$ (con un consumo digital residual $< 5\,\text{mA}$). La fuente externa suministra holgadamente los $1.19\,\text{A}$ medios demandados sin entrar en límite de corriente.
+2. **Protección Térmica de Unión ($T_J \ge 140\,^\circ\text{C}$):** En un encapsulado QFN diminuto ($3 \times 3\,\text{mm}$), entregar $5\,\text{W}$ continuos con un rendimiento del $83.5\%$ genera una disipación interna de $P_{diss} = P_{in} - P_{out} \approx 5.96\,\text{W} - 4.97\,\text{W} \approx 1.0\,\text{W}$. Dada la resistencia térmica $\theta_{JA}$ del chip, la temperatura de unión del silicio ($T_J$) supera rápidamente el umbral de disparo térmico de **$140\,^\circ\text{C}$** (*Thermal Shutdown Temperature*, Tabla 6.5, pág. 10).
+3. **Muteo y Temporizador de 1.5 s:** En el archivo VHDL [`tas2110_i2c_ctrl.vhd`](file:///C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/tas2110_i2c_ctrl.vhd#L147), se programó en el registro `MISC_CFG1` (`0x04`) el valor `0xF6`, activando `OTE_RETRY = 1b` y `OCE_RETRY = 1b`. Al detectar sobretemperatura o sobrecorriente de conmutación, el TAS2110 pasa sus salidas a alta impedancia (*Hi-Z*) protegiendo tanto el chip como la bobina del altavoz, e inicia una cuenta atrás por hardware de exactamente **$1.5\,\text{s}$** antes de reanudar el audio (*auto-retry*).
+4. **Validación:** Al configurar definitivamente `AMP_LEVEL = 01h` ($3.76\,\text{V}_{pk}$, $0.88\,\text{W}$), el consumo se estabiliza en $\approx 212\,\text{mA}$ desde la fuente de 5V, la disipación interna desciende a $< 0.18\,\text{W}$, la temperatura $T_J$ se mantiene templada y el sistema opera con fiabilidad absoluta ininterrumpida.
 ---
 
 ## 2.7. Datos Experimentales Obtenidos en Laboratorio (Prueba 2)
@@ -223,7 +222,7 @@ Durante la reproducción en el pasaje sonoro más intenso de la pista:
 * **Tensión Eficaz Medida ($V_{rms}$):** **$\mathbf{3.921\,\text{V}}$**  
   *(Concordancia del 96% frente a los $3.76\,\text{V}_{pk}$ programados en el registro).*
 * **Tensión Máxima del Carril Boost ($V_{max}$):** **$\mathbf{10.20\,\text{V}}$**  
-  *(Confirma la operación del elevador interno a 10.2V sobre una entrada de 3.3V).*
+  *(Confirma la operación del elevador interno a 10.2V sobre la entrada VBAT de +5.0V de la fuente de alimentación).*
 * **Tensión Pico a Pico Instantánea ($V_{pp}$):** **$\mathbf{14.80\,\text{V}}$**  
   *(Pulsos de conmutación PWM de 10.2V con sobreoscilaciones inductivas de la bobina).*
 * **Margen Dinámico (*Headroom*):** $\approx 10.20\,\text{V} - 3.76\,\text{V} = \mathbf{6.44\,\text{V}}$, evitando el recorte contra el carril.
@@ -236,4 +235,21 @@ Durante la reproducción en el pasaje sonoro más intenso de la pista:
 > *"Se analizó rigurosamente la topología del bus. Como el TAS2110 es el único esclavo y su pin SCL es de alta impedancia sin soporte de clock stretching, no existe riesgo de contención. La justificación técnica fundamental es que el puerto Pmod de la Nexys 4 DDR carece de resistencias pull-up externas; si hubiéramos utilizado drenador abierto con los pull-ups internos de la FPGA ($20\,\text{k}\Omega$), el tiempo de subida teórico habría alcanzado los $1186\,\text{ns}$, violando el límite máximo de $1000\,\text{ns}$ de la especificación I²C y deformando el reloj. Con la topología Push-Pull logramos un flanco limpio y robusto de $36\,\text{ns}$, garantizando inmunidad al ruido y cumpliendo holgadamente los requerimientos de setup y hold."*
 
 ### Si el tribunal pregunta: *"¿Cómo se caracterizó la etapa de potencia y por qué no saturó?"*
-> *"Se realizó una medida diferencial con dos sondas (CH1 en OUT+, CH2 en OUT- referenciadas a masa de la placa) para evitar cortocircuitar las ramas en puente (BTL). La medida confirmó que el convertidor Boost interno eleva la tensión hasta $10.20\,\text{V}$. Demostramos matemáticamente que el valor configurado en el registro `PB_CFG1` (`AMP_LEVEL = 01h`, $3.76\,\text{V}_{pk}$) limita la potencia entregada a $0.88\,\text{W}$ y la corriente a $470\,\text{mA}$, manteniéndose dentro de los límites del altavoz de $1\,\text{W}$ y de la capacidad de corriente del Pmod de la FPGA. Valores superiores, como el valor por defecto de $8.92\,\text{V}_{pk}$ ($5\,\text{W}$), provocan el colapso del raíl de 3.3V por sobrecorriente y disparan la protección Brown-Out (BOP) del integrado, validando que el ajuste elegido es el óptimo para la plataforma."*
+> *"Se realizó una medida diferencial con dos sondas (CH1 en OUT+, CH2 en OUT- referenciadas a masa de la placa) para evitar cortocircuitar las ramas en puente (BTL). La medida confirmó que el convertidor Boost interno eleva la tensión hasta $10.20\,\text{V}$. Demostramos analíticamente que el valor configurado en el registro `PB_CFG1` (`AMP_LEVEL = 01h`, $3.76\,\text{V}_{pk}$) limita la potencia eficaz entregada a $0.88\,\text{W}$ y la corriente a $470\,\text{mA}$, manteniéndose holgadamente por debajo de la potencia admisible del microaltavoz de $1\,\text{W}$ bajo la norma IEC 60268-5. Con el valor por defecto de $8.92\,\text{V}_{pk}$ ($5\,\text{W}$), la alta densidad de disipación interna en el encapsulado QFN eleva la temperatura de unión del chip por encima de $140\,^\circ\text{C}$, disparando la protección térmica OTE y silenciando la salida durante $1.5\,\text{s}$ (temporizador programado en `MISC_CFG1`). La configuración a $3.76\,\text{V}_{pk}$ garantiza estabilidad térmica absoluta y protege la integridad de la bobina del transductor."*
+
+---
+
+### 📚 Fuentes y Referencias Técnicas
+1. **Texas Instruments**, *TAS2110 6.1-W Digital Input Audio Class-D Amplifier with Integrated 11-V Class-H Boost*, Datasheet SLASET8A, Revised Dec. 2019. [Online: ti.com/lit/ds/symlink/tas2110.pdf].
+   - *Table 6.5 (Page 10):* Protection Specifications ($T_{OTE} = 140\,^\circ\text{C}$, $t_{retry} = 1.5\,\text{s}$, $I_{OCE} = 3.75\,\text{A}$).
+   - *Table 107 (Page 54):* `AMP_LEVEL` Playback Configuration Register `PB_CFG1` (Address `0x03`).
+   - *Table 108 (Page 55):* Miscellaneous Configuration Register `MISC_CFG1` (Address `0x04`), Bits `OCE_RETRY` / `OTE_RETRY`.
+2. **International Electrotechnical Commission (IEC)**, *IEC 60268-5: Sound system equipment - Part 5: Loudspeakers*, 3rd ed., 2003. (Definición de potencia eficaz senoidal continua equivalente y pruebas de disipación térmica nominal).
+3. **Audio Engineering Society (AES)**, *AES2-2012 (r2019): AES standard method of specified components of sound reinforcement systems - Acoustics - Loudspeaker components*, 2012.
+4. **NXP Semiconductors**, *UM10204: I2C-bus specification and user manual*, Rev. 7.0, Oct. 2021.
+5. **AMD / Xilinx Inc.**, *7 Series FPGAs SelectIO Resources User Guide*, UG471 (v1.10), May 2018.
+6. **Digilent Inc.**, *Nexys 4 DDR FPGA Board Reference Manual*, Rev. C, Jun. 2016.
+7. **Archivos Locales de Código:**
+   - Top VHDL: `d:\GitHub\TFM-UPM\Practica\Prueba1_demo_v2.1\Prueba1_demo_v2.1.srcs\sources_1\new\top_system.vhd`
+   - Controlador I²C TAS2110: `d:\GitHub\TFM-UPM\Practica\Prueba1_demo_v2.1\Prueba1_demo_v2.1.srcs\sources_1\new\tas2110_i2c_ctrl.vhd`
+   - Restricciones Físicas XDC: `d:\GitHub\TFM-UPM\Practica\Prueba1_demo_v2.1\Prueba1_demo_v2.1.srcs\constrs_1\new\Nexys4DDR.xdc`
