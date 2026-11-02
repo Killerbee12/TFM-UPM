@@ -1,5 +1,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 library UNISIM;
 use UNISIM.VComponents.all;
@@ -12,6 +13,7 @@ entity top_system is
         reset_n     : in STD_LOGIC;
         pll_locked  : in STD_LOGIC; -- PLL locked signal from clk_wiz_0
         sw0_reset   : in STD_LOGIC; -- Reset APA102
+        sw_amp      : in STD_LOGIC_VECTOR(4 downto 0); -- Switches SW[5:1] para AMP_LEVEL[4:0] (01h a 14h)
         btn_left_0  : in STD_LOGIC;
         btn_right_0 : in STD_LOGIC;
         
@@ -105,6 +107,7 @@ architecture Behavioral of top_system is
     -- Señales extraídas del APA102 para el 7-Segmentos
     signal active_channel : integer range 0 to 3;
     signal current_brightness : STD_LOGIC_VECTOR(4 downto 0);
+    signal amp_level_val      : STD_LOGIC_VECTOR(4 downto 0); -- Nivel AMP_LEVEL[4:0] acotado al rango válido (01h..14h)
     
     -- Función para convertir número a 7 segmentos
     -- Nexys A7: seg_out_0(6 downto 0) = gfedcba, activo bajo ('0' = encendido)
@@ -132,6 +135,13 @@ architecture Behavioral of top_system is
     end function;
 
 begin
+
+    -- Acotación hardware de AMP_LEVEL[4:0] al rango válido del datasheet (Table 107: 01h a 14h)
+    -- Si SW[5:1] = "00000" (00h Reserved) -> se fuerza a "00001" (01h = 3.76 Vpk)
+    -- Si SW[5:1] > 20      (15h..1Fh Reserved) -> se acota al máximo válido "10100" (14h = 11.23 Vpk)
+    amp_level_val <= "00001" when sw_amp = "00000" else
+                     "10100" when unsigned(sw_amp) > 20 else
+                     sw_amp;
 
     inst_apa102_ctrl: entity work.apa102_ctrl
         port map(
@@ -173,7 +183,7 @@ begin
             val_b := current_rgb(23 downto 16);
             val_g := current_rgb(15 downto 8);
             val_r := current_rgb(7 downto 0);
-            brightness_8 := "000" & current_brightness;
+            brightness_8 := "000" & amp_level_val; -- Muestra AMP_LEVEL[4:0] en hexadecimal (01 a 14) en dígitos 1-0
             
             -- Ánodo: solo el dígito activo encendido (activo bajo)
             an_tmp := (others => '1');
@@ -214,6 +224,7 @@ begin
             reset_n    => reset_n,
             btn_tone   => '0', -- Desvinculado del hardware para Demo v2.0
             btn_i2s    => btn_center_0,
+            amp_level  => amp_level_val,
             sda_out    => i2c_sda_out,
             sda_t      => i2c_sda_t,
             i2c_scl    => i2c_scl,

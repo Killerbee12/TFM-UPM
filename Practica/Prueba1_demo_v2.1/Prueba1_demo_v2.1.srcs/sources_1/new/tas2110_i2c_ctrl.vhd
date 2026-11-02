@@ -8,6 +8,7 @@ entity tas2110_i2c_ctrl is
         reset_n    : in STD_LOGIC;
         btn_tone   : in STD_LOGIC; -- Botón para iniciar el pitido (btn_right)
         btn_i2s    : in STD_LOGIC; -- Botón para música ROM (btn_center)
+        amp_level  : in STD_LOGIC_VECTOR(4 downto 0); -- Nivel de amplitud AMP_LEVEL[4:0] (01h a 14h, Table 107)
         
         sda_out    : out STD_LOGIC;
         sda_t      : out STD_LOGIC; -- Tristate enable (1 = high impedance 'Z', 0 = drive)
@@ -152,8 +153,8 @@ begin
                             -- === Paso 1: Configurar Page 0 ===
                             seq_rom(0) <= x"0000"; 
                             
-                            -- === Paso 2: Robustez y Auto-Recovery de Hardware ===
-                            seq_rom(1) <= x"04F6"; -- MISC_CFG1: Auto-Recovery en OCP, BOP y Clock Fault
+                            -- === Paso 2: Configuración de Protecciones (Auto-Recovery Desactivado) ===
+                            seq_rom(1) <= x"04C6"; -- MISC_CFG1 (0x04): OCE_RETRY=0, OTE_RETRY=0 (Sin Auto-Recovery; se apaga fijo ante fallo)
                             seq_rom(2) <= x"3D18"; -- MISC_CFG4: Estabilidad de filtros de reloj
                             
                             -- === Paso 3: Configurar formato I2S Explícito ===
@@ -161,8 +162,9 @@ begin
                             seq_rom(4) <= x"0702"; -- TDM_CFG1: RX_OFFSET=1 (I2S standard)
                             seq_rom(5) <= x"080A"; -- TDM_CFG2: Slot 0, 24-bit word, 32-bit slot
                             
-                            -- === Paso 4: Ganancia Analógica Mínima Exacta (Table 107: 8.5 dBV / 3.76 Vpeak) ===
-                            seq_rom(6) <= x"0302"; -- PB_CFG1: HPF_EN=0 (DC Blocker ON), AMP_LEVEL=01h (3.76 Vpk)
+                            -- === Paso 4: Ganancia Analógica Dinámica según Switches (Table 107: AMP_LEVEL[4:0]) ===
+                            -- Registro PB_CFG1 (0x03): Bit 7='0', Bit 6(HPF_EN)='0', Bits 5..1=AMP_LEVEL[4:0], Bit 0='0'
+                            seq_rom(6) <= x"03" & "00" & amp_level & '0';
                             
                             -- === Paso 5: Encender el amplificador (5ms wait automático) ===
                             seq_rom(7) <= x"020C"; -- PWR_CTL = 0x0C (Active) -> POWER_WAIT
