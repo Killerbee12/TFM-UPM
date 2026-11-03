@@ -9,6 +9,7 @@ entity tas2110_i2c_ctrl is
         btn_tone   : in STD_LOGIC; -- Botón para iniciar el pitido (btn_right)
         btn_i2s    : in STD_LOGIC; -- Botón para música ROM (btn_center)
         amp_level  : in STD_LOGIC_VECTOR(4 downto 0); -- Nivel de amplitud AMP_LEVEL[4:0] (01h a 14h, Table 107)
+        samp_rate  : in STD_LOGIC_VECTOR(2 downto 0); -- Frecuencia de muestreo SAMP_RATE[2:0] (Table 17: 010=24k, 100=48k, 101=96k, 110=192k)
         
         sda_out    : out STD_LOGIC;
         sda_t      : out STD_LOGIC; -- Tristate enable (1 = high impedance 'Z', 0 = drive)
@@ -158,7 +159,7 @@ begin
                             seq_rom(2) <= x"3D18"; -- MISC_CFG4: Estabilidad de filtros de reloj
                             
                             -- === Paso 3: Configurar formato I2S Explícito ===
-                            seq_rom(3) <= x"0601"; -- TDM_CFG0: 48kHz, RX_EDGE=0
+                            seq_rom(3) <= x"06" & "0000" & samp_rate & '1'; -- TDM_CFG0 (0x06): AUTO_RATE=0, SAMP_RATE[2:0]=samp_rate, FRAME_START=1
                             seq_rom(4) <= x"0702"; -- TDM_CFG1: RX_OFFSET=1 (I2S standard)
                             seq_rom(5) <= x"080A"; -- TDM_CFG2: Slot 0, 24-bit word, 32-bit slot
                             

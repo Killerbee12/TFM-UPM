@@ -19,7 +19,9 @@ ENTITY i2s_transceiver IS
     d_width         : INTEGER := 24);
   PORT(
     reset_n     : IN  STD_LOGIC;
-    mclk        : IN  STD_LOGIC;
+    mclk           : IN  STD_LOGIC;
+    mclk_sclk_half : IN  INTEGER RANGE 1 TO 64;   -- Semiperiodo de BCLK en ciclos de mclk (mclk_sclk_ratio / 2)
+    ws_ratio_dyn   : IN  INTEGER RANGE 16 TO 1024; -- Ratio K dinámico (ciclos de BCLK por periodo de LRCLK)
     sclk        : OUT STD_LOGIC;
     ws          : OUT STD_LOGIC;
     sd_tx       : OUT STD_LOGIC;
@@ -36,11 +38,11 @@ ARCHITECTURE logic OF i2s_transceiver IS
   SIGNAL ws_int        : STD_LOGIC := '0';
 
   -- Counter to divide mclk down to sclk toggle rate
-  SIGNAL mclk_cnt      : INTEGER RANGE 0 TO mclk_sclk_ratio/2-1 := 0;
+  SIGNAL mclk_cnt      : INTEGER RANGE 0 TO 64 := 0;
   SIGNAL sclk_toggle   : STD_LOGIC; -- pulses high for one mclk when sclk should toggle
 
   -- Counter of sclk edges within one ws period
-  SIGNAL ws_cnt        : INTEGER RANGE 0 TO sclk_ws_ratio-1 := 0;
+  SIGNAL ws_cnt        : INTEGER RANGE 0 TO 1024 := 0;
 
   -- Bit index for serialization (counts down from d_width to 0)
   SIGNAL bit_cnt       : INTEGER RANGE 0 TO d_width := d_width;
@@ -80,7 +82,7 @@ BEGIN
       ----------------------------------------------------------------
       -- STEP 1: Divide mclk to create sclk toggle events
       ----------------------------------------------------------------
-      IF mclk_cnt = mclk_sclk_ratio/2-1 THEN
+      IF mclk_cnt >= mclk_sclk_half - 1 THEN
         mclk_cnt <= 0;
         sclk_int <= NOT sclk_int;
 
@@ -91,20 +93,20 @@ BEGIN
         ----------------------------------------------------------------
         IF sclk_int = '1' THEN
           -- Advance the word-select counter
-          IF ws_cnt = sclk_ws_ratio - 1 THEN
+          IF ws_cnt >= ws_ratio_dyn - 1 THEN
             ws_cnt <= 0;
           ELSE
             ws_cnt <= ws_cnt + 1;
           END IF;
 
           -- At the boundary, toggle ws and latch new data
-          IF ws_cnt = sclk_ws_ratio/2 - 1 THEN
+          IF ws_cnt = ws_ratio_dyn/2 - 1 THEN
             -- Transitioning from L -> R
             ws_int     <= '1';
             r_tx_shift <= r_data_tx;   -- Latch right channel data
             bit_cnt    <= d_width;     -- Reset bit counter
             sd_tx      <= '0';         -- 1 BCLK delay for standard I2S
-          ELSIF ws_cnt = sclk_ws_ratio - 1 THEN
+          ELSIF ws_cnt >= ws_ratio_dyn - 1 THEN
             -- Transitioning from R -> L
             ws_int     <= '0';
             l_tx_shift <= l_data_tx;   -- Latch left channel data

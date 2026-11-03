@@ -14,6 +14,8 @@ entity top_system is
         pll_locked  : in STD_LOGIC; -- PLL locked signal from clk_wiz_0
         sw0_reset   : in STD_LOGIC; -- Reset APA102
         sw_amp      : in STD_LOGIC_VECTOR(4 downto 0); -- Switches SW[5:1] para AMP_LEVEL[4:0] (01h a 14h)
+        sw_lrclk    : in STD_LOGIC_VECTOR(1 downto 0); -- Switches SW[7:6] para LRCLK (01=24k, 02=48k, 03=96k, 04=192k)
+        sw_bclk     : in STD_LOGIC_VECTOR(2 downto 0); -- Switches SW[10:8] para BCLK (01=3.072M .. 07=24.576M)
         btn_left_0  : in STD_LOGIC;
         btn_right_0 : in STD_LOGIC;
         
@@ -108,6 +110,12 @@ architecture Behavioral of top_system is
     signal active_channel : integer range 0 to 3;
     signal current_brightness : STD_LOGIC_VECTOR(4 downto 0);
     signal amp_level_val      : STD_LOGIC_VECTOR(4 downto 0); -- Nivel AMP_LEVEL[4:0] acotado al rango válido (01h..14h)
+    signal lrclk_disp_code    : STD_LOGIC_VECTOR(7 downto 0); -- Código Hex en Display dig5-dig4 (01 a 04)
+    signal bclk_disp_code     : STD_LOGIC_VECTOR(7 downto 0); -- Código Hex en Display dig3-dig2 (01 a 07)
+    signal samp_rate_val      : STD_LOGIC_VECTOR(2 downto 0); -- Campo SAMP_RATE[2:0] para registro TDM_CFG0 (Table 17)
+    signal mclk_sclk_half_s   : integer range 1 to 64 := 24;  -- Semiperiodo BCLK en ciclos de clk_audio (147.456 MHz)
+    signal k_base_48k         : integer range 64 to 512 := 64;-- Ratio K base a 48 kHz (Table 18: 64 a 512)
+    signal ws_ratio_dyn_s     : integer range 16 to 1024 := 64; -- Ratio K dinámico compensado según LRCLK
     
     -- Función para convertir número a 7 segmentos
     -- Nexys A7: seg_out_0(6 downto 0) = gfedcba, activo bajo ('0' = encendido)
@@ -142,6 +150,56 @@ begin
     amp_level_val <= "00001" when sw_amp = "00000" else
                      "10100" when unsigned(sw_amp) > 20 else
                      sw_amp;
+
+    -- Decodificación de los 3 switches SW[10:8] (sw_bclk) para los 7 valores de BCLK (Table 18 @ clk_audio = 147.456 MHz)
+    with sw_bclk select
+        bclk_disp_code <= x"01" when "000", -- 3.072 MHz (K=64 @ 48kHz)
+                          x"01" when "001", -- 3.072 MHz (K=64 @ 48kHz)
+                          x"02" when "010", -- 4.608 MHz (K=96 @ 48kHz)
+                          x"03" when "011", -- 6.144 MHz (K=128 @ 48kHz)
+                          x"04" when "100", -- 9.216 MHz (K=192 @ 48kHz)
+                          x"05" when "101", -- 12.288 MHz (K=256 @ 48kHz)
+                          x"06" when "110", -- 18.432 MHz (K=384 @ 48kHz)
+                          x"07" when others;-- 24.576 MHz (K=512 @ 48kHz)
+
+    with sw_bclk select
+        mclk_sclk_half_s <= 24 when "000", -- 147.456 MHz / (2*24) = 3.072 MHz
+                            24 when "001", -- 147.456 MHz / (2*24) = 3.072 MHz
+                            16 when "010", -- 147.456 MHz / (2*16) = 4.608 MHz
+                            12 when "011", -- 147.456 MHz / (2*12) = 6.144 MHz
+                            8  when "100", -- 147.456 MHz / (2*8)  = 9.216 MHz
+                            6  when "101", -- 147.456 MHz / (2*6)  = 12.288 MHz
+                            4  when "110", -- 147.456 MHz / (2*4)  = 18.432 MHz
+                            3  when others;-- 147.456 MHz / (2*3)  = 24.576 MHz
+
+    with sw_bclk select
+        k_base_48k <= 64  when "000",
+                      64  when "001",
+                      96  when "010",
+                      128 when "011",
+                      192 when "100",
+                      256 when "101",
+                      384 when "110",
+                      512 when others;
+
+    -- Decodificación de los 2 switches SW[7:6] (sw_lrclk) para LRCLK (Table 17: 24 kHz, 48 kHz, 96 kHz, 192 kHz)
+    with sw_lrclk select
+        lrclk_disp_code <= x"01" when "00", -- 24 kHz (0.5x cámara lenta)
+                           x"02" when "01", -- 48 kHz (1.0x nominal)
+                           x"03" when "10", -- 96 kHz (2.0x rápida)
+                           x"04" when others; -- 192 kHz (4.0x súper-rápida)
+
+    with sw_lrclk select
+        samp_rate_val <= "010" when "00", -- Table 17: 22.05 / 24 kHz
+                         "100" when "01", -- Table 17: 44.1 / 48 kHz
+                         "101" when "10", -- Table 17: 88.2 / 96 kHz
+                         "110" when others; -- Table 17: 176.4 / 192 kHz
+
+    -- Ajuste automático de K (ws_ratio_dyn_s) para mantener BCLK y LRCLK independientes
+    ws_ratio_dyn_s <= k_base_48k * 2 when sw_lrclk = "00" else -- 24 kHz
+                      k_base_48k     when sw_lrclk = "01" else -- 48 kHz
+                      k_base_48k / 2 when sw_lrclk = "10" else -- 96 kHz
+                      k_base_48k / 4;                          -- 192 kHz
 
     inst_apa102_ctrl: entity work.apa102_ctrl
         port map(
@@ -180,8 +238,8 @@ begin
             end if;
             
             -- Extraer valores RGB y brillo
-            val_b := current_rgb(23 downto 16);
-            val_g := current_rgb(15 downto 8);
+            val_b := bclk_disp_code;  -- Dígitos 3-2: Código de frecuencia BCLK (01 a 07)
+            val_g := lrclk_disp_code; -- Dígitos 5-4: Código de frecuencia LRCLK (01 a 04)
             val_r := current_rgb(7 downto 0);
             brightness_8 := "000" & amp_level_val; -- Muestra AMP_LEVEL[4:0] en hexadecimal (01 a 14) en dígitos 1-0
             
@@ -225,6 +283,7 @@ begin
             btn_tone   => '0', -- Desvinculado del hardware para Demo v2.0
             btn_i2s    => btn_center_0,
             amp_level  => amp_level_val,
+            samp_rate  => samp_rate_val,
             sda_out    => i2c_sda_out,
             sda_t      => i2c_sda_t,
             i2c_scl    => i2c_scl,
@@ -313,7 +372,9 @@ begin
         )
         port map(
             reset_n     => pll_locked and reset_n,
-            mclk        => clk_audio, -- Nuevo reloj exacto!
+            mclk           => clk_audio, -- Reloj maestro de 147.456 MHz (de clk_wiz_0)
+            mclk_sclk_half => mclk_sclk_half_s,
+            ws_ratio_dyn   => ws_ratio_dyn_s,
             sclk        => i2s_bclk,
             ws          => i2s_lrclk_internal,
             sd_tx       => i2s_dout,
