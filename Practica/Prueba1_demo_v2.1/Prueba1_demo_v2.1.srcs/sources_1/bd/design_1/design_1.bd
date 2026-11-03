@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x7C7CFAE7C310FFA1",
+      "boundary_crc": "0x855C7356AF5CBB53",
       "device": "xc7a100tcsg324-1",
       "gen_directory": "../../../../Prueba1_demo_v2.1.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -187,6 +187,16 @@
         "direction": "I",
         "left": "4",
         "right": "0"
+      },
+      "sw_lrclk_0": {
+        "direction": "I",
+        "left": "1",
+        "right": "0"
+      },
+      "sw_bclk_0": {
+        "direction": "I",
+        "left": "2",
+        "right": "0"
       }
     },
     "components": {
@@ -254,6 +264,16 @@
           "sw_amp": {
             "direction": "I",
             "left": "4",
+            "right": "0"
+          },
+          "sw_lrclk": {
+            "direction": "I",
+            "left": "1",
+            "right": "0"
+          },
+          "sw_bclk": {
+            "direction": "I",
+            "left": "2",
             "right": "0"
           },
           "btn_left_0": {
@@ -655,6 +675,18 @@
         "ports": [
           "sw_amp_0",
           "top_system_0/sw_amp"
+        ]
+      },
+      "sw_bclk_0_1": {
+        "ports": [
+          "sw_bclk_0",
+          "top_system_0/sw_bclk"
+        ]
+      },
+      "sw_lrclk_0_1": {
+        "ports": [
+          "sw_lrclk_0",
+          "top_system_0/sw_lrclk"
         ]
       },
       "top_system_0_LED_out": {

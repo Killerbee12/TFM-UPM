@@ -62,6 +62,8 @@ ENTITY design_1_top_system_0_1 IS
     pll_locked : IN STD_LOGIC;
     sw0_reset : IN STD_LOGIC;
     sw_amp : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
+    sw_lrclk : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+    sw_bclk : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
     btn_left_0 : IN STD_LOGIC;
     btn_right_0 : IN STD_LOGIC;
     btn_up_0 : IN STD_LOGIC;
@@ -110,6 +112,8 @@ ARCHITECTURE design_1_top_system_0_1_arch OF design_1_top_system_0_1 IS
       pll_locked : IN STD_LOGIC;
       sw0_reset : IN STD_LOGIC;
       sw_amp : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
+      sw_lrclk : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+      sw_bclk : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
       btn_left_0 : IN STD_LOGIC;
       btn_right_0 : IN STD_LOGIC;
       btn_up_0 : IN STD_LOGIC;
@@ -181,6 +185,8 @@ BEGIN
       pll_locked => pll_locked,
       sw0_reset => sw0_reset,
       sw_amp => sw_amp,
+      sw_lrclk => sw_lrclk,
+      sw_bclk => sw_bclk,
       btn_left_0 => btn_left_0,
       btn_right_0 => btn_right_0,
       btn_up_0 => btn_up_0,

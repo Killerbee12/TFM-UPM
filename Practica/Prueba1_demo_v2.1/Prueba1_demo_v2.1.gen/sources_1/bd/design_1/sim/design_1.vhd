@@ -2,7 +2,7 @@
 --Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
---Date        : Tue Nov  3 00:26:25 2026
+--Date        : Tue Nov  3 05:38:53 2026
 --Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 --Command     : generate_target design_1.bd
 --Design      : design_1
@@ -40,7 +40,9 @@ entity design_1 is
     seg_dp_0_0 : out STD_LOGIC;
     seg_out_0_0 : out STD_LOGIC_VECTOR ( 6 downto 0 );
     sw0_reset_0 : in STD_LOGIC;
-    sw_amp_0 : in STD_LOGIC_VECTOR ( 4 downto 0 )
+    sw_amp_0 : in STD_LOGIC_VECTOR ( 4 downto 0 );
+    sw_bclk_0 : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    sw_lrclk_0 : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   attribute CORE_GENERATION_INFO : string;
   attribute CORE_GENERATION_INFO of design_1 : entity is "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=7,numReposBlks=7,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,da_board_cnt=4,da_clkrst_cnt=3,synth_mode=Hierarchical}";
@@ -58,6 +60,8 @@ architecture STRUCTURE of design_1 is
     pll_locked : in STD_LOGIC;
     sw0_reset : in STD_LOGIC;
     sw_amp : in STD_LOGIC_VECTOR ( 4 downto 0 );
+    sw_lrclk : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    sw_bclk : in STD_LOGIC_VECTOR ( 2 downto 0 );
     btn_left_0 : in STD_LOGIC;
     btn_right_0 : in STD_LOGIC;
     btn_up_0 : in STD_LOGIC;
@@ -274,7 +278,9 @@ top_system_0: component design_1_top_system_0_1
       seg_dp_0 => seg_dp_0_0,
       seg_out_0(6 downto 0) => seg_out_0_0(6 downto 0),
       sw0_reset => sw0_reset_0,
-      sw_amp(4 downto 0) => sw_amp_0(4 downto 0)
+      sw_amp(4 downto 0) => sw_amp_0(4 downto 0),
+      sw_bclk(2 downto 0) => sw_bclk_0(2 downto 0),
+      sw_lrclk(1 downto 0) => sw_lrclk_0(1 downto 0)
     );
 util_vector_logic_0: component design_1_util_vector_logic_0_0
      port map (
