@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xE090DFC9CFCF92B5",
+      "boundary_crc": "0x7C7CFAE7C310FFA1",
       "device": "xc7a100tcsg324-1",
       "gen_directory": "../../../../Prueba1_demo_v2.1.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -182,6 +182,11 @@
             "value_src": "default"
           }
         }
+      },
+      "sw_amp_0": {
+        "direction": "I",
+        "left": "4",
+        "right": "0"
       }
     },
     "components": {
@@ -245,6 +250,11 @@
           "sw0_reset": {
             "type": "rst",
             "direction": "I"
+          },
+          "sw_amp": {
+            "direction": "I",
+            "left": "4",
+            "right": "0"
           },
           "btn_left_0": {
             "direction": "I"
@@ -639,6 +649,12 @@
         "ports": [
           "sw0_reset_0",
           "top_system_0/sw0_reset"
+        ]
+      },
+      "sw_amp_0_1": {
+        "ports": [
+          "sw_amp_0",
+          "top_system_0/sw_amp"
         ]
       },
       "top_system_0_LED_out": {
