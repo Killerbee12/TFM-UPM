@@ -8,12 +8,12 @@
   **** SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
   **** IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
   **** SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-  **** Start of session at: Tue Nov  3 05:39:07 2026
+  **** Start of session at: Wed Nov 11 23:31:44 2026
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
     ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 
 source design_1_top_system_0_1.tcl -notrace
-create_project: Time (s): cpu = 00:00:10 ; elapsed = 00:00:07 . Memory (MB): peak = 502.641 ; gain = 218.551
+create_project: Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 503.398 ; gain = 220.750
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/AMD/2025.1/Vivado/data/ip'.
@@ -26,23 +26,23 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100
 INFO: [Device 21-403] Loading part xc7a100tcsg324-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 13856
+INFO: [Synth 8-7075] Helper process launched with PID 20780
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1205.594 ; gain = 492.152
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:09 . Memory (MB): peak = 1205.328 ; gain = 492.617
 ---------------------------------------------------------------------------------
-WARNING: [Synth 8-9112] actual for formal port 't' is neither a static name nor a globally static expression [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:320]
-WARNING: [Synth 8-9112] actual for formal port 'reset_n' is neither a static name nor a globally static expression [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:374]
-INFO: [Synth 8-638] synthesizing module 'design_1_top_system_0_1' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.gen/sources_1/bd/design_1/ip/design_1_top_system_0_1/synth/design_1_top_system_0_1.vhd:103]
-INFO: [Synth 8-3491] module 'top_system' declared at 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:8' bound to instance 'U0' of component 'top_system' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.gen/sources_1/bd/design_1/ip/design_1_top_system_0_1/synth/design_1_top_system_0_1.vhd:179]
-INFO: [Synth 8-638] synthesizing module 'top_system' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:69]
+WARNING: [Synth 8-9112] actual for formal port 't' is neither a static name nor a globally static expression [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:322]
+WARNING: [Synth 8-9112] actual for formal port 'reset_n' is neither a static name nor a globally static expression [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:377]
+INFO: [Synth 8-638] synthesizing module 'design_1_top_system_0_1' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.gen/sources_1/bd/design_1/ip/design_1_top_system_0_1/synth/design_1_top_system_0_1.vhd:104]
+INFO: [Synth 8-3491] module 'top_system' declared at 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:8' bound to instance 'U0' of component 'top_system' [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.gen/sources_1/bd/design_1/ip/design_1_top_system_0_1/synth/design_1_top_system_0_1.vhd:181]
+INFO: [Synth 8-638] synthesizing module 'top_system' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:70]
 INFO: [Synth 8-638] synthesizing module 'apa102_ctrl' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/apa102_ctrl.vhd:22]
 INFO: [Synth 8-256] done synthesizing module 'apa102_ctrl' (0#1) [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/apa102_ctrl.vhd:22]
-INFO: [Synth 8-226] default block is never used [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:261]
-INFO: [Synth 8-226] default block is never used [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:124]
-INFO: [Synth 8-226] default block is never used [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:124]
-INFO: [Synth 8-638] synthesizing module 'tas2110_i2c_ctrl' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/tas2110_i2c_ctrl.vhd:26]
-INFO: [Synth 8-256] done synthesizing module 'tas2110_i2c_ctrl' (0#1) [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/tas2110_i2c_ctrl.vhd:26]
-INFO: [Synth 8-113] binding component instance 'sd_cmd_iobuf' to cell 'IOBUF' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:315]
+INFO: [Synth 8-226] default block is never used [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:262]
+INFO: [Synth 8-226] default block is never used [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:125]
+INFO: [Synth 8-226] default block is never used [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:125]
+INFO: [Synth 8-638] synthesizing module 'tas2110_i2c_ctrl' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/tas2110_i2c_ctrl.vhd:27]
+INFO: [Synth 8-256] done synthesizing module 'tas2110_i2c_ctrl' (0#1) [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/tas2110_i2c_ctrl.vhd:27]
+INFO: [Synth 8-113] binding component instance 'sd_cmd_iobuf' to cell 'IOBUF' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:317]
 INFO: [Synth 8-638] synthesizing module 'audio_player' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/audio_player.vhd:45]
 	Parameter CLK_DIV bound to: 3'b010 
 	Parameter SIMULATE bound to: 0 - type: integer 
@@ -63,8 +63,8 @@ INFO: [Synth 8-6155] done synthesizing module 'sd_file_reader' (0#1) [C:/Users/k
 INFO: [Synth 8-256] done synthesizing module 'audio_player' (0#1) [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/audio_player.vhd:45]
 INFO: [Synth 8-638] synthesizing module 'i2s_transceiver' [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/i2s_transceiver.vhd:35]
 INFO: [Synth 8-256] done synthesizing module 'i2s_transceiver' (0#1) [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/i2s_transceiver.vhd:35]
-INFO: [Synth 8-256] done synthesizing module 'top_system' (0#1) [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:69]
-INFO: [Synth 8-256] done synthesizing module 'design_1_top_system_0_1' (0#1) [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.gen/sources_1/bd/design_1/ip/design_1_top_system_0_1/synth/design_1_top_system_0_1.vhd:103]
+INFO: [Synth 8-256] done synthesizing module 'top_system' (0#1) [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/top_system.vhd:70]
+INFO: [Synth 8-256] done synthesizing module 'design_1_top_system_0_1' (0#1) [c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.gen/sources_1/bd/design_1/ip/design_1_top_system_0_1/synth/design_1_top_system_0_1.vhd:104]
 WARNING: [Synth 8-3848] Net filesystem_type in module/entity sd_reader does not have driver. [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/sd_reader.v:31]
 WARNING: [Synth 8-6014] Unused sequential element sector_content_reg[1] was removed.  [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/sd_file_reader.v:174]
 WARNING: [Synth 8-6014] Unused sequential element sector_content_reg[2] was removed.  [C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.srcs/sources_1/new/sd_file_reader.v:174]
@@ -172,18 +172,18 @@ WARNING: [Synth 8-7129] Port filesystem_type[1] in module sd_reader is either un
 WARNING: [Synth 8-7129] Port filesystem_type[0] in module sd_reader is either unconnected or has no load
 WARNING: [Synth 8-7129] Port btn_tone in module tas2110_i2c_ctrl is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 1450.652 ; gain = 737.211
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:12 . Memory (MB): peak = 1451.949 ; gain = 739.238
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 1450.652 ; gain = 737.211
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:12 . Memory (MB): peak = 1451.949 ; gain = 739.238
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 1450.652 ; gain = 737.211
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:12 . Memory (MB): peak = 1451.949 ; gain = 739.238
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.051 . Memory (MB): peak = 1450.652 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.044 . Memory (MB): peak = 1451.949 ; gain = 0.000
 INFO: [Netlist 29-17] Analyzing 1 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -192,28 +192,28 @@ Processing XDC Constraints
 Initializing timing engine
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1491.668 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1491.570 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 1 instances were transformed.
   IOBUF => IOBUF (IBUF, OBUFT): 1 instance 
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.090 . Memory (MB): peak = 1493.387 ; gain = 1.719
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.079 . Memory (MB): peak = 1494.398 ; gain = 2.828
 INFO: [Designutils 20-5008] Incremental synthesis strategy off
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 1493.387 ; gain = 779.945
+Finished Constraint Validation : Time (s): cpu = 00:00:13 ; elapsed = 00:00:20 . Memory (MB): peak = 1494.398 ; gain = 781.688
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 1493.387 ; gain = 779.945
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:13 ; elapsed = 00:00:20 . Memory (MB): peak = 1494.398 ; gain = 781.688
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 1493.387 ; gain = 779.945
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:13 ; elapsed = 00:00:20 . Memory (MB): peak = 1494.398 ; gain = 781.688
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'apa102_ctrl'
 INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'tas2110_i2c_ctrl'
@@ -262,7 +262,7 @@ INFO: [Synth 8-3354] encoded FSM with state register 'sddat_stat_reg' using enco
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'audio_player'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:22 ; elapsed = 00:00:25 . Memory (MB): peak = 1493.387 ; gain = 779.945
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:15 ; elapsed = 00:00:22 . Memory (MB): peak = 1494.398 ; gain = 781.688
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -294,7 +294,7 @@ Detailed RTL Component Info :
 	               19 Bit    Registers := 2     
 	               18 Bit    Registers := 1     
 	               17 Bit    Registers := 1     
-	               16 Bit    Registers := 17    
+	               16 Bit    Registers := 31    
 	               11 Bit    Registers := 1     
 	               10 Bit    Registers := 1     
 	                9 Bit    Registers := 2     
@@ -417,7 +417,7 @@ WARNING: [Synth 8-7129] Port filesystem_type[1] in module sd_reader is either un
 WARNING: [Synth 8-7129] Port filesystem_type[0] in module sd_reader is either unconnected or has no load
 WARNING: [Synth 8-7129] Port btn_tone in module tas2110_i2c_ctrl is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:46 ; elapsed = 00:00:50 . Memory (MB): peak = 1617.234 ; gain = 903.793
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:29 ; elapsed = 00:00:38 . Memory (MB): peak = 1619.582 ; gain = 906.871
 ---------------------------------------------------------------------------------
  Sort Area is  read_sector_no1_0 : 0 0 : 1632 3217 : Used 1 time 0
  Sort Area is  read_sector_no1_0 : 0 1 : 1585 3217 : Used 1 time 0
@@ -459,19 +459,19 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:53 ; elapsed = 00:00:57 . Memory (MB): peak = 1637.031 ; gain = 923.590
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:34 ; elapsed = 00:00:44 . Memory (MB): peak = 1637.637 ; gain = 924.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:53 ; elapsed = 00:00:58 . Memory (MB): peak = 1642.793 ; gain = 929.352
+Finished Timing Optimization : Time (s): cpu = 00:00:35 ; elapsed = 00:00:45 . Memory (MB): peak = 1643.535 ; gain = 930.824
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:54 ; elapsed = 00:00:59 . Memory (MB): peak = 1727.031 ; gain = 1013.590
+Finished Technology Mapping : Time (s): cpu = 00:00:36 ; elapsed = 00:00:46 . Memory (MB): peak = 1728.324 ; gain = 1015.613
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -488,39 +488,39 @@ Start Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
-CRITICAL WARNING: [Synth 8-5799] Converted tricell instance 'U0i_54' to logic
+CRITICAL WARNING: [Synth 8-5799] Converted tricell instance 'U0i_68' to logic
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:57 ; elapsed = 00:01:02 . Memory (MB): peak = 1875.602 ; gain = 1162.160
+Finished IO Insertion : Time (s): cpu = 00:00:39 ; elapsed = 00:00:48 . Memory (MB): peak = 1876.680 ; gain = 1163.969
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:57 ; elapsed = 00:01:02 . Memory (MB): peak = 1875.602 ; gain = 1162.160
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:39 ; elapsed = 00:00:48 . Memory (MB): peak = 1876.680 ; gain = 1163.969
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:57 ; elapsed = 00:01:02 . Memory (MB): peak = 1875.602 ; gain = 1162.160
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:39 ; elapsed = 00:00:49 . Memory (MB): peak = 1876.680 ; gain = 1163.969
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:57 ; elapsed = 00:01:02 . Memory (MB): peak = 1875.602 ; gain = 1162.160
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:39 ; elapsed = 00:00:49 . Memory (MB): peak = 1876.680 ; gain = 1163.969
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:57 ; elapsed = 00:01:02 . Memory (MB): peak = 1875.602 ; gain = 1162.160
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:39 ; elapsed = 00:00:49 . Memory (MB): peak = 1876.680 ; gain = 1163.969
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:57 ; elapsed = 00:01:02 . Memory (MB): peak = 1875.602 ; gain = 1162.160
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:39 ; elapsed = 00:00:49 . Memory (MB): peak = 1876.680 ; gain = 1163.969
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -556,44 +556,44 @@ Report Cell Usage:
 +------+--------+------+
 |1     |CARRY4  |   177|
 |2     |DSP48E1 |    11|
-|5     |LUT1    |    43|
-|6     |LUT2    |   646|
-|7     |LUT3    |   306|
-|8     |LUT4    |   476|
-|9     |LUT5    |   431|
-|10    |LUT6    |   860|
-|11    |MUXF7   |    10|
+|5     |LUT1    |    44|
+|6     |LUT2    |   636|
+|7     |LUT3    |   308|
+|8     |LUT4    |   475|
+|9     |LUT5    |   434|
+|10    |LUT6    |   881|
+|11    |MUXF7   |     8|
 |12    |FDCE    |  1181|
 |13    |FDPE    |    35|
-|14    |FDRE    |   341|
+|14    |FDRE    |   342|
 |15    |FDSE    |     3|
 |16    |IOBUF   |     1|
 +------+--------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:57 ; elapsed = 00:01:02 . Memory (MB): peak = 1875.602 ; gain = 1162.160
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:39 ; elapsed = 00:00:49 . Memory (MB): peak = 1876.680 ; gain = 1163.969
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 1 critical warnings and 5 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:45 ; elapsed = 00:00:59 . Memory (MB): peak = 1875.602 ; gain = 1119.426
-Synthesis Optimization Complete : Time (s): cpu = 00:00:57 ; elapsed = 00:01:02 . Memory (MB): peak = 1875.602 ; gain = 1162.160
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:31 ; elapsed = 00:00:46 . Memory (MB): peak = 1876.680 ; gain = 1121.520
+Synthesis Optimization Complete : Time (s): cpu = 00:00:39 ; elapsed = 00:00:49 . Memory (MB): peak = 1876.680 ; gain = 1163.969
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.027 . Memory (MB): peak = 1875.602 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 199 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.034 . Memory (MB): peak = 1876.680 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 197 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1888.492 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1889.559 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 1 instances were transformed.
   IOBUF => IOBUF (IBUF, OBUFT): 1 instance 
 
-Synth Design complete | Checksum: fb336c56
+Synth Design complete | Checksum: 7be8d952
 INFO: [Common 17-83] Releasing license: Synthesis
 58 Infos, 115 Warnings, 1 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:01:01 ; elapsed = 00:01:10 . Memory (MB): peak = 1888.492 ; gain = 1370.977
+synth_design: Time (s): cpu = 00:00:42 ; elapsed = 00:01:13 . Memory (MB): peak = 1889.559 ; gain = 1374.395
 INFO: [runtcl-6] Synthesis results are not added to the cache due to CRITICAL_WARNING
 INFO: [Coretcl 2-1174] Renamed 8 cell refs.
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1888.492 ; gain = 0.000
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.013 . Memory (MB): peak = 1889.559 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'C:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.runs/design_1_top_system_0_1_synth_1/design_1_top_system_0_1.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file design_1_top_system_0_1_utilization_synth.rpt -pb design_1_top_system_0_1_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Tue Nov  3 05:40:30 2026...
+INFO: [Common 17-206] Exiting Vivado at Wed Nov 11 23:33:37 2026...

@@ -1,92 +1,94 @@
 {
    "ActiveEmotionalView":"Default View",
    "Default View_ScaleFactor":"1.0",
-   "Default View_TopLeft":"199,221",
+   "Default View_TopLeft":"195,-7",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.8.0 2024-04-26 e1825d835c VDI=44 GEI=38 GUI=JA:21.0
 #  -string -flagsOSRD
 preplace port port-id_clk_100Mhz_0 -pg 1 -lvl 0 -x -40 -y 330 -defaultsOSRD
 preplace port port-id_reset_n_0 -pg 1 -lvl 0 -x -40 -y 390 -defaultsOSRD
-preplace port port-id_led_clk_0 -pg 1 -lvl 5 -x 1710 -y 340 -defaultsOSRD
-preplace port port-id_led_data_0 -pg 1 -lvl 5 -x 1710 -y 370 -defaultsOSRD
-preplace port port-id_seg_dp_0_0 -pg 1 -lvl 5 -x 1710 -y 310 -defaultsOSRD
-preplace port port-id_btn_up_0_0 -pg 1 -lvl 0 -x -40 -y 570 -defaultsOSRD
-preplace port port-id_btn_down_0_0 -pg 1 -lvl 0 -x -40 -y 600 -defaultsOSRD
+preplace port port-id_led_clk_0 -pg 1 -lvl 5 -x 1740 -y 340 -defaultsOSRD
+preplace port port-id_led_data_0 -pg 1 -lvl 5 -x 1740 -y 370 -defaultsOSRD
+preplace port port-id_seg_dp_0_0 -pg 1 -lvl 5 -x 1740 -y 310 -defaultsOSRD
+preplace port port-id_btn_up_0_0 -pg 1 -lvl 0 -x -40 -y 610 -defaultsOSRD
+preplace port port-id_btn_down_0_0 -pg 1 -lvl 0 -x -40 -y 640 -defaultsOSRD
 preplace port port-id_btn_left_0_0 -pg 1 -lvl 0 -x -40 -y 420 -defaultsOSRD
-preplace port port-id_btn_right_0_0 -pg 1 -lvl 0 -x -40 -y 540 -defaultsOSRD
-preplace port port-id_i2c_sda_0 -pg 1 -lvl 5 -x 1710 -y 400 -defaultsOSRD
-preplace port port-id_btn_center_0_0 -pg 1 -lvl 0 -x -40 -y 660 -defaultsOSRD
-preplace port port-id_i2s_bclk_0 -pg 1 -lvl 5 -x 1710 -y 460 -defaultsOSRD
-preplace port port-id_i2s_lrclk_0 -pg 1 -lvl 5 -x 1710 -y 490 -defaultsOSRD
-preplace port port-id_i2s_dout_0 -pg 1 -lvl 5 -x 1710 -y 220 -defaultsOSRD
-preplace port port-id_i2c_scl_0 -pg 1 -lvl 5 -x 1710 -y 430 -defaultsOSRD
-preplace port port-id_sd_dat3_0 -pg 1 -lvl 5 -x 1710 -y 670 -defaultsOSRD
-preplace port port-id_sd_dat2_0 -pg 1 -lvl 5 -x 1710 -y 640 -defaultsOSRD
-preplace port port-id_sd_cmd_0 -pg 1 -lvl 5 -x 1710 -y 550 -defaultsOSRD
-preplace port port-id_sd_clk_0 -pg 1 -lvl 5 -x 1710 -y 610 -defaultsOSRD
-preplace port port-id_sd_dat1_0 -pg 1 -lvl 5 -x 1710 -y 580 -defaultsOSRD
-preplace port port-id_sd_dat0_0 -pg 1 -lvl 0 -x -40 -y 630 -defaultsOSRD
+preplace port port-id_btn_right_0_0 -pg 1 -lvl 0 -x -40 -y 550 -defaultsOSRD
+preplace port port-id_i2c_sda_0 -pg 1 -lvl 5 -x 1740 -y 400 -defaultsOSRD
+preplace port port-id_btn_center_0_0 -pg 1 -lvl 0 -x -40 -y 700 -defaultsOSRD
+preplace port port-id_i2s_bclk_0 -pg 1 -lvl 5 -x 1740 -y 460 -defaultsOSRD
+preplace port port-id_i2s_lrclk_0 -pg 1 -lvl 5 -x 1740 -y 490 -defaultsOSRD
+preplace port port-id_i2s_dout_0 -pg 1 -lvl 5 -x 1740 -y 220 -defaultsOSRD
+preplace port port-id_i2c_scl_0 -pg 1 -lvl 5 -x 1740 -y 430 -defaultsOSRD
+preplace port port-id_sd_dat3_0 -pg 1 -lvl 5 -x 1740 -y 670 -defaultsOSRD
+preplace port port-id_sd_dat2_0 -pg 1 -lvl 5 -x 1740 -y 640 -defaultsOSRD
+preplace port port-id_sd_cmd_0 -pg 1 -lvl 5 -x 1740 -y 550 -defaultsOSRD
+preplace port port-id_sd_clk_0 -pg 1 -lvl 5 -x 1740 -y 610 -defaultsOSRD
+preplace port port-id_sd_dat1_0 -pg 1 -lvl 5 -x 1740 -y 580 -defaultsOSRD
+preplace port port-id_sd_dat0_0 -pg 1 -lvl 0 -x -40 -y 670 -defaultsOSRD
 preplace port port-id_sw0_reset_0 -pg 1 -lvl 0 -x -40 -y 450 -defaultsOSRD
-preplace port port-id_sd_reset_0 -pg 1 -lvl 5 -x 1710 -y 520 -defaultsOSRD
-preplace portBus seg_out_0_0 -pg 1 -lvl 5 -x 1710 -y 250 -defaultsOSRD
-preplace portBus seg_an_0_0 -pg 1 -lvl 5 -x 1710 -y 280 -defaultsOSRD
-preplace portBus LED_out_0 -pg 1 -lvl 5 -x 1710 -y 730 -defaultsOSRD
+preplace port port-id_sd_reset_0 -pg 1 -lvl 5 -x 1740 -y 520 -defaultsOSRD
+preplace port port-id_sw_lim_0 -pg 1 -lvl 0 -x -40 -y 520 -defaultsOSRD
+preplace portBus seg_out_0_0 -pg 1 -lvl 5 -x 1740 -y 250 -defaultsOSRD
+preplace portBus seg_an_0_0 -pg 1 -lvl 5 -x 1740 -y 280 -defaultsOSRD
+preplace portBus LED_out_0 -pg 1 -lvl 5 -x 1740 -y 730 -defaultsOSRD
 preplace portBus sw_amp_0 -pg 1 -lvl 0 -x -40 -y 360 -defaultsOSRD
 preplace portBus sw_lrclk_0 -pg 1 -lvl 0 -x -40 -y 480 -defaultsOSRD
-preplace portBus sw_bclk_0 -pg 1 -lvl 0 -x -40 -y 510 -defaultsOSRD
-preplace inst top_system_0 -pg 1 -lvl 3 -x 1190 -y 530 -defaultsOSRD
-preplace inst system_ila_0 -pg 1 -lvl 4 -x 1560 -y 300 -defaultsOSRD
-preplace inst system_ila_1 -pg 1 -lvl 4 -x 1560 -y 110 -defaultsOSRD
-preplace inst clk_wiz_0 -pg 1 -lvl 2 -x 810 -y 420 -defaultsOSRD
-preplace inst fifo_generator_0 -pg 1 -lvl 2 -x 810 -y 750 -defaultsOSRD
+preplace portBus sw_bclk_0 -pg 1 -lvl 0 -x -40 -y 580 -defaultsOSRD
+preplace inst top_system_0 -pg 1 -lvl 3 -x 1220 -y 530 -defaultsOSRD
+preplace inst system_ila_0 -pg 1 -lvl 4 -x 1590 -y 300 -defaultsOSRD
+preplace inst system_ila_1 -pg 1 -lvl 4 -x 1590 -y 110 -defaultsOSRD
+preplace inst clk_wiz_0 -pg 1 -lvl 2 -x 820 -y 420 -defaultsOSRD
+preplace inst fifo_generator_0 -pg 1 -lvl 2 -x 820 -y 750 -defaultsOSRD
 preplace inst util_vector_logic_0 -pg 1 -lvl 1 -x 430 -y 420 -defaultsOSRD
 preplace inst util_vector_logic_1 -pg 1 -lvl 1 -x 430 -y 690 -defaultsOSRD
-preplace netloc Net 1 3 2 1450J 400 NJ
+preplace netloc Net 1 3 2 1480J 400 NJ
 preplace netloc Net1 1 3 2 NJ 550 NJ
-preplace netloc btn_center_0_0_1 1 0 4 20J 200 N 200 1040 160 NJ
-preplace netloc btn_down_0_0_1 1 0 3 NJ 600 570 590 NJ
-preplace netloc btn_left_0_0_1 1 0 3 10J 530 580 540 1050J
-preplace netloc btn_right_0_0_1 1 0 4 NJ 540 570 550 1000 120 NJ
-preplace netloc btn_up_0_0_1 1 0 3 NJ 570 N 570 NJ
-preplace netloc clk_100Mhz_0_1 1 0 4 NJ 330 610 330 1050 250 1470
-preplace netloc clk_wiz_0_clk_out1 1 2 1 980J 370n
-preplace netloc clk_wiz_0_clk_out2 1 1 2 600 560 1010
-preplace netloc clk_wiz_0_locked 1 2 1 970 430n
-preplace netloc fifo_generator_0_dout 1 1 2 650 890 1050
-preplace netloc fifo_generator_0_empty 1 1 2 650 610 970
-preplace netloc fifo_generator_0_prog_full 1 2 1 1000 650n
-preplace netloc fifo_generator_0_valid 1 2 1 1030 710n
-preplace netloc reset_n_0_1 1 0 3 270J 510 600 520 980J
-preplace netloc sd_dat0_0_1 1 0 3 40J 620 590J 600 990J
-preplace netloc sw0_reset_0_1 1 0 3 30J 500 NJ 500 990J
-preplace netloc sw_amp_0_1 1 0 3 10J 340 NJ 340 1020J
-preplace netloc top_system_0_LED_out 1 3 2 1470J 730 NJ
-preplace netloc top_system_0_dbg_scl_out 1 3 1 1460 100n
-preplace netloc top_system_0_dbg_sda_out 1 3 1 1440 80n
-preplace netloc top_system_0_fifo_din 1 1 3 630 210 NJ 210 1370
-preplace netloc top_system_0_fifo_rd_en 1 1 3 640 240 NJ 240 1340
-preplace netloc top_system_0_fifo_srst 1 0 4 280 220 NJ 220 NJ 220 1350
-preplace netloc top_system_0_fifo_wr_en 1 1 3 620 230 NJ 230 1360
+preplace netloc btn_center_0_0_1 1 0 4 10J 210 620 200 1040 160 NJ
+preplace netloc btn_down_0_0_1 1 0 3 20J 570 N 570 1010J
+preplace netloc btn_left_0_0_1 1 0 3 20J 530 570 540 NJ
+preplace netloc btn_right_0_0_1 1 0 4 NJ 550 N 550 1060 120 NJ
+preplace netloc btn_up_0_0_1 1 0 3 30J 580 N 580 NJ
+preplace netloc clk_100Mhz_0_1 1 0 4 NJ 330 610 330 1080 250 1500
+preplace netloc clk_wiz_0_clk_out1 1 2 1 980J 360n
+preplace netloc clk_wiz_0_clk_out2 1 1 2 610 560 990
+preplace netloc clk_wiz_0_locked 1 2 1 1000 420n
+preplace netloc fifo_generator_0_dout 1 1 2 650 600 990
+preplace netloc fifo_generator_0_empty 1 1 2 660 610 980
+preplace netloc fifo_generator_0_prog_full 1 2 1 1040 660n
+preplace netloc fifo_generator_0_valid 1 2 1 1080 720n
+preplace netloc reset_n_0_1 1 0 3 270J 510 590 520 1010J
+preplace netloc sd_dat0_0_1 1 0 3 0J 890 NJ 890 1010J
+preplace netloc sw0_reset_0_1 1 0 3 30J 500 NJ 500 1020J
+preplace netloc sw_amp_0_1 1 0 3 NJ 360 590J 340 1050J
+preplace netloc sw_bclk_0_1 1 0 3 0J 590 NJ 590 1080J
+preplace netloc sw_lrclk_0_1 1 0 3 NJ 480 600J 510 1030J
+preplace netloc top_system_0_LED_out 1 3 2 1500J 730 NJ
+preplace netloc top_system_0_dbg_scl_out 1 3 1 1490 100n
+preplace netloc top_system_0_dbg_sda_out 1 3 1 1460 80n
+preplace netloc top_system_0_fifo_din 1 1 3 640 210 NJ 210 1400
+preplace netloc top_system_0_fifo_rd_en 1 1 3 630 240 NJ 240 1370
+preplace netloc top_system_0_fifo_srst 1 0 4 280 220 NJ 220 NJ 220 1380
+preplace netloc top_system_0_fifo_wr_en 1 1 3 620 230 NJ 230 1390
 preplace netloc top_system_0_i2c_scl 1 3 2 NJ 430 NJ
-preplace netloc top_system_0_i2s_bclk 1 3 2 1450J 460 NJ
-preplace netloc top_system_0_i2s_dout 1 3 2 1380 220 NJ
-preplace netloc top_system_0_i2s_lrclk 1 3 2 1400J 490 NJ
-preplace netloc top_system_0_led_clk 1 3 2 1420 -10 1660J
-preplace netloc top_system_0_led_data 1 3 2 1430 0 1650J
-preplace netloc top_system_0_sd_clk 1 3 2 NJ 530 1690J
-preplace netloc top_system_0_sd_dat1 1 3 2 1400J 580 NJ
-preplace netloc top_system_0_sd_dat2 1 3 2 1420J 640 NJ
-preplace netloc top_system_0_sd_dat3 1 3 2 1400J 670 NJ
-preplace netloc top_system_0_sd_reset 1 3 2 1400J 520 NJ
-preplace netloc top_system_0_seg_an_0 1 3 2 1400J -30 1680J
-preplace netloc top_system_0_seg_dp_0 1 3 2 1410J -20 1670J
-preplace netloc top_system_0_seg_out_0 1 3 2 1390J -40 1690J
-preplace netloc util_vector_logic_0_Res 1 0 2 290 490 570
+preplace netloc top_system_0_i2s_bclk 1 3 2 NJ 450 1720J
+preplace netloc top_system_0_i2s_dout 1 3 2 1470 220 NJ
+preplace netloc top_system_0_i2s_lrclk 1 3 2 NJ 470 1680J
+preplace netloc top_system_0_led_clk 1 3 2 1440 -10 1690J
+preplace netloc top_system_0_led_data 1 3 2 1450 0 1680J
+preplace netloc top_system_0_sd_clk 1 3 2 NJ 530 1720J
+preplace netloc top_system_0_sd_dat1 1 3 2 1420J 580 NJ
+preplace netloc top_system_0_sd_dat2 1 3 2 NJ 590 1700J
+preplace netloc top_system_0_sd_dat3 1 3 2 NJ 610 1680J
+preplace netloc top_system_0_sd_reset 1 3 2 NJ 510 1720J
+preplace netloc top_system_0_seg_an_0 1 3 2 1420J -30 1710J
+preplace netloc top_system_0_seg_dp_0 1 3 2 1430J -20 1700J
+preplace netloc top_system_0_seg_out_0 1 3 2 1410J -40 1720J
+preplace netloc util_vector_logic_0_Res 1 0 2 290 490 590
 preplace netloc util_vector_logic_1_Res 1 1 1 570 690n
-preplace netloc sw_lrclk_0_1 1 0 3 NJ 480 610J 510 1020J
-preplace netloc sw_bclk_0_1 1 0 3 0J 520 590J 530 1030J
-levelinfo -pg 1 -40 430 810 1190 1560 1710
-pagesize -pg 1 -db -bbox -sgen -190 -140 1880 900
+preplace netloc sw_lim_0_1 1 0 3 NJ 520 580J 530 1070J
+levelinfo -pg 1 -40 430 820 1220 1590 1740
+pagesize -pg 1 -db -bbox -sgen -200 -140 1900 900
 "
 }
 {

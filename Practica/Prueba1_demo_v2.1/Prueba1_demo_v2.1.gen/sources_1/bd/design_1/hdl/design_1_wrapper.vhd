@@ -2,7 +2,7 @@
 --Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
---Date        : Tue Nov  3 05:38:53 2026
+--Date        : Wed Nov 11 21:04:45 2026
 --Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 --Command     : generate_target design_1_wrapper.bd
 --Design      : design_1_wrapper
@@ -42,6 +42,7 @@ entity design_1_wrapper is
     sw0_reset_0 : in STD_LOGIC;
     sw_amp_0 : in STD_LOGIC_VECTOR ( 4 downto 0 );
     sw_bclk_0 : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    sw_lim_0 : in STD_LOGIC;
     sw_lrclk_0 : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
 end design_1_wrapper;
@@ -77,7 +78,8 @@ architecture STRUCTURE of design_1_wrapper is
     sd_reset_0 : out STD_LOGIC;
     sw_amp_0 : in STD_LOGIC_VECTOR ( 4 downto 0 );
     sw_lrclk_0 : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    sw_bclk_0 : in STD_LOGIC_VECTOR ( 2 downto 0 )
+    sw_bclk_0 : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    sw_lim_0 : in STD_LOGIC
   );
   end component design_1;
 begin
@@ -111,6 +113,7 @@ design_1_i: component design_1
       sw0_reset_0 => sw0_reset_0,
       sw_amp_0(4 downto 0) => sw_amp_0(4 downto 0),
       sw_bclk_0(2 downto 0) => sw_bclk_0(2 downto 0),
+      sw_lim_0 => sw_lim_0,
       sw_lrclk_0(1 downto 0) => sw_lrclk_0(1 downto 0)
     );
 end STRUCTURE;

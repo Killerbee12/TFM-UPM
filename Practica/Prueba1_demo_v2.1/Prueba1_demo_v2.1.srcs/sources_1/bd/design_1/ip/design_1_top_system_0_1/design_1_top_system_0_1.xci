@@ -45,6 +45,7 @@
         "sw_amp": [ { "direction": "in", "size_left": "4", "size_right": "0" } ],
         "sw_lrclk": [ { "direction": "in", "size_left": "1", "size_right": "0" } ],
         "sw_bclk": [ { "direction": "in", "size_left": "2", "size_right": "0" } ],
+        "sw_lim": [ { "direction": "in" } ],
         "btn_left_0": [ { "direction": "in" } ],
         "btn_right_0": [ { "direction": "in" } ],
         "btn_up_0": [ { "direction": "in" } ],

@@ -2,7 +2,7 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-// Date        : Tue Nov  3 05:40:30 2026
+// Date        : Wed Nov 11 23:33:36 2026
 // Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
 //               c:/Users/kille/Documents/GitHub/TFM-UPM/Practica/Prueba1_demo_v2.1/Prueba1_demo_v2.1.gen/sources_1/bd/design_1/ip/design_1_top_system_0_1/design_1_top_system_0_1_stub.v
@@ -17,12 +17,12 @@
 (* CHECK_LICENSE_TYPE = "design_1_top_system_0_1,top_system,{}" *) (* core_generation_info = "design_1_top_system_0_1,top_system,{x_ipProduct=Vivado 2025.1,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=top_system,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED}" *) (* downgradeipidentifiedwarnings = "yes" *) 
 (* ip_definition_source = "module_ref" *) (* x_core_info = "top_system,Vivado 2025.1" *) 
 module design_1_top_system_0_1(clk_100Mhz, clk_audio, clk_sd, reset_n, 
-  pll_locked, sw0_reset, sw_amp, sw_lrclk, sw_bclk, btn_left_0, btn_right_0, btn_up_0, btn_down_0, 
-  btn_center_0, seg_out_0, seg_an_0, seg_dp_0, led_clk, led_data, i2c_sda, i2c_scl, i2s_bclk, 
-  i2s_lrclk, i2s_dout, sd_reset, sd_clk, sd_cmd, sd_dat0, sd_dat1, sd_dat2, sd_dat3, fifo_wr_en, 
-  fifo_din, fifo_prog_full, fifo_rd_en, fifo_dout, fifo_empty, fifo_valid, fifo_srst, 
+  pll_locked, sw0_reset, sw_amp, sw_lrclk, sw_bclk, sw_lim, btn_left_0, btn_right_0, btn_up_0, 
+  btn_down_0, btn_center_0, seg_out_0, seg_an_0, seg_dp_0, led_clk, led_data, i2c_sda, i2c_scl, 
+  i2s_bclk, i2s_lrclk, i2s_dout, sd_reset, sd_clk, sd_cmd, sd_dat0, sd_dat1, sd_dat2, sd_dat3, 
+  fifo_wr_en, fifo_din, fifo_prog_full, fifo_rd_en, fifo_dout, fifo_empty, fifo_valid, fifo_srst, 
   dbg_sda_out, dbg_scl_out, LED_out)
-/* synthesis syn_black_box black_box_pad_pin="reset_n,pll_locked,sw0_reset,sw_amp[4:0],sw_lrclk[1:0],sw_bclk[2:0],btn_left_0,btn_right_0,btn_up_0,btn_down_0,btn_center_0,seg_out_0[6:0],seg_an_0[7:0],seg_dp_0,led_clk,led_data,i2c_sda,i2c_scl,i2s_bclk,i2s_lrclk,i2s_dout,sd_reset,sd_clk,sd_cmd,sd_dat0,sd_dat1,sd_dat2,sd_dat3,fifo_wr_en,fifo_din[7:0],fifo_prog_full,fifo_rd_en,fifo_dout[7:0],fifo_empty,fifo_valid,fifo_srst,dbg_sda_out,dbg_scl_out,LED_out[15:0]" */
+/* synthesis syn_black_box black_box_pad_pin="reset_n,pll_locked,sw0_reset,sw_amp[4:0],sw_lrclk[1:0],sw_bclk[2:0],sw_lim,btn_left_0,btn_right_0,btn_up_0,btn_down_0,btn_center_0,seg_out_0[6:0],seg_an_0[7:0],seg_dp_0,led_clk,led_data,i2c_sda,i2c_scl,i2s_bclk,i2s_lrclk,i2s_dout,sd_reset,sd_clk,sd_cmd,sd_dat0,sd_dat1,sd_dat2,sd_dat3,fifo_wr_en,fifo_din[7:0],fifo_prog_full,fifo_rd_en,fifo_dout[7:0],fifo_empty,fifo_valid,fifo_srst,dbg_sda_out,dbg_scl_out,LED_out[15:0]" */
 /* synthesis syn_force_seq_prim="clk_100Mhz" */
 /* synthesis syn_force_seq_prim="clk_audio" */
 /* synthesis syn_force_seq_prim="clk_sd" */;
@@ -35,6 +35,7 @@ module design_1_top_system_0_1(clk_100Mhz, clk_audio, clk_sd, reset_n,
   input [4:0]sw_amp;
   input [1:0]sw_lrclk;
   input [2:0]sw_bclk;
+  input sw_lim;
   input btn_left_0;
   input btn_right_0;
   input btn_up_0;

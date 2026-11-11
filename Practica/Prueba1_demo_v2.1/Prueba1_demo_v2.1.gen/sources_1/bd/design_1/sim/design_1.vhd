@@ -2,7 +2,7 @@
 --Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
---Date        : Tue Nov  3 05:38:53 2026
+--Date        : Wed Nov 11 21:04:45 2026
 --Host        : Samsung_Book_3 running 64-bit major release  (build 9200)
 --Command     : generate_target design_1.bd
 --Design      : design_1
@@ -42,6 +42,7 @@ entity design_1 is
     sw0_reset_0 : in STD_LOGIC;
     sw_amp_0 : in STD_LOGIC_VECTOR ( 4 downto 0 );
     sw_bclk_0 : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    sw_lim_0 : in STD_LOGIC;
     sw_lrclk_0 : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   attribute CORE_GENERATION_INFO : string;
@@ -62,6 +63,7 @@ architecture STRUCTURE of design_1 is
     sw_amp : in STD_LOGIC_VECTOR ( 4 downto 0 );
     sw_lrclk : in STD_LOGIC_VECTOR ( 1 downto 0 );
     sw_bclk : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    sw_lim : in STD_LOGIC;
     btn_left_0 : in STD_LOGIC;
     btn_right_0 : in STD_LOGIC;
     btn_up_0 : in STD_LOGIC;
@@ -280,6 +282,7 @@ top_system_0: component design_1_top_system_0_1
       sw0_reset => sw0_reset_0,
       sw_amp(4 downto 0) => sw_amp_0(4 downto 0),
       sw_bclk(2 downto 0) => sw_bclk_0(2 downto 0),
+      sw_lim => sw_lim_0,
       sw_lrclk(1 downto 0) => sw_lrclk_0(1 downto 0)
     );
 util_vector_logic_0: component design_1_util_vector_logic_0_0

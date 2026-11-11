@@ -32,7 +32,7 @@ architecture Behavioral of tas2110_i2c_ctrl is
     -- Rom de Secuencias (Dirección de Registro, Dato)
     type reg_array_t is array (0 to 31) of std_logic_vector(15 downto 0);
     signal seq_rom : reg_array_t := (others => (others => '0'));
-    signal seq_len : integer range 0 to 25 := 0;
+    signal seq_len : integer range 0 to 31 := 0;
     
     -- Máquina de estados I2C
     type state_t is (IDLE, START_COND, SEND_BIT, CHECK_ACK, STOP_COND, NEXT_REG, DELAY, POWER_WAIT);
@@ -169,16 +169,36 @@ begin
                             seq_rom(6) <= x"03" & "00" & amp_level & '0';
                             
                             -- === Paso 4b: Configuración del VBAT Tracking Limiter (Table 120: LIM_CFG_0, Reg 0x12) ===
-                            -- Bits 7..1="0001001" (Valores por defecto: User thresholds, 0.5dB/step, 2 samples/step), Bit 0=LIMB_EN (lim_en)
-                            seq_rom(7) <= x"12" & "0001001" & lim_en;
+                            -- Bit 6=0 (User thresholds), Bits 5..4="11" (2.0 dB/step, Table 51),
+                            -- Bits 3..1="000" (1 sample/step = 20 us, Table 48), Bit 0=LIMB_EN (lim_en)
+                            seq_rom(7) <= x"12" & "0011000" & lim_en;
+                            
+                            -- === Paso 4c: Umbrales de Página 0x02 para proteger altavoz de 1W (Tablas 53, 54 y 55) ===
+                            seq_rom(8)  <= x"0002"; -- Cambiar a Page 0x02
+                            -- LIM_MAX_ATN (Regs 0x14..0x17, Table 53): -16.5 dB = 0x1326_DD71
+                            seq_rom(9)  <= x"1413"; -- LIM_CFG1: LIM_MAX_ATN[31:24]
+                            seq_rom(10) <= x"1526"; -- LIM_CFG2: LIM_MAX_ATN[23:16]
+                            seq_rom(11) <= x"16DD"; -- LIM_CFG3: LIM_MAX_ATN[15:8]
+                            seq_rom(12) <= x"1771"; -- LIM_CFG4: LIM_MAX_ATN[7:0]
+                            -- LIMB_TH_MAX (Regs 0x18..0x1B, Table 54): 2.5 Vpk = 0x1400_0000 (round(2.5 * 2^27))
+                            seq_rom(13) <= x"1814"; -- LIM_CFG5: LIMB_TH_MAX[31:24]
+                            seq_rom(14) <= x"1900"; -- LIM_CFG6: LIMB_TH_MAX[23:16]
+                            seq_rom(15) <= x"1A00"; -- LIM_CFG7: LIMB_TH_MAX[15:8]
+                            seq_rom(16) <= x"1B00"; -- LIM_CFG8: LIMB_TH_MAX[7:0]
+                            -- LIMB_TH_MIN (Regs 0x1C..0x1F, Table 55): 2.5 Vpk = 0x1400_0000 (round(2.5 * 2^27))
+                            seq_rom(17) <= x"1C14"; -- LIM_CFG9:  LIMB_TH_MIN[31:24]
+                            seq_rom(18) <= x"1D00"; -- LIM_CFG10: LIMB_TH_MIN[23:16]
+                            seq_rom(19) <= x"1E00"; -- LIM_CFG11: LIMB_TH_MIN[15:8]
+                            seq_rom(20) <= x"1F00"; -- LIM_CFG12: LIMB_TH_MIN[7:0]
+                            seq_rom(21) <= x"0000"; -- Volver a Page 0x00
                             
                             -- === Paso 5: Encender el amplificador (5ms wait automático) ===
-                            seq_rom(8) <= x"020C"; -- PWR_CTL = 0x0C (Active) -> POWER_WAIT
+                            seq_rom(22) <= x"020C"; -- PWR_CTL = 0x0C (Active) -> POWER_WAIT
                             
                             -- === Paso 6: DESPUÉS del wait, deshabilitar el Tone Gen ===
-                            seq_rom(9) <= x"3F00"; -- TG1_EN = 0x00 (escuchar I2S)
+                            seq_rom(23) <= x"3F00"; -- TG1_EN = 0x00 (escuchar I2S)
                             
-                            seq_len <= 10;
+                            seq_len <= 24;
                             reg_cnt <= 0;
                             byte_cnt <= 0;
                             current_byte <= SLAVE_ADDR;
