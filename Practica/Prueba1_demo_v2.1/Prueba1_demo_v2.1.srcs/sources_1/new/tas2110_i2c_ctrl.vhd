@@ -10,6 +10,7 @@ entity tas2110_i2c_ctrl is
         btn_i2s    : in STD_LOGIC; -- Botón para música ROM (btn_center)
         amp_level  : in STD_LOGIC_VECTOR(4 downto 0); -- Nivel de amplitud AMP_LEVEL[4:0] (01h a 14h, Table 107)
         samp_rate  : in STD_LOGIC_VECTOR(2 downto 0); -- Frecuencia de muestreo SAMP_RATE[2:0] (Table 17: 010=24k, 100=48k, 101=96k, 110=192k)
+        lim_en     : in STD_LOGIC;                    -- Habilitación del VBAT Tracking Limiter LIMB_EN (Table 120: '0'=Disabled, '1'=Enabled)
         
         sda_out    : out STD_LOGIC;
         sda_t      : out STD_LOGIC; -- Tristate enable (1 = high impedance 'Z', 0 = drive)
@@ -167,13 +168,17 @@ begin
                             -- Registro PB_CFG1 (0x03): Bit 7='0', Bit 6(HPF_EN)='0', Bits 5..1=AMP_LEVEL[4:0], Bit 0='0'
                             seq_rom(6) <= x"03" & "00" & amp_level & '0';
                             
+                            -- === Paso 4b: Configuración del VBAT Tracking Limiter (Table 120: LIM_CFG_0, Reg 0x12) ===
+                            -- Bits 7..1="0001001" (Valores por defecto: User thresholds, 0.5dB/step, 2 samples/step), Bit 0=LIMB_EN (lim_en)
+                            seq_rom(7) <= x"12" & "0001001" & lim_en;
+                            
                             -- === Paso 5: Encender el amplificador (5ms wait automático) ===
-                            seq_rom(7) <= x"020C"; -- PWR_CTL = 0x0C (Active) -> POWER_WAIT
+                            seq_rom(8) <= x"020C"; -- PWR_CTL = 0x0C (Active) -> POWER_WAIT
                             
                             -- === Paso 6: DESPUÉS del wait, deshabilitar el Tone Gen ===
-                            seq_rom(8) <= x"3F00"; -- TG1_EN = 0x00 (escuchar I2S)
+                            seq_rom(9) <= x"3F00"; -- TG1_EN = 0x00 (escuchar I2S)
                             
-                            seq_len <= 9;
+                            seq_len <= 10;
                             reg_cnt <= 0;
                             byte_cnt <= 0;
                             current_byte <= SLAVE_ADDR;

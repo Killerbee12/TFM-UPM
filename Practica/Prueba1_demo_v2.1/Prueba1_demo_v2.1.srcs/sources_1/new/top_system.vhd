@@ -16,6 +16,7 @@ entity top_system is
         sw_amp      : in STD_LOGIC_VECTOR(4 downto 0); -- Switches SW[5:1] para AMP_LEVEL[4:0] (01h a 14h)
         sw_lrclk    : in STD_LOGIC_VECTOR(1 downto 0); -- Switches SW[7:6] para LRCLK (01=24k, 02=48k, 03=96k, 04=192k)
         sw_bclk     : in STD_LOGIC_VECTOR(2 downto 0); -- Switches SW[10:8] para BCLK (01=3.072M .. 07=24.576M)
+        sw_lim      : in STD_LOGIC;                    -- Switch SW[11] para VBAT Tracking Limiter LIMB_EN ('0'=OFF, '1'=ON)
         btn_left_0  : in STD_LOGIC;
         btn_right_0 : in STD_LOGIC;
         
@@ -240,7 +241,7 @@ begin
             -- Extraer valores RGB y brillo
             val_b := bclk_disp_code;  -- Dígitos 3-2: Código de frecuencia BCLK (01 a 07)
             val_g := lrclk_disp_code; -- Dígitos 5-4: Código de frecuencia LRCLK (01 a 04)
-            val_r := current_rgb(7 downto 0);
+            val_r := "0000000" & sw_lim; -- Dígitos 7-6: Estado del VBAT Tracking Limiter (00=OFF, 01=ON)
             brightness_8 := "000" & amp_level_val; -- Muestra AMP_LEVEL[4:0] en hexadecimal (01 a 14) en dígitos 1-0
             
             -- Ánodo: solo el dígito activo encendido (activo bajo)
@@ -284,6 +285,7 @@ begin
             btn_i2s    => btn_center_0,
             amp_level  => amp_level_val,
             samp_rate  => samp_rate_val,
+            lim_en     => sw_lim,
             sda_out    => i2c_sda_out,
             sda_t      => i2c_sda_t,
             i2c_scl    => i2c_scl,
@@ -359,7 +361,8 @@ begin
     LED_out(13)           <= fifo_prog_full;        -- 1: FIFO casi llena (prog_full)
     LED_out(12)           <= fifo_empty;            -- 1: FIFO completamente vacía
     LED_out(11)           <= song_done_internal;    -- 1: Fin de pista alcanzado (EOF)
-    LED_out(10 downto 7)  <= (others => '0');
+    LED_out(10)           <= sw_lim;                -- 1: VBAT Tracking Limiter activo (LIMB_EN)
+    LED_out(9 downto 7)   <= (others => '0');
     LED_out(6 downto 5)   <= debug_sd_card_type;
     LED_out(4)            <= debug_sd_file_found;
     LED_out(3 downto 0)   <= debug_sd_card_stat;
@@ -386,4 +389,4 @@ begin
         );
 
 end behavioral;
--- Default song set to Nuvole Bianche (BIANCHE.WAV)
+-- Default song set to Star Wars (STARWARS.WAV)
